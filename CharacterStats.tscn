@@ -1,0 +1,240 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://CharacterStats.gd" type="Script" id=1]
+[ext_resource path="res://Panel.png" type="Texture" id=2]
+[ext_resource path="res://background.png" type="Texture" id=3]
+[ext_resource path="res://HealthBar.png" type="Texture" id=4]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://HealthBarFlash.anim" type="Animation" id=6]
+[ext_resource path="res://Sustenance.png" type="Texture" id=7]
+[ext_resource path="res://SustenanceBarFlash.anim" type="Animation" id=8]
+[ext_resource path="res://Sanity.png" type="Texture" id=9]
+[ext_resource path="res://SanityBarFlash.anim" type="Animation" id=10]
+[ext_resource path="res://Relationship_2.png" type="Texture" id=11]
+[ext_resource path="res://MidBarTick.png" type="Texture" id=12]
+[ext_resource path="res://RelationshipBarFlash.anim" type="Animation" id=13]
+[ext_resource path="res://hearts.png" type="Texture" id=14]
+[ext_resource path="res://meal.png" type="Texture" id=15]
+[ext_resource path="res://brain.png" type="Texture" id=16]
+[ext_resource path="res://three-friends.png" type="Texture" id=17]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 794, 461 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 5 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "SustenanceBarFlash"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 111.111, 42 ), Vector2( 94.44, 41.478 ), Vector2( 118.256, 41.478 ), Vector2( 118.256, 41.478 ), Vector2( 136.118, 42.739 ), Vector2( 132.546, 50.087 ), Vector2( 130.164, 40.217 ), Vector2( 94.44, 45.261 ), Vector2( 118.256, 41.478 ), Vector2( 114.684, 42.739 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:tint_progress")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "test"
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 5 )
+
+[node name="CharacterStats" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 0.72, 0.68 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 82.5721 ]
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 770.0
+margin_bottom = 450.0
+custom_styles/panelf = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="HealthBar" type="TextureProgress" parent="Panel"]
+margin_left = 114.684
+margin_top = 42.739
+margin_right = 707.684
+margin_bottom = 97.7391
+value = 100.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 4 )
+
+[node name="HealthTween" type="Tween" parent="Panel/HealthBar"]
+
+[node name="HealthLabel" type="Label" parent="Panel/HealthBar"]
+margin_left = 595.0
+margin_top = 8.0
+margin_right = 652.0
+margin_bottom = 51.0
+custom_fonts/font = SubResource( 3 )
+text = "test"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/HealthBar"]
+anims/Flash = SubResource( 4 )
+anims/HealthBarFlash = ExtResource( 6 )
+anims/test = SubResource( 5 )
+
+[node name="SustenanceBar" type="TextureProgress" parent="Panel"]
+margin_left = 111.111
+margin_top = 122.0
+margin_right = 704.111
+margin_bottom = 178.0
+value = 100.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 7 )
+
+[node name="SustenanceTween" type="Tween" parent="Panel/SustenanceBar"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/SustenanceBar"]
+anims/SustenanceBarFlash = ExtResource( 8 )
+
+[node name="SustenanceLabel" type="Label" parent="Panel/SustenanceBar"]
+margin_left = 596.573
+margin_top = 10.3529
+margin_right = 653.573
+margin_bottom = 53.3529
+custom_fonts/font = SubResource( 3 )
+text = "test"
+
+[node name="SanityBar" type="TextureProgress" parent="Panel"]
+margin_left = 114.684
+margin_top = 202.739
+margin_right = 707.684
+margin_bottom = 257.739
+value = 100.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 9 )
+
+[node name="SanityTween" type="Tween" parent="Panel/SanityBar"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/SanityBar"]
+anims/Flash = SubResource( 4 )
+anims/SanityBarFlash = ExtResource( 10 )
+
+[node name="SanityLabel" type="Label" parent="Panel/SanityBar"]
+margin_left = 595.0
+margin_top = 17.8492
+margin_right = 652.0
+margin_bottom = 60.8492
+custom_fonts/font = SubResource( 3 )
+text = "test"
+
+[node name="RelationshipBar" type="TextureProgress" parent="Panel"]
+margin_left = 114.684
+margin_top = 282.739
+margin_right = 707.684
+margin_bottom = 337.739
+value = 50.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 11 )
+
+[node name="Tick" type="TextureRect" parent="Panel/RelationshipBar"]
+margin_left = -3.04889
+margin_top = -5.60706
+margin_right = 589.951
+margin_bottom = 58.3929
+texture = ExtResource( 12 )
+
+[node name="RelationshipTween" type="Tween" parent="Panel/RelationshipBar"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/RelationshipBar"]
+anims/RelationshipBarFlash = ExtResource( 13 )
+
+[node name="RelationshipLabel" type="Label" parent="Panel/RelationshipBar"]
+margin_left = 595.0
+margin_top = 11.3786
+margin_right = 652.0
+margin_bottom = 54.3786
+custom_fonts/font = SubResource( 3 )
+text = "test"
+
+[node name="HealthIcon" type="TextureRect" parent="Panel"]
+margin_left = 30.0
+margin_top = 40.0
+margin_right = 90.0
+margin_bottom = 100.0
+texture = ExtResource( 14 )
+expand = true
+
+[node name="SustenanceIcon" type="TextureRect" parent="Panel"]
+margin_left = 30.0
+margin_top = 120.0
+margin_right = 90.0
+margin_bottom = 180.0
+texture = ExtResource( 15 )
+expand = true
+
+[node name="SanityIcon" type="TextureRect" parent="Panel"]
+margin_left = 30.0
+margin_top = 200.0
+margin_right = 90.0
+margin_bottom = 260.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="RelationshipIcon" type="TextureRect" parent="Panel"]
+margin_left = 30.0
+margin_top = 280.0
+margin_right = 90.0
+margin_bottom = 340.0
+texture = ExtResource( 17 )
+expand = true
+
+[node name="NameLabel" type="Label" parent="Panel"]
+margin_left = 60.0
+margin_top = 366.0
+margin_right = 140.0
+margin_bottom = 413.0
+custom_fonts/font = SubResource( 6 )
+text = "Name: Lauren Jackson"
+
+[node name="AttributesLabel" type="Label" parent="Panel"]
+margin_left = 310.0
+margin_top = 366.0
+margin_right = 477.0
+margin_bottom = 413.0
+custom_fonts/font = SubResource( 6 )
+text = "Attributes: Coward, etc."
+
+[node name="ConditionsLabel" type="Label" parent="Panel"]
+margin_left = 310.0
+margin_top = 411.765
+margin_right = 487.0
+margin_bottom = 458.765
+custom_fonts/font = SubResource( 6 )
+text = "Conditions: Scared, etc."
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="tween_completed" from="Panel/HealthBar/HealthTween" to="." method="_on_HealthTween_tween_completed"]
+[connection signal="tween_completed" from="Panel/SustenanceBar/SustenanceTween" to="." method="_on_SustenanceTween_tween_completed"]
+[connection signal="tween_completed" from="Panel/SanityBar/SanityTween" to="." method="_on_SanityTween_tween_completed"]
+[connection signal="tween_completed" from="Panel/RelationshipBar/RelationshipTween" to="." method="_on_RelationshipTween_tween_completed"]

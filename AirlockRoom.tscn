@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://furniture_door_spaceship_door.png" type="Texture" id=2]
+[ext_resource path="res://SpaceWindow.png" type="Texture" id=3]
+[ext_resource path="res://Slot.tscn" type="PackedScene" id=4]
+
+[node name="AirlockRoom" instance=ExtResource( 1 )]
+
+[node name="sci_fi_bg1" parent="." index="0"]
+modulate = Color( 0.0470588, 0.0588235, 0.0980392, 1 )
+scale = Vector2( 0.390625, 0.555556 )
+
+[node name="furniture_door_spaceship_door" type="Sprite" parent="." index="2"]
+modulate = Color( 0.121569, 0.117647, 0.227451, 1 )
+position = Vector2( 510, 290 )
+scale = Vector2( 0.375312, 0.395043 )
+texture = ExtResource( 2 )
+
+[node name="SpaceWindow" type="Sprite" parent="." index="3"]
+modulate = Color( 0.384314, 0.262745, 0.505882, 1 )
+position = Vector2( 513.5, 233.099 )
+scale = Vector2( 0.571078, 0.612531 )
+texture = ExtResource( 3 )
+
+[node name="Slot" parent="." index="4" instance=ExtResource( 4 )]
+position = Vector2( 520, 390 )
+

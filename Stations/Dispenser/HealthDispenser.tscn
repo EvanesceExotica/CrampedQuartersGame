@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Stations/Dispenser/Dispenser.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Stations/Dispenser/HealthDispenser.gd" type="Script" id=2]
+[ext_resource path="res://Stations/Dispenser/furniture_walldeco_i_heart_8bit_life_wall_deco.png" type="Texture" id=3]
+
+[node name="HealthDispenser" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="furniture_walldeco_i_heart_8bit_life_wall_deco" type="Sprite" parent="." index="3"]
+position = Vector2( 0, 55.5555 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+

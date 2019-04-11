@@ -1,0 +1,65 @@
+{
+	"None": {
+			"Description": "", //Description of how this works
+			"ConflictingConditions" : [], //Other conditions that conflict with this one
+			"PreRequisiteConditions" : [], //Conditions that cause this one
+			"ResultingConditions" : [], //Conditions that will result from this one 'On Fire --> Shaken'
+			"AffectedDynamicStatsCurrent" : {}, //if one of the dynamic stats will take an immediate 'chunk' hit 
+			"AffectedDynamicStatsMax": {}, //if this will lower one of the maximum stats
+			"AffectedStaticStats": { }, //if this will effect a static stat like 'damage dealt' or 'space needed'
+			"DrainingDynamicStats" : {} //if any dynamic stats are actively drained 
+
+	}, 
+	"Injured" :
+		{ 
+			"Description": "Hurting real bad. Max health is lowered.",
+			"ConflictingConditions" : [],
+			"AffectedDynamicStatsCurrent" : { "currentHealth": -1, "currentSanity": -2},
+			"AffectedDynamicStatsMax": { "maxHealth": -50 },
+			"AffectedStaticStats": { },
+			"DrainingDynamicStats" : { "currentHealth" : 0}
+			
+		},
+	"Terrified":
+		{
+			"ConflictingConditions": [],
+			"AffectedDynamicStatsCurrent" : { "currentHealth": -1, "currentSanity": -2},
+			"AffectedDynamicStatsMax": { "maxHealth": -50 },
+			"AffectedStaticStats": { },
+			"DrainingDynamicStats" : { "currentSanity" : 0}
+		},
+	"Diseased":
+		{
+			"ConflictingConditions": [],	
+			"AffectedDynamicStatsCurrent" : {},
+			"AffectedDynamicStatsMax" : {},
+			"AffectedStaticStats": { },
+			"DraningDynamicStats" : { "currentHealth" : 0}
+			
+		},
+	"Insane":{
+		"ConflictingConditions": [],
+		"AffectedDynamicStatsCurrent" : {},
+		"AffectedStaticStats" : {},
+		"DrainingDynamicStats" : {}
+
+	},
+	
+	// diseased,
+	// insane, #increased likelyhood of insanty event, locked in for one day without curing
+	// hungry,
+	// impaired,
+	// debilitated, #cannot move or be moved, health lowers over time
+	// disabled,
+	
+	"Starving" :
+		{
+			"ConflictingConditions" : [],
+			"AffectedDynamicStatsCurrent" : { "currentHealth": -1, "currentSanity": -2},
+			"AffectedDynamicStatsMax": { "maxHealth": -50 },
+			"AffectedStaticStats": { },
+			"DrainingDyanmicStats" : { "currentHealth" : 3}
+			
+		} 
+
+}

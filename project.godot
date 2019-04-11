@@ -1,0 +1,84 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Object",
+"class": "Attribute",
+"language": "GDScript",
+"path": "res://Attribute.gd"
+}, {
+"base": "Object",
+"class": "DrainSource",
+"language": "GDScript",
+"path": "res://DrainSource.gd"
+}, {
+"base": "Object",
+"class": "Stat",
+"language": "GDScript",
+"path": "res://Stat.gd"
+}, {
+"base": "Resource",
+"class": "Trait",
+"language": "GDScript",
+"path": "res://CharacterAttributes.gd"
+} ]
+_global_script_class_icons={
+"Attribute": "",
+"DrainSource": "",
+"Stat": "",
+"Trait": ""
+}
+
+[application]
+
+config/name="CrampedQuarters"
+run/main_scene="res://WholeShip.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+System="*res://System.tscn"
+CharacterAttributes="*res://CharacterAttributes.gd"
+
+[debug]
+
+gdscript/warnings/enable=false
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unassigned_variable_op_assign=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/unused_argument=false
+
+[display]
+
+window/size/resizable=false
+window/size/test_width=627
+window/size/test_height=366
+window/stretch/mode="2d"
+
+[input]
+
+ui_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+left_click={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[rendering]
+
+environment/default_clear_color=Color( 0.0588235, 0.054902, 0.105882, 1 )
+environment/default_environment="res://default_env.tres"
