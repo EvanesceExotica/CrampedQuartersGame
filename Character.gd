@@ -10,14 +10,14 @@ signal stoppedDraggingCharacter(character)
 #warning-ignore:unused_class_variable
 var characterName
 #warning-ignore:unused_class_variable
-var characterAttributes = { }
+var characterAttributes = [ ]
 
 onready var characterStats = get_node("CharacterStats")
 
 #this dictionary is to handle which dynamic stat is being effected by a drain source
 var statDrainSources = { DynamicStats.health: [], DynamicStats.sustenance: [], DynamicStats.sanity: [], DynamicStats.relationship: [] }
 var statDrainState = {DynamicStats.health: false, DynamicStats.sustenance: false, DynamicStats.sanity: false, DynamicStats.relationship: false}
-var statDrainRates = {DynamicStats.health: 3, DynamicStats.sustenance: 3, DynamicStats.sanity: 3, DynamicStats.relationship: 3}
+var statDrainRates = {DynamicStats.health: 0, DynamicStats.sustenance: 3, DynamicStats.sanity: 0, DynamicStats.relationship: 3}
 var statCurrentValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, DynamicStats.sanity: 100, DynamicStats.relationship: 50}
 var statMaxValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, DynamicStats.sanity: 100, DynamicStats.relationship: 50}
 var statPropertyNames = {DynamicStats.health: 'currentHealth', DynamicStats.sustenance: 'currentSustenance', DynamicStats.sanity: 'currentSanity', DynamicStats.relationship: 'currentRelationship'}
@@ -90,7 +90,8 @@ var healthDraining = false
 var healthLossRate = 3
 var healthGainRate = 3
 
-
+signal statAtZero(whichStat)
+signal statAtMax(whichStat)
 
 onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
 onready var healthTween = healthBar.get_node("HealthTween")
@@ -124,11 +125,15 @@ func applyNewAttribute(newAttribute):
 		#how many points drained per second
 		for drainedDynamicStat in newTrait.DrainingDynamicStats.keys():
 			print("This is what our trait drains " + str(newTrait.DrainingDynamicStats[drainedDynamicStat]))
-			addNewDrainSource(drainedDynamicStat, null, newTrait.DrainingDynamicStats[drainedDynamicStat])
+			addNewDrainSource(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
 			#drainValueOverTime(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
 			#statCurrentValues[drainedDynamicStat]
 	characterAttributes.append(newAttribute)
-	if(newAttribute.attributeTypes.has(Attribute.attributeTypes.temporaryCondition)):
+	if(newAttribute.typeOfAttribute == System.attributeType.temporaryCondition):
+		print("It's a temporary condition")
+	# if(newTrait.attributeTypes.has(System.attributeTypes.temporaryCondition)):
+	# 	print("It's a temporary condition")
+	# #if(newTrait.attributeTypes.has(Attribute.attributeTypes.temporaryCondition)):
 		#here we set a countdown
 		yield(get_tree().create_timer(newAttribute.duration), "timeout")
 		removeAttribute(newAttribute)
@@ -173,29 +178,35 @@ func applyNewAttributes(newAttributes):
 	pass
 
 func removeAttribute(attribute):
-	#TODO: Switch these variables so that they are being removed instead 
-	if(newTrait.AffectedDynamicStatsCurrent.size > 0):
+	for item in characterAttributes:
+		print(item.description)
+		print(item.attributeName)
+	print(attribute)
+	print(attribute.description)
+	#TODO: Switch these variables so that they are being removed instead
+	if(attribute.AffectedDynamicStatsCurrent.size() > 0):
 				#for immediate "chunks" of damage
-		for currentDynamicStat in newTrait.AffectedDynamicStatsCurrent.keys:
-			changeStatValue(currentDynamicStat, newTrait.AffectedDynamicStatsCurrent[currentDynamicStat], false)
-				pass
-			pass
-	if(newTrait.AffectedDynamicStatsMax.size > 0):
+		pass
+		# for currentDynamicStat in attribute.AffectedDynamicStatsCurrent.keys:
+		# 	changeStatValue(currentDynamicStat, attribute.AffectedDynamicStatsCurrent[currentDynamicStat], false)
+		# 	pass
+	if(attribute.AffectedDynamicStatsMax.size() > 0):
 			#for things that affect maxStats
-		for maxDynamicStat in newTrait.AffectedDynamicStatsMax.keys:
-			statMaxValues[maxDynamicStat] * newTrait.AffectedDynamicStatsMax[maxDynamicStat]
+		for maxDynamicStat in attribute.AffectedDynamicStatsMax.keys():
+			statMaxValues[maxDynamicStat] / attribute.AffectedDynamicStatsMax[maxDynamicStat]
 			pass
-	if(newTrait.AffectedStaticStats.size > 0):
+	if(attribute.AffectedStaticStats.size() > 0):
 			#for things that are affecting the static stats
-		for staticStat in newTrait.AffectedStaticStats.keys:
-			staticStatValues[staticStat] + newTrait.AffectedStaticStats[staticStat]
+		for staticStat in attribute.AffectedStaticStats.keys():
+			staticStatValues[staticStat] - attribute.AffectedStaticStats[staticStat]
 			pass
-	if(newTrait.DrainingDynamicStats.size > 0):
+	if(attribute.DrainingDynamicStats.size() > 0):
 			#how many points drained per second
-		for drainedDynamicStat in newTrait.DrainingDynamicStats.keys:
-			RemoveNewDrainSource(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
+		for drainedDynamicStat in attribute.DrainingDynamicStats.keys():
+			RemoveNewDrainSource(drainedDynamicStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStat])
 
-	characterAttributes.remove(newAttribute)
+	characterAttributes.erase(attribute)
+
 func _SetInitialValues(conditions, attributes):
 	pass
 func SetInitialValues(conditions, attributes):
@@ -215,6 +226,7 @@ func SetInitialValues(conditions, attributes):
 	relationshipBar.value = currentRelationship
 
 	pass
+
 
 func changeHealth(value):
 	currentHealth+=value
@@ -256,11 +268,7 @@ func calculateDrainRate(whichStat, pointsDrainedPerSecond):
 
 	return rate
 
-func addNewDrainSource(whichStat, drainSource : DrainSource, newDrainPerSecond):
-	#uncomment these after seeing if base version works
-	#statDrainSources[drainSource.effectedStat].append(drainSource)
-
-	#statDrainState[drainSource.effectedStat] = true
+func addNewDrainSource(whichStat, drainSource, newDrainPerSecond):
 
 	#this is adding to the sources that may be draining the  stat
 	statDrainSources[whichStat].append(drainSource)
@@ -277,20 +285,26 @@ func addNewDrainSource(whichStat, drainSource : DrainSource, newDrainPerSecond):
 	drainValueOverTime(whichStat, drainSource, calculateDrainRate(whichStat, statDrainRates[whichStat]))
 
 func RemoveNewDrainSource(whichStat, drainSource, newDrainPerSecond):
+	for item in statDrainSources[whichStat]:
+		print("Sources draining " + str(item))
 	if(statDrainSources[whichStat].size() > 0):
+
 		#if there are still sources draining the health, remove the drain source not acting any longer,
 		# and start over the healthTween with the decreased rate
 
 		if(statDrainSources[whichStat].has(drainSource)):
-			statDrainSources[whichStat].remove(drainSource)
+			statDrainSources[whichStat].erase(drainSource)
 
 			statDrainRates[whichStat] -= newDrainPerSecond
+			if(statDrainRates[whichStat] <= 0):
+				statDrainRates[whichStat] = 0
 			#pointsDrainedPerSecond -= newDrainPerSecond
-			drainHealthOverTime(drainSource, calculateDrainRate(whichStat, statDrainRates[whichStat]))
+			#drainHealthOverTime(drainSource, calculateDrainRate(whichStat, statDrainRates[whichStat]))
 
 	if(statDrainSources[whichStat].size() == 0):
 		#if there aren't any sources draining any longer, set to false
 		statDrainState[whichStat] = false
+		stopAllDrains(whichStat)
 
 #
 
@@ -317,8 +331,12 @@ func restartInterruptedDrain(whichStat):
 		#only restart if there's some shit still draining
 		drainValueOverTime(whichStat, null, 2)
 
+func stopAllDrains(whichStat):
+	#when there are no more drain sources, stop the tween that is interating the current hp AND the tween that is iterating the bar
+	$Tween.stop(self, statPropertyNames[whichStat])
+	characterStats.stopAnimatingBar(characterStats.statTweens[whichStat])
 
-
+	pass
 func drainValueOverTime(whichStat, drainSource, rate):
 
 	var whichProperty
@@ -372,95 +390,25 @@ func drainValueOverTime(whichStat, drainSource, rate):
 
 	characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(whichStat, whichPointsDrainedPerSecond))
 
-func drainHealthOverTime(drainSource, rate):
-	var startHealth = currentHealth
-	#print("Current health " + str(currentHealth))
-	$Tween.stop_all()
-	$Tween.interpolate_property(self, 'currentHealth', startHealth, 0, rate, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	$Tween.start()
-	#things like fires, injury, or disease
-	#if(healthDrainSources.size() > 0):
-	#	totalHealthDrainRate-= rate
-	#characterStats.animateBar(characterStats.healthTween, characterStats.healthBar, startHealth, 0, calculateDrainRate(pointsDrainedPerSecond))
-
-	#each time a new thing affects the healthbar, reset the tween and have it animate again w/ new rates afterward
-	pass
-
-var isHealthTweenIsRunning = false
-#restart the tween if draining
-func animate_healthBar(targetValue, rate):
-	healthTween.stop()
-	if(!isHealthTweenIsRunning):
-		isHealthTweenIsRunning = true
-		healthTween.interpolate_property(self, 'value', currentHealth, targetValue, rate, Tween.TRANS_SINE, Tween.EASE_IN)
-		healthTween.start()
-	#yield(healthTween, "tween_completed")
-
-
-signal healthAtZero
-
-#warning-ignore:unused_signal
-signal updateHealthBar
-
 var maxSustenance = 100
 var currentSustenance = 100
-
-var sustenanceLossRate = 3
-var sustenanceGainRate = 3
 
 onready var sustenanceBar = get_node("CharacterStats/Panel/SustenanceBar")
 
 
 
-var drainingSustenance = true #TODO: Change back to false
-
-func changeSustenance(value):
-	currentSustenance+=value
-	if(currentSustenance <= 0):
-		currentSustenance = 0
-
-func drainSustenanceOverTime():
-
-	var timer = Timer.new()
-	timer.connect("timeout", self, "onTimerTimeout")
-	timer.set_wait_time(0.1)
-	timer.set_one_shot(false)
-	timer.start()
-
-
-
-
-
-#warning-ignore:unused_signal
-signal sustanceAtZero
-
-#warning-ignore:unused_signal
-signal updateSustenanceBar
 
 #warning-ignore:unused_class_variable
 var maxSanity = 100
 var currentSanity = 100
 
-var sanityLossRate = 3
-var sanityGainRate = 3
 
 #warning-ignore:unused_class_variable
-onready var sanityBar = get_node("CharacterStats/Panel/SanityBar")
-
-func changeSanity(value):
-	currentSanity+=value
-	if(currentSanity <= 0):
-		currentSanity = 0
-
-#warning-ignore:unused_signal
-signal updateSanityBar
 
 #warning-ignore:unused_class_variable
 var maxRelationship = 100
 var currentRelationship = 100
 
-var relationshipLossRate = 3
-var relationshipGainRate = 3
 
 #this is for if anything doubles or reduces damage taken
 var damageModifiers = []
@@ -605,17 +553,6 @@ func changeMaxStatValue(whichStat, amount):
 	var statValueToSet = statPropertyNames[whichStat]
 	set(statValueToSet, statCurrentValues[whichStat])
 #warning-ignore:unused_class_variable
-onready var relationshipBar = get_node("CharacterStats/Panel/RelationshipBar")
-
-func changeRelationship(value):
-	currentRelationship+= value
-	if(currentRelationship <= 0):
-		currentRelationship = 0
-
-#warning-ignore:unused_signal
-signal updateRelationshipBar
-
-#[Static Stats]
 
 
 
@@ -629,8 +566,6 @@ func _ready():
 
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#warning-ignore:unused_argument
 
 func checkIfSomethingDropped(dispenser):
 	if(handInZone):
@@ -679,7 +614,14 @@ func _on_Button_pressed():
 	attribute.AffectedDynamicStatsMax = {System.DynamicStats.sustenance : 0.5}
 	attribute.AffectedDynamicStatsCurrent = {System.DynamicStats.sanity : -50}
 	attribute.DrainingDynamicStats = { System.DynamicStats.health : 20} #if any dynamic stats are actively drained
+	attribute.duration = 5
+	attribute.typeOfAttribute = System.attributeType.temporaryCondition
+#	attribute.attributeTypes.append(System.attributeType.temporaryCondition)
+	# for item in attribute.attributeTypes:
+	#
+	# 	print(System.attributeType[item])
 	applyNewAttribute(attribute)
+	#characterAttributes.append(attribute)
 	#addNewDrainSource(DynamicStats.sanity, null, 1)
 	#addHealthDrainSource("test", 1.0)
 
@@ -687,7 +629,11 @@ func _on_Button_pressed():
 
 
 func _on_FasterHealthDrain_pressed():
-	addNewDrainSource(DynamicStats.sanity, null, 2)
+	for item in characterAttributes:
+		if(item.attributeName == "OnFire"):
+			removeAttribute(item)
+	#removeAttribute("OnFire")
+	#addNewDrainSource(DynamicStats.sanity, null, 2)
 	#addHealthDrainSource("test2", 3.0)
 
 	pass # Replace with function body.
@@ -700,20 +646,17 @@ func _on_Attack_pressed():
 
 func _on_Tween_tween_step(object, key, elapsed, value):
 	#this feels dirty. Maybe find a better way in the future
+	#This is matching the in-dictionary value to the tweened value 'currentHealth' whenever it's being tweened, to keep them equal
 	if(key == ':currentHealth'):
 		statCurrentValues[DynamicStats.health] = value
-		print(statCurrentValues[DynamicStats.health])
 	elif(key == ':currentSustenance'):
 		statCurrentValues[DynamicStats.sustenance] = value
-		print(statCurrentValues[DynamicStats.sustenance])
 		pass
 	elif(key == ':currentSanity'):
 		statCurrentValues[DynamicStats.sanity] = value
-		print(statCurrentValues[DynamicStats.sanity])
 		pass
 	elif(key == ':currentRelationship'):
 		statCurrentValues[DynamicStats.relationship] = value
-		print(statCurrentValues[DynamicStats.relationship])
 
 func _on_Tween_tween_completed(object, key):
 	if(object == self):

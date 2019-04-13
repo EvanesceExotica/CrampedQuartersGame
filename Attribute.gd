@@ -9,10 +9,12 @@ enum attributeType{
 	temporaryCondition,
 	auraCondition,
 	removeableCondition,
-	inherentAttribute,
+	inherentAttribute
 }
 
+var stackable = false #this determines if an attribute can be stacked with the same  condition twice -- probably not?
 var attributeName
+var typeOfAttribute
 var attributeTypes =  [] #what type(s) of attribute this is
 
 var description = ""

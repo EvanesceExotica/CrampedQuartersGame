@@ -60,6 +60,10 @@ var isSanityTweenRunning = false
 var isRelationshipTweenRunning = false
 
 
+func stopAnimatingBar(certainTween):
+	#you can use STOP ALL here, as these tweens should only be animating a specific thing, the 'value' of the bar
+	#the tween ($TWEEN) back in the Character script is handling all the different stats
+	certainTween.stop_all()
 
 func animateBar(certainTween, certainBar, startValue, targetValue, rate):
 	if(certainBar == healthBar):

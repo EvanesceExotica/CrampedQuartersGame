@@ -3,6 +3,13 @@ extends Node2D
 
 var selectedCharacter
 
+enum attributeType{
+	temporaryCondition,
+	auraCondition,
+	removeableCondition,
+	inherentAttribute
+}
+
 enum DynamicStats{
 	health,
 	sustenance,
