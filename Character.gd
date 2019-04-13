@@ -21,7 +21,7 @@ var statDrainRates = {DynamicStats.health: 0, DynamicStats.sustenance: 3, Dynami
 var statCurrentValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, DynamicStats.sanity: 100, DynamicStats.relationship: 50}
 var statMaxValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, DynamicStats.sanity: 100, DynamicStats.relationship: 50}
 var statPropertyNames = {DynamicStats.health: 'currentHealth', DynamicStats.sustenance: 'currentSustenance', DynamicStats.sanity: 'currentSanity', DynamicStats.relationship: 'currentRelationship'}
-var staticStatValues = {StaticStats.damageDealt: 25, StaticStats.spaceRequirement : 1}
+var staticStatValues = {StaticStats.damageDealt: 25, StaticStats.spaceRequirement : 1} #add station training? 'Profession' type attributes? 'Botanist -- good in garden?'
 
 signal MouseHover
 
@@ -68,17 +68,6 @@ enum Conditions{
 #warning-ignore:unused_class_variable
 var stationTraining = { }
 
-
-var conditions = []
-
-func addNewCondition(condition):
-
-	#check what stats the condition effects, and apply
-	#
-	pass
-
-func applyConditionEffects(condition):
-	pass
 
 #[Dynamic Stats]
 #warning-ignore:unused_class_variable
@@ -131,10 +120,7 @@ func applyNewAttribute(newAttribute):
 	characterAttributes.append(newAttribute)
 	if(newAttribute.typeOfAttribute == System.attributeType.temporaryCondition):
 		print("It's a temporary condition")
-	# if(newTrait.attributeTypes.has(System.attributeTypes.temporaryCondition)):
-	# 	print("It's a temporary condition")
-	# #if(newTrait.attributeTypes.has(Attribute.attributeTypes.temporaryCondition)):
-		#here we set a countdown
+
 		yield(get_tree().create_timer(newAttribute.duration), "timeout")
 		removeAttribute(newAttribute)
 		# var timer = timer.new()
@@ -193,7 +179,11 @@ func removeAttribute(attribute):
 	if(attribute.AffectedDynamicStatsMax.size() > 0):
 			#for things that affect maxStats
 		for maxDynamicStat in attribute.AffectedDynamicStatsMax.keys():
-			statMaxValues[maxDynamicStat] / attribute.AffectedDynamicStatsMax[maxDynamicStat]
+			#multiplying the value by one/THENUMBER will be the same as dividing the value by the THENUMBER
+			#value goes into the numerator
+			#IE: 100 * 0.5 = 50. 50/0.5 = 100. 50 * 1/0.5 = 100, as 50/1 * 1/0.5 = 50/0.5
+			changeMaxStatValue(maxDynamicStat, 1/(attribute.AffectedDynamicStatsMax[maxDynamicStat]))
+			#statMaxValues[maxDynamicStat] / attribute.AffectedDynamicStatsMax[maxDynamicStat]
 			pass
 	if(attribute.AffectedStaticStats.size() > 0):
 			#for things that are affecting the static stats
@@ -207,45 +197,8 @@ func removeAttribute(attribute):
 
 	characterAttributes.erase(attribute)
 
-func _SetInitialValues(conditions, attributes):
-	pass
 func SetInitialValues(conditions, attributes):
-	#this will run when the character is first instantiated
-	#it will run through the conditions and attributes and set the values appropriately
-
-	healthBar.max_value = maxHealth
-	healthBar.value = currentHealth
-
-	sanityBar.max_value = maxSanity
-	sanityBar.value = currentSanity
-
-	sustenanceBar.max_value = maxSustenance
-	sustenanceBar.value = currentSustenance
-
-	relationshipBar.max_value = maxRelationship
-	relationshipBar.value = currentRelationship
-
 	pass
-
-
-func changeHealth(value):
-	currentHealth+=value
-	if(currentHealth <= 0):
-		currentHealth = 0
-		emit_signal("healthAtZero")
-
-var healthDrainSources = []
-var totalHealthDrainRate = 30
-var pointsDrainedPerSecond = 3
-var healthPointsDrainedPerSecond = 3
-
-var sustenanceDraining = false
-
-var sanityDraining = false
-
-var relationshipDraining = false
-
-
 
 func calculateDrainRate(whichStat, pointsDrainedPerSecond):
 
@@ -544,11 +497,25 @@ func changeStatValue(dynamicStat, amount, isMultiplicative):
 
 	characterStats.animateBar(currentTween, currentBar, startValue, endValue, 0.25)
 
+func calculateCurrentHealthPercentage(whichStat, oldMaxHealthValue):
+	#calculate what percentage of maxHealth is currentHealth
+	var percentageOfMax = (statCurrentValues[whichStat]/oldMaxHealthValue) * 100
+	var onePercent = statCurrentValues[whichStat]/100
+	var equivalentPercentageValue = onePercent * percentageOfMax
+	return equivalentPercentageValue
+	#return percentageOfMax
+
 
 func changeMaxStatValue(whichStat, amount):
+	print("MAX STAT VALUE BEING CHANGED " + str(amount))
+	var oldStatValue = statMaxValues[whichStat]
 	statMaxValues[whichStat] *=  amount
-	statCurrentValues[whichStat] > statMaxValues[whichStat]
-	statCurrentValues[whichStat] = statMaxValues[whichStat]
+
+	#TODO: MAYBE JUST MULTIPLY CURRENT HP BY AMOUNT TOO IF IT'S INCREASED
+	if(statMaxValues[whichStat] > oldStatValue)
+	if statCurrentValues[whichStat] > statMaxValues[whichStat]:
+		statCurrentValues[whichStat] = statMaxValues[whichStat]
+	if statCurrentValues[whichStat] < statMaxValues[whichStat]:
 
 	var statValueToSet = statPropertyNames[whichStat]
 	set(statValueToSet, statCurrentValues[whichStat])
