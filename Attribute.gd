@@ -27,5 +27,10 @@ var AffectedStaticStats = { } #if this will effect a static stat like 'damage de
 var DrainingDynamicStats = { } #if any dynamic stats are actively drained
 var duration = 10 #for temp conditions
 
+func CheckRemoveableCritera():
+	#this method is for checking if the removeableCritera have been met
+	#IE -- healing over maxHealth or several days of rest at max health for 'injured' 
+	pass
+
 func _init(_name):
 	attributeName = _name

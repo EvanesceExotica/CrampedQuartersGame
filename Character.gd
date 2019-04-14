@@ -21,6 +21,7 @@ var statDrainRates = {DynamicStats.health: 0, DynamicStats.sustenance: 3, Dynami
 var statCurrentValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, DynamicStats.sanity: 100, DynamicStats.relationship: 50}
 var statMaxValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, DynamicStats.sanity: 100, DynamicStats.relationship: 50}
 var statPropertyNames = {DynamicStats.health: 'currentHealth', DynamicStats.sustenance: 'currentSustenance', DynamicStats.sanity: 'currentSanity', DynamicStats.relationship: 'currentRelationship'}
+var maxStatPropertyNames = {DynamicStats.health: 'maxHealth', DynamicStats.sustenance: 'maxSustenance', DynamicStats.sanity: 'maxSanity', DynamicStats.relationship: 'maxRelationship'}
 var staticStatValues = {StaticStats.damageDealt: 25, StaticStats.spaceRequirement : 1} #add station training? 'Profession' type attributes? 'Botanist -- good in garden?'
 
 signal MouseHover
@@ -88,9 +89,11 @@ onready var healthTween = healthBar.get_node("HealthTween")
 func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
-		if(newTrait.ConflictingAttributes.has(oldTrait)):
-			#don't apply
-			pass
+		for possibleConflictingTrait in newTrait.ConflictingAttributes:
+			if oldTrait.attributeName == possibleConflictingTrait.attributeName:
+			#Cancel out of this
+				print("Conflicting trait existed")
+				return #this Return statement should pop the player out of this method
 	if(newTrait.AffectedDynamicStatsCurrent.size() > 0):
 		#for immediate "chunks" of damage
 		for currentDynamicStat in newTrait.AffectedDynamicStatsCurrent.keys():
@@ -507,18 +510,22 @@ func calculateCurrentHealthPercentage(whichStat, oldMaxHealthValue):
 
 
 func changeMaxStatValue(whichStat, amount):
-	print("MAX STAT VALUE BEING CHANGED " + str(amount))
+	#print("MAX STAT VALUE BEING CHANGED " + str(amount))
 	var oldStatValue = statMaxValues[whichStat]
 	statMaxValues[whichStat] *=  amount
-
+	print("Max stat value was " + str(oldStatValue))
+	print("Max stat value is now " + str(statMaxValues[whichStat]))
 	#TODO: MAYBE JUST MULTIPLY CURRENT HP BY AMOUNT TOO IF IT'S INCREASED
-	if(statMaxValues[whichStat] > oldStatValue)
+	#if(statMaxValues[whichStat] > oldStatValue)
 	if statCurrentValues[whichStat] > statMaxValues[whichStat]:
 		statCurrentValues[whichStat] = statMaxValues[whichStat]
-	if statCurrentValues[whichStat] < statMaxValues[whichStat]:
+	#if statCurrentValues[whichStat] < statMaxValues[whichStat]:
 
 	var statValueToSet = statPropertyNames[whichStat]
 	set(statValueToSet, statCurrentValues[whichStat])
+
+	var maxStatValueToSet = maxStatPropertyNames[whichStat]
+	set(maxStatValueToSet, statMaxValues[whichStat])
 #warning-ignore:unused_class_variable
 
 
@@ -581,7 +588,7 @@ func _on_Button_pressed():
 	attribute.AffectedDynamicStatsMax = {System.DynamicStats.sustenance : 0.5}
 	attribute.AffectedDynamicStatsCurrent = {System.DynamicStats.sanity : -50}
 	attribute.DrainingDynamicStats = { System.DynamicStats.health : 20} #if any dynamic stats are actively drained
-	attribute.duration = 5
+	attribute.duration = 2
 	attribute.typeOfAttribute = System.attributeType.temporaryCondition
 #	attribute.attributeTypes.append(System.attributeType.temporaryCondition)
 	# for item in attribute.attributeTypes:

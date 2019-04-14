@@ -91,10 +91,10 @@ func animateBar(certainTween, certainBar, startValue, targetValue, rate):
 
 
 func _process(delta):
-	healthLabel.text = str(int(character.currentHealth))
-	sanityLabel.text = str(int(character.currentSanity))
-	sustenanceLabel.text = str(int(character.currentSustenance))
-	relationshipLabel.text = str(int(character.currentRelationship))
+	healthLabel.text = str(int(character.currentHealth)) + " / " + str(int(character.maxHealth))
+	sanityLabel.text = str(int(character.currentSanity)) + " / " + str(int(character.maxSanity))
+	sustenanceLabel.text = str(int(character.currentSustenance)) + " / " + str(int(character.maxSustenance))
+	relationshipLabel.text = str(int(character.currentRelationship)) + " / " + str(int(character.maxRelationship))
 	pass
 
 
