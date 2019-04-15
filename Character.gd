@@ -82,6 +82,7 @@ var healthGainRate = 3
 
 signal statAtZero(whichStat)
 signal statAtMax(whichStat)
+signal healedOverMax(whichStat) #this one would apply to being overfed or being overhealed, which removes injuries
 
 onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
 onready var healthTween = healthBar.get_node("HealthTween")
@@ -90,49 +91,40 @@ func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
 		for possibleConflictingTrait in newTrait.ConflictingAttributes:
-			if oldTrait.attributeName == possibleConflictingTrait.attributeName:
-			#Cancel out of this
+			if oldTrait.attributeName == possibleConflictingTrait:
 				print("Conflicting trait existed")
 				return #this Return statement should pop the player out of this method
+
 	if(newTrait.AffectedDynamicStatsCurrent.size() > 0):
 		#for immediate "chunks" of damage
 		for currentDynamicStat in newTrait.AffectedDynamicStatsCurrent.keys():
 			changeStatValue(currentDynamicStat, newTrait.AffectedDynamicStatsCurrent[currentDynamicStat], false)
-			#statCurrentValues[currentDynamicStat] - newTrait.AffectedDynamicStatsCurrent[currentDynamicStat]
-			pass
-		pass
+
 	if(newTrait.AffectedDynamicStatsMax.size() > 0):
 		#for things that affect maxStats
 		for maxDynamicStat in newTrait.AffectedDynamicStatsMax.keys():
-			#changeStatValue(currentDynamicStat, newTrait.AffectedDynamicStatsMax[maxDynamicStat], true)
-			#statMaxValues[maxDynamicStat] * newTrait.AffectedDynamicStatsMax[maxDynamicStat]
 			changeMaxStatValue(maxDynamicStat, newTrait.AffectedDynamicStatsMax[maxDynamicStat])
 		pass
 	if(newTrait.AffectedStaticStats.size() > 0):
 		#for things that are affecting the static stats
 		for staticStat in newTrait.AffectedStaticStats.keys():
 			staticStatValues[staticStat] + newTrait.AffectedStaticStats[staticStat]
-		pass
+
 	if(newTrait.DrainingDynamicStats.size() > 0):
 		#how many points drained per second
 		for drainedDynamicStat in newTrait.DrainingDynamicStats.keys():
 			print("This is what our trait drains " + str(newTrait.DrainingDynamicStats[drainedDynamicStat]))
 			addNewDrainSource(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
-			#drainValueOverTime(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
-			#statCurrentValues[drainedDynamicStat]
+
 	characterAttributes.append(newAttribute)
 	if(newAttribute.typeOfAttribute == System.attributeType.temporaryCondition):
 		print("It's a temporary condition")
 
 		yield(get_tree().create_timer(newAttribute.duration), "timeout")
+	if(newAttribute.statSignalsToWatchFor.size() > 0):
+		for signals in newAttribute.statSignalsToWatchFor.keys():
+				pass
 		removeAttribute(newAttribute)
-		# var timer = timer.new()
-		# #timer.connect("timeout", self, "removeAttribute", attribute)
-		# timer.set_wait_time(newAttribute.duration)
-		# timer.start()
-		# yield(timer, "removeAttribute", newAttribute)
-		#
-		pass
 
 func applyNewAttributes(newAttributes):
 	for newTrait in newAttributes:
@@ -167,12 +159,12 @@ func applyNewAttributes(newAttributes):
 	pass
 
 func removeAttribute(attribute):
-	for item in characterAttributes:
-		print(item.description)
-		print(item.attributeName)
-	print(attribute)
-	print(attribute.description)
-	#TODO: Switch these variables so that they are being removed instead
+	# for item in characterAttributes:
+	# 	print(item.description)
+	# 	print(item.attributeName)
+	# print(attribute)
+	# print(attribute.description)
+	# #TODO: Switch these variables so that they are being removed instead
 	if(attribute.AffectedDynamicStatsCurrent.size() > 0):
 				#for immediate "chunks" of damage
 		pass
@@ -530,7 +522,7 @@ func changeMaxStatValue(whichStat, amount):
 
 
 
-
+var attributeScript = preload("res://Attribute.gd")
 func _ready():
 	sustenanceBar.max_value = maxSustenance
 	currentSustenance = maxSustenance
@@ -580,7 +572,10 @@ func _on_Character_area_exited(area):
 
 
 func _on_Button_pressed():
-	var attribute = Attribute.new("OnFire")
+	#var attribute = Attribute.new("OnFire")
+	var attribute = attributeScript.new("OnFire")
+	#attribute.sayHello()
+	connect("statAtZero", attribute, "sayHello")
 	#attribute._init("OnFire")
 	attribute.description = "Help I'm on fire"
 	attribute.ConflictingAttributes.append("Underwater")
@@ -614,23 +609,59 @@ func _on_FasterHealthDrain_pressed():
 
 
 func _on_Attack_pressed():
-	print("Attack pressed")
-	changeStatValue(DynamicStats.sanity, -30, false)
+	var attribute = Attribute.new("Underwater")
+	attribute.ConflictingAttributes.append("OnFire")
+	attribute.description = "I'm underwater"
+	attribute.ResultingAttributes = ["Wet"]
+	attribute.DrainingDynamicStats = {System.DynamicStats.health : 10}
+	attribute.typeOfAttribute = System.attributeType.auraCondition
+	applyNewAttribute(attribute)
+	#print("Attack pressed")
+	#changeStatValue(DynamicStats.sanity, -30, false)
 	pass # Replace with function body.
 
 func _on_Tween_tween_step(object, key, elapsed, value):
 	#this feels dirty. Maybe find a better way in the future
 	#This is matching the in-dictionary value to the tweened value 'currentHealth' whenever it's being tweened, to keep them equal
 	if(key == ':currentHealth'):
+		var stat = DynamicStats.health
 		statCurrentValues[DynamicStats.health] = value
+
+		if(statCurrentValues[DynamicStats.health] <= 0):
+			emit_signal("statAtZero", DynamicStats.health)
+
+		if(statCurrentValues[stat] >= statMaxValues[stat]):
+			emit_signal("statAtMax", stat)
+
 	elif(key == ':currentSustenance'):
+		var stat = DynamicStats.sustenance
 		statCurrentValues[DynamicStats.sustenance] = value
-		pass
+
+		if(statCurrentValues[DynamicStats.sustenance] <= 0):
+			emit_signal("statAtZero", DynamicStats.sustenance)
+
+		if(statCurrentValues[stat] >= statMaxValues[stat]):
+			emit_signal("statAtMax", stat)
+
 	elif(key == ':currentSanity'):
+		var stat = DynamicStats.sanity
 		statCurrentValues[DynamicStats.sanity] = value
-		pass
+
+		if(statCurrentValues[DynamicStats.sanity] <= 0):
+			emit_signal("statAtZero", DynamicStats.sanity)
+
+		if(statCurrentValues[stat] >= statMaxValues[stat]):
+			emit_signal("statAtMax", stat)
+
 	elif(key == ':currentRelationship'):
+		var stat = DynamicStats.relationship
 		statCurrentValues[DynamicStats.relationship] = value
+
+		if(statCurrentValues[DynamicStats.relationship] <= 0):
+			emit_signal("statAtZero", DynamicStats.relationshipBar)
+
+		if(statCurrentValues[stat] >= statMaxValues[stat]):
+			emit_signal("statAtMax", stat)
 
 func _on_Tween_tween_completed(object, key):
 	if(object == self):

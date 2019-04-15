@@ -26,11 +26,13 @@ var AffectedDynamicStatsMax = {} #if this will lower one of the maximum stats
 var AffectedStaticStats = { } #if this will effect a static stat like 'damage dealt' or 'space needed'
 var DrainingDynamicStats = { } #if any dynamic stats are actively drained
 var duration = 10 #for temp conditions
-
+var statSignalsToWatchFor = {}
 func CheckRemoveableCritera():
+	#perhaps set up a signal here
 	#this method is for checking if the removeableCritera have been met
-	#IE -- healing over maxHealth or several days of rest at max health for 'injured' 
+	#IE -- healing over maxHealth or several days of rest at max health for 'injured'
 	pass
-
+func sayHello():
+	print("Sup there yo")
 func _init(_name):
 	attributeName = _name
