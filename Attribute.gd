@@ -32,7 +32,7 @@ func CheckRemoveableCritera():
 	#this method is for checking if the removeableCritera have been met
 	#IE -- healing over maxHealth or several days of rest at max health for 'injured'
 	pass
-func sayHello():
+func sayHello(test):
 	print("Sup there yo")
 func _init(_name):
 	attributeName = _name

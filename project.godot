@@ -58,7 +58,6 @@ gdscript/warnings/unused_argument=false
 
 [display]
 
-window/size/resizable=false
 window/size/test_width=627
 window/size/test_height=366
 window/stretch/mode="2d"

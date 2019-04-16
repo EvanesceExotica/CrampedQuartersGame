@@ -389,6 +389,8 @@ func changeStatValue(dynamicStat, amount, isMultiplicative):
 
 	if(statCurrentValues[dynamicStat] < 0):
 		statCurrentValues[dynamicStat] = 0
+		print("At zero")
+		emit_signal("statAtZero")
 	if(statCurrentValues[dynamicStat] > statMaxValues[dynamicStat]):
 		statCurrentValues[dynamicStat] = statMaxValues[dynamicStat]
 	#

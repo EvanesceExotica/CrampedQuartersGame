@@ -31,6 +31,7 @@ var statTweens
 var statAnimationPlayers
 
 func _ready():
+	character.connect("statAtZero", self, "EatCheese")
 	statBars = {System.DynamicStats.health: healthBar, System.DynamicStats.sustenance: sustenanceBar, System.DynamicStats.sanity: sanityBar, System.DynamicStats.relationship: relationshipBar}
 	statTweens = {System.DynamicStats.health: healthTween, System.DynamicStats.sustenance: sustenanceTween, System.DynamicStats.sanity: sanityTween, System.DynamicStats.relationship: relationshipTween}
 	statAnimationPlayers = {System.DynamicStats.health: healthAnimationPlayer, System.DynamicStats.sustenance: sustenanceAnimationPlayer, System.DynamicStats.sanity: sanityAnimationPlayer, System.DynamicStats.relationship: relationshipAnimationPlayer}
@@ -89,6 +90,8 @@ func animateBar(certainTween, certainBar, startValue, targetValue, rate):
 	certainTween.interpolate_property(certainBar, 'value', startValue, targetValue, rate, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	certainTween.start()
 
+func EatCheese(test):
+	print("Cheese was eaten")
 
 func _process(delta):
 	healthLabel.text = str(int(character.currentHealth)) + " / " + str(int(character.maxHealth))
