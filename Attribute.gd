@@ -26,7 +26,10 @@ var AffectedDynamicStatsMax = {} #if this will lower one of the maximum stats
 var AffectedStaticStats = { } #if this will effect a static stat like 'damage dealt' or 'space needed'
 var DrainingDynamicStats = { } #if any dynamic stats are actively drained
 var duration = 10 #for temp conditions
-var statSignalsToWatchFor = {}
+var statSignalsToWatchFor = {} #this dictionary is
+var signalsThatWillRemoveAttribute = {}
+var characterEventTypeChance = { } #insanity events; drift events
+
 func CheckRemoveableCritera():
 	#perhaps set up a signal here
 	#this method is for checking if the removeableCritera have been met

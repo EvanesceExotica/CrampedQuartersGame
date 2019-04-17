@@ -2,7 +2,7 @@ extends Node2D
 
 
 var selectedCharacter
-
+var attributeScript = preload("res://Attribute.gd")
 enum attributeType{
 	temporaryCondition,
 	auraCondition,

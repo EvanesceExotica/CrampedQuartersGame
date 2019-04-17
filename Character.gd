@@ -386,11 +386,11 @@ func changeStatValue(dynamicStat, amount, isMultiplicative):
 	else:
 			statCurrentValues[dynamicStat] +=amount
 
-
-	if(statCurrentValues[dynamicStat] < 0):
+			print("Current stat is now " + str(statCurrentValues[dynamicStat]))
+	if(statCurrentValues[dynamicStat] <= 0):
 		statCurrentValues[dynamicStat] = 0
 		print("At zero")
-		emit_signal("statAtZero")
+		emit_signal("statAtZero", dynamicStat)
 	if(statCurrentValues[dynamicStat] > statMaxValues[dynamicStat]):
 		statCurrentValues[dynamicStat] = statMaxValues[dynamicStat]
 	#
@@ -524,7 +524,7 @@ func changeMaxStatValue(whichStat, amount):
 
 
 
-var attributeScript = preload("res://Attribute.gd")
+#var attributeScript = preload("res://Attribute.gd")
 func _ready():
 	sustenanceBar.max_value = maxSustenance
 	currentSustenance = maxSustenance
@@ -575,7 +575,7 @@ func _on_Character_area_exited(area):
 
 func _on_Button_pressed():
 	#var attribute = Attribute.new("OnFire")
-	var attribute = attributeScript.new("OnFire")
+	var attribute = System.attributeScript.new("OnFire")
 	#attribute.sayHello()
 	connect("statAtZero", attribute, "sayHello")
 	#attribute._init("OnFire")

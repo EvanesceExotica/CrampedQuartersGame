@@ -4,11 +4,22 @@ extends Area2D
 # var a = 2
 # var b = "text"
 #1 is normal comfort. zero is none. -1 is actively causing sanity drain
+#var attributeScript = preload("res://Attribute.gd")
 var comfortLevel = 1
 var characterInSlot
 var occupied = false
 
+export(int) var prioritySeatingLevel  #as the ship is auto-filled up, seats will go here first
+# Airlock should be second to last maybe after underwater, perhaps if > 5, dangerous, do not auto-fill
+
 export(Array) var adjacentSlots = []
+
+#Examples of inherent attributes would be "Underwater" for tank, "Terrifying" for airlock
+#Examples of non-inherent attributes would be "Poisoned" for tank
+
+var slotAttributes = []
+var inherentAttributes = []
+var temporaryOrRemoveableAttributes = []
 
 signal someoneEnteredSlot
 
@@ -16,17 +27,52 @@ signal someoneVacatedSlot
 
 var handInZone
 
+func applyNewAttributeToSlot(attribute):
+	#when a brand new attribute is applied, apply it to the character as well
+	slotAttributes.append(attribute)
+	if(occupied):
+		characterInSlot.applyNewAttributeToCharacter(attribute)
+
+	pass
+func removeAttributeFromSlot(attribute):
+	#when an attribute is removed (such as a fire extenguished
+	slotAttributes.remove(attribute)
+	if(occupied):
+		#if there is a character in this slot, remove the attribute from the character as well
+		removeAttributeFromCharacter(attribute)
+
+func removeAttributeFromCharacter(attribute):
+	characterInSlot.removeAttribute(attribute)
+
+func removeAllExitingAttributesFromCharacter():
+	#USED WHEN CHARACTER IS MOVED
+	if slotAttributes.size() > 0:
+		for attribute in slotAttributes:
+			removeAttributeFromCharacter(attribute)
+
+func applyNewAttributeToCharacter(attribute):
+	characterInSlot.applyNewAttribute(attribute)
+
+func applyExistingAttributesToCharacter():
+	#if the slot has existing on inherent attributes, apply these to character
+	if slotAttributes.size() > 0:
+		for attribute in slotAttributes:
+			applyNewAttributeToCharacter(attribute)
+
 func checkIfCharacterDontLikeInAdjacentSlot():
 	#this function is to check the adjacent slots for a character this character may have problems with
 	#(if they're a diff species as a xenophobe, or insane, or something)
 	pass
 
+func addCharacterToSlot(character):
+		characterInSlot = character
+		character.global_position = self.global_position
+		applyExistingAttributesToCharacter()
+		emit_signal("someoneEnteredSlot")
+
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):
-		characterInSlot = character
-	#	print("Dragged " + character.name + " In Here");
-		character.global_position = self.global_position
-		emit_signal("someoneEnteredSlot")
+		addCharacterToSlot(character)
 
 func checkIfAdjacentSlotsFull():
 	var allFull = true
@@ -40,6 +86,11 @@ func checkIfAdjacentSlotsFull():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
+	var testAttribute = System.attributeScript.new("Underwater")
+#	testAttribute.attributeType = System.attributeType.auraCondition
+	testAttribute.DrainingDynamicStats = {System.DynamicStats.health: 10}
+	applyNewAttributeToSlot(testAttribute)
 	System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
 	if(adjacentSlots.size() > 0):
 		for item in adjacentSlots:
