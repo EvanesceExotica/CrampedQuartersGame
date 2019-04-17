@@ -17,6 +17,7 @@ var attributeName
 var typeOfAttribute
 var attributeTypes =  [] #what type(s) of attribute this is
 
+var characterAttachedTo  
 var description = ""
 var ConflictingAttributes =  [] #Other attributes that conflict with this one
 var PreRequisiteAttributes = [] #Attributes that cause this one
@@ -30,7 +31,12 @@ var statSignalsToWatchFor = {} #this dictionary is
 var signalsThatWillRemoveAttribute = {}
 var characterEventTypeChance = { } #insanity events; drift events
 
-func CheckRemoveableCritera():
+func CheckRemoveableCritera(signalCalled):
+	var numberOfTimesCalled = 0
+	numberOfTimesCalled+= 1
+	#put this ^^ in a  list
+	if(numberOfTimesCalled >= signalsThatWillRemoveAttribute[signalCalled]):
+		pass
 	#perhaps set up a signal here
 	#this method is for checking if the removeableCritera have been met
 	#IE -- healing over maxHealth or several days of rest at max health for 'injured'

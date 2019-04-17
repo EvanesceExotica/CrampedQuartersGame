@@ -579,6 +579,7 @@ func _on_Button_pressed():
 	#attribute.sayHello()
 	connect("statAtZero", attribute, "sayHello")
 	#attribute._init("OnFire")
+	attribute.characterAttachedTo = self
 	attribute.description = "Help I'm on fire"
 	attribute.ConflictingAttributes.append("Underwater")
 	attribute.ResultingAttributes =  ["Shaken"] #Attributes that will result from this one 'On Fire --> Shaken'
