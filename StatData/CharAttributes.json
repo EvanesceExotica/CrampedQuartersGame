@@ -1,49 +1,49 @@
-{ 	
+{
 	"empty" :
-		{ 
+		{
 			"Conflicting Traits" : [],
 			"AffectedDynamicStatsCurrent" : { "currentHealth": -1, "currentSanity": -2},
 			"AffectedDynamicStatsMax": { },
 			"AffectedStaticStats": { },
-			
+
 			"ConditionImmunity": []
 			"AuraAffects": []
-			
+
 		}
-			
-	"Xenophobic" : 
-		{ 
-		"Species" : false 
+
+	"Xenophobic" :
+		{
+		"Species" : false
 		"Description" : "Will have a negative relationship with anyone who doesn't share their "species" flag and will lose sanity and relationship faster"
-		"Conflicting Traits" : [], 
-		"AffectedStatsCurrent" : {"currentHealth": 1, "currentSanity": 2}, 
+		"Conflicting Traits" : [],
+		"AffectedStatsCurrent" : {"currentHealth": 1, "currentSanity": 2},
 		"AffectedStatsMax": {"maxRelationship": 50 }
-		
+
 		"ConditionImmunity": []
 		"AuraAffects": {"Species": {" maxHealth": }}
 
 		}
-		
-	
-"Troglodyte" : { }	
+
+
+"Troglodyte" : { }
 "Antisocial" : {"Conflicting Traits" : }
 	"Asocial" : {}
-	"Paranoid" : 
-		{ 
-			"Species" : false 
+"Paranoid" :
+		{
+			"Species" : false
 			"Description" : "Starts with low sanity and loses it more quickly"
 			"Conflicting Traits" : [],
 			"AffectedDynamicStatsCurrent" : { "currentHealth": -1, "currentSanity": -2},
 			"AffectedDynamicStatsMax": {"maxSanity" : 50},
 			"AffectedStaticStats": {"sanityLossRate" : 5 , "sanityGainRate" :  0.5},
-			
-	
+
+
 			"GoodRelationsWith": []
 			"ConditionImmunity": []
-		}
-		
-		
-	
+}
+
+
+
 	"Strong" : {}
 	"Sadistic" :{}
 	"Agreeable" :{}

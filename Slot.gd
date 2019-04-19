@@ -66,6 +66,7 @@ func checkIfCharacterDontLikeInAdjacentSlot():
 
 func addCharacterToSlot(character):
 		characterInSlot = character
+		character.currentSlot = self 
 		character.global_position = self.global_position
 		applyExistingAttributesToCharacter()
 		emit_signal("someoneEnteredSlot")

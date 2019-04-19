@@ -9,8 +9,11 @@ signal draggingCharacter(character)
 signal stoppedDraggingCharacter(character)
 #warning-ignore:unused_class_variable
 var characterName
+
+var currentSlot
 #warning-ignore:unused_class_variable
 var characterAttributes = [ ]
+
 
 onready var characterStats = get_node("CharacterStats")
 

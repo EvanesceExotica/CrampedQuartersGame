@@ -17,7 +17,7 @@ var attributeName
 var typeOfAttribute
 var attributeTypes =  [] #what type(s) of attribute this is
 
-var characterAttachedTo  
+var characterAttachedTo
 var description = ""
 var ConflictingAttributes =  [] #Other attributes that conflict with this one
 var PreRequisiteAttributes = [] #Attributes that cause this one
@@ -29,6 +29,8 @@ var DrainingDynamicStats = { } #if any dynamic stats are actively drained
 var duration = 10 #for temp conditions
 var statSignalsToWatchFor = {} #this dictionary is
 var signalsThatWillRemoveAttribute = {}
+var canCombineWith = {} #can comebine with key to cause value; i.e:, if Aquatic -- {"InAir": "Ashixipating"}
+var modifiedAttributes = {} #other attributes this one will modify?
 var characterEventTypeChance = { } #insanity events; drift events
 
 func CheckRemoveableCritera(signalCalled):
