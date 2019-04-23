@@ -2,11 +2,24 @@ extends Area2D
 
 # Declare member variables here. Examples:
 # var a = 2
+
+var health
 # var b = "text"
 func interactWith():
 	#different ways to interact with
 	pass
 # Called when the node enters the scene tree for the first time.
+
+func changeHealthAmount(amount):
+	health+= amount
+	#environmental effects can deal damage to stations too
+	pass
+
+func damage(amount):
+
+	pass
+func damgeOverTime():
+	pass
 func repair():
 	pass
 

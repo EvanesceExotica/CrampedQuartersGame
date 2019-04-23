@@ -32,7 +32,7 @@ var signalsThatWillRemoveAttribute = {}
 var canCombineWith = {} #can comebine with key to cause value; i.e:, if Aquatic -- {"InAir": "Ashixipating"}
 var modifiedAttributes = {} #other attributes this one will modify?
 var characterEventTypeChance = { } #insanity events; drift events
-
+var externalCombinations = []
 func CheckRemoveableCritera(signalCalled):
 	var numberOfTimesCalled = 0
 	numberOfTimesCalled+= 1

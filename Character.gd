@@ -97,6 +97,14 @@ func applyNewAttribute(newAttribute):
 			if oldTrait.attributeName == possibleConflictingTrait:
 				print("Conflicting trait existed")
 				return #this Return statement should pop the player out of this method
+		if(newAttribute.canCombineWith.size() > 0):
+			#if traits in this dictionary do exist
+			for possibleCombineableTrait in newTrait.canCombineWith.keys():
+				#for each trait that can combine with this current trait
+				if oldTrait.attributeName == possibleCombineableTrait:
+					#if we find one of them already applied to the character, apply it
+					#TODO: FIND A WAY TO REMOVE IT AS WELL
+					applyNewAttribute(newTrait.canCombineWith[possibleCombineableTrait])
 
 	if(newTrait.AffectedDynamicStatsCurrent.size() > 0):
 		#for immediate "chunks" of damage
@@ -162,12 +170,23 @@ func applyNewAttributes(newAttributes):
 	pass
 
 func removeAttribute(attribute):
+	for oldTrait in characterAttributes:
+		if(attribute.canCombineWith.size() > 0):
+			#if traits in this dictionary do exist
+			for possibleCombineableTrait in newTrait.canCombineWith.keys():
+				#for each trait that can combine with this current trait
+				if oldTrait.attributeName == possibleCombineableTrait:
+					#if we find one of them already applied to the character
+					#also remove the attribute caused by them being combined
+					removeAttribute(newTrait.canCombineWith[possibleCombineableTrait])
+					#TODO: FIND A WAY TO REMOVE IT AS WELL
 	# for item in characterAttributes:
 	# 	print(item.description)
 	# 	print(item.attributeName)
 	# print(attribute)
 	# print(attribute.description)
 	# #TODO: Switch these variables so that they are being removed instead
+
 	if(attribute.AffectedDynamicStatsCurrent.size() > 0):
 				#for immediate "chunks" of damage
 		pass
@@ -591,6 +610,7 @@ func _on_Button_pressed():
 	attribute.DrainingDynamicStats = { System.DynamicStats.health : 20} #if any dynamic stats are actively drained
 	attribute.duration = 2
 	attribute.typeOfAttribute = System.attributeType.temporaryCondition
+	#attribute.externalCombinations = 
 #	attribute.attributeTypes.append(System.attributeType.temporaryCondition)
 	# for item in attribute.attributeTypes:
 	#
