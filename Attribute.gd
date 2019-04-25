@@ -5,6 +5,21 @@ class_name Attribute
 #will go away after a certain critera is removed -- such as fire or a negative person nearby
 #condition that can be removed if a critera is met (such as injured -- removed if get enough health packs)
 #something the character inherintly has that can only be removed by events -- can also be applied by events
+
+class externalCombination:
+
+	#make this an enum
+	#self
+	#other
+	#all
+	var onSelf = true
+	var thisAttributeName
+
+	func _init( _name, _onSelf):
+		thisAttributeName = _name
+		onSelf = _onSelf
+
+
 enum attributeType{
 	temporaryCondition,
 	auraCondition,

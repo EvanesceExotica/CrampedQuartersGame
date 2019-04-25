@@ -610,7 +610,8 @@ func _on_Button_pressed():
 	attribute.DrainingDynamicStats = { System.DynamicStats.health : 20} #if any dynamic stats are actively drained
 	attribute.duration = 2
 	attribute.typeOfAttribute = System.attributeType.temporaryCondition
-	#attribute.externalCombinations = 
+
+	attribute.externalCombinations = {[externalCombination.new("Greasy", true)] : externalCombination.new("Fine", false)}
 #	attribute.attributeTypes.append(System.attributeType.temporaryCondition)
 	# for item in attribute.attributeTypes:
 	#
