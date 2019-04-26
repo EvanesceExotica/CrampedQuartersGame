@@ -27,6 +27,11 @@ enum attributeType{
 	inherentAttribute
 }
 
+var entitiesCanApplyTo = [] #determines whether this attribute only applies to characters, slots, or stations
+#for example, "Fire" can spread to all of them
+
+var contagious #determines whether this attribute can spread i.e., fire, disease
+var contagionChance #determines the chance of spreading over a certain amount of time
 var stackable = false #this determines if an attribute can be stacked with the same  condition twice -- probably not?
 var attributeName
 var typeOfAttribute
@@ -47,7 +52,7 @@ var signalsThatWillRemoveAttribute = {}
 var canCombineWith = {} #can comebine with key to cause value; i.e:, if Aquatic -- {"InAir": "Ashixipating"}
 var modifiedAttributes = {} #other attributes this one will modify?
 var characterEventTypeChance = { } #insanity events; drift events
-var externalCombinations = []
+var externalCombinations = [] #alien:self
 func CheckRemoveableCritera(signalCalled):
 	var numberOfTimesCalled = 0
 	numberOfTimesCalled+= 1

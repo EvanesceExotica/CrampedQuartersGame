@@ -7,7 +7,8 @@ enum attributeType{
 	temporaryCondition,
 	auraCondition,
 	removeableCondition,
-	inherentAttribute
+	inherentAttribute,
+	species
 }
 
 enum DynamicStats{
@@ -24,6 +25,11 @@ enum StaticStats{
 	spaceRequirement
 	}
 
+enum entitiesAppliedTo{
+	character,
+	station,
+	slot
+}
 #onready var mainCamera = get_node("Camera2D")
 #warning-ignore:unused_signal
 signal morningStarted

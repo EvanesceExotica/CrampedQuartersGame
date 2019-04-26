@@ -3,7 +3,7 @@ extends Area2D
 # Declare member variables here. Examples:
 # var a = 2
 
-var health
+var health = 3
 # var b = "text"
 func interactWith():
 	#different ways to interact with
@@ -14,6 +14,7 @@ func changeHealthAmount(amount):
 	health+= amount
 	#environmental effects can deal damage to stations too
 	pass
+
 
 func damage(amount):
 
