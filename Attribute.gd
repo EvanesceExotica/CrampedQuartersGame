@@ -5,7 +5,7 @@ class_name Attribute
 #will go away after a certain critera is removed -- such as fire or a negative person nearby
 #condition that can be removed if a critera is met (such as injured -- removed if get enough health packs)
 #something the character inherintly has that can only be removed by events -- can also be applied by events
-
+var characterAttachedTo
 class externalCombination:
 
 	#make this an enum
@@ -18,6 +18,12 @@ class externalCombination:
 	func _init( _name, _onSelf):
 		thisAttributeName = _name
 		onSelf = _onSelf
+
+class SignalCriteria:
+	var signalListeningFor
+	var numOfTimesCalled
+	var resultingMethod
+	var timesCalledToTriggerMethod
 
 
 enum attributeType{
