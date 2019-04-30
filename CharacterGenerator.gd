@@ -3,7 +3,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var characterTemplate = preload("res://Character.tscn")
 #humanoid
 #mammalian
 #reptilian
@@ -24,6 +24,7 @@ var maxNumberOfStartingAttributes = 5
 func separateOutAttributes():
 	for attribute in allAttributes:
 		for applicableEntity in attribute.entitiesCanApplyTo:
+
 			if(applicableEntity == System.entitiesAppliedTo.character):
 				#if this attribute can apply to characters
 				#append it to the availableCharacterAttributes
@@ -43,35 +44,61 @@ func generateNewCharacter():
 
 	#events the character goes through before being added to the ship can cause extra attribute
 	#such as "injured" or "diseased"
-	var character
+	var characterInstance = characterTemplate.instance()
+	add_child(instance)
 
 	#randomize the number of starting attributes
-	var numberOfStartingAttributes = rand_range(2, maxNumberOfStartingAttributes+1)
+	var numberOfStartingAttributes = rand_range(3, maxNumberOfStartingAttributes+1)
 
-
+#generate a random species from the spcies list
 	var randomSpeciesNumber = rand_range(0, speciesAttributes.size())
-	var species = generateSpecies(randomNumber)
+	var species = generateSpecies(randomSpeciesNumber)
 
 
 	#this deletes any attributes in the availableList that would conflict
 	#with the chosen species -- robot, aquatic, etc.
 	for conflictingAttibute in species.conflictingAttibutes:
-		availableCharacterAttributes.erase(conflictingAttibute)
-
+		if availableCharacterAttributes.has(conflictingAttibute):
+			availableCharacterAttributes.erase(conflictingAttibute)
 
 	for i in range(numberOfStartingAttributes):
+		#generate new attributes from the cleaned list,
+		#up to the random generated number of starting attributes they can have
 		attributes.append(generateNewAttribute())
-
-	for attribute in availableCharacterAttributes:
+	character
 
 func generateSpecies(randomNumber):
 	var species = speciesAttributes[randomNumber]
 	return species
 
-func generateNewAttribute(species)
+func generateNewAttribute():
+
+	#generate a random number
 	var randomInherentAttributeNumber = rand_range(0, availableCharacterAttributes.size())
-	for conflictingAttibute in species.conflictingAttibutes:
-			if(availableCharacterAttributes[randomNumber]) == conflictingAttibute:
+
+	#grab a random attribute using this index from the possible ones
+	var newAttribute = availableCharacterAttributes[randomInherentAttributeNumber]
+
+	for possibleConflict in newAttribute.conflictingAttibutes:
+		#remove attributes that conflict from the total list
+			if availableCharacterAttributes.has(possibleConflict)
+				availableCharacterAttributes.erase(possibleConflict)
+
+	return newAttribute
+
+func chooseCharacterSlot():
+	#calculate species into this
+	var levelToSearchFor = 0
+	var slotToChoose
+	for slot in System.allSlots.keys():
+		if slot.prioritySeatingLevel == levelToSearchFor:
+			#might be better to separate into lists based on level
+			if slot.occupied == false:
+				slotToChoose = false
+
+
+#	for conflictingAttibute in species.conflictingAttibutes:
+#			if(availableCharacterAttributes[randomNumber]) == conflictingAttibute:
 
 # Called when the node enters the scene tree for the first time.
 

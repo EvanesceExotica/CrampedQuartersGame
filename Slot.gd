@@ -21,9 +21,9 @@ var slotAttributes = []
 var inherentAttributes = []
 var temporaryOrRemoveableAttributes = []
 
-signal someoneEnteredSlot
+signal someoneEnteredSlot(whichSlot, whichChar)
 
-signal someoneVacatedSlot
+signal someoneVacatedSlot(whichSlot)
 
 var handInZone
 
@@ -66,10 +66,10 @@ func checkIfCharacterDontLikeInAdjacentSlot():
 
 func addCharacterToSlot(character):
 		characterInSlot = character
-		character.currentSlot = self 
+		character.currentSlot = self
 		character.global_position = self.global_position
 		applyExistingAttributesToCharacter()
-		emit_signal("someoneEnteredSlot")
+		emit_signal("someoneEnteredSlot", self, character)
 
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):

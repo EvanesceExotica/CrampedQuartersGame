@@ -52,6 +52,7 @@ var totalSecondsInDay = 300
 #300/4 = 75
 #each 6 hour period = 75 seconds
 #each hour = 12.5 seconds
+var allSlots = { }
 signal dispensedItemConsumed(dispenser, character)
 signal draggingCharacter(character)
 signal stoppedDraggingCharacter(character)
@@ -63,6 +64,12 @@ var elapsedSecondsInPeriod = 0
 var totalSecondsInPeriod = 75
 
 var paused = false
+
+func updateSlots(whichSlot, character):
+	for slot in allSlots.keys():
+		if slot == whichSlot:
+			allSlots[slot] = character
+
 
 func setDraggedCharacter(character):
 	selectedCharacter = character
