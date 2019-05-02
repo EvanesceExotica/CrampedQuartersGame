@@ -25,6 +25,8 @@ signal someoneEnteredSlot(whichSlot, whichChar)
 
 signal someoneVacatedSlot(whichSlot)
 
+var slotType
+
 var handInZone
 
 func applyNewAttributeToSlot(attribute):
@@ -88,6 +90,7 @@ func checkIfAdjacentSlotsFull():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
+	add_to_group("slots")
 	var testAttribute = System.attributeScript.new("Underwater")
 #	testAttribute.attributeType = System.attributeType.auraCondition
 	testAttribute.DrainingDynamicStats = {System.DynamicStats.health: 10}

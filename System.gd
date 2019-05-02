@@ -30,6 +30,29 @@ enum entitiesAppliedTo{
 	station,
 	slot
 }
+
+#normal air seating, normal comfort level
+#uncomfortableSeating - closet, garden
+#dangerousSeating -- airlock, engineRoom
+#deadlySeating --
+# enum seatingTypes{
+# 	normalAirSeating,
+# 	uncomfortableSeating,
+# 	dangerousSeating,
+# 	airLock,
+# 	underwater
+#
+# }
+
+enum slotTypes{
+	mainRoom,
+	closet,
+	garden,
+	airLock,
+	engine,
+	aquarium
+
+}
 #onready var mainCamera = get_node("Camera2D")
 #warning-ignore:unused_signal
 signal morningStarted
@@ -52,7 +75,19 @@ var totalSecondsInDay = 300
 #300/4 = 75
 #each 6 hour period = 75 seconds
 #each hour = 12.5 seconds
+
 var allSlots = { }
+var mainRoomSlots = { }
+var gardenSlots = { }
+var closetSlots = { }
+var airlockSlots = { }
+var aquariumSlots = { }
+var engineSlots = { }
+
+#var uncomfortableAirSlots = { }
+#var dangerousAirSlots = { }
+#var aquaticSlots = { }
+
 signal dispensedItemConsumed(dispenser, character)
 signal draggingCharacter(character)
 signal stoppedDraggingCharacter(character)
@@ -63,12 +98,52 @@ signal stoppedDraggingItem(item, tag)
 var elapsedSecondsInPeriod = 0
 var totalSecondsInPeriod = 75
 
+const Slots = "slots"
+
 var paused = false
+func populateSlots():
+	allSlots.keys() = get_tree().get_nodes_in_group("slots")
+	for slot in allSlots.keys():
+		if slot.slotType == slotTypes.mainRoom:
+			mainRoomSlots.append(slot, )
+		elif slot.slotType == slotTypes.closet:
+			closetSlots.append()
+			pass
+		elif slot.slotType == slotTypes.garden:
+			gardenSlots.append()
+			pass
+		elif slot.slotType == slotTypes.airLock:
+			airlockSlots.append()
+			pass
+		elif slot.slotType == slotTypes.engine:
+			engineSlots.append()
+			pass
+		elif slot.slotType == slotTypes.aquarium:
+			aquariumSlots.append(	)
 
 func updateSlots(whichSlot, character):
 	for slot in allSlots.keys():
 		if slot == whichSlot:
 			allSlots[slot] = character
+		if whichSlot.slotType == slotTypes.mainRoom:
+			pass
+		elif whichSlot.slotType == slotTypes.closet:
+			pass
+		elif whichSlot.slotType == slotTypes.garden:
+			pass
+		elif whichSlot.slotType == slotTypes.airLock:
+			pass
+		elif whichSlot.slotType == slotTypes.engine:
+			pass
+		elif whichSlot.slotType == slotTypes.underwater:
+			pass
+
+	mainRoom,
+	closet,
+	garden,
+	airLock,
+	engine,
+	underwater
 
 
 func setDraggedCharacter(character):

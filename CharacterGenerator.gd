@@ -86,17 +86,42 @@ func generateNewAttribute():
 
 	return newAttribute
 
-func chooseCharacterSlot():
+func chooseCharacterSlot(species):
 	#calculate species into this
 	var levelToSearchFor = 0
-	var slotToChoose
+	#var slotToChoose
+	var foundSlot = false
+	var rankingIndex = 0
+
+	var unoccupiedSlots = []
 	for slot in System.allSlots.keys():
-		if slot.prioritySeatingLevel == levelToSearchFor:
-			#might be better to separate into lists based on level
-			if slot.occupied == false:
-				slotToChoose = false
+		if System.allSlots[slot] == null:
+			#if the slot is unoccupied
+			unoccupiedSlots.append(slot)
+		#run through all the slots in the game
+	for slot in unoccupiedSlots:
+		if species.slotTypeComfortRanking[rankingIndex].has(slot.slotType):
+			foundSlot = true
+		else:
+			rankingIndex+=1
+		# 	#if the species's slot ranking for this type of slot has a type
+		# 	for slotType in species.slotTypeComfortRanking[rankingIndex]:
+		# 		#for each slot type in this ranking
+		# 		if(slot.slotType == slotType && slot.occupied == false):
+		# 			#if it meets the slot type of the slot
+		# 			foundSlot = true
+		# 			break
+		# 	if !foundSlot:
+		#
+		# if slot.prioritySeatingLevel == levelToSearchFor:
+		# 	#might be better to separate into lists based on level
+		# 	if slot.occupied == false:
+		# 		slotToChoose = false
 
 
+func printWarning():
+	#This individual will be extremely uncomfortable in this slotType
+	print("No safe slot types remain for this individual -- force into uncomfortable slot?")
 #	for conflictingAttibute in species.conflictingAttibutes:
 #			if(availableCharacterAttributes[randomNumber]) == conflictingAttibute:
 
