@@ -9,7 +9,9 @@
 [ext_resource path="res://Bulkhead.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Hand.tscn" type="PackedScene" id=8]
 
-[node name="WholeShip" type="Node2D"]
+[node name="WholeShip" type="Node2D" groups=[
+"Slots",
+]]
 script = ExtResource( 1 )
 
 [node name="CharacterAttributes" type="Node2D" parent="."]

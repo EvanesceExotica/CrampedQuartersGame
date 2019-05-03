@@ -25,10 +25,18 @@ signal someoneEnteredSlot(whichSlot, whichChar)
 
 signal someoneVacatedSlot(whichSlot)
 
-var slotType
+export(slotTypes) var slotType
 
 var handInZone
+enum slotTypes{
+	mainRoom,
+	closet,
+	garden,
+	airLock,
+	engine,
+	aquarium
 
+}
 func applyNewAttributeToSlot(attribute):
 	#when a brand new attribute is applied, apply it to the character as well
 	slotAttributes.append(attribute)
@@ -101,7 +109,7 @@ func _ready():
 			item.connect("someoneEnteredSlot", self, "checkIfAdjacentSlotsFull")
 			item.connect("someoneVacatedSlot", self, "checkIfAdjacentSlotsFull")
 	pass # Replace with function body.
-
+	System.updateSlots(self, characterInSlot)
 
 
 func _on_Slot_area_entered(area):
