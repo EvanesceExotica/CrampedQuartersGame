@@ -173,12 +173,12 @@ func removeAttribute(attribute):
 	for oldTrait in characterAttributes:
 		if(attribute.canCombineWith.size() > 0):
 			#if traits in this dictionary do exist
-			for possibleCombineableTrait in newTrait.canCombineWith.keys():
+			for possibleCombineableTrait in attribute.canCombineWith.keys():
 				#for each trait that can combine with this current trait
 				if oldTrait.attributeName == possibleCombineableTrait:
 					#if we find one of them already applied to the character
 					#also remove the attribute caused by them being combined
-					removeAttribute(newTrait.canCombineWith[possibleCombineableTrait])
+					removeAttribute(attribute.canCombineWith[possibleCombineableTrait])
 					#TODO: FIND A WAY TO REMOVE IT AS WELL
 	# for item in characterAttributes:
 	# 	print(item.description)
@@ -611,7 +611,7 @@ func _on_Button_pressed():
 	attribute.duration = 2
 	attribute.typeOfAttribute = System.attributeType.temporaryCondition
 
-	attribute.externalCombinations = {[externalCombination.new("Greasy", true)] : externalCombination.new("Fine", false)}
+	attribute.externalCombinations = {[attribute.externalCombinations.new("Greasy", true)] : attribute.externalCombinations.new("Fine", false)}
 #	attribute.attributeTypes.append(System.attributeType.temporaryCondition)
 	# for item in attribute.attributeTypes:
 	#

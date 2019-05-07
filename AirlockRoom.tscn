@@ -25,4 +25,5 @@ texture = ExtResource( 3 )
 
 [node name="Slot" parent="." index="4" instance=ExtResource( 4 )]
 position = Vector2( 520, 390 )
+slotType = 3
 

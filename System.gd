@@ -101,49 +101,51 @@ var totalSecondsInPeriod = 75
 const Slots = "slots"
 
 var paused = false
-func populateSlots():
+func populateSlots(slot):
 	for item in get_tree().get_nodes_in_group("slots"):
 		allSlots[item] = slot.characterInSlot
 	#allSlots.keys() = get_tree().get_nodes_in_group("slots")
 	for slot in allSlots.keys():
 		if slot.slotType == slotTypes.mainRoom:
-			mainRoomSlots[slot] = characterInSlot
+			mainRoomSlots[slot] = slot.characterInSlot
 		elif slot.slotType == slotTypes.closet:
-			closetSlots[slot] = characterInSlot
+			closetSlots[slot] = slot.characterInSlot
 
 		elif slot.slotType == slotTypes.garden:
-			gardenSlots[slot] = characterInSlot
+			gardenSlots[slot] = slot.characterInSlot
 
 		elif slot.slotType == slotTypes.airLock:
-			airlockSlots[slot] = characterInSlot
+			airlockSlots[slot] = slot.characterInSlot
 
 		elif slot.slotType == slotTypes.engine:
-			engineSlots[slot] = characterInSlot
+			engineSlots[slot] = slot.characterInSlot
 
 		elif slot.slotType == slotTypes.aquarium:
-			aquariumSlots[slot] = characterInSlot
-		print(str(slot.slotType)))
+			aquariumSlots[slot] = slot.characterInSlot
+	print(str(slot.slotType))
 
 func updateSlots(slot, character):
-		allSlots[slot] = character
-		if slot.slotType == slotTypes.mainRoom:
-			mainRoomSlots[slot] = characterInSlot
-		elif slot.slotType == slotTypes.closet:
-			closetSlots[slot] = characterInSlot
+	allSlots[slot] = character
+	if slot.slotType == slotTypes.mainRoom:
+		print("This is a main room slot!")
+		mainRoomSlots[slot] = slot.characterInSlot
+	elif slot.slotType == slotTypes.closet:
+		closetSlots[slot] = slot.characterInSlot
 
-		elif slot.slotType == slotTypes.garden:
-			gardenSlots[slot] = characterInSlot
+	elif slot.slotType == slotTypes.garden:
+		gardenSlots[slot] = slot.characterInSlot
 
-		elif slot.slotType == slotTypes.airLock:
-			airlockSlots[slot] = characterInSlot
+	elif slot.slotType == slotTypes.airLock:
+		print("This is an airlock slot!")
+		airlockSlots[slot] = slot.characterInSlot
 
-		elif slot.slotType == slotTypes.engine:
-			engineSlots[slot] = characterInSlot
+	elif slot.slotType == slotTypes.engine:
+		engineSlots[slot] = slot.characterInSlot
 
-		elif slot.slotType == slotTypes.aquarium:
-			aquariumSlots[slot] = characterInSlot
-			
-		print(str(slot.slotType)))	for slot in allSlots.keys():
+	elif slot.slotType == slotTypes.aquarium:
+		aquariumSlots[slot] = slot.characterInSlot
+
+	print("Slot type + " + str(slot.slotType))#	for slot in allSlots.keys():
 		# if slot == whichSlot:
 		# 	allSlots[slot] = character
 		# if whichSlot.slotType == slotTypes.mainRoom:
@@ -159,12 +161,12 @@ func updateSlots(slot, character):
 		# elif whichSlot.slotType == slotTypes.underwater:
 		# 	pass
 
-	mainRoom,
-	closet,
-	garden,
-	airLock,
-	engine,
-	underwater
+	# mainRoom,
+	# closet,
+	# garden,
+	# airLock,
+	# engine,
+	# underwater
 
 
 func setDraggedCharacter(character):

@@ -25,10 +25,11 @@ signal someoneEnteredSlot(whichSlot, whichChar)
 
 signal someoneVacatedSlot(whichSlot)
 
-export(slotTypes) var slotType
+export(int, "mainRoom", "closet", "garden", "airlock", "engine", "aquarium") var slotType
+#export (slotSlotTypes) var slotType = slotSlotTypes.mainRoom
 
 var handInZone
-enum slotTypes{
+enum slotSlotTypes{
 	mainRoom,
 	closet,
 	garden,

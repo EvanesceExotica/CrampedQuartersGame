@@ -43,7 +43,7 @@ var attributeName
 var typeOfAttribute
 var attributeTypes =  [] #what type(s) of attribute this is
 
-var characterAttachedTo
+#var characterAttachedTo
 var description = ""
 var ConflictingAttributes =  [] #Other attributes that conflict with this one
 var PreRequisiteAttributes = [] #Attributes that cause this one
