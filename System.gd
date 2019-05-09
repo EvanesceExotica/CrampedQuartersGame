@@ -125,6 +125,7 @@ func populateSlots(slot):
 	print(str(slot.slotType))
 
 func updateSlots(slot, character):
+	print("Slot updated!" + str(slot) + str(character))
 	allSlots[slot] = character
 	if slot.slotType == slotTypes.mainRoom:
 		print("This is a main room slot!")

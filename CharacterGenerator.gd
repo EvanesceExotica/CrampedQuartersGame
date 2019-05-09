@@ -95,11 +95,12 @@ func chooseCharacterSlot(species):
 
 	var unoccupiedSlots = []
 	for slot in System.allSlots.keys():
+		#run through all the slots in the game
 		if System.allSlots[slot] == null:
 			#if the slot is unoccupied
 			unoccupiedSlots.append(slot)
-		#run through all the slots in the game
 	for slot in unoccupiedSlots:
+		#run through all the unoccupied slots in the game
 		if species.slotTypeComfortRanking[rankingIndex].has(slot.slotType):
 			foundSlot = true
 		else:
