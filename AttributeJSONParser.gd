@@ -4,6 +4,8 @@ var attributeData = {}
 var createdAttributes = { }
 func _ready():
   load_json()
+  var newAttribute = fetchAndCreateAttribute("OnFire")
+  print(newAttribute.attributeName)
 
 func load_json():
   var file = File.new()
@@ -23,8 +25,8 @@ func fetchAndCreateAttribute(attributeName):
   for stat in createdAttributes:
     #if this attribute has already been created once,
     # use the version already created
-    if stat.attributeName == attributeName
-    return stat
+    if stat.attributeName == attributeName:
+      return stat
 
   thisAttributeDictionary = attributeData[attributeName]
 	var attribute = System.attributeScript.new(attributeName)
@@ -51,8 +53,9 @@ func fetchAndCreateAttribute(attributeName):
 	attribute.modifiedAttributes = thisAttributeDictionary["modifiedAttributes"]
 	attribute.characterEventTypeChance = thisAttributeDictionary["characterEventTypeChance"]
 	attribute.externalCombinations = thisAttributeDictionary["externalCombinations"]
-  
+
   createdAttributes.append(attribute)
+
 
   return attribute
 #  for key in attributeData.keys():
