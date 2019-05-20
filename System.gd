@@ -125,10 +125,10 @@ func populateSlots(slot):
 	print(str(slot.slotType))
 
 func updateSlots(slot, character):
-	print("Slot updated!" + str(slot) + str(character))
+	# print("Slot updated!" + str(slot) + str(character))
 	allSlots[slot] = character
 	if slot.slotType == slotTypes.mainRoom:
-		print("This is a main room slot!")
+		# print("This is a main room slot!")
 		mainRoomSlots[slot] = slot.characterInSlot
 	elif slot.slotType == slotTypes.closet:
 		closetSlots[slot] = slot.characterInSlot
@@ -137,7 +137,7 @@ func updateSlots(slot, character):
 		gardenSlots[slot] = slot.characterInSlot
 
 	elif slot.slotType == slotTypes.airLock:
-		print("This is an airlock slot!")
+		# print("This is an airlock slot!")
 		airlockSlots[slot] = slot.characterInSlot
 
 	elif slot.slotType == slotTypes.engine:
@@ -146,7 +146,7 @@ func updateSlots(slot, character):
 	elif slot.slotType == slotTypes.aquarium:
 		aquariumSlots[slot] = slot.characterInSlot
 
-	print("Slot type + " + str(slot.slotType))#	for slot in allSlots.keys():
+	# print("Slot type + " + str(slot.slotType))#	for slot in allSlots.keys():
 		# if slot == whichSlot:
 		# 	allSlots[slot] = character
 		# if whichSlot.slotType == slotTypes.mainRoom:

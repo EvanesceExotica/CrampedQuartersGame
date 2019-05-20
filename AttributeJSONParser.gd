@@ -1,48 +1,50 @@
 extends Node2D
 
 var attributeData = {}
-var createdAttributes = { }
+var createdAttributes = [ ]
 func _ready():
-  load_json()
-  var newAttribute = fetchAndCreateAttribute("OnFire")
-  print(newAttribute.attributeName)
+	load_json()
+	var newAttribute = fetchAndCreateAttribute("OnFire")
+	# print("New attribute created " + str(newAttribute.attributeName) + " Description " + str(newAttribute.description))
+	# for item in newAttribute.ConflictingAttributes:
+	# 	print("New attribute conflicts " + item)
 
 func load_json():
-  var file = File.new()
-  assert file.file_exists("res://StatData/CharacterAttributes.json")
-  file.open("res://StatData/CharacterAttributes.json", file.READ)
-  #var attributeData = JSON.parse(file.get_as_text())
-  attributeData = parse_json(file.get_as_text())
-  #assert attributeData.size() > 0
-  print(attributeData)
-  for item in attributeData:
-    print(str(item))
-  return attributeData
+	var file = File.new()
+	assert file.file_exists("res://StatData/CharacterAttributes.json")
+	file.open("res://StatData/CharacterAttributes.json", file.READ)
+	#var attributeData = JSON.parse(file.get_as_text())
+	attributeData = parse_json(file.get_as_text())
+	#assert attributeData.size() > 0
+	print(attributeData)
+	# for item in attributeData:
+	# 	print(str(item))
+	return attributeData
 
 func fetchAndCreateAttribute(attributeName):
-  var thisAttributeDictionary  = {}
-  #dictionary for a single attribute
-  for stat in createdAttributes:
-    #if this attribute has already been created once,
-    # use the version already created
-    if stat.attributeName == attributeName:
-      return stat
+	var thisAttributeDictionary  = {}
+	#dictionary for a single attribute
+	for stat in createdAttributes:
+		#if this attribute has already been created once,
+		# use the version already created
+		if stat.attributeName == attributeName:
+			return stat
 
-  thisAttributeDictionary = attributeData[attributeName]
+	thisAttributeDictionary = attributeData[attributeName]
 	var attribute = System.attributeScript.new(attributeName)
-  #Add functions to fill variables
-  #for item in thisAttributeDictionary:
-  attribute.attributeName = thisAttributeDictionary["attributeName"]
-  attribute.entitiesCanApplyTo = thisAttributeDictionary["entitiesCanApplyTo"]
-  attribute.attributeTypes =  thisAttributeDictionary["attributeTypes"]
+	#Add functions to fill variables
+	#for item in thisAttributeDictionary:
+	attribute.attributeName = thisAttributeDictionary["attributeName"]
+	attribute.entitiesCanApplyTo = thisAttributeDictionary["entitiesCanApplyTo"]
+	attribute.attributeTypes =  thisAttributeDictionary["attributeTypes"]
 	attribute.description = thisAttributeDictionary["description"]
 	attribute.contagious = thisAttributeDictionary["contagious"]
 	attribute.contagionChance = thisAttributeDictionary["contagionChance"]
 	attribute.stackable = thisAttributeDictionary["stackable"]
-	attribute.ConflictingAttibutes = thisAttributeDictionary["ConflictingAttributes"]
+	attribute.ConflictingAttributes = thisAttributeDictionary["ConflictingAttributes"]
 	attribute.PreRequisiteAttributes = thisAttributeDictionary["PreRequisiteAttributes"]
 	attribute.ResultingAttributes = thisAttributeDictionary["ResultingAttributes"]
-	attribute.AffectedDynamicStatsCurrent = "AffectedDynamicStatsCurrent" : {},
+	attribute.AffectedDynamicStatsCurrent = thisAttributeDictionary["AffectedDynamicStatsCurrent"]
 	attribute.AffectedDynamicStatsMax = thisAttributeDictionary["AffectedDynamicStatsMax" ]
 	attribute.AffectedStaticStats = thisAttributeDictionary["AffectedStaticStats" ]
 	attribute.DrainingDynamicStats = thisAttributeDictionary["DrainingDynamicStats"]
@@ -54,12 +56,12 @@ func fetchAndCreateAttribute(attributeName):
 	attribute.characterEventTypeChance = thisAttributeDictionary["characterEventTypeChance"]
 	attribute.externalCombinations = thisAttributeDictionary["externalCombinations"]
 
-  createdAttributes.append(attribute)
+	createdAttributes.append(attribute)
 
 
-  return attribute
+	return attribute
 #  for key in attributeData.keys():
-    #for each attribute, go by name
+		#for each attribute, go by name
 #    if key == attributeName:
-      #if the attributeName equals a key in this dictionary
+			#if the attributeName equals a key in this dictionary
 #      thisAttributeDictionary = attributeData[attributeName]
