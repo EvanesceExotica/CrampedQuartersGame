@@ -9,6 +9,7 @@
 		"stackable": false,
 		"ConflictingAttributes" : {},
 		"PreRequisiteAttributes" : {},
+		"ResultingAttributes" : {}
 		"AffectedDynamicStatsCurrent" : {},
 		"AffectedDynamicStatsMax" : {},
 		"AffectedStaticStats" : { } ,
@@ -32,6 +33,7 @@
 		"stackable": false,
 		"ConflictingAttributes" : {"Underwater"},
 		"PreRequisiteAttributes" : {},
+		"ResultingAttributes" : ["Shaken"],
 		"AffectedDynamicStatsCurrent" : {},
 		"AffectedDynamicStatsMax" : {},
 		"AffectedStaticStats" : { } ,
