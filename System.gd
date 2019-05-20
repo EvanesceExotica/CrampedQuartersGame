@@ -1,5 +1,5 @@
 extends Node2D
-
+#test
 
 var selectedCharacter
 var attributeScript = preload("res://Attribute.gd")
