@@ -1,51 +1,47 @@
 {
-	"empty" :
-		{
-			"Conflicting Traits" : [],
-			"AffectedDynamicStatsCurrent" : { "currentHealth": -1, "currentSanity": -2},
-			"AffectedDynamicStatsMax": { },
-			"AffectedStaticStats": { },
+	"base" : {
+		"attributeName": "base",
+		"entitiesCanApplyTo" : [],
+		"attributeTypes" : [],
+		"description" : "",
+		"contagious" : false,
+		"contagionChance" : 0.0,
+		"stackable": false,
+		"ConflictingAttributes" : {},
+		"PreRequisiteAttributes" : {},
+		"AffectedDynamicStatsCurrent" : {},
+		"AffectedDynamicStatsMax" : {},
+		"AffectedStaticStats" : { } ,
+		"DrainingDynamicStats" : { } ,
+		"duration" : 10 ,
+		"statSignalsToWatchFor" : {},
+		"signalsThatWillRemoveAttribute" : {},
+		"canCombineWith" : {} ,
+		"modifiedAttributes" : {} ,
+		"characterEventTypeChance" : { },
+		"externalCombinations" : []
+	},
 
-			"ConditionImmunity": []
-			"AuraAffects": []
-
-		}
-
-	"Xenophobic" :
-		{
-		"Species" : false
-		"Description" : "Will have a negative relationship with anyone who doesn't share their "species" flag and will lose sanity and relationship faster"
-		"Conflicting Traits" : [],
-		"AffectedStatsCurrent" : {"currentHealth": 1, "currentSanity": 2},
-		"AffectedStatsMax": {"maxRelationship": 50 }
-
-		"ConditionImmunity": []
-		"AuraAffects": {"Species": {" maxHealth": }}
-
-		}
-
-
-"Troglodyte" : { }
-"Antisocial" : {"Conflicting Traits" : }
-	"Asocial" : {}
-"Paranoid" :
-		{
-			"Species" : false
-			"Description" : "Starts with low sanity and loses it more quickly"
-			"Conflicting Traits" : [],
-			"AffectedDynamicStatsCurrent" : { "currentHealth": -1, "currentSanity": -2},
-			"AffectedDynamicStatsMax": {"maxSanity" : 50},
-			"AffectedStaticStats": {"sanityLossRate" : 5 , "sanityGainRate" :  0.5},
-
-
-			"GoodRelationsWith": []
-			"ConditionImmunity": []
-}
-
-
-
-	"Strong" : {}
-	"Sadistic" :{}
-	"Agreeable" :{}
-	"Empathic" :{}
+"OnFire" : {
+		"attributeName": "OnFire",
+		"entitiesCanApplyTo" : ["character", "station",  "slot"],
+		"attributeTypes" : ["temporaryCondition", "removeableCondition"],
+		"description" : "ON FIRE YO",
+		"contagious" : true,
+		"contagionChance" : 0.0,
+		"stackable": false,
+		"ConflictingAttributes" : {"Underwater"},
+		"PreRequisiteAttributes" : {},
+		"AffectedDynamicStatsCurrent" : {},
+		"AffectedDynamicStatsMax" : {},
+		"AffectedStaticStats" : { } ,
+		"DrainingDynamicStats" : {"health" : 20} ,
+		"duration" : 20 ,
+		"statSignalsToWatchFor" : {},
+		"signalsThatWillRemoveAttribute" : {},
+		"canCombineWith" : {} ,
+		"modifiedAttributes" : {} ,
+		"characterEventTypeChance" : { },
+		"externalCombinations" : []
+	}
 }
