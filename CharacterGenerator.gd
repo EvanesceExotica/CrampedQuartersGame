@@ -15,28 +15,42 @@ var characterTemplate = preload("res://Character.tscn")
 #machine
 
 var allAttributes = []
+var attributesDictionary = {}
 var speciesAttributes
 var availableCharacterAttributes
 
-var maxNumberOfStartingAttributes = 5
+var maxNumberOfStartingAttributes = 3 #change this later
 #perhaps separate into attributes that can only apply to characters
 
 func separateOutAttributes():
-	for attribute in allAttributes:
-		for applicableEntity in attribute.entitiesCanApplyTo:
+	allAttributes = AttributeJSONParser.attributeData.keys()
+	attributesDictionary = AttributeJSONParser.attributeData
+	for attribute in attributesDictionary:
+		if attribute["entitiesCanApplyTo"].has("character") && attribute["attributeTypes"].has("inherentAttribute"):
+			availableCharacterAttributes.append(attribute)
 
-			if(applicableEntity == System.entitiesAppliedTo.character):
-				#if this attribute can apply to characters
-				#append it to the availableCharacterAttributes
-				availableCharacterAttributes.append(attribute)
-		for attributeType in attribute.attributeTypes:
-			#for the type of attribute this is
-			if attributeType == System.attributeType.inherentAttribute:
-				#make 'species' not an inherent attribute just to keep them separate for gen
-				#if the attributeType is an inherentOne (like a personality trait)
-				availableCharacterAttributes.append(attribute)
-			if attributeType == System.attributeType.species:
-				speciesAttributes.append(attribute)
+	# 	for applicableEntity in attribute["entitiesCanApplyTo"]:
+	# 		if(applicableEntity == System.entitiesAppliedTo.character):
+	# 			availableCharacterAttributes.append(attribute):
+	# 	for attributeType in attribute["attributeTypes"]:
+	# 		if attributeType == System.attributeType.inherentAttribute:
+	# 			availableCharacterAttributes.append(attribute)
+	#
+	# for attribute in allAttributes:
+	# 	for applicableEntity in attribute.entitiesCanApplyTo:
+	#
+	# 		if(applicableEntity == System.entitiesAppliedTo.character):
+	# 			#if this attribute can apply to characters
+	# 			#append it to the availableCharacterAttributes
+	# 			availableCharacterAttributes.append(attribute)
+	# 	for attributeType in attribute.attributeTypes:
+	# 		#for the type of attribute this is
+	# 		if attributeType == System.attributeType.inherentAttribute:
+	# 			#make 'species' not an inherent attribute just to keep them separate for gen
+	# 			#if the attributeType is an inherentOne (like a personality trait)
+	# 			availableCharacterAttributes.append(attribute)
+	# 		if attributeType == System.attributeType.species:
+	# 			speciesAttributes.append(attribute)
 
 
 
@@ -44,20 +58,24 @@ func generateNewCharacter():
 
 	#events the character goes through before being added to the ship can cause extra attribute
 	#such as "injured" or "diseased"
-	var characterInstance = characterTemplate.instance()
-	add_child(instance)
+
 
 	#randomize the number of starting attributes
 	var numberOfStartingAttributes = rand_range(3, maxNumberOfStartingAttributes+1)
 
-#generate a random species from the spcies list
-	var randomSpeciesNumber = rand_range(0, speciesAttributes.size())
-	var species = generateSpecies(randomSpeciesNumber)
+#TODO: PUT THIS BACK IN generate a random species from the spcies list
+# #TODO: Put this back in
+# 	var randomSpeciesNumber = rand_range(0, speciesAttributes.size())
+# 	var species = generateSpecies(randomSpeciesNumber)
+#
+# 	#
+# 	# #this deletes any attributes in the availableList that would conflict
+# 	# #with the chosen species -- robot, aquatic, etc.
+# 	# for conflictingAttibute in species.conflictingAttibutes:
+# 	# 	if availableCharacterAttributes.has(conflictingAttibute):
+# 	# 		availableCharacterAttributes.erase(conflictingAttibute)
 
-
-	#this deletes any attributes in the availableList that would conflict
-	#with the chosen species -- robot, aquatic, etc.
-	for conflictingAttibute in species.conflictingAttibutes:
+for conflictingAttibute in species.conflictingAttibutes:
 		if availableCharacterAttributes.has(conflictingAttibute):
 			availableCharacterAttributes.erase(conflictingAttibute)
 
@@ -65,7 +83,9 @@ func generateNewCharacter():
 		#generate new attributes from the cleaned list,
 		#up to the random generated number of starting attributes they can have
 		attributes.append(generateNewAttribute())
-	character
+	var characterInstance = characterTemplate.instance()
+	add_child(characterInstance)
+	var slot = chooseRandomSlot()
 
 func generateSpecies(randomNumber):
 	var species = speciesAttributes[randomNumber]
@@ -78,13 +98,17 @@ func generateNewAttribute():
 
 	#grab a random attribute using this index from the possible ones
 	var newAttribute = availableCharacterAttributes[randomInherentAttributeNumber]
-
 	for possibleConflict in newAttribute.conflictingAttibutes:
 		#remove attributes that conflict from the total list
 			if availableCharacterAttributes.has(possibleConflict)
 				availableCharacterAttributes.erase(possibleConflict)
 
 	return newAttribute
+
+func chooseRandomSlot():
+	#for testing until I get the species working
+	var randomNumber = rand_range(0, System.allSlots.size())
+	return System.allSlots[randomNumber]
 
 func chooseCharacterSlot(species):
 	#calculate species into this

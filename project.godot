@@ -46,6 +46,7 @@ config/icon="res://icon.png"
 
 System="*res://System.tscn"
 CharacterAttributes="*res://CharacterAttributes.gd"
+AttributeJSONParser="*res://AttributeJSONParser.gd"
 
 [debug]
 

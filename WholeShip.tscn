@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://MainRoom.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://ReactorRoom.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Bulkhead.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Hand.tscn" type="PackedScene" id=8]
+[ext_resource path="res://CharacterGenerator.tscn" type="PackedScene" id=9]
 
 [node name="WholeShip" type="Node2D" groups=[
 "Slots",
@@ -76,4 +77,6 @@ position = Vector2( 300, -10 )
 scale = Vector2( 0.52, 0.56 )
 
 [node name="Hand" parent="." instance=ExtResource( 8 )]
+
+[node name="CharacterGenerator" parent="." instance=ExtResource( 9 )]
 
