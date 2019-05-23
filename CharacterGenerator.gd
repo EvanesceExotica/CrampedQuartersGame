@@ -15,9 +15,10 @@ var characterTemplate = preload("res://Character.tscn")
 #machine
 
 var allAttributes = []
+var availableAttributeNames = []
 var attributesDictionary = {}
 var speciesAttributes
-var availableCharacterAttributes
+var availableCharacterAttributes = []
 
 var maxNumberOfStartingAttributes = 3 #change this later
 #perhaps separate into attributes that can only apply to characters
@@ -25,10 +26,13 @@ var maxNumberOfStartingAttributes = 3 #change this later
 func separateOutAttributes():
 	allAttributes = AttributeJSONParser.attributeData.keys()
 	attributesDictionary = AttributeJSONParser.attributeData
-	for attribute in attributesDictionary:
-		if attribute["entitiesCanApplyTo"].has("character") && attribute["attributeTypes"].has("inherentAttribute"):
-			availableCharacterAttributes.append(attribute)
-
+	for attribute in attributesDictionary.keys():
+		var tempDictionary = attributesDictionary[attribute]
+		print("Generating attributes " + tempDictionary["attributeName"])
+		if tempDictionary["entitiesCanApplyTo"].has("character") && tempDictionary["attributeTypes"].has("inherentAttribute"):
+			availableAttributeNames.append(attribute)
+			availableCharacterAttributes.append(tempDictionary)
+			print("Available attribute " + tempDictionary["attributeName"])
 	# 	for applicableEntity in attribute["entitiesCanApplyTo"]:
 	# 		if(applicableEntity == System.entitiesAppliedTo.character):
 	# 			availableCharacterAttributes.append(attribute):
@@ -53,6 +57,8 @@ func separateOutAttributes():
 	# 			speciesAttributes.append(attribute)
 
 
+func _ready():
+	separateOutAttributes()
 
 func generateNewCharacter():
 
@@ -61,8 +67,9 @@ func generateNewCharacter():
 
 
 	#randomize the number of starting attributes
-	var numberOfStartingAttributes = rand_range(3, maxNumberOfStartingAttributes+1)
-
+	#var numberOfStartingAttributes = rand_range(2, maxNumberOfStartingAttributes+1)
+	var numberOfStartingAttributes = range(2,maxNumberOfStartingAttributes + 1)[randi()%range(2,maxNumberOfStartingAttributes+1).size()]
+	var attributes = []
 #TODO: PUT THIS BACK IN generate a random species from the spcies list
 # #TODO: Put this back in
 # 	var randomSpeciesNumber = rand_range(0, speciesAttributes.size())
@@ -75,17 +82,22 @@ func generateNewCharacter():
 # 	# 	if availableCharacterAttributes.has(conflictingAttibute):
 # 	# 		availableCharacterAttributes.erase(conflictingAttibute)
 
-for conflictingAttibute in species.conflictingAttibutes:
-		if availableCharacterAttributes.has(conflictingAttibute):
-			availableCharacterAttributes.erase(conflictingAttibute)
+# for conflictingAttibute in species.conflictingAttibutes:
+# 		if availableCharacterAttributes.has(conflictingAttibute):
+# 			availableCharacterAttributes.erase(conflictingAttibute)
 
 	for i in range(numberOfStartingAttributes):
 		#generate new attributes from the cleaned list,
 		#up to the random generated number of starting attributes they can have
-		attributes.append(generateNewAttribute())
+		attributes.append(AttributeJSONParser.fetchAndCreateAttribute(generateNewAttribute()))
+		#attributes.append(generateNewAttribute())
+
 	var characterInstance = characterTemplate.instance()
 	add_child(characterInstance)
+	for item in attributes:
+		characterInstance.applyNewAttribute(item)
 	var slot = chooseRandomSlot()
+	slot.addCharacterToSlot(characterInstance)
 
 func generateSpecies(randomNumber):
 	var species = speciesAttributes[randomNumber]
@@ -94,16 +106,20 @@ func generateSpecies(randomNumber):
 func generateNewAttribute():
 
 	#generate a random number
-	var randomInherentAttributeNumber = rand_range(0, availableCharacterAttributes.size())
-
+	#var randomInherentAttributeNumber = #rand_range(0, availableCharacterAttributes.size())
+	var randomInherentAttributeNumber = range(0,availableCharacterAttributes.size())[randi()%range(0,availableCharacterAttributes.size()).size()]
 	#grab a random attribute using this index from the possible ones
 	var newAttribute = availableCharacterAttributes[randomInherentAttributeNumber]
-	for possibleConflict in newAttribute.conflictingAttibutes:
+	var newAttributeName = availableAttributeNames[randomInherentAttributeNumber]
+	for possibleConflict in newAttribute["ConflictingAttributes"]:
 		#remove attributes that conflict from the total list
-			if availableCharacterAttributes.has(possibleConflict)
-				availableCharacterAttributes.erase(possibleConflict)
+			if availableAttributeNames.has(possibleConflict):
+				#if this conflict exists, remove from both lists
+				var removeableIndex = availableAttributeNames.find(possibleConflict)
+				availableAttributeNames.remove(removeableIndex)
+				availableCharacterAttributes.remove(removeableIndex)
 
-	return newAttribute
+	return newAttributeName
 
 func chooseRandomSlot():
 	#for testing until I get the species working
@@ -143,6 +159,9 @@ func chooseCharacterSlot(species):
 		# 	if slot.occupied == false:
 		# 		slotToChoose = false
 
+func _on_Button_button_down():
+	print("Generating new character")
+	generateNewCharacter()
 
 func printWarning():
 	#This individual will be extremely uncomfortable in this slotType

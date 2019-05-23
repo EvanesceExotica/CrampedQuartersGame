@@ -16,7 +16,7 @@ func load_json():
 	#var attributeData = JSON.parse(file.get_as_text())
 	attributeData = parse_json(file.get_as_text())
 	#assert attributeData.size() > 0
-	print(attributeData)
+	#print(attributeData)
 	# for item in attributeData:
 	# 	print(str(item))
 	return attributeData

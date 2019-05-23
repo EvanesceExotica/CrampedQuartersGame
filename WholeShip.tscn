@@ -80,3 +80,11 @@ scale = Vector2( 0.52, 0.56 )
 
 [node name="CharacterGenerator" parent="." instance=ExtResource( 9 )]
 
+[node name="Button" type="Button" parent="CharacterGenerator"]
+margin_left = 480.0
+margin_top = 245.064
+margin_right = 647.0
+margin_bottom = 265.064
+text = "Generate New Character"
+
+[connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]
