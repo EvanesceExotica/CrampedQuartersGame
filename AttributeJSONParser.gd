@@ -2,7 +2,10 @@ extends Node2D
 
 var attributeData = {}
 var createdAttributes = [ ]
+
 func _ready():
+	var dynamicStringToEnum = {"health" : System.DynamicStats.health, "sustenance" : System.DynamicStats.sustenance, "sanity" : System.DynamicStats.sanity, "relationship" : System.DynamicStats.relationship, "damageDealt" : System.StaticStats.damageDealt, "spaceRequirement" : System.StaticStats.spaceRequirement}
+	var staticStringToEnum = {"damageDealt" : System.StaticStats.damageDealt, "spaceRequirement" : System.DynamicStats.spaceRequirement}
 	load_json()
 	var newAttribute = fetchAndCreateAttribute("OnFire")
 	# print("New attribute created " + str(newAttribute.attributeName) + " Description " + str(newAttribute.description))

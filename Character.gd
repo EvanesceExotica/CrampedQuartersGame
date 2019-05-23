@@ -26,7 +26,7 @@ var statMaxValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, Dyn
 var statPropertyNames = {DynamicStats.health: 'currentHealth', DynamicStats.sustenance: 'currentSustenance', DynamicStats.sanity: 'currentSanity', DynamicStats.relationship: 'currentRelationship'}
 var maxStatPropertyNames = {DynamicStats.health: 'maxHealth', DynamicStats.sustenance: 'maxSustenance', DynamicStats.sanity: 'maxSanity', DynamicStats.relationship: 'maxRelationship'}
 var staticStatValues = {StaticStats.damageDealt: 25, StaticStats.spaceRequirement : 1} #add station training? 'Profession' type attributes? 'Botanist -- good in garden?'
-
+var stringToEnum = {"health" : DynamicStats.health, "sustenance" : DynamicStats.sustenance, "sanity" : DynamicStats.sanity, "relationship" : DynamicStats.relationship, "damageDealt" : StaticStats.damageDealt, "spaceRequirement" : StaticStats.spaceRequirement}
 #TODO ADD SOMETHING IN ATTRIBUTES THAT AFFECTS DRAIN RATES
 signal MouseHover
 
@@ -90,7 +90,20 @@ signal healedOverMax(whichStat) #this one would apply to being overfed or being 
 
 onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
 onready var healthTween = healthBar.get_node("HealthTween")
-
+# func convertStringToEnum(stringName):
+# 		if(stringName == "health"):
+# 			return System.DynamicStats.health
+# 		if(stringName == "sanity")
+# 			return System.DynamicStats.sanity
+# 		if(stringName == "sustenance"):
+# 			return System.DynamicStats.sustenance
+# 		if(stringName == "relationship")
+# 			return System.DynamicStats.relationship
+# 		if(stringName == "damageDealt"):
+# 			return Staticstats.damageDealt
+# 		if(stringName == "")
+# 	pass
+#
 func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
@@ -120,7 +133,8 @@ func applyNewAttribute(newAttribute):
 	if(newTrait.AffectedStaticStats.size() > 0):
 		#for things that are affecting the static stats
 		for staticStat in newTrait.AffectedStaticStats.keys():
-			staticStatValues[staticStat] + newTrait.AffectedStaticStats[staticStat]
+			var enumStat = stringToEnum[staticStat]
+			staticStatValues[enumStat] + newTrait.AffectedStaticStats[staticStat]
 
 	if(newTrait.DrainingDynamicStats.size() > 0):
 		#how many points drained per second
