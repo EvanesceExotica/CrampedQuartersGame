@@ -66,7 +66,8 @@ func generateNewCharacter():
 	#events the character goes through before being added to the ship can cause extra attribute
 	#such as "injured" or "diseased"
 
-
+	var potentialCharacterAttributes = [] + availableCharacterAttributes
+	var potentialCharacterAttributeNames = [] + availableAttributeNames
 	#randomize the number of starting attributes
 	#var numberOfStartingAttributes = rand_range(2, maxNumberOfStartingAttributes+1)
 	var numberOfStartingAttributes = range(2,maxNumberOfStartingAttributes + 1)[randi()%range(2,maxNumberOfStartingAttributes+1).size()]
@@ -90,11 +91,12 @@ func generateNewCharacter():
 	for i in range(numberOfStartingAttributes):
 		#generate new attributes from the cleaned list,
 		#up to the random generated number of starting attributes they can have
-		attributes.append(AttributeJSONParser.fetchAndCreateAttribute(generateNewAttribute()))
+		attributes.append(AttributeJSONParser.fetchAndCreateAttribute(generateNewAttribute(potentialCharacterAttributes, potentialCharacterAttributeNames)))
 		#attributes.append(generateNewAttribute())
 
 	var characterInstance = characterTemplate.instance()
 	add_child(characterInstance)
+
 	for item in attributes:
 		characterInstance.applyNewAttribute(item)
 	var slot = chooseRandomSlot()
@@ -104,7 +106,7 @@ func generateSpecies(randomNumber):
 	var species = speciesAttributes[randomNumber]
 	return species
 
-func generateNewAttribute():
+func generateNewAttribute(generalList, nameList):
 
 	#generate a random number
 	#var randomInherentAttributeNumber = #rand_range(0, availableCharacterAttributes.size())
@@ -119,7 +121,9 @@ func generateNewAttribute():
 				var removeableIndex = availableAttributeNames.find(possibleConflict)
 				availableAttributeNames.remove(removeableIndex)
 				availableCharacterAttributes.remove(removeableIndex)
-
+	#removing from the list so no duplicates
+	availableCharacterAttributes.erase(newAttributeName)
+	availableCharacterAttributes.erase(newAttribute)
 	return newAttributeName
 
 func chooseRandomSlot():
