@@ -3,6 +3,15 @@ extends Node2D
 
 var selectedCharacter
 var attributeScript = preload("res://Attribute.gd")
+
+# DynamicStats = { "health" : 0, "sustenance" : 1, "sanity" : 2, "relationship" : 3}
+#
+# attributeType = {"temporaryCondition" : 0, "auraCondition" : 1, "removeableCondition" : 2, "inherentAttribute" : 3}
+#
+# StaticStats = {"damageDealt" : 0, "spaceRequirement" : 1}
+#
+# entitiesAppliedTo {"character" : 0, "station": 1, "slot": 2}
+#
 enum attributeType{
 	temporaryCondition,
 	auraCondition,

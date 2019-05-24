@@ -59,6 +59,7 @@ func separateOutAttributes():
 
 func _ready():
 	separateOutAttributes()
+	randomize()
 
 func generateNewCharacter():
 
@@ -123,8 +124,10 @@ func generateNewAttribute():
 
 func chooseRandomSlot():
 	#for testing until I get the species working
-	var randomNumber = rand_range(0, System.allSlots.size())
-	return System.allSlots[randomNumber]
+	var randomNumber = range(0,System.allSlots.size())[randi()%range(0,System.allSlots.size()).size()]
+	var randomKey = System.allSlots.keys()[randomNumber]
+
+	return randomKey #System.allSlots[randomNumber]
 
 func chooseCharacterSlot(species):
 	#calculate species into this

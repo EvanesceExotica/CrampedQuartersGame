@@ -133,8 +133,8 @@ func applyNewAttribute(newAttribute):
 	if(newTrait.AffectedStaticStats.size() > 0):
 		#for things that are affecting the static stats
 		for staticStat in newTrait.AffectedStaticStats.keys():
-			var enumStat = stringToEnum[staticStat]
-			staticStatValues[enumStat] + newTrait.AffectedStaticStats[staticStat]
+			#var enumStat = stringToEnum[staticStat]
+			staticStatValues[staticStat] + newTrait.AffectedStaticStats[staticStat]
 
 	if(newTrait.DrainingDynamicStats.size() > 0):
 		#how many points drained per second
