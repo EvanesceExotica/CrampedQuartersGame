@@ -110,20 +110,23 @@ func generateNewAttribute(generalList, nameList):
 
 	#generate a random number
 	#var randomInherentAttributeNumber = #rand_range(0, availableCharacterAttributes.size())
-	var randomInherentAttributeNumber = range(0,availableCharacterAttributes.size())[randi()%range(0,availableCharacterAttributes.size()).size()]
+	var randomInherentAttributeNumber = range(0,generalList.size())[randi()%range(0,generalList.size()).size()]
 	#grab a random attribute using this index from the possible ones
-	var newAttribute = availableCharacterAttributes[randomInherentAttributeNumber]
-	var newAttributeName = availableAttributeNames[randomInherentAttributeNumber]
+	var newAttribute = generalList[randomInherentAttributeNumber]
+	var newAttributeName = nameList[randomInherentAttributeNumber]
 	for possibleConflict in newAttribute["ConflictingAttributes"]:
 		#remove attributes that conflict from the total list
-			if availableAttributeNames.has(possibleConflict):
+			if nameList.has(possibleConflict):
 				#if this conflict exists, remove from both lists
-				var removeableIndex = availableAttributeNames.find(possibleConflict)
-				availableAttributeNames.remove(removeableIndex)
-				availableCharacterAttributes.remove(removeableIndex)
-	#removing from the list so no duplicates
-	availableCharacterAttributes.erase(newAttributeName)
-	availableCharacterAttributes.erase(newAttribute)
+				#"Find" finds the index of the conflict
+				var removeableIndex = nameList.find(possibleConflict)
+				#remove removes the object at a specific index
+				nameList.remove(removeableIndex)
+				generalList.remove(removeableIndex)
+
+	#removing from the list so no duplicates -- erase just erases a specific object in list
+	nameList.erase(newAttributeName)
+	generalList.erase(newAttribute)
 	return newAttributeName
 
 func chooseRandomSlot():

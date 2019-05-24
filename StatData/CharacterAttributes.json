@@ -103,7 +103,7 @@
 		"PreRequisiteAttributes" : {},
 		"ResultingAttributes" : {},
 		"AffectedDynamicStatsCurrent" : {},
-		"AffectedDynamicStatsMax" : {"health" : -50},
+		"AffectedDynamicStatsMax" : {"health" : 0.5},
 		"AffectedStaticStats" : { } ,
 		"DrainingDynamicStats" : { } ,
 		"duration" : 10 ,
