@@ -9,33 +9,33 @@ var specialWords = {}
 
 func colorWords(string):
 	for substring in specialWords.keys():
-		if string.find(substring):
+		if string.findn(substring):
 			#if you find the substring in this, replace all occurances with value in special colorWords
 			#which should be markup version of substring
 			string.replace(substring, specialWords[substring])
 	pass
 
 func setTooltipText(string):
-	text.Text = string
+	text.Text = colorWords(string)
 
-func showToolTip(isVisisble, tooltipValues):
-   if(isVisisble):
-       scene.set_pos(Vector2(0, 0)) #position
-       # Do stuff like...
-       # ...changing the labels on the tooltip scene
-       scene.set_hidden(false)
-   else:
-       scene.set_hidden(true)
+# func showToolTip(isVisisble, tooltipValues):
+#    if(isVisisble):
+#        scene.set_pos(Vector2(0, 0)) #position
+#        # Do stuff like...
+#        # ...changing the labels on the tooltip scene
+#        scene.set_hidden(false)
+#    else:
+#        scene.set_hidden(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	specialWorlds = {
-		"health" : "[color=#E6285D]health[/color]",
-		"sustenance" : "[color=#936BB9]sustenance[/color]",
-		"sanity" : "[color=#56A2DD]sanity[/color]",
-		"relationship" : "[color=#1DE0D2]relationship[/color]",
-		"maximum" : "[b]maximum[/b]",
-		"current" : "[i]current[/i]"
+	specialWords = {
+		"health" : "[color=#E6285D]Health[/color]",
+		"sustenance" : "[color=#936BB9]Sustenance[/color]",
+		"sanity" : "[color=#56A2DD]Sanity[/color]",
+		"relationship" : "[color=#1DE0D2]Relationship[/color]",
+		"maximum" : "[b]Maximum[/b]",
+		"current" : "[i]Current[/i]"
 
 	}
 	pass # Replace with function body.

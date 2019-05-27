@@ -1,5 +1,9 @@
 extends Control
 
+var attributeArray = []
+var attributeDescriptorTemplate =  preload("res://AttributeDescriptor.tscn")
+
+onready var attributeHolder = get_node("AttributeHolder")
 
 onready var character = get_parent()
 onready var healthBar = get_node("Panel/HealthBar")
@@ -31,11 +35,22 @@ var statTweens
 var statAnimationPlayers
 
 func _ready():
+	character.connect("newAttributeAdded", self, "addAttributeToPanel")
 	character.connect("statAtZero", self, "EatCheese")
 	statBars = {System.DynamicStats.health: healthBar, System.DynamicStats.sustenance: sustenanceBar, System.DynamicStats.sanity: sanityBar, System.DynamicStats.relationship: relationshipBar}
 	statTweens = {System.DynamicStats.health: healthTween, System.DynamicStats.sustenance: sustenanceTween, System.DynamicStats.sanity: sanityTween, System.DynamicStats.relationship: relationshipTween}
 	statAnimationPlayers = {System.DynamicStats.health: healthAnimationPlayer, System.DynamicStats.sustenance: sustenanceAnimationPlayer, System.DynamicStats.sanity: sanityAnimationPlayer, System.DynamicStats.relationship: relationshipAnimationPlayer}
 
+func addAttributeToPanel(attribute):
+	attributeArray.append(attribute)
+	var attributeDescriptorInstance = attributeDescriptorTemplate.instance()
+	attributeDescriptorInstance.set_name(attribute.attributeName)
+	attributeHolder.add_child(attributeDescriptorInstance)
+	#TODO: DO THE EQUIVALENT FOR REMOVAL BELOW
+	pass
+
+func removeAttributeFromPanel(attribute):
+	attributeArray.erase(attribute)
 
 func hideDisplay():
 	$Tween.stop_all()

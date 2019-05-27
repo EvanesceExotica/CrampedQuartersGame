@@ -143,6 +143,7 @@ func applyNewAttribute(newAttribute):
 			addNewDrainSource(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
 
 	characterAttributes.append(newAttribute)
+	emit_signal("newAttributeAdded", newAttribute)
 	if(newAttribute.typeOfAttribute == System.attributeType.temporaryCondition):
 		print("It's a temporary condition")
 
@@ -151,6 +152,8 @@ func applyNewAttribute(newAttribute):
 		for signals in newAttribute.statSignalsToWatchFor.keys():
 				pass
 		removeAttribute(newAttribute)
+
+signal newAttributeAdded(attribute)
 
 func applyNewAttributes(newAttributes):
 	for newTrait in newAttributes:

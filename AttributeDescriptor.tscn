@@ -28,3 +28,5 @@ margin_right = 110.0
 margin_bottom = 40.0
 text = "This attribute does things."
 
+[connection signal="mouse_entered" from="Label" to="." method="_on_Label_mouse_entered"]
+[connection signal="mouse_exited" from="Label" to="." method="_on_Label_mouse_exited"]
