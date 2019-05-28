@@ -246,6 +246,8 @@ margin_top = 366.0
 margin_right = 345.556
 margin_bottom = 406.0
 
+[connection signal="mouse_entered" from="Panel" to="." method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="Panel" to="." method="_on_Panel_mouse_exited"]
 [connection signal="tween_completed" from="Panel/HealthBar/HealthTween" to="." method="_on_HealthTween_tween_completed"]
 [connection signal="tween_completed" from="Panel/SustenanceBar/SustenanceTween" to="." method="_on_SustenanceTween_tween_completed"]
 [connection signal="tween_completed" from="Panel/SanityBar/SanityTween" to="." method="_on_SanityTween_tween_completed"]

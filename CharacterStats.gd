@@ -46,6 +46,7 @@ func addAttributeToPanel(attribute):
 	var attributeDescriptorInstance = attributeDescriptorTemplate.instance()
 	attributeDescriptorInstance.set_name(attribute.attributeName)
 	attributeHolder.add_child(attributeDescriptorInstance)
+	attributeDescriptorInstance.setAttribute(attribute)
 	#TODO: DO THE EQUIVALENT FOR REMOVAL BELOW
 	pass
 
@@ -158,3 +159,11 @@ func _on_RelationshipTween_tween_completed(object, key):
 	if(character.statDrainState[stat] == true):
 		character.restartInterruptedDrain(stat)
 		#animateBar(relationshipTween, relationshipBar, startRelationship, 0, character.calculateDrainRate(character.valueDrainRates[stat]))
+
+
+func _on_Panel_mouse_entered():
+	pass # Replace with function body.
+
+
+func _on_Panel_mouse_exited():
+	pass # Replace with function body.

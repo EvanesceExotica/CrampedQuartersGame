@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://MainRoom.gd" type="Script" id=1]
 [ext_resource path="res://sci_fi_bg1.jpg" type="Texture" id=2]
@@ -9,10 +9,9 @@
 [ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://furniture_loveseat_spaceship_love_seat.png" type="Texture" id=8]
 [ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=9]
-[ext_resource path="res://Character.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Slot.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Slot.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -28,6 +27,7 @@ scale = Vector2( 0.546471, 0.552421 )
 texture = ExtResource( 2 )
 
 [node name="Lamp" type="Light2D" parent="."]
+editor/display_folded = true
 position = Vector2( 125.475, 140 )
 texture = ExtResource( 3 )
 
@@ -38,6 +38,7 @@ scale = Vector2( 0.596874, 0.596874 )
 texture = ExtResource( 4 )
 
 [node name="Lamp2" type="Light2D" parent="."]
+editor/display_folded = true
 position = Vector2( 890.812, 153.003 )
 texture = ExtResource( 3 )
 
@@ -48,6 +49,7 @@ scale = Vector2( 0.596874, 0.596874 )
 texture = ExtResource( 4 )
 
 [node name="Clock" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 354.92, 174.117 )
 scale = Vector2( 0.371125, 0.371125 )
 script = ExtResource( 5 )
@@ -82,32 +84,29 @@ position = Vector2( 904.304, 493.132 )
 scale = Vector2( -0.302, 0.302 )
 texture = ExtResource( 9 )
 
-[node name="Character" parent="." instance=ExtResource( 10 )]
-position = Vector2( 178.569, 350.013 )
-
-[node name="Slot" parent="." instance=ExtResource( 11 )]
+[node name="Slot" parent="." instance=ExtResource( 10 )]
 position = Vector2( 941.001, 454.693 )
 
-[node name="Slot2" parent="." instance=ExtResource( 11 )]
+[node name="Slot2" parent="." instance=ExtResource( 10 )]
 position = Vector2( 622.955, 476.916 )
 
-[node name="Slot6" parent="." instance=ExtResource( 11 )]
+[node name="Slot6" parent="." instance=ExtResource( 10 )]
 position = Vector2( 772.74, 402.023 )
 
-[node name="Slot3" parent="." instance=ExtResource( 11 )]
+[node name="Slot3" parent="." instance=ExtResource( 10 )]
 position = Vector2( 463.288, 479.248 )
 
-[node name="Slot4" parent="." instance=ExtResource( 11 )]
+[node name="Slot4" parent="." instance=ExtResource( 10 )]
 position = Vector2( 125.475, 439.654 )
 
-[node name="Slot5" parent="." instance=ExtResource( 11 )]
+[node name="Slot5" parent="." instance=ExtResource( 10 )]
 position = Vector2( 308.408, 408.96 )
 
-[node name="HealthDispenser" parent="." instance=ExtResource( 12 )]
+[node name="HealthDispenser" parent="." instance=ExtResource( 11 )]
 position = Vector2( 810, 110 )
 scale = Vector2( 0.439999, 0.44 )
 
-[node name="Dispenser" parent="." instance=ExtResource( 13 )]
+[node name="Dispenser" parent="." instance=ExtResource( 12 )]
 position = Vector2( 550, 101.695 )
 scale = Vector2( 0.48, 0.52 )
 

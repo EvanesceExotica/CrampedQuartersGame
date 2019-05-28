@@ -2,6 +2,12 @@ extends Control
 
 ### GUI ELEMENT###
 onready var tooltipNode = get_node("Tooltip")
+onready var attributeText = get_node("Label")
+
+func setAttribute(attribute):
+  attributeText.text = attribute.attributeName
+  tooltipNode.setTooltipText(attribute.description)
+
 func _ready():
   pass
    # self.connect("mouse_enter", self, "_mouse_enter")
@@ -9,10 +15,12 @@ func _ready():
 
 func _on_Label_mouse_entered():
   tooltipNode.visible = true
+  print("Tooltip visible")
   #tooltipNode.isVisisble(true)
 
 func _on_Label_mouse_exited():
   tooltipNode.visible = false
+  print("Tooltip not visible")
   #tooltipNode.isVisisble(false)
 
 # func _mouse_enter():

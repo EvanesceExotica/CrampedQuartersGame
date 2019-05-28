@@ -2,21 +2,23 @@ extends Panel
 
 # Declare member variables here. Examples:
 
-onready var text = get_node("TooltipText")
+onready var tooltipText = get_node("TooltipText")
 # var a = 2
 # var b = "text"
 var specialWords = {}
 
 func colorWords(string):
+	var newString = string
 	for substring in specialWords.keys():
-		if string.findn(substring):
+		if newString.findn(substring):
 			#if you find the substring in this, replace all occurances with value in special colorWords
 			#which should be markup version of substring
-			string.replace(substring, specialWords[substring])
+			newString.replace(substring, specialWords[substring])
+	return newString	
 	pass
 
 func setTooltipText(string):
-	text.Text = colorWords(string)
+	tooltipText.text = colorWords(string)
 
 # func showToolTip(isVisisble, tooltipValues):
 #    if(isVisisble):
