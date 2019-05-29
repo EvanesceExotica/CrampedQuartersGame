@@ -609,6 +609,7 @@ func _on_Character_area_entered(area):
 func _on_Character_area_exited(area):
 	if(area.name == "Hand"):
 		handInZone = false
+		#print("Hovering panel" + characterStats.hoveringOverPanel)
 		if(!characterStats.hoveringOverPanel):
 			#if the mouse isn't on the player anymore, and also isn't
 			#hovering over the panel, hide the display

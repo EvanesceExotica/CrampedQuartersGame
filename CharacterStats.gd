@@ -2,7 +2,7 @@ extends Control
 
 var attributeArray = []
 var attributeDescriptorTemplate =  preload("res://AttributeDescriptor.tscn")
-
+var hoveringOverPanel = false
 onready var attributeHolder = get_node("AttributeHolder")
 
 onready var character = get_parent()
@@ -30,22 +30,48 @@ onready var sanityTween = sanityBar.get_node("SanityTween")
 onready var sanityAnimationPlayer = sanityBar.get_node("AnimationPlayer");
 var sanityIsDraining = false
 
+var statUIChildren = []
 var statBars
 var statTweens
 var statAnimationPlayers
 
 func _ready():
+	statUIChildren = self.get_children()
+
+	self.connect("mouse_enter", self, "mouseOverPanel")
+	for child in statUIChildren:
+		child.connect("mouse_enter", self, "mouseOverPanel")
+		child.connect("mouse_exit", self, "mouseNotOverPanel")
+	hoveringOverPanel = false
 	character.connect("newAttributeAdded", self, "addAttributeToPanel")
 	character.connect("statAtZero", self, "EatCheese")
 	statBars = {System.DynamicStats.health: healthBar, System.DynamicStats.sustenance: sustenanceBar, System.DynamicStats.sanity: sanityBar, System.DynamicStats.relationship: relationshipBar}
 	statTweens = {System.DynamicStats.health: healthTween, System.DynamicStats.sustenance: sustenanceTween, System.DynamicStats.sanity: sanityTween, System.DynamicStats.relationship: relationshipTween}
 	statAnimationPlayers = {System.DynamicStats.health: healthAnimationPlayer, System.DynamicStats.sustenance: sustenanceAnimationPlayer, System.DynamicStats.sanity: sanityAnimationPlayer, System.DynamicStats.relationship: relationshipAnimationPlayer}
 
+func mouseOverPanel():
+	print("Mouse over panel!")
+	hoveringOverPanel = true
+func mouseNotOverPanel():
+	print("Mouse NOT ovr panel")
+	hoveringOverPanel = false
+	if(!character.handInZone):
+		hideDisplay()
+
 func addAttributeToPanel(attribute):
+	#add to attribute array to keep track
 	attributeArray.append(attribute)
+
+	#instance the template, set name, add to holder which should align it
 	var attributeDescriptorInstance = attributeDescriptorTemplate.instance()
 	attributeDescriptorInstance.set_name(attribute.attributeName)
 	attributeHolder.add_child(attributeDescriptorInstance)
+
+	#add to the list of children of the panel
+	statUIChildren.append(attributeDescriptorInstance)
+
+	#attach the UI signals for hovering mouse over elements
+	attributeDescriptorInstance.connect("mouse_enter", self, "mouseOverPanel")
 	attributeDescriptorInstance.setAttribute(attribute)
 	#TODO: DO THE EQUIVALENT FOR REMOVAL BELOW
 	pass
@@ -76,6 +102,17 @@ var isSustenanceTweenRunning = false
 var isSanityTweenRunning = false
 var isRelationshipTweenRunning = false
 
+# func _on_Panel_mouse_entered():
+# 	hoveringOverPanel = true
+# 	pass
+#
+# func _on_Panel_mouse_exited():
+# 	hoveringOverPanel = false
+# 	if(!character.handInZone):
+# 		#if the mouse isn't in the panel any longer, but also not on the player
+# 		#hide the display
+# 		hideDisplay()
+# 	pass
 
 func stopAnimatingBar(certainTween):
 	#you can use STOP ALL here, as these tweens should only be animating a specific thing, the 'value' of the bar
@@ -159,11 +196,3 @@ func _on_RelationshipTween_tween_completed(object, key):
 	if(character.statDrainState[stat] == true):
 		character.restartInterruptedDrain(stat)
 		#animateBar(relationshipTween, relationshipBar, startRelationship, 0, character.calculateDrainRate(character.valueDrainRates[stat]))
-
-
-func _on_Panel_mouse_entered():
-	pass # Replace with function body.
-
-
-func _on_Panel_mouse_exited():
-	pass # Replace with function body.

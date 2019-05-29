@@ -1,22 +1,23 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://CharacterStats.gd" type="Script" id=1]
 [ext_resource path="res://Panel.png" type="Texture" id=2]
-[ext_resource path="res://background.png" type="Texture" id=3]
-[ext_resource path="res://HealthBar.png" type="Texture" id=4]
-[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://HealthBarFlash.anim" type="Animation" id=6]
-[ext_resource path="res://Sustenance.png" type="Texture" id=7]
-[ext_resource path="res://SustenanceBarFlash.anim" type="Animation" id=8]
-[ext_resource path="res://Sanity.png" type="Texture" id=9]
-[ext_resource path="res://SanityBarFlash.anim" type="Animation" id=10]
-[ext_resource path="res://Relationship_2.png" type="Texture" id=11]
-[ext_resource path="res://MidBarTick.png" type="Texture" id=12]
-[ext_resource path="res://RelationshipBarFlash.anim" type="Animation" id=13]
-[ext_resource path="res://hearts.png" type="Texture" id=14]
-[ext_resource path="res://meal.png" type="Texture" id=15]
-[ext_resource path="res://brain.png" type="Texture" id=16]
-[ext_resource path="res://three-friends.png" type="Texture" id=17]
+[ext_resource path="res://StatPanel.gd" type="Script" id=3]
+[ext_resource path="res://background.png" type="Texture" id=4]
+[ext_resource path="res://HealthBar.png" type="Texture" id=5]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://HealthBarFlash.anim" type="Animation" id=7]
+[ext_resource path="res://Sustenance.png" type="Texture" id=8]
+[ext_resource path="res://SustenanceBarFlash.anim" type="Animation" id=9]
+[ext_resource path="res://Sanity.png" type="Texture" id=10]
+[ext_resource path="res://SanityBarFlash.anim" type="Animation" id=11]
+[ext_resource path="res://Relationship_2.png" type="Texture" id=12]
+[ext_resource path="res://MidBarTick.png" type="Texture" id=13]
+[ext_resource path="res://RelationshipBarFlash.anim" type="Animation" id=14]
+[ext_resource path="res://hearts.png" type="Texture" id=15]
+[ext_resource path="res://meal.png" type="Texture" id=16]
+[ext_resource path="res://brain.png" type="Texture" id=17]
+[ext_resource path="res://three-friends.png" type="Texture" id=18]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -26,7 +27,7 @@ region_rect = Rect2( 0, 0, 794, 461 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 30
-font_data = ExtResource( 5 )
+font_data = ExtResource( 6 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "SustenanceBarFlash"
@@ -61,7 +62,7 @@ tracks/1/keys = {
 resource_name = "test"
 
 [sub_resource type="DynamicFont" id=6]
-font_data = ExtResource( 5 )
+font_data = ExtResource( 6 )
 
 [node name="CharacterStats" type="Control"]
 anchor_right = 1.0
@@ -75,18 +76,19 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="."]
 margin_right = 770.0
 margin_bottom = 450.0
+focus_mode = 2
 custom_styles/panelf = SubResource( 1 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="HealthBar" type="TextureProgress" parent="Panel"]
-editor/display_folded = true
 margin_left = 114.684
 margin_top = 42.739
 margin_right = 707.684
 margin_bottom = 97.7391
 value = 100.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 4 )
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
 
 [node name="HealthTween" type="Tween" parent="Panel/HealthBar"]
 
@@ -100,7 +102,7 @@ text = "test"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/HealthBar"]
 anims/Flash = SubResource( 4 )
-anims/HealthBarFlash = ExtResource( 6 )
+anims/HealthBarFlash = ExtResource( 7 )
 anims/test = SubResource( 5 )
 
 [node name="SustenanceBar" type="TextureProgress" parent="Panel"]
@@ -110,13 +112,13 @@ margin_top = 122.0
 margin_right = 704.111
 margin_bottom = 178.0
 value = 100.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 7 )
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 8 )
 
 [node name="SustenanceTween" type="Tween" parent="Panel/SustenanceBar"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/SustenanceBar"]
-anims/SustenanceBarFlash = ExtResource( 8 )
+anims/SustenanceBarFlash = ExtResource( 9 )
 
 [node name="SustenanceLabel" type="Label" parent="Panel/SustenanceBar"]
 margin_left = 596.573
@@ -133,14 +135,14 @@ margin_top = 202.739
 margin_right = 707.684
 margin_bottom = 257.739
 value = 100.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 9 )
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 10 )
 
 [node name="SanityTween" type="Tween" parent="Panel/SanityBar"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/SanityBar"]
 anims/Flash = SubResource( 4 )
-anims/SanityBarFlash = ExtResource( 10 )
+anims/SanityBarFlash = ExtResource( 11 )
 
 [node name="SanityLabel" type="Label" parent="Panel/SanityBar"]
 margin_left = 595.0
@@ -157,20 +159,20 @@ margin_top = 282.739
 margin_right = 707.684
 margin_bottom = 337.739
 value = 50.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 11 )
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 12 )
 
 [node name="Tick" type="TextureRect" parent="Panel/RelationshipBar"]
 margin_left = -3.04889
 margin_top = -5.60706
 margin_right = 589.951
 margin_bottom = 58.3929
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="RelationshipTween" type="Tween" parent="Panel/RelationshipBar"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/RelationshipBar"]
-anims/RelationshipBarFlash = ExtResource( 13 )
+anims/RelationshipBarFlash = ExtResource( 14 )
 
 [node name="RelationshipLabel" type="Label" parent="Panel/RelationshipBar"]
 margin_left = 595.0
@@ -185,7 +187,7 @@ margin_left = 30.0
 margin_top = 40.0
 margin_right = 90.0
 margin_bottom = 100.0
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 expand = true
 
 [node name="SustenanceIcon" type="TextureRect" parent="Panel"]
@@ -193,7 +195,7 @@ margin_left = 30.0
 margin_top = 120.0
 margin_right = 90.0
 margin_bottom = 180.0
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 expand = true
 
 [node name="SanityIcon" type="TextureRect" parent="Panel"]
@@ -201,7 +203,7 @@ margin_left = 30.0
 margin_top = 200.0
 margin_right = 90.0
 margin_bottom = 260.0
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 expand = true
 
 [node name="RelationshipIcon" type="TextureRect" parent="Panel"]
@@ -209,7 +211,7 @@ margin_left = 30.0
 margin_top = 280.0
 margin_right = 90.0
 margin_bottom = 340.0
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 expand = true
 
 [node name="NameLabel" type="Label" parent="Panel"]
