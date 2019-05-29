@@ -15,12 +15,10 @@ func _ready():
 
 func _on_Label_mouse_entered():
   tooltipNode.visible = true
-  print("Tooltip visible")
   #tooltipNode.isVisisble(true)
 
 func _on_Label_mouse_exited():
   tooltipNode.visible = false
-  print("Tooltip not visible")
   #tooltipNode.isVisisble(false)
 
 # func _mouse_enter():

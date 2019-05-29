@@ -3,6 +3,7 @@ extends Node2D
 
 var handInZone = false
 
+var viewingCharacterDetail = false
 var dragging = true
 
 signal draggingCharacter(character)
@@ -610,12 +611,32 @@ func _on_Character_area_exited(area):
 	if(area.name == "Hand"):
 		handInZone = false
 		#print("Hovering panel" + characterStats.hoveringOverPanel)
-		if(!characterStats.hoveringOverPanel):
+		if(!viewingCharacterDetail):
 			#if the mouse isn't on the player anymore, and also isn't
 			#hovering over the panel, hide the display
 			characterStats.hideDisplay()
 	pass # Replace with function body.
 
+func _input(event):
+	if(event.is_action_pressed("ui_interact")):
+		if(handInZone && !viewingCharacterDetail):
+			#if we're hovering over the character, but not viewing them in detail
+			viewingCharacterDetail = true
+			characterStats.scanLabel.text = ""
+			characterStats.scanLabel.add_text("DETAILED SCAN")
+			characterStats.scanLabel.pop()
+
+		elif(viewingCharacterDetail && !handInZone):
+			#if we're NOT hovering over the character and viewing them in detail
+			characterStats.scanlabel.add_text("hover overview")
+			characterStats.scanlabel.pop()
+			viewingCharacterDetail = false
+			characterStats.hideDisplay()
+
+		elif(viewingCharacterDetail && handInZone):
+			characterStats.scanLabel.add_text("hover overview")
+			characterStats.scanLabel.pop()
+			viewingCharacterDetail = false
 
 func _on_Button_pressed():
 	#var attribute = Attribute.new("OnFire")

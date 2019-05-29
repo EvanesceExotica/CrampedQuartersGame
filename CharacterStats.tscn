@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://CharacterStats.gd" type="Script" id=1]
 [ext_resource path="res://Panel.png" type="Texture" id=2]
@@ -64,10 +64,18 @@ resource_name = "test"
 [sub_resource type="DynamicFont" id=6]
 font_data = ExtResource( 6 )
 
+[sub_resource type="DynamicFont" id=9]
+size = 30
+font_data = ExtResource( 6 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 388.889, 235.294 )
+
 [node name="CharacterStats" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_scale = Vector2( 0.72, 0.68 )
+mouse_filter = 1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [ 82.5721 ]
@@ -77,6 +85,7 @@ __meta__ = {
 margin_right = 770.0
 margin_bottom = 450.0
 focus_mode = 2
+mouse_filter = 1
 custom_styles/panelf = SubResource( 1 )
 custom_styles/panel = SubResource( 2 )
 script = ExtResource( 3 )
@@ -248,8 +257,20 @@ margin_top = 366.0
 margin_right = 345.556
 margin_bottom = 406.0
 
-[connection signal="mouse_entered" from="Panel" to="." method="_on_Panel_mouse_entered"]
-[connection signal="mouse_exited" from="Panel" to="." method="_on_Panel_mouse_exited"]
+[node name="ScanLabel" type="RichTextLabel" parent="."]
+margin_left = 250.0
+margin_right = 583.0
+margin_bottom = 51.0
+custom_fonts/normal_font = SubResource( 9 )
+text = "HOVER OVERVIEW"
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 388.889, 220.588 )
+shape = SubResource( 7 )
+
 [connection signal="tween_completed" from="Panel/HealthBar/HealthTween" to="." method="_on_HealthTween_tween_completed"]
 [connection signal="tween_completed" from="Panel/SustenanceBar/SustenanceTween" to="." method="_on_SustenanceTween_tween_completed"]
 [connection signal="tween_completed" from="Panel/SanityBar/SanityTween" to="." method="_on_SanityTween_tween_completed"]

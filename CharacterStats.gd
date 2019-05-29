@@ -1,5 +1,8 @@
 extends Control
 
+
+
+onready var scanLabel = get_node("ScanLabel")
 var attributeArray = []
 var attributeDescriptorTemplate =  preload("res://AttributeDescriptor.tscn")
 var hoveringOverPanel = false
@@ -35,13 +38,34 @@ var statBars
 var statTweens
 var statAnimationPlayers
 
-func _ready():
-	statUIChildren = self.get_children()
+var displayVisible = false
 
-	self.connect("mouse_enter", self, "mouseOverPanel")
-	for child in statUIChildren:
-		child.connect("mouse_enter", self, "mouseOverPanel")
-		child.connect("mouse_exit", self, "mouseNotOverPanel")
+# func _gui_input(event: InputEvent):
+# 	# if(event == MOUSE_MOTION):
+# 	# 	print("Hovering mouse hover")
+# 	# if(event.type == InputEvent.MOUSE_MOTION):
+# 	# 	print("Hovering mouse over")
+# 	# if(event == InputEvent.MOUSE_MOTION):
+# 	# 	print("hovering mouse over")
+# 	if event is InputEventMouseMotion:
+# 		hoveringOverPanel = true
+# 		if(!displayVisible):
+# 			displayVisible = true
+# 	pass
+func getAllNodes(node):
+	for child in node.get_children():
+		if child.get_node_count() > 0:
+			statUIChildren.append(child)
+			getAllNodes(child)
+
+
+func _ready():
+
+	# self.connect("mouse_enter", self, "mouseOverPanel")
+	# for child in statUIChildren:
+	# 	print(str(child))
+	# 	child.connect("mouse_enter", self, "mouseOverPanel")
+	# 	child.connect("mouse_exit", self, "mouseNotOverPanel")
 	hoveringOverPanel = false
 	character.connect("newAttributeAdded", self, "addAttributeToPanel")
 	character.connect("statAtZero", self, "EatCheese")
@@ -49,14 +73,14 @@ func _ready():
 	statTweens = {System.DynamicStats.health: healthTween, System.DynamicStats.sustenance: sustenanceTween, System.DynamicStats.sanity: sanityTween, System.DynamicStats.relationship: relationshipTween}
 	statAnimationPlayers = {System.DynamicStats.health: healthAnimationPlayer, System.DynamicStats.sustenance: sustenanceAnimationPlayer, System.DynamicStats.sanity: sanityAnimationPlayer, System.DynamicStats.relationship: relationshipAnimationPlayer}
 
-func mouseOverPanel():
-	print("Mouse over panel!")
-	hoveringOverPanel = true
-func mouseNotOverPanel():
-	print("Mouse NOT ovr panel")
-	hoveringOverPanel = false
-	if(!character.handInZone):
-		hideDisplay()
+# func mouseOverPanel():
+# 	print("Mouse over panel!")
+# 	hoveringOverPanel = true
+# func mouseNotOverPanel():
+# 	print("Mouse NOT ovr panel")
+# 	hoveringOverPanel = false
+# 	if(!character.handInZone):
+# 		hideDisplay()
 
 func addAttributeToPanel(attribute):
 	#add to attribute array to keep track
@@ -69,9 +93,9 @@ func addAttributeToPanel(attribute):
 
 	#add to the list of children of the panel
 	statUIChildren.append(attributeDescriptorInstance)
-
+#
 	#attach the UI signals for hovering mouse over elements
-	attributeDescriptorInstance.connect("mouse_enter", self, "mouseOverPanel")
+	#attributeDescriptorInstance.connect("mouse_enter", self, "mouseOverPanel")
 	attributeDescriptorInstance.setAttribute(attribute)
 	#TODO: DO THE EQUIVALENT FOR REMOVAL BELOW
 	pass
@@ -151,6 +175,7 @@ func _process(delta):
 	sanityLabel.text = str(int(character.currentSanity)) + " / " + str(int(character.maxSanity))
 	sustenanceLabel.text = str(int(character.currentSustenance)) + " / " + str(int(character.maxSustenance))
 	relationshipLabel.text = str(int(character.currentRelationship)) + " / " + str(int(character.maxRelationship))
+
 	pass
 
 
