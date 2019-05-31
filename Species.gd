@@ -1,10 +1,15 @@
-extends Attribute
+extends Resource
 
-var slotTypeComfortRanking = []
+class_name Species
 
-var _init():
-  for i in range 8:
-   slotTypeComfortRanking.append([])
+export var speciesName : String = "temp"
+export var slotComfortRanking : Array = []
+export var conflictingAttributes : Array = []
+# var slotTypeComfortRanking = []
+#
+# var _init():
+#   for i in range 8:
+#    slotTypeComfortRanking.append([])
 
 #I.E. normal human : slotTypeComfortRanking[0] = System.normalAirSeating
 #: slotTypeComfortRanking[1] = System.uncomfortableSeating

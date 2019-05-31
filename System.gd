@@ -4,6 +4,13 @@ extends Node2D
 var selectedCharacter
 var attributeScript = preload("res://Attribute.gd")
 
+var enumToSlotTypeDictionary = {
+
+}
+
+var SlotTypeOccupiedDictionary = {
+
+}
 # DynamicStats = { "health" : 0, "sustenance" : 1, "sanity" : 2, "relationship" : 3}
 #
 # attributeType = {"temporaryCondition" : 0, "auraCondition" : 1, "removeableCondition" : 2, "inherentAttribute" : 3}
@@ -139,21 +146,39 @@ func updateSlots(slot, character):
 	if slot.slotType == slotTypes.mainRoom:
 		# print("This is a main room slot!")
 		mainRoomSlots[slot] = slot.characterInSlot
+		if mainRoomSlots.values().has(null):
+			#if one of them has no character in it
+			#set "fully occupied dictionary" to false
+			SlotTypeOccupiedDictionary[slotTypes.mainRoom] = false;
+		else:
+			SlotTypeOccupiedDictionary[slotTypes.mainRoom] = true
+
 	elif slot.slotType == slotTypes.closet:
 		closetSlots[slot] = slot.characterInSlot
+		if closetSlots.values().has(null):
+			SlotTypeOccupiedDictionary[slotTypes.closet] = false;
 
 	elif slot.slotType == slotTypes.garden:
 		gardenSlots[slot] = slot.characterInSlot
-
+		if gardenSlots.values().has(null):
+			SlotTypeOccupiedDictionary[slotTypes.garden] = false;
 	elif slot.slotType == slotTypes.airLock:
-		# print("This is an airlock slot!")
 		airlockSlots[slot] = slot.characterInSlot
+		if gardenSlots.values().has(null):
+			SlotTypeOccupiedDictionary[slotTypes.garden] = false;
 
 	elif slot.slotType == slotTypes.engine:
 		engineSlots[slot] = slot.characterInSlot
 
+		if engineSlots.values().has(null):
+			SlotTypeOccupiedDictionary[slotTypes.engine] = false;
+
 	elif slot.slotType == slotTypes.aquarium:
 		aquariumSlots[slot] = slot.characterInSlot
+
+		if aquariumSlots.values().has(null):
+			SlotTypeOccupiedDictionary[slotTypes.aquariumSlots] = false;
+
 
 	# print("Slot type + " + str(slot.slotType))#	for slot in allSlots.keys():
 		# if slot == whichSlot:
@@ -198,7 +223,27 @@ func tweenMainCameraToNewRoom(destinationPosition):
 	pass
 
 func _ready():
-	#mainCamera = get_node("Camera2D")
+	SlotTypeOccupiedDictionary = {
+	slotTypes:mainRoom : false,
+	slotTypes.mainroom : false,
+	slotTypes.closet : false,
+	slotTypes.garden : false,
+	slotTypes.airlock : false,
+	slotTypes.engine : false,
+	slotTypes.aquarium : false
+	}
+
+enumToSlotTypeDictionary = {
+	slotTypes.mainroom : mainroomslots,
+	slotTypes.closet : closetslots,
+	slotTypes.garden : gardenslots,
+	slotTypes.airlock : airlockslots,
+	slotTypes.engine : engineslots,
+	slotTypes.aquarium : aquariumslots
+
+}	#mainCamera = get_node("Camera2D")
+
+
 	pass
 
 var dragging = true

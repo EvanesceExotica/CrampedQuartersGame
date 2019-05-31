@@ -13,12 +13,14 @@ var characterTemplate = preload("res://Character.tscn")
 #fungoid
 #plantoid
 #machine
+var slotStringToEnum = {}
 
 var allAttributes = []
 var availableAttributeNames = []
 var attributesDictionary = {}
 var speciesAttributes
 var availableCharacterAttributes = []
+export var speciesOptions : Array = []
 
 var maxNumberOfStartingAttributes = 3 #change this later
 #perhaps separate into attributes that can only apply to characters
@@ -60,7 +62,12 @@ func separateOutAttributes():
 func _ready():
 	separateOutAttributes()
 	randomize()
-
+	slotStringToEnum = { "mainRoom" : System.slotTypes.mainRoom,
+	"closet" : System.slotTypes.closet,
+	"garden" : System.slotTypes.garden,
+	"airLock" : System.slotTypes.airLock,
+	"engine" : System.slotTypes.engine,
+	"aquarium" : System.slotTypes.aquarium}
 func generateNewCharacter():
 
 	#events the character goes through before being added to the ship can cause extra attribute
@@ -74,9 +81,7 @@ func generateNewCharacter():
 	var attributes = []
 #TODO: PUT THIS BACK IN generate a random species from the spcies list
 # #TODO: Put this back in
-# 	var randomSpeciesNumber = rand_range(0, speciesAttributes.size())
-# 	var species = generateSpecies(randomSpeciesNumber)
-#
+
 # 	#
 # 	# #this deletes any attributes in the availableList that would conflict
 # 	# #with the chosen species -- robot, aquatic, etc.
@@ -99,11 +104,15 @@ func generateNewCharacter():
 
 	for item in attributes:
 		characterInstance.applyNewAttribute(item)
-	var slot = chooseRandomSlot()
+
+	var randomSpeciesNumber = rand_range(0, speciesOptions.size())
+ 	var species = generateSpecies(randomSpeciesNumber)
+	var slot = chooseCharacterSlot(species)
+#	var slot = chooseRandomSlot()
 	slot.addCharacterToSlot(characterInstance)
 
 func generateSpecies(randomNumber):
-	var species = speciesAttributes[randomNumber]
+	var species = speciesOptions[randomNumber]
 	return species
 
 func generateNewAttribute(generalList, nameList):
@@ -146,9 +155,33 @@ func chooseCharacterSlot(species):
 	var unoccupiedSlots = []
 	for slot in System.allSlots.keys():
 		#run through all the slots in the game
+
 		if System.allSlots[slot] == null:
 			#if the slot is unoccupied
 			unoccupiedSlots.append(slot)
+
+	for prefIndex in range(0, species.slotComfortRanking.size()):
+			if species.slotComfortRanking[prefIndex] > 0:
+				for slot in unoccupiedSlots:
+					if slot.slotType = slotStringToEnum[species.slotComfortRanking[prefIndex]]
+
+	for pref in species.slotComfortRanking:
+		#go through prefered slot types
+		if pref.size() > 0:
+			for item in pref:
+				#if this slot type isn't fully occupied (convering string to enum)
+				if(SlotTypeOccupiedDictionary[slotStringToEnum[item]] == false):
+
+
+
+	var unoccupiedSlots = []
+	for slot in System.allSlots.keys():
+		#run through all the slots in the game
+
+		if System.allSlots[slot] == null:
+			#if the slot is unoccupied
+			unoccupiedSlots.append(slot)
+
 	for slot in unoccupiedSlots:
 		#run through all the unoccupied slots in the game
 		if species.slotTypeComfortRanking[rankingIndex].has(slot.slotType):
