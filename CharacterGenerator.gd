@@ -62,12 +62,14 @@ func separateOutAttributes():
 func _ready():
 	separateOutAttributes()
 	randomize()
-	slotStringToEnum = { "mainRoom" : System.slotTypes.mainRoom,
-	"closet" : System.slotTypes.closet,
-	"garden" : System.slotTypes.garden,
-	"airLock" : System.slotTypes.airLock,
-	"engine" : System.slotTypes.engine,
-	"aquarium" : System.slotTypes.aquarium}
+	slotStringToEnum = {
+		"mainRoom" : System.slotTypes.mainRoom,
+		"closet" : System.slotTypes.closet,
+		"garden" : System.slotTypes.garden,
+		"airLock" : System.slotTypes.airLock,
+		"engine" : System.slotTypes.engine,
+		"aquarium" : System.slotTypes.aquarium
+	}
 func generateNewCharacter():
 
 	#events the character goes through before being added to the ship can cause extra attribute
@@ -106,7 +108,7 @@ func generateNewCharacter():
 		characterInstance.applyNewAttribute(item)
 
 	var randomSpeciesNumber = rand_range(0, speciesOptions.size())
- 	var species = generateSpecies(randomSpeciesNumber)
+	var species = generateSpecies(randomSpeciesNumber)
 	var slot = chooseCharacterSlot(species)
 #	var slot = chooseRandomSlot()
 	slot.addCharacterToSlot(characterInstance)
@@ -161,9 +163,15 @@ func chooseCharacterSlot(species):
 			unoccupiedSlots.append(slot)
 
 	for prefIndex in range(0, species.slotComfortRanking.size()):
+		#look through different prefered slots, each index is a ranking, can have multiple of same preference
 			if species.slotComfortRanking[prefIndex] > 0:
+				#if the slot types in this ranking are not zero
 				for slot in unoccupiedSlots:
-					if slot.slotType = slotStringToEnum[species.slotComfortRanking[prefIndex]]
+					#for every unoccupied slot in the game
+					if slot.slotType == slotStringToEnum[species.slotComfortRanking[prefIndex]]:
+						#if the type of the slot is equal to this character's preferred slot
+						#...what?
+
 
 	for pref in species.slotComfortRanking:
 		#go through prefered slot types

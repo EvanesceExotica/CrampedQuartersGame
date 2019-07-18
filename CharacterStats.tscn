@@ -64,11 +64,11 @@ resource_name = "test"
 [sub_resource type="DynamicFont" id=6]
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=7]
 size = 30
 font_data = ExtResource( 6 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 388.889, 235.294 )
 
 [node name="CharacterStats" type="Control"]
@@ -78,11 +78,11 @@ rect_scale = Vector2( 0.72, 0.68 )
 mouse_filter = 1
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_vertical_guides_": [ 82.5721 ]
+"_edit_vertical_guides_": [  ]
 }
 
 [node name="Panel" type="Panel" parent="."]
-margin_right = 770.0
+margin_right = 847.0
 margin_bottom = 450.0
 focus_mode = 2
 mouse_filter = 1
@@ -107,7 +107,8 @@ margin_top = 8.0
 margin_right = 652.0
 margin_bottom = 51.0
 custom_fonts/font = SubResource( 3 )
-text = "test"
+text = "100/100"
+align = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/HealthBar"]
 anims/Flash = SubResource( 4 )
@@ -115,7 +116,6 @@ anims/HealthBarFlash = ExtResource( 7 )
 anims/test = SubResource( 5 )
 
 [node name="SustenanceBar" type="TextureProgress" parent="Panel"]
-editor/display_folded = true
 margin_left = 111.111
 margin_top = 122.0
 margin_right = 704.111
@@ -135,10 +135,10 @@ margin_top = 10.3529
 margin_right = 653.573
 margin_bottom = 53.3529
 custom_fonts/font = SubResource( 3 )
-text = "test"
+text = "100/100"
+align = 2
 
 [node name="SanityBar" type="TextureProgress" parent="Panel"]
-editor/display_folded = true
 margin_left = 114.684
 margin_top = 202.739
 margin_right = 707.684
@@ -159,10 +159,10 @@ margin_top = 17.8492
 margin_right = 652.0
 margin_bottom = 60.8492
 custom_fonts/font = SubResource( 3 )
-text = "test"
+text = "100/100"
+align = 2
 
 [node name="RelationshipBar" type="TextureProgress" parent="Panel"]
-editor/display_folded = true
 margin_left = 114.684
 margin_top = 282.739
 margin_right = 707.684
@@ -189,7 +189,8 @@ margin_top = 11.3786
 margin_right = 652.0
 margin_bottom = 54.3786
 custom_fonts/font = SubResource( 3 )
-text = "test"
+text = "50/100"
+align = 2
 
 [node name="HealthIcon" type="TextureRect" parent="Panel"]
 margin_left = 30.0
@@ -225,9 +226,9 @@ expand = true
 
 [node name="NameLabel" type="Label" parent="Panel"]
 margin_left = 60.0
-margin_top = 366.0
-margin_right = 140.0
-margin_bottom = 413.0
+margin_top = 367.647
+margin_right = 227.0
+margin_bottom = 414.647
 custom_fonts/font = SubResource( 6 )
 text = "Name: Lauren Jackson"
 
@@ -258,10 +259,11 @@ margin_right = 345.556
 margin_bottom = 406.0
 
 [node name="ScanLabel" type="RichTextLabel" parent="."]
+visible = false
 margin_left = 250.0
 margin_right = 583.0
 margin_bottom = 51.0
-custom_fonts/normal_font = SubResource( 9 )
+custom_fonts/normal_font = SubResource( 7 )
 text = "HOVER OVERVIEW"
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -269,7 +271,7 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 388.889, 220.588 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [connection signal="tween_completed" from="Panel/HealthBar/HealthTween" to="." method="_on_HealthTween_tween_completed"]
 [connection signal="tween_completed" from="Panel/SustenanceBar/SustenanceTween" to="." method="_on_SustenanceTween_tween_completed"]

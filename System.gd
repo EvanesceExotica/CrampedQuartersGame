@@ -224,27 +224,26 @@ func tweenMainCameraToNewRoom(destinationPosition):
 
 func _ready():
 	SlotTypeOccupiedDictionary = {
-	slotTypes:mainRoom : false,
-	slotTypes.mainroom : false,
-	slotTypes.closet : false,
-	slotTypes.garden : false,
-	slotTypes.airlock : false,
-	slotTypes.engine : false,
-	slotTypes.aquarium : false
+		slotTypes.mainRoom : false,
+		slotTypes.closet : false,
+		slotTypes.garden : false,
+		slotTypes.airLock : false,
+		slotTypes.engine : false,
+		slotTypes.aquarium : false
 	}
 
-enumToSlotTypeDictionary = {
-	slotTypes.mainroom : mainroomslots,
-	slotTypes.closet : closetslots,
-	slotTypes.garden : gardenslots,
-	slotTypes.airlock : airlockslots,
-	slotTypes.engine : engineslots,
-	slotTypes.aquarium : aquariumslots
+	# enumToSlotTypeDictionary = {
+	# 	slotTypes.mainroom : mainRoomSlots,
+	# 	slotTypes.closet : closetslots,
+	# 	slotTypes.garden : gardenslots,
+	# 	slotTypes.airlock : airlockslots,
+	# 	slotTypes.engine : engineslots,
+	# 	slotTypes.aquarium : aquariumslots
+	# }
 
-}	#mainCamera = get_node("Camera2D")
+	#mainCamera = get_node("Camera2D")
 
 
-	pass
 
 var dragging = true
 func _process(delta):
