@@ -1,9 +1,6 @@
 extends Node2D
-
 class_name MinigameNode
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+
 onready var countdownCircle = get_node("CountdownCircle")
 onready var hex = get_node("Hex")
 onready var tween = get_node("Tween")

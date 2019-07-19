@@ -3,7 +3,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var hexArray 
+var hexArray = [] 
 var inactiveHexArray = []
 var currentNode
 # Called when the node enters the scene tree for the first time.
@@ -18,10 +18,10 @@ func _ready():
 
 func populateHexArray():
 	var testArray = get_children()
-	hexArray = testArray
-	# for child in testArray:
-	# 	if child is MinigameNode:
-	# 		hexArray.append(child)
+	#hexArray = testArray
+	for child in testArray:
+		if child is MinigameNode:
+			hexArray.append(child)
 
 func activateRandomNode():
 	hexArray.erase(currentNode)

@@ -1,8 +1,12 @@
-extends Area2D
+extends Node2D
 
+onready var room
+onready var interactionSpace = get_node("InteractionSpace")
 # Declare member variables here. Examples:
 # var a = 2
-
+#export var TypeOfStation
+#maybe when health is low, have cracks and glitches on screen
+var mouseHovering = false
 var health = 3
 # var b = "text"
 func interactWith():
@@ -26,7 +30,17 @@ func repair():
 
 func _ready():
 	pass # Replace with function body.
-
+func _input(event):
+	if(event.is_action_pressed("ui_interact")):
+		if(mouseHovering):
+			print("Loading minigame scene")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_InteractionSpace_mouse_entered():
+	print("Mouse entered")
+	mouseHovering = true
+	pass
+
+func _on_InteractionSpace_mouse_exited():
+	mouseHovering = false
+	print("Mouse exited")
+	pass # Replace with function body.
