@@ -1,4 +1,6 @@
 extends Node2D
+#TODO: __MAKE THIS EXTEND STATION SCREEN
+
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -13,7 +15,9 @@ func _ready():
 	activateRandomNode()
 	for item in hexArray:
 		item.connect("minigameNodeClicked", self, "activateRandomNode")
+		item.connect("nodeTimedOut", self, "gameOver")
 	pass # Replace with function body.
+
 
 
 func populateHexArray():

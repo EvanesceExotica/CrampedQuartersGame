@@ -7,6 +7,7 @@ onready var tween = get_node("Tween")
 onready var clickSpace = get_node("ClickSpace")
 
 signal minigameNodeClicked
+signal nodeTimedOut
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#tweenTimerToZero()
@@ -39,5 +40,5 @@ func _on_Hex_pressed():
 
 
 func _on_Tween_tween_completed(object, key):
-	print("Game over")
+	emit_signal("nodeTimedOut")
 	pass # Replace with function body.
