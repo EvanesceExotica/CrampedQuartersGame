@@ -5,17 +5,20 @@ extends Area2D
 # var b = "text"
 signal interactPressed(array)
 
+var scannerScreen 
 var overlappingArray = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	scannerScreen = get_parent()
 	pass # Replace with function body.
 
 func _input(event):
 	if(event.is_action_pressed("ui_interact")):
 		if(overlappingArray.size() > 0):
 			for item in overlappingArray:
-				emit_signal("interactPressed", overlappingArray)
-				print(item.name)
+				if(item == scannerScreen.currentChosenSlice):
+					emit_signal("interactPressed", overlappingArray)
+					print(item.name)
 		#if(mouseHovering):
 			#loadMinigameScene()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
