@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Events/EventContainer.gd" type="Script" id=1]
+[ext_resource path="res://Events/TestNewPlanetEvent.tres" type="Resource" id=2]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[node name="EventContainer" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+event = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 410.0
+margin_bottom = 370.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 410.0
+margin_bottom = 120.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer"]
+margin_right = 400.0
+margin_bottom = 110.0
+custom_constants/separation = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer2"]
+margin_right = 400.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 1 )
+text = "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures there on the asteroid. What do you do?
+"
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Stations/StationScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Stations/ScannerScreen.gd" type="Script" id=2]
@@ -12,6 +12,22 @@
 [ext_resource path="res://Stations/TimerClickMinigame/Assets/Scanner/11-12.png" type="Texture" id=10]
 [ext_resource path="res://Stations/ScannerArea.gd" type="Script" id=11]
 [ext_resource path="res://Stations/TimerClickMinigame/Assets/Scanner/Scanner.png" type="Texture" id=12]
+[ext_resource path="res://Stations/Meter.tscn" type="PackedScene" id=13]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+shader_param/width = 0.0
+shader_param/outline_color = Color( 0.443137, 0.443137, 0.443137, 1 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
+shader_param/width = 0.0
+shader_param/outline_color = Color( 0.443137, 0.443137, 0.443137, 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 4 )
+shader_param/width = 0.0
+shader_param/outline_color = Color( 0.443137, 0.443137, 0.443137, 1 )
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 4 )
@@ -29,28 +45,12 @@ shader_param/width = 0.0
 shader_param/outline_color = Color( 0.443137, 0.443137, 0.443137, 1 )
 
 [sub_resource type="ShaderMaterial" id=7]
-shader = ExtResource( 4 )
-shader_param/width = 0.0
-shader_param/outline_color = Color( 0.443137, 0.443137, 0.443137, 1 )
-
-[sub_resource type="ShaderMaterial" id=8]
-shader = ExtResource( 4 )
-shader_param/width = 0.0
-shader_param/outline_color = Color( 0.443137, 0.443137, 0.443137, 1 )
-
-[sub_resource type="ShaderMaterial" id=9]
-shader = ExtResource( 4 )
-shader_param/width = 0.0
-shader_param/outline_color = Color( 0.443137, 0.443137, 0.443137, 1 )
-
-[sub_resource type="ShaderMaterial" id=10]
 render_priority = 12
 shader = ExtResource( 4 )
 shader_param/width = 0.0
 shader_param/outline_color = Color( 0.443137, 0.443137, 0.443137, 1 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "Rotate"
+[sub_resource type="Animation" id=8]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -83,7 +83,7 @@ visible = false
 polygon = PoolVector2Array( -189.565, -164.409, -190.681, 53.3243, -134.01, 60.5369, -81.4611, 84.2356, -36.6423, 117.389, -1.09167, 165.635, 191.274, 56.314, 131.827, -29.1058, 53.693, -94.6563, -55.4391, -146.59, -132.639, -162.732 )
 
 [node name="1 - 2" type="Sprite" parent="Field/1to2Area" index="1"]
-material = SubResource( 4 )
+material = SubResource( 1 )
 texture = ExtResource( 5 )
 
 [node name="3to4Area" type="Area2D" parent="Field" index="1"]
@@ -97,7 +97,7 @@ polygon = PoolVector2Array( -192.742, -164.085, -194.999, 55.4207, -134.01, 60.5
 
 [node name="3 - 4" type="Sprite" parent="Field/3to4Area" index="1"]
 modulate = Color( 1, 0.541176, 0.541176, 1 )
-material = SubResource( 5 )
+material = SubResource( 2 )
 position = Vector2( 123.575, 273.651 )
 texture = ExtResource( 6 )
 __meta__ = {
@@ -114,7 +114,7 @@ rotation = 2.12279
 polygon = PoolVector2Array( -192.742, -164.085, -188.892, 55.2266, -134.01, 60.5369, -81.4611, 84.2356, -40.246, 118.238, -1.09167, 165.635, 181.847, 46.0111, 131.827, -29.1058, 51.4575, -98.141, -58.7927, -149.66 )
 
 [node name="5 - 6" type="Sprite" parent="Field/5to6Area" index="1"]
-material = SubResource( 6 )
+material = SubResource( 3 )
 position = Vector2( 1.1123, 547 )
 texture = ExtResource( 7 )
 __meta__ = {
@@ -132,7 +132,7 @@ polygon = PoolVector2Array( -170.066, -173.616, -182.853, 48.4568, -133.743, 59.
 
 [node name="7 - 8" type="Sprite" parent="Field/7to8Area" index="1"]
 modulate = Color( 1, 0.678431, 0.678431, 1 )
-material = SubResource( 7 )
+material = SubResource( 4 )
 position = Vector2( -331.214, 60.7466 )
 texture = ExtResource( 8 )
 __meta__ = {
@@ -149,7 +149,7 @@ rotation = -2.15703
 polygon = PoolVector2Array( -178.661, -171.233, -185.309, 48.5183, -134.01, 60.5369, -81.4611, 84.2356, -40.246, 118.238, -4.92212, 168.382, 192.724, 68.8767, 170.659, 29.5193, 130.908, -25.8885, 51.2588, -96.8021, -58.7927, -149.66 )
 
 [node name="9-10" type="Sprite" parent="Field/9to10Area" index="1"]
-material = SubResource( 8 )
+material = SubResource( 5 )
 position = Vector2( -298.991, 2.92786 )
 texture = ExtResource( 9 )
 __meta__ = {
@@ -167,7 +167,7 @@ polygon = PoolVector2Array( -181.119, -167.458, -188.741, 52.6309, -134.01, 60.5
 
 [node name="11-12" type="Sprite" parent="Field/11to12Area" index="1"]
 modulate = Color( 1, 0.490196, 0.490196, 1 )
-material = SubResource( 9 )
+material = SubResource( 6 )
 position = Vector2( -380.598, -0.340286 )
 texture = ExtResource( 10 )
 __meta__ = {
@@ -184,13 +184,18 @@ script = ExtResource( 11 )
 polygon = PoolVector2Array( 36.2298, -23.5494, 365.921, -233.682, 293.461, -326.068, 213.756, -382.224, 99.6319, -425.7, 27.1723, -434.757, -5.43445, -45.2873, 21.7379, -43.4758 )
 
 [node name="Scanner" type="Sprite" parent="ScannerArea" index="1"]
-material = SubResource( 10 )
+material = SubResource( 7 )
 texture = ExtResource( 12 )
 offset = Vector2( 163.034, -199.264 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScannerArea" index="2"]
 autoplay = "Rotate"
-anims/Rotate = SubResource( 1 )
+playback_speed = 2.0
+anims/Rotate = SubResource( 8 )
+
+[node name="Meter" parent="." index="3" instance=ExtResource( 13 )]
+position = Vector2( 180, 169.143 )
+scale = Vector2( 0.5, 0.5 )
 
 [connection signal="area_entered" from="ScannerArea" to="ScannerArea" method="_on_ScannerArea_area_entered"]
 [connection signal="area_exited" from="ScannerArea" to="ScannerArea" method="_on_ScannerArea_area_exited"]

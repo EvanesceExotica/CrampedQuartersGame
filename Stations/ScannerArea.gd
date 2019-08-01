@@ -4,7 +4,6 @@ extends Area2D
 # var a = 2
 # var b = "text"
 signal interactPressed(array)
-
 var scannerScreen 
 var overlappingArray = []
 # Called when the node enters the scene tree for the first time.

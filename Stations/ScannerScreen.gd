@@ -17,6 +17,7 @@ func _ready():
 	sliceArray = field.get_children()
 
 	#when the scannerArea has the interact button pressed, note it here
+	get_node("Meter").connect("barMaxedOut", self, "gameOver")
 	scannerArea.connect("interactPressed", self, "clickedOnOverlap")
 	activateRandomSlice()
 
@@ -54,8 +55,10 @@ func activateRandomSlice():
 func clickedOnOverlap(array):
 	#if array.has(currentChosenSlice):
 		#if one of the overlapped clicked on was the chosen sprite, activate a new one
+	emit_signal("meterEffected", -20)
 	currentSliceSprite.get_material().set_shader_param("outline_color", Color.red)
 	activateRandomSlice()
+
 
 func gameSuccess():
 	resetEverySlice()
