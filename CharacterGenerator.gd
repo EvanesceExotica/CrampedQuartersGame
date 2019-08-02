@@ -70,6 +70,12 @@ func _ready():
 		"engine" : System.slotTypes.engine,
 		"aquarium" : System.slotTypes.aquarium
 	}
+	SignalManager.connect("GenerateNewCharacter", self, "TestCharacterGen")
+	#SignalManager.connect("GenerateNewCharacter", self, "generateNewCharacter")
+func TestCharacterGen():
+	print("Character generated")
+	pass
+
 func generateNewCharacter():
 
 	#events the character goes through before being added to the ship can cause extra attribute
@@ -109,8 +115,8 @@ func generateNewCharacter():
 
 	var randomSpeciesNumber = rand_range(0, speciesOptions.size())
 	var species = generateSpecies(randomSpeciesNumber)
-	var slot = chooseCharacterSlot(species)
-#	var slot = chooseRandomSlot()
+	#var slot = chooseCharacterSlot(species)
+	var slot = chooseRandomSlot()
 	slot.addCharacterToSlot(characterInstance)
 
 func generateSpecies(randomNumber):
@@ -148,67 +154,71 @@ func chooseRandomSlot():
 	return randomKey #System.allSlots[randomNumber]
 
 func chooseCharacterSlot(species):
+	pass
 	#calculate species into this
-	var levelToSearchFor = 0
-	#var slotToChoose
-	var foundSlot = false
-	var rankingIndex = 0
+	# var levelToSearchFor = 0
+	# #var slotToChoose
+	# var foundSlot = false
+	# var rankingIndex = 0
 
-	var unoccupiedSlots = []
-	for slot in System.allSlots.keys():
-		#run through all the slots in the game
+	# var unoccupiedSlots = []
+	# for slot in System.allSlots.keys():
+	# 	#run through all the slots in the game
 
-		if System.allSlots[slot] == null:
-			#if the slot is unoccupied
-			unoccupiedSlots.append(slot)
+	# 	if System.allSlots[slot] == null:
+	# 		#if the slot is unoccupied
+	# 		unoccupiedSlots.append(slot)
 
-	for prefIndex in range(0, species.slotComfortRanking.size()):
-		#look through different prefered slots, each index is a ranking, can have multiple of same preference
-			if species.slotComfortRanking[prefIndex] > 0:
-				#if the slot types in this ranking are not zero
-				for slot in unoccupiedSlots:
-					#for every unoccupied slot in the game
-					if slot.slotType == slotStringToEnum[species.slotComfortRanking[prefIndex]]:
-						#if the type of the slot is equal to this character's preferred slot
-						#...what?
-
-
-	for pref in species.slotComfortRanking:
-		#go through prefered slot types
-		if pref.size() > 0:
-			for item in pref:
-				#if this slot type isn't fully occupied (convering string to enum)
-				if(SlotTypeOccupiedDictionary[slotStringToEnum[item]] == false):
+	# for prefIndex in range(0, species.slotComfortRanking.size()):
+	# 	#look through different prefered slots, each index is a ranking, can have multiple of same preference
+	# 		if species.slotComfortRanking[prefIndex] > 0:
+	# 			#if the slot types in this ranking are not zero
+	# 			for slot in unoccupiedSlots:
+	# 				pass
+	# 				#for every unoccupied slot in the game
+	# 				if slot.slotType == slotStringToEnum[species.slotComfortRanking[prefIndex]]:
+	# 					pass
+	# 					#if the type of the slot is equal to this character's preferred slot
+	# 					#...what?
 
 
+	# for pref in species.slotComfortRanking:
+	# 	#go through prefered slot types
+	# 	if pref.size() > 0:
+	# 		for item in pref:
+	# 			#if this slot type isn't fully occupied (convering string to enum)
+	# 			if(SlotTypeOccupiedDictionary[slotStringToEnum[item]] == false): #TODO: FIX THIS METHOD
+	# 				pass
 
-	var unoccupiedSlots = []
-	for slot in System.allSlots.keys():
-		#run through all the slots in the game
 
-		if System.allSlots[slot] == null:
-			#if the slot is unoccupied
-			unoccupiedSlots.append(slot)
 
-	for slot in unoccupiedSlots:
-		#run through all the unoccupied slots in the game
-		if species.slotTypeComfortRanking[rankingIndex].has(slot.slotType):
-			foundSlot = true
-		else:
-			rankingIndex+=1
-		# 	#if the species's slot ranking for this type of slot has a type
-		# 	for slotType in species.slotTypeComfortRanking[rankingIndex]:
-		# 		#for each slot type in this ranking
-		# 		if(slot.slotType == slotType && slot.occupied == false):
-		# 			#if it meets the slot type of the slot
-		# 			foundSlot = true
-		# 			break
-		# 	if !foundSlot:
-		#
-		# if slot.prioritySeatingLevel == levelToSearchFor:
-		# 	#might be better to separate into lists based on level
-		# 	if slot.occupied == false:
-		# 		slotToChoose = false
+	# #var unoccupiedSlots = []
+	# for slot in System.allSlots.keys():
+	# 	#run through all the slots in the game
+
+	# 	if System.allSlots[slot] == null:
+	# 		#if the slot is unoccupied
+	# 		unoccupiedSlots.append(slot)
+
+	# for slot in unoccupiedSlots:
+	# 	#run through all the unoccupied slots in the game
+	# 	if species.slotTypeComfortRanking[rankingIndex].has(slot.slotType):
+	# 		foundSlot = true
+	# 	else:
+	# 		rankingIndex+=1
+	# 	# 	#if the species's slot ranking for this type of slot has a type
+	# 	# 	for slotType in species.slotTypeComfortRanking[rankingIndex]:
+	# 	# 		#for each slot type in this ranking
+	# 	# 		if(slot.slotType == slotType && slot.occupied == false):
+	# 	# 			#if it meets the slot type of the slot
+	# 	# 			foundSlot = true
+	# 	# 			break
+	# 	# 	if !foundSlot:
+	# 	#
+	# 	# if slot.prioritySeatingLevel == levelToSearchFor:
+	# 	# 	#might be better to separate into lists based on level
+	# 	# 	if slot.occupied == false:
+	# 	# 		slotToChoose = false
 
 func _on_Button_button_down():
 	print("Generating new character")

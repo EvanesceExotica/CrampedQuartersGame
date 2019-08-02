@@ -20,20 +20,20 @@ margin_bottom = 370.0
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 410.0
-margin_bottom = 120.0
+margin_right = 400.0
+margin_bottom = 190.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer"]
-margin_right = 400.0
-margin_bottom = 110.0
-custom_constants/separation = 3
+margin_right = 390.0
+margin_bottom = 180.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer2"]
-margin_right = 400.0
-margin_bottom = 110.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_right = 390.0
+margin_bottom = 180.0
+size_flags_horizontal = 15
+size_flags_vertical = 15
 custom_fonts/normal_font = SubResource( 1 )
 text = "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures there on the asteroid. What do you do?
 "
+scroll_active = false
 

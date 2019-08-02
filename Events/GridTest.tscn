@@ -1,0 +1,108 @@
+[gd_scene format=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_right = 680.0
+margin_bottom = 600.0
+columns = 5
+
+[node name="Button" type="Button" parent="GridContainer"]
+margin_right = 132.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="GridContainer"]
+margin_left = 136.0
+margin_right = 268.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Button3" type="Button" parent="GridContainer"]
+margin_left = 272.0
+margin_right = 404.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Button4" type="Button" parent="GridContainer"]
+margin_left = 408.0
+margin_right = 540.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Button5" type="Button" parent="GridContainer"]
+margin_left = 544.0
+margin_right = 676.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Button6" type="Button" parent="GridContainer"]
+margin_top = 24.0
+margin_right = 132.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+
+[node name="Button7" type="Button" parent="GridContainer"]
+margin_left = 136.0
+margin_top = 24.0
+margin_right = 268.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+
+[node name="Button8" type="Button" parent="GridContainer"]
+margin_left = 272.0
+margin_top = 24.0
+margin_right = 404.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+
+[node name="Button9" type="Button" parent="GridContainer"]
+margin_left = 408.0
+margin_top = 24.0
+margin_right = 540.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+
+[node name="Button10" type="Button" parent="GridContainer"]
+margin_left = 544.0
+margin_top = 24.0
+margin_right = 676.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+
+[node name="Button11" type="Button" parent="GridContainer"]
+margin_top = 48.0
+margin_right = 132.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="Button12" type="Button" parent="GridContainer"]
+margin_left = 136.0
+margin_top = 48.0
+margin_right = 268.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="Button13" type="Button" parent="GridContainer"]
+margin_left = 272.0
+margin_top = 48.0
+margin_right = 404.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="Button14" type="Button" parent="GridContainer"]
+margin_left = 408.0
+margin_top = 48.0
+margin_right = 540.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="Button15" type="Button" parent="GridContainer"]
+margin_left = 544.0
+margin_top = 48.0
+margin_right = 676.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+

@@ -1,7 +1,7 @@
 extends Node
 
 
-
+signal GenerateNewCharacter#(character)
 #for characters with random stats
 signal generateRandomNewCharacter
 
