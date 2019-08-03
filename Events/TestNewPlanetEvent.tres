@@ -6,9 +6,9 @@
 
 [resource]
 script = ExtResource( 3 )
-eventDescriptionText = "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures there on the asteroid. What do you do?"
+eventDescriptionText = [  ]
 eventChoices = {
-"Leave them stranded.": ExtResource( 2 ),
+"Leave them stranded.": [ ExtResource( 2 ) ],
 "Take them aboard.": ExtResource( 1 )
 }
 
