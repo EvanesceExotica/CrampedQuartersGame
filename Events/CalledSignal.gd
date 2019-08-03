@@ -1,6 +1,11 @@
-extends Button
+extends Resource
 
-var calledSignal
+class_name CalledSignal
+
+export var calledSignalName : String
+
+
+export var signalParameters : Dictionary
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -12,6 +17,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-func _on_EventChoice_pressed():
-	#pass a character through here rather than the list of parameters 
-	SignalManager.emit_signal(calledSignal.calledSignalName, calledSignal.signalParameters)

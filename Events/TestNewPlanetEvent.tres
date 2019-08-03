@@ -1,12 +1,14 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://Event.gd" type="Script" id=1]
+[ext_resource path="res://Events/GenerateRandomCharacter.tres" type="Resource" id=1]
+[ext_resource path="res://Events/EndEvent.tres" type="Resource" id=2]
+[ext_resource path="res://Event.gd" type="Script" id=3]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 eventDescriptionText = "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures there on the asteroid. What do you do?"
 eventChoices = {
-"Leave them be.": "EndEvent",
-"Pick them up and take them aboard.": "GenerateNewCharacter"
+"Leave them stranded.": ExtResource( 2 ),
+"Take them aboard.": ExtResource( 1 )
 }
 

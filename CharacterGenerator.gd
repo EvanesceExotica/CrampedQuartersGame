@@ -72,8 +72,14 @@ func _ready():
 	}
 	SignalManager.connect("GenerateNewCharacter", self, "TestCharacterGen")
 	#SignalManager.connect("GenerateNewCharacter", self, "generateNewCharacter")
-func TestCharacterGen():
-	print("Character generated")
+func TestCharacterGen(parameters):
+	print(parameters)
+	if(parameters.size() == 0):
+		print("Create random character")
+		generateNewCharacter()
+	else:
+		print("Generate statted character")
+	#print("Character generated")
 	pass
 
 func generateNewCharacter():

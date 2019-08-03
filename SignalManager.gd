@@ -1,9 +1,11 @@
 extends Node
 
 
-signal GenerateNewCharacter#(character)
+signal GenerateNewCharacter(characterParameters)
 #for characters with random stats
 signal generateRandomNewCharacter
+
+signal EndEvent(parameters)
 
 #for characters with specific stats
 signal generateStattedNewCharacter(characterAttributes)

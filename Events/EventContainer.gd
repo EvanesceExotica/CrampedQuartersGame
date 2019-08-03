@@ -9,6 +9,7 @@ var eventChoice = preload("res://Events/EventChoice.tscn")
 onready var choiceContainer = get_node("Panel/MarginContainer/VBoxContainer2")
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SignalManager.connect("EndEvent", self, "hideEventContainer")
 	initializeEvent()
 	pass # Replace with function body.
 
@@ -18,9 +19,11 @@ func initializeEvent():
 	for item in event.eventChoices.keys():
 		var newChoice = eventChoice.instance() 
 		newChoice.text = item
-		newChoice.eventFired = event.eventChoices[item]
+		newChoice.calledSignal = event.eventChoices[item]
 		choiceContainer.add_child(newChoice)
 
+func hideEventContainer(param):
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

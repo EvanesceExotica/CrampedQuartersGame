@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://MainRoom.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://CharacterGenerator.tscn" type="PackedScene" id=9]
 [ext_resource path="res://StatData/AirBreather.tres" type="Resource" id=10]
 [ext_resource path="res://Stations/Station.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=12]
 
 [node name="WholeShip" type="Node2D" groups=[
 "Slots",
@@ -93,5 +94,7 @@ text = "Generate New Character"
 [node name="Station" parent="." instance=ExtResource( 11 )]
 position = Vector2( 130, 100 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="EventContainer" parent="." instance=ExtResource( 12 )]
 
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]
