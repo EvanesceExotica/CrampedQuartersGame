@@ -2,6 +2,8 @@ extends Node
 
 
 signal GenerateNewCharacter(characterParameters)
+
+signal EventChoiceClicked(whichOptions)
 #for characters with random stats
 signal generateRandomNewCharacter
 
