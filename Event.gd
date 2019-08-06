@@ -2,18 +2,23 @@ extends Resource
 
 
 class_name Event
-# Declare member variables here. Examples:
-# var a = 2
-export(string) id
-export(Texture) var characterFace
-# var b = "text"
-export(Array) var eventDescriptionText
-export(Dictionary) var eventChoices
-# Called when the node enters the scene tree for the first time.
-export(Resource) var linkedEvent
-func _ready():
-	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+export(String) id
+
+export(Texture) var image
+
+#the text of the event (could be an array for random text, but not necessary rn I think)
+export(String) var eventDescriptionText
+
+#these can be flags to see what triggers the event
+export(Array) eventPrereqs
+
+export(float) chanceOfOccurring
+
+export(Dictionary) var eventChoices
+
+export(Resource) var linkedEvent
+
+func _ready():
+	pass 
+
