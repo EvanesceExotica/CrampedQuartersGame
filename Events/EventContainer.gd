@@ -10,7 +10,7 @@ onready var choiceContainer = get_node("Panel/MarginContainer/VBoxContainer2")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SignalManager.connect("EndEvent", self, "hideEventContainer")
-	initializeEvent()
+	#initializeEvent()
 	pass # Replace with function body.
 
 func initializeEvent():

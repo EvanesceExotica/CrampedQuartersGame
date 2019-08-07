@@ -243,7 +243,7 @@ func _ready():
 
 	#mainCamera = get_node("Camera2D")
 
-
+var fullDayDuration = 24
 
 var dragging = true
 func _process(delta):

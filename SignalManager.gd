@@ -5,6 +5,15 @@ signal OnArrival(destinationType) #Planet/Derelict Ship/Asteroid/Stranded Vessel
 
 #have different lists of events that depend on this
 
+
+signal DayPassed
+
+signal DayEventGenerated(delayTime)
+
+
+#perhaps with this signal, reset lists and allow a new event to pop up
+signal NewDayStarted
+
 signal OnJump
 
 signal OnSleep
