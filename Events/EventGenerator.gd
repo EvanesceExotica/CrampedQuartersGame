@@ -1,11 +1,10 @@
-extends Node
+extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-onready var eventContainer = get_node("EventContainer")
+
 
 export(Array) var eventArray = []
+
+onready var eventContainer = get_node("EventContainer")
 
 var randomEventDictionary = {}
 
@@ -29,31 +28,41 @@ func AddEntry(event):
 	randomEventDictionary[event] = accumulatedChance
 
 
+#func populateSpecificEventArray(array):
+	
+
 func ChooseArrivalEvent():
 	#choose an event from the 'onArrival' event array	
 	print("Arrival event chosen")
+	chooseRandomEvent()
 	pass
 		
 func ChooseDayEvent():
 	#choose a delay period when this event will happen
-	var dayEvent = null
-	dayEventDelay = rand_range(0, System.fullDayDuration)
+	dayEvent = "FIRE OH NO"
+
+	#this multiplication will give the number of hours in the day "Full Day Duration" times seconds in the hour to get the  number of seconds in day
+	var secondsInDay = System.totalSecondsInHour * System.fullDayDuration
+	dayEventDelay = rand_range(0, secondsInDay)
+	print("Choosing day event which will happen at " + str(dayEventDelay))
 
 func _ready():
 	SignalManager.connect("OnArrival", self, "ChooseArrivalEvent")
-	SignalManager.connect("NewDayStarted", self, "ChooseDayEvent")
+	SignalManager.connect("DayPassed", self, "ChooseDayEvent")
+	#Should be 'new day started' for some delay
 	randomize()
 
 	#add and accumulate all the chances
 	for item in eventArray:
 		AddEntry(item)
 
-func TriggerEvent():
-	print("Event Triggered")
+func TriggerEvent(dayEvent):
+	print("Event Triggered " + dayEvent)
 	pass
 
 func _process(delta):
+	#print(str(System.elapsedSecondsInDay) + "vs" + str(dayEventDelay))
 	if(dayEvent != null):
-		if(System.currentHour == (int)dayEventDelay):
+		if(System.elapsedSecondsInDay == dayEventDelay):
 			TriggerEvent(dayEvent)
 		#if the current hour equals the delayed time for the event to trigger

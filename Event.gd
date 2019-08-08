@@ -3,7 +3,7 @@ extends Resource
 
 class_name Event
 
-export(String) id
+export(String) var id
 
 export(Texture) var image
 
@@ -11,9 +11,9 @@ export(Texture) var image
 export(String) var eventDescriptionText
 
 #these can be flags to see what triggers the event
-export(Array) eventPrereqs
+export(Array) var eventPrereqs
 
-export(float) chanceOfOccurring
+export(float) var chanceOfOccurring
 
 export(Dictionary) var eventChoices
 

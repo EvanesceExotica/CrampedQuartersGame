@@ -82,9 +82,9 @@ signal nightStarted
 #warning-ignore:unused_signal
 signal dayEnded
 
-var elapsedSecondsInDay = 0
-#warning-ignore:unused_class_variable
-var totalSecondsInDay = 300
+# var elapsedSecondsInDay = 0
+# #warning-ignore:unused_class_variable
+# var totalSecondsInDay = 300
 
 #1 day = 5 minutes
 #1 day = 300 seconds
@@ -243,7 +243,32 @@ func _ready():
 
 	#mainCamera = get_node("Camera2D")
 
-var fullDayDuration = 24
+var fullDayDuration = 2 # Change back to 24
+
+var currentHour = 0
+var elapsedSecondsInHour = 0
+var currentDayInRun = 1 
+var totalSecondsInHour = 12.5
+var elapsedSecondsInDay = 0
+
+func convertToClockTime(delta):
+
+	elapsedSecondsInHour += delta
+	elapsedSecondsInDay+= delta
+
+	if(elapsedSecondsInHour >= totalSecondsInHour):
+		currentHour+=1
+		SignalManager.emit_signal("HourPassed", currentHour)
+		elapsedSecondsInHour = 0
+
+#add 'skip' where can jump to 24 when asleep
+	if(currentHour == fullDayDuration):
+		SignalManager.emit_signal("DayPassed")
+		print("Day passed")
+		currentDayInRun+=1
+		print("Now day: " + str(currentDayInRun))
+		currentHour = 0
+		elapsedSecondsInDay = 0
 
 var dragging = true
 func _process(delta):
@@ -255,8 +280,9 @@ func _process(delta):
 	else:
 		dragging = false
 
-	elapsedSecondsInPeriod += delta
-	elapsedSecondsInDay += delta
-	if elapsedSecondsInPeriod > totalSecondsInPeriod:
-		elapsedSecondsInPeriod = 0
+	convertToClockTime(delta)
+	# elapsedSecondsInPeriod += delta
+	# elapsedSecondsInDay += delta
+	# if elapsedSecondsInPeriod > totalSecondsInPeriod:
+	# 	elapsedSecondsInPeriod = 0
 	pass

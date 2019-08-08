@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://MainRoom.gd" type="Script" id=1]
 [ext_resource path="res://Gradient/Reddish.tres" type="Gradient" id=2]
@@ -8,11 +8,12 @@
 [ext_resource path="res://Clock.gd" type="Script" id=6]
 [ext_resource path="res://bag_furniture_sdb_sci-fi_monitor_storage_display_box.png" type="Texture" id=7]
 [ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://furniture_loveseat_spaceship_love_seat.png" type="Texture" id=9]
-[ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=10]
-[ext_resource path="res://Slot.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=13]
+[ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://furniture_loveseat_spaceship_love_seat.png" type="Texture" id=10]
+[ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=11]
+[ext_resource path="res://Slot.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -42,6 +43,10 @@ shader_param/gradient = SubResource( 2 )
 [sub_resource type="DynamicFont" id=4]
 size = 60
 font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 50
+font_data = ExtResource( 9 )
 
 [node name="MainRoom" type="Node2D"]
 script = ExtResource( 1 )
@@ -92,47 +97,56 @@ margin_bottom = 30.0
 custom_fonts/font = SubResource( 4 )
 text = "TIME: "
 
+[node name="Label2" type="Label" parent="Clock"]
+visible = false
+margin_left = -121.037
+margin_top = 15.8518
+margin_right = -24.0374
+margin_bottom = 84.8518
+custom_fonts/font = SubResource( 5 )
+text = "DAY"
+
 [node name="furniture_loveseat_spaceship_love_seat" type="Sprite" parent="."]
 modulate = Color( 0.0156863, 0.0784314, 0.101961, 1 )
 position = Vector2( 543.391, 487.011 )
 scale = Vector2( 0.517764, 0.517764 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="furniture_armchair_blue_modern_box_chair" type="Sprite" parent="."]
 modulate = Color( 0.0117647, 0.117647, 0.164706, 1 )
 position = Vector2( 175.746, 508.716 )
 scale = Vector2( 0.302081, 0.302081 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="furniture_armchair_blue_modern_box_chair2" type="Sprite" parent="."]
 modulate = Color( 0.0117647, 0.117647, 0.164706, 1 )
 position = Vector2( 904.304, 493.132 )
 scale = Vector2( -0.302, 0.302 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
-[node name="Slot" parent="." instance=ExtResource( 11 )]
+[node name="Slot" parent="." instance=ExtResource( 12 )]
 position = Vector2( 941.001, 454.693 )
 
-[node name="Slot2" parent="." instance=ExtResource( 11 )]
+[node name="Slot2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 622.955, 476.916 )
 
-[node name="Slot6" parent="." instance=ExtResource( 11 )]
+[node name="Slot6" parent="." instance=ExtResource( 12 )]
 position = Vector2( 772.74, 402.023 )
 
-[node name="Slot3" parent="." instance=ExtResource( 11 )]
+[node name="Slot3" parent="." instance=ExtResource( 12 )]
 position = Vector2( 463.288, 479.248 )
 
-[node name="Slot4" parent="." instance=ExtResource( 11 )]
+[node name="Slot4" parent="." instance=ExtResource( 12 )]
 position = Vector2( 125.475, 439.654 )
 
-[node name="Slot5" parent="." instance=ExtResource( 11 )]
+[node name="Slot5" parent="." instance=ExtResource( 12 )]
 position = Vector2( 308.408, 408.96 )
 
-[node name="HealthDispenser" parent="." instance=ExtResource( 12 )]
+[node name="HealthDispenser" parent="." instance=ExtResource( 13 )]
 position = Vector2( 810, 110 )
 scale = Vector2( 0.439999, 0.44 )
 
-[node name="Dispenser" parent="." instance=ExtResource( 13 )]
+[node name="Dispenser" parent="." instance=ExtResource( 14 )]
 position = Vector2( 550, 101.695 )
 scale = Vector2( 0.48, 0.52 )
 

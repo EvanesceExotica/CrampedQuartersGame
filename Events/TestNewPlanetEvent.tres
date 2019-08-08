@@ -1,14 +1,17 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://Events/GenerateRandomCharacter.tres" type="Resource" id=1]
-[ext_resource path="res://Events/EndEvent.tres" type="Resource" id=2]
+[ext_resource path="res://Events/EndEvent.tres" type="Resource" id=1]
+[ext_resource path="res://Events/GenerateRandomCharacter.tres" type="Resource" id=2]
 [ext_resource path="res://Event.gd" type="Script" id=3]
 
 [resource]
 script = ExtResource( 3 )
-eventDescriptionText = [  ]
+id = ""
+eventDescriptionText = ""
+eventPrereqs = [  ]
+chanceOfOccurring = 0.0
 eventChoices = {
-"Leave them stranded.": [ ExtResource( 2 ) ],
-"Take them aboard.": ExtResource( 1 )
+"Leave them stranded.": [ ExtResource( 1 ) ],
+"Take them aboard.": ExtResource( 2 )
 }
 

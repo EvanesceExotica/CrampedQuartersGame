@@ -4,7 +4,7 @@ extends Node
 signal OnArrival(destinationType) #Planet/Derelict Ship/Asteroid/Stranded Vessel/BEacon Vessel/Space Station/DerelictSpaceStation
 
 #have different lists of events that depend on this
-
+signal HourPassed(hour)
 
 signal DayPassed
 
@@ -15,6 +15,7 @@ signal DayEventGenerated(delayTime)
 signal NewDayStarted
 
 signal OnJump
+
 
 signal OnSleep
 
