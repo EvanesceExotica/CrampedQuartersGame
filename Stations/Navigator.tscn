@@ -1,20 +1,38 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Stations/Navigator.gd" type="Script" id=1]
-[ext_resource path="res://furniture_walldeco_spaceship_screen_2.png" type="Texture" id=2]
+[ext_resource path="res://Stations/Stars.png" type="Texture" id=2]
 [ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 852.054, 302.469 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
 font_data = ExtResource( 3 )
 
 [node name="Navigator" type="Node2D"]
-position = Vector2( 20, 0 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 936.811, 32.1603 ]
+}
 
-[node name="furniture_walldeco_spaceship_screen_2" type="Sprite" parent="."]
-position = Vector2( 490, 290 )
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2( 190, 520 )
+points = PoolVector2Array( 0, 0, 0, 0 )
+texture_mode = -840325217
+
+[node name="BackgroundGrid" type="Sprite" parent="."]
+position = Vector2( 490, 300 )
+scale = Vector2( 0.53125, 0.547688 )
 texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 490, 300 )
+scale = Vector2( 0.53125, 0.547688 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
 
 [node name="JumpButton" type="Button" parent="."]
 margin_left = 190.0
@@ -24,8 +42,15 @@ margin_bottom = 595.0
 custom_fonts/font = SubResource( 1 )
 text = "JUMP TO NEW LOCATION"
 
-[node name="MenuButton" type="MenuButton" parent="."]
-margin_right = 510.0
-margin_bottom = 260.0
+[node name="LineHolder" type="Node2D" parent="."]
+
+[node name="LocationHolder" type="Node2D" parent="."]
+
+[node name="Line2D2" type="Line2D" parent="."]
+points = PoolVector2Array( 370, 70, 390, 70, 405, 70, 415, 70, 435, 75, 465, 75, 490, 75, 415, 70 )
+width = 3.0
+default_color = Color( 0.635294, 0.698039, 1, 1 )
+texture_mode = -840325217
+joint_mode = 2
 
 [connection signal="pressed" from="JumpButton" to="." method="_on_JumpButton_pressed"]
