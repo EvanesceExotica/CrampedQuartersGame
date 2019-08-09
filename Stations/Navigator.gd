@@ -16,6 +16,12 @@ export(int) var locationsMax = 7
 var generatedLocations = {}
 onready var area2d = get_node("Area2D")
 onready var colshape2d = area2d.get_node("CollisionShape2D")
+
+
+var startingLocation
+
+var beaconLocation
+
 # Called when the node enters the scene tree for the first time.
 var locationNode = preload("res://LocationNode.tscn")
 
@@ -58,7 +64,7 @@ func spawnInArea():
 		star.position = to_local(spawnPosition) #spawnPositio
 
 		locationHolder.add_child(star)
-		generatedLocations[star] = null
+		generatedLocations[star] = []
 	for location in generatedLocations.keys():
 		findClosestNode(location)
 	
@@ -69,7 +75,7 @@ func findClosestNode(node):
 		if location == node:
 			#make sure the same node as is 'node' isn't being chosen
 			continue
-		if generatedLocations[location] != null:
+		if generatedLocations[location].size() > 0 :
 			#make sure the location doesn't already have a connection to it
 			continue
 		if location.global_position.distance_to(node.global_position) < nearestLocation.global_position.distance_to(node.global_position):
@@ -77,8 +83,8 @@ func findClosestNode(node):
 			nearestLocation = location
 	
 	#set these to demonstrate these two nodes already have a connection
-	generatedLocations[node] = nearestLocation
-	generatedLocations[nearestLocation] = node
+	generatedLocations[node].append(nearestLocation)
+	generatedLocations[nearestLocation].append(node)
 			#TODO: ADD THESE LINES TO DETERMINE HOW LONG IT TAKES TO TRAVEL, WHICH DIRECTION TO GO WHICH YOU CAN JUMP TO AND SUCH
 	#draw a new line, make it between the points, add it to the scene
 	var newLine = Line2D.new()
@@ -94,6 +100,14 @@ func findClosestNode(node):
 	#newLine.points = [Vector2(node.position.x, node.position.y), Vector2(nearestLocation.position.x, nearestLocation.position.y)]
 	lineHolder.add_child(newLine)
 
+
+func chooseRandomLocation():
+
+	#choose a random index from random location
+	var randomIndex = randi()%generatedLocations.keys().size()
+	return generatedLocations.keys()[randomIndex]
+
+
 # func make_2d_array():
 # 	var array = []
 # 	for i in width:
@@ -107,6 +121,7 @@ func _ready():
 
 	randomize()
 	spawnInArea()
+	startingLocation = chooseRandomLocation()
 	#allSpaces = make_2d_array()
 
 func chooseRandomLocations():
