@@ -1,6 +1,12 @@
 extends Node
 
 
+
+signal SelectedLocationNode(node)
+
+signal DeselectedLocationNode(node)
+
+
 signal OnArrival(destinationType) #Planet/Derelict Ship/Asteroid/Stranded Vessel/BEacon Vessel/Space Station/DerelictSpaceStation
 
 #have different lists of events that depend on this
@@ -14,7 +20,13 @@ signal DayEventGenerated(delayTime)
 #perhaps with this signal, reset lists and allow a new event to pop up
 signal NewDayStarted
 
-signal OnJump
+signal OnSpacetimeJumpDeparture
+
+signal OnSpacetimeJumpArrival
+
+signal OnSpacetimeEngineCooldown
+
+signal OnSpacetimeEngineActive
 
 
 signal OnSleep

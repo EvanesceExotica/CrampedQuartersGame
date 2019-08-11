@@ -16,12 +16,15 @@ export(int) var locationsMax = 7
 var generatedLocations = {}
 onready var area2d = get_node("Area2D")
 onready var colshape2d = area2d.get_node("CollisionShape2D")
+onready var spacetimeJumpButton = get_node("HSplitContainer/SpacetimeJump")
 
 
+onready var timer = get_node("Timer")
 var startingLocation
-
+var currentLocation
 var beaconLocation
-
+var selectedNextLocation
+var previousLocation
 # Called when the node enters the scene tree for the first time.
 var locationNode = preload("res://LocationNode.tscn")
 
@@ -60,26 +63,46 @@ func spawnInArea():
 
 		spawnPosition.y = ((randi()% int(size.y) - (size.y/2)) * area2d.global_scale.y) + centerpos.y 
 
-	
+		
 		star.position = to_local(spawnPosition) #spawnPositio
 
 		locationHolder.add_child(star)
+		star.label.text = str(i)
 		generatedLocations[star] = []
+		connectionsMade[star] = []
 	for location in generatedLocations.keys():
 		findClosestNode(location)
-	
+
+func printConnections():
+	for location in generatedLocations.keys():
+		var s = " "
+		for connection in generatedLocations[location]:
+			s += connection.label.text + " , "
+		print(location.label.text + " is connected to " + s)
+
 func findClosestNode(node):
 
 	var nearestLocation = generatedLocations.keys()[0]
+	var secondNearestLocation
 	for location in generatedLocations.keys():
 		if location == node:
 			#make sure the same node as is 'node' isn't being chosen
 			continue
 		if generatedLocations[location].size() > 0 :
+
+			#this will skip the first node with a connection, but the last node that doesn't have one can connect to any before
 			#make sure the location doesn't already have a connection to it
 			continue
+		if location.global_position.distance_to(node.global_position) < 100:
+			#if too close to another node, push it out a bit
+			var position = location.global_position
+			location.global_position = Vector2(position.x + 100, position.y+100)
+
 		if location.global_position.distance_to(node.global_position) < nearestLocation.global_position.distance_to(node.global_position):
 			#find the closest location that isn't already connected and isn't the same node
+
+			#store the location that's the second closest
+			secondNearestLocation = nearestLocation
 			nearestLocation = location
 	
 	#set these to demonstrate these two nodes already have a connection
@@ -96,11 +119,45 @@ func findClosestNode(node):
 	newLine.add_point(point2)
 	newLine.default_color = lineColor
 	newLine.width = lineWidth
+	connectionsMade[node].append(newLine) #figure out while all lines aren't being connected back
+	connectionsMade[nearestLocation].append(newLine)
 
 	#newLine.points = [Vector2(node.position.x, node.position.y), Vector2(nearestLocation.position.x, nearestLocation.position.y)]
 	lineHolder.add_child(newLine)
 
 
+func ResetNodesUponArrival():
+	#this gets rid of the nodes and lines before
+	ClearOldNodes()
+
+	#this generates new ones, filling the connections dictionaries
+	spawnInArea()
+
+	#this chooses a random location to start in
+	startingLocation = chooseRandomLocation()
+	#startingLocation.modulate = Color.cornflower
+
+	#setting the current location to the starting location
+	currentLocation = startingLocation
+	previousLocation = null
+	#this activates the nodes that are reachable from the starting location
+	activateReachableNodes()
+
+	#this colors the lines from the startinng location
+	showTraversibleLines()
+
+	SignalManager.emit_signal("OnArrival", currentLocation)
+	printConnections()
+
+func ClearOldNodes():
+	#cleaner way to do this where you don't delete
+	for child in lineHolder.get_children():
+		lineHolder.remove_child(child)
+		connectionsMade.clear()
+	for child in locationHolder.get_children():
+		locationHolder.remove_child(child)
+		generatedLocations.clear()
+	
 func chooseRandomLocation():
 
 	#choose a random index from random location
@@ -108,53 +165,99 @@ func chooseRandomLocation():
 	return generatedLocations.keys()[randomIndex]
 
 
-# func make_2d_array():
-# 	var array = []
-# 	for i in width:
-# 		array.append([]);
-# 		for j in height:
-# 			array[i].append(null)
-# 	return array;
+func DeselectLocation(node):
+	selectedNextLocation = null
+	print("Deselected " + str(node.label.text))
+	print("Selected location is " + str(selectedNextLocation))
+
+func SelectLocation(node):
+	#if one of the location nodes is clicked on, selected this as the potential next location
+	#selected new node
+	selectedNextLocation = node
+	print("Selected new location " + str(node.label.text))
+
+	pass
+
+func SetSpacetimeJumpInactive():
+	spacetimeJumpButton.disabled = true
+
+func SetSpacetimeJumpActive():
+	spacetimeJumpButton.disabled = true
 
 func _ready():
 	
+	SignalManager.connect("SelectedLocationNode", self, "SelectLocation")
+	SignalManager.connect("DeselectedLocationNode", self, "DeselectLocation")
 
+	#when the ship is currently jumping through warp, don't let player click button, set it inactive
+	SignalManager.connect("OnSpacetimeJumpDeparture", self, "SetSpacetimeJumpInactive")
+
+	#when the ship's engines have cooled down, set the button active again
+	SignalManager.connect("OnSpacetimeEngineActive", self, "SetSpacetimeJumpActive")
+
+	SignalManager.connect("OnSpacetimeJumpArrival", self, "ResetNodesUponArrival")
 	randomize()
-	spawnInArea()
-	startingLocation = chooseRandomLocation()
+
+	ResetNodesUponArrival()
+	# spawnInArea()
+	# startingLocation = chooseRandomLocation()
+	# #startingLocation.modulate = Color.cornflower
+	# currentLocation = startingLocation
+	# activateReachableNodes()
+	# showTraversibleLines()
+	# printConnections()
+	# ArrivedAtNewLocation(startingLocation)
 	#allSpaces = make_2d_array()
 
-func chooseRandomLocations():
-	pass
-	# var numberOfLocations = floor(rand_range(locationsMin, locationsMax+1))
-	# #var row = floor(rand_range(x_start) + effect)
-	# randi()%height+1
-	# var column = randi()%width+1
-	# for i in range(numberOfLocations):
-	# 	row = randi()%width+1
-	# 	column = randi()%height+1 
-	# 	print(str(column) + " , " + str(row))
-	# 	var newLocation = locationNode.instance()
-	# 	newLocation.position = grid_to_pixel(column, row)
-	# 	add_child(newLocation)
 
+func activateReachableNodes():
+	for location in generatedLocations.keys():
+		if location == currentLocation:
+			location.setUnpickable()
+			continue
+		if generatedLocations[currentLocation].has(location):
+			#if this is a reachable location from this node, make it selectable
+			if location != currentLocation:
+				location.setPickable()
+		else:
+			#else, make it unselectable
+			location.setUnpickable()
 
+func showTraversibleLines():
 
-# func spawn_pieces():
-# 	for i in width:
-# 		for j in height:
-# 			#choose a random number and store it
-# 			var rand = floor((rand_range(0,)))
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func grid_to_pixel(column, row):
-	pass#
+	for connection in connectionsMade[currentLocation]:
+		connection.default_color = Color.green
+#	for location in generatedLocations[currentLocation]: 
+		#for all the ones this is connected with
+	if previousLocation !=null:
+		for connection in connectionsMade[previousLocation]:
+			connection.default_color = Color.white
+		
+func setNewLocation(location):
+
+	previousLocation = currentLocation
+	currentLocation = location
+
+	#now that it's the new location, remove the selection
+	DeselectLocation(location)
+	location.removeSelectionDressing()
+	#deselectCurretNode()
+	showTraversibleLines()
+	activateReachableNodes()
+	SignalManager.emit_signal("OnArrival", currentLocation)
+
 
 func ArrivedAtNewLocation():
 	SignalManager.emit_signal("OnArrival")
 
-#func _process(delta):
-#	pass
+func _on_SpacetimeJump_pressed():
+	print("Jumping through spacetime")
+	SignalManager.emit_signal("OnSpacetimeJumpDeparture")
+	#SignalManager.emit_signal("OnSpacetimeJumpArrival")
+
+
 func _on_JumpButton_pressed():
+	setNewLocation(selectedNextLocation)
 	print("Jumped to new location")
 	ArrivedAtNewLocation()
 
