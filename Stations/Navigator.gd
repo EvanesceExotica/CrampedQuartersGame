@@ -182,7 +182,7 @@ func SetSpacetimeJumpInactive():
 	spacetimeJumpButton.disabled = true
 
 func SetSpacetimeJumpActive():
-	spacetimeJumpButton.disabled = true
+	spacetimeJumpButton.disabled = false
 
 func _ready():
 	

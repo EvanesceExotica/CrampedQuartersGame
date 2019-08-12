@@ -5,13 +5,13 @@
 [ext_resource path="res://bag_furniture_wallcabinet_spaceship_wall_locker.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 120, 140 )
+extents = Vector2( 250, 140 )
 
 [node name="Station" type="Node2D"]
 script = ExtResource( 1 )
 minigameScreen = ExtResource( 2 )
 
-[node name="bag_furniture_wallcabinet_spaceship_wall_locker" type="Sprite" parent="."]
+[node name="Interface" type="Sprite" parent="."]
 position = Vector2( 130, 220 )
 scale = Vector2( 0.39, 0.39 )
 texture = ExtResource( 3 )

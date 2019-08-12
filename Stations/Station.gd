@@ -20,9 +20,9 @@ func loadMinigameScene():
 	print("Loading minigame scene")
 	if screenInstance == null:
 		screenInstance = minigameScreen.instance()
-		add_child(screenInstance)
+		get_parent().add_child(screenInstance)
 	else:
-		add_child(screenInstance)
+		get_parent().add_child(screenInstance)
 	screenInstance.initializeGame()
 func changeHealthAmount(amount):
 	health+= amount

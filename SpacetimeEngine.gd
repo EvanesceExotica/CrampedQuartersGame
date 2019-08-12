@@ -10,8 +10,12 @@ var cooldown
 var active = true
 
 var engineRunTime = 3
+var coolingDown = false
+var jumping = false
 
 func startCooldown():
+	jumping = false #we're not jumping, we've arrived, we're on cooldonw
+	coolingDown = true #we're on cooldown
 	print("Cooldown started")
 	SignalManager.emit_signal("OnSpacetimeEngineCooldown")
 	timer.wait_time = cooldown
@@ -28,11 +32,16 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_Timer_timeout():
-	print("Engine active now")
-	active = true
-	SignalManager.emit_signal("OnSpacetimeEngineActive")
+	#print("Engine active now")
+	if(coolingDown):
+		#if the timer timed out after a cooldown
+		active = true #we're not jumping or on cooldown, engine is active again
+		SignalManager.emit_signal("OnSpacetimeEngineActive")
+		coolingDown = false #no longer on cooldown now that timed out
 
 func runEngine():
+	jumping = true #engine is running, meaning we're jumping through spacetime
+	active = false #engine can't be activated whiel we're already jumping through spacetime
 	timer.wait_time = engineRunTime
 	timer.start()
 	yield(timer, "timeout")
