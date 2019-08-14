@@ -24,6 +24,7 @@ func loadMinigameScene():
 	else:
 		get_parent().add_child(screenInstance)
 	screenInstance.initializeGame()
+
 func changeHealthAmount(amount):
 	health+= amount
 	#environmental effects can deal damage to stations too

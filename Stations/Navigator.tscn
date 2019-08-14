@@ -21,6 +21,15 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [ 936.811, 32.1603 ]
 }
+width = null
+height = null
+x_start = null
+y_start = null
+offset = null
+locationsMin = null
+locationsMax = null
+lineWidth = null
+lineColor = null
 
 [node name="Line2D" type="Line2D" parent="."]
 position = Vector2( 190, 520 )

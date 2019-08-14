@@ -93,10 +93,12 @@ func findClosestNode(node):
 			#this will skip the first node with a connection, but the last node that doesn't have one can connect to any before
 			#make sure the location doesn't already have a connection to it
 			continue
-		if location.global_position.distance_to(node.global_position) < 100:
+		if location.global_position.distance_to(node.global_position) < 80:
+			#print(location.label.text + " too close to " + node.label.text)
 			#if too close to another node, push it out a bit
+			#THIS DOESN'T GARUNTEE IT'LL BE FARTHER AWAY 
 			var position = location.global_position
-			location.global_position = Vector2(position.x + 100, position.y+100)
+			location.global_position = Vector2(position.x + 80, position.y+80)
 
 		if location.global_position.distance_to(node.global_position) < nearestLocation.global_position.distance_to(node.global_position):
 			#find the closest location that isn't already connected and isn't the same node
@@ -247,8 +249,8 @@ func setNewLocation(location):
 	SignalManager.emit_signal("OnArrival", currentLocation)
 
 
-func ArrivedAtNewLocation():
-	SignalManager.emit_signal("OnArrival")
+#  func ArrivedAtNewLocation():
+#  	SignalManager.emit_signal("OnArrival")
 
 func _on_SpacetimeJump_pressed():
 	print("Jumping through spacetime")
@@ -259,5 +261,5 @@ func _on_SpacetimeJump_pressed():
 func _on_JumpButton_pressed():
 	setNewLocation(selectedNextLocation)
 	print("Jumped to new location")
-	ArrivedAtNewLocation()
+	#ArrivedAtNewLocation()
 
