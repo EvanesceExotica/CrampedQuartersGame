@@ -44,7 +44,6 @@ func spawnInArea():
 
 
 	var numberOfLocations = floor(rand_range(locationsMin, locationsMax+1))
-	print("We have this many locations" + str(numberOfLocations))
 	for i in range(numberOfLocations):
 		var star = locationNode.instance()
 	
@@ -69,6 +68,7 @@ func spawnInArea():
 		locationHolder.add_child(star)
 		star.label.text = str(i)
 		generatedLocations[star] = []
+		SignalManager.emit_signal("LocationNodesGenerated", generatedLocations.keys())
 		connectionsMade[star] = []
 	for location in generatedLocations.keys():
 		findClosestNode(location)

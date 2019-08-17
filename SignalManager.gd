@@ -6,6 +6,7 @@ signal SelectedLocationNode(node)
 
 signal DeselectedLocationNode(node)
 
+signal LocationNodesGenerated(locationNodes)
 
 signal OnArrival(destinationType) #Planet/Derelict Ship/Asteroid/Stranded Vessel/BEacon Vessel/Space Station/DerelictSpaceStation
 

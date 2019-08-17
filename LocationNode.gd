@@ -3,6 +3,10 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+
+var backgroundLocation
+var primaryLocation 
+
 onready var area2D = get_node("Area2D")
 onready var label = get_node("Label")
 onready var sprite = get_node("StarSprite")
