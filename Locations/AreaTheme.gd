@@ -21,9 +21,10 @@ var randomPrimaryLocations = []
 # Called when the node enters the scene tree for the first time.
 
 func chooseRandomBackgroundLocation():
-	Utility.
+	var randomBackgroundLocation = backgroundLocationObject.ChooseRandomFromDictionary()
 
 func chooseRandomPrimaryLocation():
+	var randomPrimaryLocation = primaryLocationObject.ChooseRandomFromDictionary()
 
 func _ready():
 

@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=2]
+
+[sub_resource type="Curve" id=8]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0, -1.75998 ), 0.0, 0.0, 0, 0, Vector2( 1, 100.32 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 90, 90, 4 )
+flag_align_y = true
+flag_rotate_y = true
+spread = 46.4
+gravity = Vector3( 0, 0, 0 )
+radial_accel_curve = SubResource( 9 )
+angle_random = 1.0
+scale_curve = SubResource( 2 )
+hue_variation = -0.16
+hue_variation_random = 1.0
+
+[sub_resource type="Environment" id=10]
+background_mode = 4
+glow_enabled = true
+glow_bloom = 1.0
+adjustment_enabled = true
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2( 5.12, 3 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 100, 100 )
+amount = 1200
+lifetime = 1.5
+process_material = SubResource( 3 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 100, 100 )
+amount = 1200
+process_material = SubResource( 3 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 10 )
+
