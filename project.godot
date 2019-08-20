@@ -72,6 +72,7 @@ System="*res://System.tscn"
 CharacterAttributes="*res://CharacterAttributes.gd"
 AttributeJSONParser="*res://AttributeJSONParser.gd"
 SignalManager="*res://SignalManager.gd"
+Utility="*res://UtiliytScripts/Utility.gd"
 
 [debug]
 

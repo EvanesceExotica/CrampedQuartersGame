@@ -8,15 +8,36 @@ export(int) var chanceOfOccurring
 
 export(Array) var backgroundLocations = []
 
+var backgroundLocationObject
+var primaryLocationObject
+
+var randomBackgroundLocations = []
+
+var backgroundLocationChance
+
 export(Array) var primaryLocations = []
+
+var randomPrimaryLocations = []
 # Called when the node enters the scene tree for the first time.
 
 func chooseRandomBackgroundLocation():
+	Utility.
 
 func chooseRandomPrimaryLocation():
 
 func _ready():
-	pass # Replace with function body.
+
+	#two objects with dictionary and accumulated chance are created
+	backgroundLocationObject = WeightedObject.new()
+	primaryLocationObject = WeightedObject.new()	
+	for item in backgroundLocations:
+		backgroundLocationObject.AddEntryToDictionary(item)
+
+
+	for item in primaryLocations:
+		primaryLocationObject.AddEntryToDictionary(item)
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
