@@ -9,7 +9,8 @@ export(int) var x_start;
 export(int) var y_start;
 export(int) var offset;
 var allSpaces = []
-
+var stars = preload("res://Stars.tscn")
+var starInstance 
 export(int) var locationsMin = 3
 export(int) var locationsMax = 7
 
@@ -129,6 +130,7 @@ func findClosestNode(node):
 
 
 func ResetNodesUponArrival():
+	remove_child(starInstance)
 	#this gets rid of the nodes and lines before
 	ClearOldNodes()
 
@@ -255,6 +257,9 @@ func setNewLocation(location):
 func _on_SpacetimeJump_pressed():
 	print("Jumping through spacetime")
 	SignalManager.emit_signal("OnSpacetimeJumpDeparture")
+	if starInstance == null:
+		starInstance = stars.instance()
+	add_child(starInstance)
 	#SignalManager.emit_signal("OnSpacetimeJumpArrival")
 
 

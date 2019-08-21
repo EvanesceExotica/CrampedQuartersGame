@@ -31,7 +31,7 @@ func generateLocations(theme, locations):
 	
 	
 	for location in locations:
-		location.backgroundLocation = 
+		location.backgroundLocation =  theme.chooseRandomBackgroundLocation()
 	#for potentialLocation in theme.backgroundLocations:
 	#	pass
 

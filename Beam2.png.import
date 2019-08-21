@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Beam.png-bdd6fc3909c443c8db42297f1ca92909.s3tc.stex"
-path.etc2="res://.import/Beam.png-bdd6fc3909c443c8db42297f1ca92909.etc2.stex"
+path.s3tc="res://.import/Beam2.png-33332a7df14c31f4cf420943f9c2bf15.s3tc.stex"
+path.etc2="res://.import/Beam2.png-33332a7df14c31f4cf420943f9c2bf15.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Beam.png"
-dest_files=[ "res://.import/Beam.png-bdd6fc3909c443c8db42297f1ca92909.s3tc.stex", "res://.import/Beam.png-bdd6fc3909c443c8db42297f1ca92909.etc2.stex" ]
+source_file="res://Beam2.png"
+dest_files=[ "res://.import/Beam2.png-33332a7df14c31f4cf420943f9c2bf15.s3tc.stex", "res://.import/Beam2.png-33332a7df14c31f4cf420943f9c2bf15.etc2.stex" ]
 
 [params]
 
