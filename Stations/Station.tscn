@@ -5,7 +5,7 @@
 [ext_resource path="res://bag_furniture_wallcabinet_spaceship_wall_locker.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 250, 140 )
+extents = Vector2( 140, 150 )
 
 [node name="Station" type="Node2D"]
 script = ExtResource( 1 )
@@ -20,6 +20,7 @@ texture = ExtResource( 3 )
 position = Vector2( 130, 150 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionSpace"]
+position = Vector2( -1, 0 )
 shape = SubResource( 1 )
 
 [connection signal="mouse_entered" from="InteractionSpace" to="." method="_on_InteractionSpace_mouse_entered"]

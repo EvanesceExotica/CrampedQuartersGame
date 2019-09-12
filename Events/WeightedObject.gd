@@ -3,6 +3,7 @@ extends Object
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+class_name WeightedObject
 
 var accumulatedChance = 0
 
@@ -14,6 +15,9 @@ func AddEntryToDictionary(entry):
 	randomChanceDictionary[entry] = accumulatedChance
 
 	#return [accumChance, dict]
+func RemoveEntryFromDictionary(entry):
+	accumulatedChance -= entry.chanceOfOccurring
+	randomChanceDictionary.erase(entry)
 
 func ChooseRandomFromDictionary():
 	var randomGeneratedNumber = randf() * accumulatedChance

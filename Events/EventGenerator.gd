@@ -31,7 +31,7 @@ func AddEntry(event):
 #func populateSpecificEventArray(array):
 	
 
-func ChooseArrivalEvent():
+func ChooseArrivalEvent(event):
 	#choose an event from the 'onArrival' event array	
 	print("Arrival event chosen")
 	chooseRandomEvent()

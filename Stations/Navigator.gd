@@ -45,8 +45,10 @@ func spawnInArea():
 
 
 	var numberOfLocations = floor(rand_range(locationsMin, locationsMax+1))
+	#find a random numer of locations between min and max
 	for i in range(numberOfLocations):
 		var star = locationNode.instance()
+		#initialize the location
 	
 		var spawnPosition = Vector2(0, 0)
 	#var testX = randi() % int(size.x)
@@ -63,15 +65,22 @@ func spawnInArea():
 
 		spawnPosition.y = ((randi()% int(size.y) - (size.y/2)) * area2d.global_scale.y) + centerpos.y 
 
+		#find random position for location^
+
 		
 		star.position = to_local(spawnPosition) #spawnPositio
 
 		locationHolder.add_child(star)
+
+		#add to holder in scene for organization 
 		star.label.text = str(i)
+
+		#add to dictionary where we'll register the connections with other locations V
 		generatedLocations[star] = []
 		SignalManager.emit_signal("LocationNodesGenerated", generatedLocations.keys())
 		connectionsMade[star] = []
 	for location in generatedLocations.keys():
+		location.z_index = 50
 		findClosestNode(location)
 
 func printConnections():
@@ -94,14 +103,14 @@ func findClosestNode(node):
 			#this will skip the first node with a connection, but the last node that doesn't have one can connect to any before
 			#make sure the location doesn't already have a connection to it
 			continue
-		if location.global_position.distance_to(node.global_position) < 80:
+		if location.position.distance_to(node.position) < 80:
 			#print(location.label.text + " too close to " + node.label.text)
 			#if too close to another node, push it out a bit
 			#THIS DOESN'T GARUNTEE IT'LL BE FARTHER AWAY 
-			var position = location.global_position
-			location.global_position = Vector2(position.x + 80, position.y+80)
+			var position = location.position
+			location.position = Vector2(position.x + 80, position.y+80)
 
-		if location.global_position.distance_to(node.global_position) < nearestLocation.global_position.distance_to(node.global_position):
+		if location.position.distance_to(node.position) < nearestLocation.position.distance_to(node.position):
 			#find the closest location that isn't already connected and isn't the same node
 
 			#store the location that's the second closest
@@ -114,8 +123,8 @@ func findClosestNode(node):
 			#TODO: ADD THESE LINES TO DETERMINE HOW LONG IT TAKES TO TRAVEL, WHICH DIRECTION TO GO WHICH YOU CAN JUMP TO AND SUCH
 	#draw a new line, make it between the points, add it to the scene
 	var newLine = Line2D.new()
-	var point1 = node.global_position
-	var point2 = nearestLocation.global_position
+	var point1 = node.position
+	var point2 = nearestLocation.position
 	#var point1 = to_local(node.position)
 	#var point2 = to_local(nearestLocation.position)
 	newLine.add_point(point1)
@@ -127,6 +136,7 @@ func findClosestNode(node):
 
 	#newLine.points = [Vector2(node.position.x, node.position.y), Vector2(nearestLocation.position.x, nearestLocation.position.y)]
 	lineHolder.add_child(newLine)
+	newLine.z_index = 50
 
 
 func ResetNodesUponArrival():
@@ -262,6 +272,9 @@ func _on_SpacetimeJump_pressed():
 	add_child(starInstance)
 	#SignalManager.emit_signal("OnSpacetimeJumpArrival")
 
+func _input(event):
+	if event.is_action_pressed("ui_interact"):
+		setNewLocation(selectedNextLocation)
 
 func _on_JumpButton_pressed():
 	setNewLocation(selectedNextLocation)

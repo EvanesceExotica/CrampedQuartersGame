@@ -15,3 +15,6 @@ texture = ExtResource( 2 )
 [node name="CameraPosition" type="Position2D" parent="."]
 position = Vector2( 510, 290 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 510, 300 )
+

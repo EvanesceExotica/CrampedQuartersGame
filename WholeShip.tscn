@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
-[ext_resource path="res://MainRoom.tscn" type="PackedScene" id=2]
+[ext_resource path="res://PassengerRoom.tscn" type="PackedScene" id=2]
 [ext_resource path="res://AirlockRoom.tscn" type="PackedScene" id=3]
 [ext_resource path="res://AquariumRoom.tscn" type="PackedScene" id=4]
 [ext_resource path="res://SupplyClosetRoom.tscn" type="PackedScene" id=5]
@@ -18,9 +18,9 @@
 ]]
 script = ExtResource( 1 )
 
-[node name="CharacterAttributes" type="Node2D" parent="."]
-
 [node name="MainRoom" parent="." instance=ExtResource( 2 )]
+
+[node name="CharacterAttributes" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 510, 299.38 )

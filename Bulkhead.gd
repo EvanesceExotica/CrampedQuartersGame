@@ -30,9 +30,10 @@ export (Rooms) var destinationRoomType
 var destinationRoom
 
 func switchRooms():
-	var camera2D = get_parent().get_node("Camera2D")
-	var cameraTween = camera2D.get_node("Tween")
-	camera2D.global_position = destinationCameraPosition.global_position
+	destinationRoom.camera.current = true
+	# var camera2D = get_parent().get_node("Camera2D")
+	# var cameraTween = camera2D.get_node("Tween")
+	# camera2D.global_position = destinationCameraPosition.global_position
 	# var startingPosition = camera2D.global_position
 	# cameraTween.interpolate_property(camera2D, "global_position", startingPosition, destinationCameraPosition.global_position, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	# cameraTween.start()

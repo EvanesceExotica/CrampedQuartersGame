@@ -6,6 +6,7 @@ extends Node2D
 onready var cameraPosition = get_node("CameraPosition")
 var stations = [] 
 var slots = [] 
+onready var camera = get_node("Camera2D")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

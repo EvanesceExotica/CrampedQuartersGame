@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AreaTheme",
+"language": "GDScript",
+"path": "res://Locations/AreaTheme.gd"
+}, {
 "base": "Object",
 "class": "Attribute",
 "language": "GDScript",
@@ -29,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Event.gd"
 }, {
+"base": "Resource",
+"class": "Location",
+"language": "GDScript",
+"path": "res://Locations/Location.gd"
+}, {
 "base": "Node2D",
 "class": "MinigameNode",
 "language": "GDScript",
@@ -48,16 +58,24 @@ _global_script_classes=[ {
 "class": "Trait",
 "language": "GDScript",
 "path": "res://CharacterAttributes.gd"
+}, {
+"base": "Object",
+"class": "WeightedObject",
+"language": "GDScript",
+"path": "res://Events/WeightedObject.gd"
 } ]
 _global_script_class_icons={
+"AreaTheme": "",
 "Attribute": "",
 "CalledSignal": "",
 "DrainSource": "",
 "Event": "",
+"Location": "",
 "MinigameNode": "",
 "Species": "",
 "Stat": "",
-"Trait": ""
+"Trait": "",
+"WeightedObject": ""
 }
 
 [application]
@@ -84,7 +102,6 @@ gdscript/warnings/unused_argument=false
 
 [display]
 
-window/size/resizable=false
 window/size/test_width=627
 window/size/test_height=366
 window/stretch/mode="2d"
