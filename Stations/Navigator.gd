@@ -77,7 +77,7 @@ func spawnInArea():
 
 		#add to dictionary where we'll register the connections with other locations V
 		generatedLocations[star] = []
-		SignalManager.emit_signal("LocationNodesGenerated", generatedLocations.keys())
+		#SignalManager.emit_signal("LocationNodesGenerated", generatedLocations.keys())
 		connectionsMade[star] = []
 	for location in generatedLocations.keys():
 		location.z_index = 50
@@ -189,6 +189,7 @@ func SelectLocation(node):
 	#selected new node
 	selectedNextLocation = node
 	print("Selected new location " + str(node.label.text))
+	print(node.backgroundLocation.description)
 
 	pass
 

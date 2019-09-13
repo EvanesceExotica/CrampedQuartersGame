@@ -4,4 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
+description = "orbiting a sun"
+chanceOfOccurring = 0
+occuringOnce = false
+possiblePrimaryLocations = [  ]
 

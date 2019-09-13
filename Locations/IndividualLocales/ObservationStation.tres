@@ -4,6 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-description = ""
+description = "an observation station"
+chanceOfOccurring = 0
 occuringOnce = false
+possiblePrimaryLocations = [  ]
 

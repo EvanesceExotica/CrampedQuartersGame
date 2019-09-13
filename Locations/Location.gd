@@ -11,6 +11,6 @@ export(Texture) var locationImage
 export(String) var description #maybe make this a string of random descriptions?
 export(int) var chanceOfOccurring
 export(bool) var occuringOnce #this is for locations that should only occur once in an area
-export(Array) var backgroundLocations #locations that this object can appear above
+export(Array) var possiblePrimaryLocations #locations that this object can appear above
 #func _process(delta):
 #	pass

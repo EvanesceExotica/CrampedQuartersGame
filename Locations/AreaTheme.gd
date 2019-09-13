@@ -17,6 +17,9 @@ var primaryLocationObject
 export(Array) var primaryLocations = []
 
 
+# func matchBackgroundToPrimary(backgroundLocation):
+# 	for item in backgroundLocation.possiblePrimaryLocations 
+
 # Called when the node enters the scene tree for the first time.
 
 func chooseRandomBackgroundLocation():

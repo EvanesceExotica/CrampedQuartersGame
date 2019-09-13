@@ -14,6 +14,8 @@ var dayEventDelay
 
 var dayEvent
 
+var randomDayEventObject
+
 func chooseRandomEvent():
 	var randomGeneratedNumber = randf() * accumulatedChance
 	for event in randomEventDictionary.keys():
@@ -30,16 +32,21 @@ func AddEntry(event):
 
 #func populateSpecificEventArray(array):
 	
+func StartArrivalEvent(event):
+	eventContainer.event = event
+	eventContainer.initializeEvent()
 
-func ChooseArrivalEvent(event):
-	#choose an event from the 'onArrival' event array	
-	print("Arrival event chosen")
-	chooseRandomEvent()
-	pass
+# func ChooseArrivalEvent(event):
+# 	#choose an event from the 'onArrival' event array	
+# 	print("Arrival event chosen")
+
+# 	#chooseRandomEvent()
+# 	pass
 		
 func ChooseDayEvent():
 	#choose a delay period when this event will happen
-	dayEvent = "FIRE OH NO"
+	dayEvent = randomDayEventObject.ChooseRandomFromDictionary()
+	#dayEvent = "FIRE OH NO"
 
 	#this multiplication will give the number of hours in the day "Full Day Duration" times seconds in the hour to get the  number of seconds in day
 	var secondsInDay = System.totalSecondsInHour * System.fullDayDuration
@@ -47,17 +54,20 @@ func ChooseDayEvent():
 	print("Choosing day event which will happen at " + str(dayEventDelay))
 
 func _ready():
-	SignalManager.connect("OnArrival", self, "ChooseArrivalEvent")
+	SignalManager.connect("OnArrival", self, "StartArrivalEvent")
 	SignalManager.connect("DayPassed", self, "ChooseDayEvent")
 	#Should be 'new day started' for some delay
 	randomize()
-
+	randomDayEventObject = WeightedObject.new()
 	#add and accumulate all the chances
 	for item in eventArray:
-		AddEntry(item)
+		randomDayEventObject.AddEntryToDictionary(item)
+		#AddEntry(item)
 
 func TriggerEvent(dayEvent):
-	print("Event Triggered " + dayEvent)
+#	print("Event Triggered " + dayEvent)
+	eventContainer.event = dayEvent
+	eventContainer.initializeEvent
 	pass
 
 func _process(delta):

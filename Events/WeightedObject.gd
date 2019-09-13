@@ -10,6 +10,7 @@ var accumulatedChance = 0
 var randomChanceDictionary = {}
 
 func AddEntryToDictionary(entry):
+	#change this to take into account the chanceOfOccuring being applied by the theme rather than individual objects
 	#each entry will add up the chance of occuring
 	accumulatedChance += entry.chanceOfOccuring
 	randomChanceDictionary[entry] = accumulatedChance

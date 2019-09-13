@@ -38,13 +38,29 @@ func generateLocations(locations):
 	
 	#generate a random theme
 	var newTheme = generateTheme()	
+
+ 	var randomPrimaryLocations = []
+	# var randomBackgroundLocations = []
+	 for i in range(locations.size()):
+		 randomPrimaryLocations.append(newTheme.chooseRandomPrimaryLocation())
+
+
 	for location in locations:
 		#assign a generated background to each location
+		randomBackgroundLocations.append(newTheme.chooseRandomBackgroundLocation())
+
 		location.backgroundLocation =  newTheme.chooseRandomBackgroundLocation()
-	#for potentialLocation in theme.backgroundLocations:
+		for possiblePrimaryLocation in location.backgroundLocation.possiblePrimaryLocations:
+			#for the locations that can appear above this background location
+			if randomPrimaryLocations.has(possiblePrimaryLocation):
+				#if the generated primary locations fit with this background
+				location.primaryLocation = possiblePrimaryLocation
+				randomPrimaryLocations.erase(possiblePrimaryLocation)
+	#for potentialLocation in theme.backgroundLocation
 	#	pass
 
-
+func generateLocationPairs(location):
+	location.backgroundLocation =  newTheme.chooseRandomBackgroundLocation()
 		
 
 # Called when the node enters the scene tree for the first time.
