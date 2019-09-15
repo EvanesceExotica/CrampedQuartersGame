@@ -1,0 +1,107 @@
+{
+    "events": [
+        {
+            "title": "",
+            "description": "",
+            "image": {},
+            "scope": [],
+            "requirements": [
+                {
+                    "scope": "",
+                    "requiredTraits": [],
+                    "excludedTraits": [],
+                    "comparisons": []
+                }
+            ],
+            "options": [
+                {
+                    "text": "",
+                    "requirements": [
+                        {
+                            "scope": "",
+                            "requiredTraits": [],
+                            "excludedTraits": [],
+                            "comparisons": []
+                        }
+                    ],
+                    "resultSets": [
+                        {
+                            "weight": 0.25,
+                            "results": [
+                                {
+                                    "scope": "",
+                                    "addedTraits": [],
+                                    "removedTraits": [],
+                                    "actions": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "",
+            "description": "",
+            "image": {},
+            "scope": [],
+            "requirements": [
+                {
+                    "scope": "",
+                    "requiredTraits": [],
+                    "excludedTraits": [],
+                    "comparisons": []
+                }
+            ],
+            "options": [
+                {
+                    "text": "",
+                    "requirements": [
+                        {
+                            "scope": "",
+                            "requiredTraits": [],
+                            "excludedTraits": [],
+                            "comparisons": []
+                        },
+                        {
+                            "scope": "",
+                            "requiredTraits": [],
+                            "excludedTraits": [],
+                            "comparisons": []
+                        }
+                    ],
+                    "resultSets": [
+                        {
+                            "weight": 0.25,
+                            "results": [
+                                {
+                                    "scope": "",
+                                    "addedTraits": [],
+                                    "removedTraits": [],
+                                    "actions": []
+                                },
+                                {
+                                    "scope": "",
+                                    "addedTraits": [],
+                                    "removedTraits": [],
+                                    "actions": []
+                                }
+                            ]
+                        },
+                        {
+                            "weight": 0.25,
+                            "results": [
+                                {
+                                    "scope": "",
+                                    "addedTraits": [],
+                                    "removedTraits": [],
+                                    "actions": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
