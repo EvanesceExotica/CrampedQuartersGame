@@ -58,22 +58,22 @@ func _ready():
 	SignalManager.connect("DayPassed", self, "ChooseDayEvent")
 	#Should be 'new day started' for some delay
 	randomize()
-	randomDayEventObject = WeightedObject.new()
-	#add and accumulate all the chances
-	for item in eventArray:
-		randomDayEventObject.AddEntryToDictionary(item)
-		#AddEntry(item)
+	# randomDayEventObject = WeightedObject.new()
+	# #add and accumulate all the chances
+	# for item in eventArray:
+	# 	randomDayEventObject.AddEntryToDictionary(item)
+	# 	#AddEntry(item)
 
 func TriggerEvent(dayEvent):
 #	print("Event Triggered " + dayEvent)
-	var dayEvent = EventParser.chooseRandomEvent()
+	EventParser.chooseRandomEvent()
 	# eventContainer.event = dayEvent
 	# eventContainer.initializeEvent
 	pass
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		TriggerEvent()
+		TriggerEvent(null)
 
 
 func _process(delta):

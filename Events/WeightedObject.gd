@@ -8,6 +8,9 @@ class_name WeightedObject
 var accumulatedChance = 0
 
 var randomChanceDictionary = {}
+func AddEntry(entry, weight):
+	accumulatedChance += weight
+	randomChanceDictionary[entry] = accumulatedChance
 
 func AddEntryToDictionary(entry):
 	#change this to take into account the chanceOfOccuring being applied by the theme rather than individual objects

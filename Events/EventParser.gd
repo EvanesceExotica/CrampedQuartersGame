@@ -59,15 +59,21 @@ func showResult(chosenResultSet):
 	pass
 
 func calculateResultSet(resultSets):
+	print("Calculating result!")
 	#when an event choice is clicked, roll weighted results to see which one appears
 	var chosenResultSet = null
-	var randomNumber = randf()
+	#var randomNumber = randf()
+	var weightedResultObject = WeightedObject.new()
 	for item in resultSets:
-		#each of these items is a dictionary
-		if item["weight"] >= randomNumber:
-			#if the dictionary key named 'weight' is less than or equal to the rolled number
-			item = chosenResultSet
-			#choose this dictionary
+		weightedResultObject.AddEntry(item, item["weight"])
+
+	chosenResultSet = weightedResultObject.ChooseRandomFromDictionary()
+	# for item in resultSets:
+	# 	#each of these items is a dictionary
+	# 	if item["weight"] >= randomNumber:
+	# 		#if the dictionary key named 'weight' is less than or equal to the rolled number
+	# 		chosenResultSet = item
+	# 		#choose this dictionary
 
 	showResult(chosenResultSet)
 	#update the event with this result

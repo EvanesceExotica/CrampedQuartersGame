@@ -4,8 +4,8 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-export var backgroundLocation
-export var primaryLocation 
+var backgroundLocation = null
+var primaryLocation = null
 
 onready var area2D = get_node("Area2D")
 onready var label = get_node("Label")
@@ -15,7 +15,7 @@ onready var tween = get_node("Tween")
 onready var dottedCircle = get_node("DottedCircle")
 onready var pointer = get_node("Pointer")
 
-export var event 
+var event 
 var selected = false
 
 var isCurrentLocation = false

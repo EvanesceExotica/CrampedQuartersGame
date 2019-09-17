@@ -18,13 +18,20 @@ func updateEvent(updateParameters):
 	#this will be a result set
 	eventText.text = updateParameters["description"]
 
+func chooseRandomDescription(descriptionParameters):
+	#for variety in event description, have multiple descriptions of same event
+	var description = descriptionParameters[0]
+	var randomNumber = randi()%descriptionParameters.size()
+	description = descriptionParameters[randomNumber]
+	return description
+
 func showEvent(eventParameters):
-	eventText.text = eventParameters["description"]
+	eventText.text = chooseRandomDescription(eventParameters["description"])
 	for option in eventParameters["options"]:
 		#array of options
 		var newChoice = eventChoice.instance()
 		newChoice.text = option["text"]
-		newChoice.resultSets = option["resultSets"]
+		newChoice.resultSets = option["resultsets"]
 		choiceContainer.add_child(newChoice)
 	##NOTE FOR MORNING, TRYING TO GET EVENT OPTIONS CONNECTED -- SHOULD WE MAKE IT AN OBJECT?	
 
