@@ -9,9 +9,13 @@ var eventChoice = preload("res://Events/EventChoice.tscn")
 onready var choiceContainer = get_node("Panel/MarginContainer/VBoxContainer2")
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SignalManager.connect("UpdateEvent", self, "updateEvent")
 	SignalManager.connect("EndEvent", self, "hideEventContainer")
 	#initializeEvent()
 	pass # Replace with function body.
+func updateEvent(updateParameters):
+	#this will be a result set
+	eventText.text = updateParameters["description"]
 
 func initializeEvent():
 	#change this so that each event has multiple branches of text?

@@ -570,6 +570,8 @@ func _ready():
 	sustenanceBar.max_value = maxSustenance
 	currentSustenance = maxSustenance
 	System.connect("stoppedDraggingItem", self, "checkIfSomethingDropped")
+	System.connect("AddTrait", self, "ApplyNewAttribute")
+	System.connect("RemoveTrait", self, "removeAttribute")
 #	sustenanceBar.max_value = maxSustenance
 
 

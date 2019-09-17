@@ -2,8 +2,8 @@
     "events": [
         {
             "title": "",
-            "description": "",
-            "image": {},
+            "description": [],
+            "image": [],
             "scope": [],
             "requirements": [
                 {
@@ -26,6 +26,7 @@
                     ],
                     "resultSets": [
                         {
+                            "description": "",
                             "weight": 0.25,
                             "results": [
                                 {

@@ -1,6 +1,8 @@
 extends Node
 
 
+signal AddTrait(parameters)
+signal RemoveTrait(parameters)
 
 signal SelectedLocationNode(node)
 
@@ -40,6 +42,7 @@ signal generateRandomNewCharacter
 
 signal EndEvent(parameters)
 
+signal UpdateEvent(parameters)
 
 signal DamageStation(parameters)
 #for characters with specific stats
