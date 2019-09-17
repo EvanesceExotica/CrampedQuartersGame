@@ -96,6 +96,7 @@ position = Vector2( 130, 100 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="EventGenerator" parent="." instance=ExtResource( 12 )]
-position = Vector2( 580, 210 )
+position = Vector2( 330, 130 )
+eventArray = null
 
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]

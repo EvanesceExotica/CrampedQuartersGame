@@ -341,38 +341,7 @@ func drainValueOverTime(whichStat, drainSource, rate):
 	whichPointsDrainedPerSecond = statDrainRates[whichStat]
 
 	$Tween.stop(self, whichProperty)
-	#
-	# if(whichValue == DynamicStats.health):
-	# 	whichProperty = "currentHealth"
-	# 	currentValue = currentHealth
-	# 	whichBar = characterStats.healthBar
-	# 	whichTween = characterStats.healthTween
-	# 	whichPointsDrainedPerSecond = statDrainRates[whichValue]
-	# 	$Tween.stop(self, "currentHealth")
-	#
-	# elif(whichValue == DynamicStats.sustenance):
-	# 	whichProperty = "currentSustenance"
-	# 	currentValue = currentSustenance
-	# 	whichBar = characterStats.sustenanceBar
-	# 	whichTween = characterStats.sustenanceTween
-	# 	whichPointsDrainedPerSecond = statDrainRates[whichValue]
-	# 	$Tween.stop(self, "currentSustenance")
-	#
-	# elif(whichValue == DynamicStats.sanity):
-	# 	whichProperty = "currentSanity"
-	# 	currentValue = currentSanity
-	# 	whichBar = characterStats.sanityBar
-	# 	whichTween = characterStats.sanityTween
-	# 	whichPointsDrainedPerSecond = statDrainRates[whichValue]
-	# 	$Tween.stop(self, "currentSanity")
-	#
-	# elif(whichValue == DynamicStats.relationship):
-	# 	whichProperty = "currentRelationship"
-	# 	currentValue = currentRelationship
-	# 	whichBar = characterStats.relationshipBar
-	# 	whichTween = characterStats.relationshipTween
-	# 	whichPointsDrainedPerSecond = statDrainRates[whichValue]
-	# 	$Tween.stop(self, "currentRelationship")
+	
 
 	$Tween.interpolate_property(self, whichProperty, currentValue, 0, calculateDrainRate(whichStat, whichPointsDrainedPerSecond), Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
@@ -434,95 +403,7 @@ func changeStatValue(dynamicStat, amount, isMultiplicative):
 		emit_signal("statAtZero", dynamicStat)
 	if(statCurrentValues[dynamicStat] > statMaxValues[dynamicStat]):
 		statCurrentValues[dynamicStat] = statMaxValues[dynamicStat]
-	#
-	# if(dynamicStat == DynamicStats.health):
-	# 	currentAnim = characterStats.healthAnimationPlayer
-	# 	currentBar = characterStats.healthBar
-	# 	currentTween = characterStats.healthTween
-	# 	startValue = currentHealth
-	#
-	# 	if(isMultiplicative):
-	# 		endValue = currentHealth * amount
-	# 	else:
-	# 		endValue = currentHealth + amount
-	#
-	# 	if($Tween.is_active()):
-	# 		#if we're already tweening health, stop it to restart
-	# 		$Tween.stop(self, 'currentHealth')
-	#
-	#
-	# 	#characterStats.animateBar(characterStats.healthTween, characterStats.healthBar, startHealth, endHealth, 0.5)
-	#
-	# 	if(isMultiplicative):
-	# 		endValue = currentHealth * amount
-	# 	else:
-	# 		currentHealth+=amount
-	#
-	# 	if(currentHealth <= 0):
-	# 		currentHealth = 0
-	# 	if(currentHealth >= maxHealth):
-	# 		currentHealth = maxHealth
-	# if(dynamicStat == DynamicStats.sanity):
-	# 	currentBar = characterStats.sanityBar
-	# 	currentTween = characterStats.sanityTween
-	# 	currentAnim = characterStats.sanityAnimationPlayer
-	#
-	# 	startValue = currentSanity
-	# 	if(isMultiplicative):
-	# 		endValue = currentSanity * amount
-	# 	else:
-	# 		endValue = currentSanity + amount
-	#
-	# 	if($Tween.is_active()):
-	# 		$Tween.stop(self, 'currentSanity')
-	#
-	# 	if(isMultiplicative):
-	# 		current *=  amount
-	# 	else:
-	# 		currentSanity+=amount
-	#
-	# 	if(currentSanity <= 0):
-	# 		currentSanity = 0
-	# 	if(currentSanity >= maxSanity):
-	# 		currentSanity = maxSanity
-	#
-	# if(dynamicStat == DynamicStats.sustenance):
-	# 	currentBar = characterStats.sustenanceBar
-	# 	currentTween = characterStats.sustenanceTween
-	# 	currentAnim = characterStats.sustenanceAnimationPlayer
-	# 	startValue = currentSustenance
-	# 	endValue = currentSustenance + amount
-	#
-	#
-	# 	if($Tween.is_active()):
-	# 		$Tween.stop(self, 'currentSustenance')
-	#
-	# 	currentSustenance+=amount
-	# 	if(currentSustenance <= 0):
-	# 		currentSustenance = 0
-	# 	if(currentSustenance >= maxSustenance):
-	# 		currentSustenance = maxSustenance
-	#
-	# if(dynamicStat == DynamicStats.relationship):
-	# 	currentBar = characterStats.relationshipBar
-	# 	currentTween = characterStats.relationshipTween
-	# 	currentAnim = characterStats.relationshipAnimationPlayer
-	#
-	# 	startValue = currentRelationship
-	# 	endValue = currentRelationship + amount
-	#
-	#
-	# 	if($Tween.is_active()):
-	# 		$Tween.stop(self, 'currentRelationship')
-	#
-	# 	currentRelationship+= amount
-	#
-	# 	if(currentRelationship <= 0):
-	# 		currentRelationship = 0
-	#
-	# 	if(currentRelationship >= maxRelationship):
-	# 		currentRelationship = maxRelationship
-	#
+	
 
 	var statValueToSet = statPropertyNames[dynamicStat]
 	set(statValueToSet, statCurrentValues[dynamicStat])

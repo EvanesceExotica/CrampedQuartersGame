@@ -11,11 +11,22 @@ onready var choiceContainer = get_node("Panel/MarginContainer/VBoxContainer2")
 func _ready():
 	SignalManager.connect("UpdateEvent", self, "updateEvent")
 	SignalManager.connect("EndEvent", self, "hideEventContainer")
+	SignalManager.connect("NewEventLaunched", self, "showEvent")
 	#initializeEvent()
 	pass # Replace with function body.
 func updateEvent(updateParameters):
 	#this will be a result set
 	eventText.text = updateParameters["description"]
+
+func showEvent(eventParameters):
+	eventText.text = eventParameters["description"]
+	for option in eventParameters["options"]:
+		#array of options
+		var newChoice = eventChoice.instance()
+		newChoice.text = option["text"]
+		newChoice.resultSets = option["resultSets"]
+		choiceContainer.add_child(newChoice)
+	##NOTE FOR MORNING, TRYING TO GET EVENT OPTIONS CONNECTED -- SHOULD WE MAKE IT AN OBJECT?	
 
 func initializeEvent():
 	#change this so that each event has multiple branches of text?

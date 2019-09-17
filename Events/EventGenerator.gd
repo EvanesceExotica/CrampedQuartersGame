@@ -66,9 +66,15 @@ func _ready():
 
 func TriggerEvent(dayEvent):
 #	print("Event Triggered " + dayEvent)
-	eventContainer.event = dayEvent
-	eventContainer.initializeEvent
+	var dayEvent = EventParser.chooseRandomEvent()
+	# eventContainer.event = dayEvent
+	# eventContainer.initializeEvent
 	pass
+
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		TriggerEvent()
+
 
 func _process(delta):
 	#print(str(System.elapsedSecondsInDay) + "vs" + str(dayEventDelay))

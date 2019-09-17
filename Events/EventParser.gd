@@ -5,19 +5,32 @@ var eventData
 
 func _ready():
 	randomize()
-	SignalManager.connect("EventChoiceClicked", calculateResultSet)
+	SignalManager.connect("EventChoiceClicked", self, "calculateResultSet")
+	generateAllEvents()
 
 func load_json():
 	var file = File.new()
 	assert file.file_exists( "res://Events/Events.json")
 	file.open("res://Events/Events.json", file.READ)
 	eventData = parse_json(file.get_as_text())
-    return eventData
-    
-func sendEventSignals():
+	#return eventData
+   
+func generateAllEvents():
+	load_json()
+
+func chooseRandomEvent():
+	#change to non-random later
 	var eventArray  = []
-	eventArray = eventData[events]
-    pass
+	eventArray = eventData["events"]
+	var randomNumber = randi()%eventArray.size()
+	#createEvent(eventArray[randomNumber])
+	createEvent(eventArray[1])
+
+
+# func sendEventSignals():
+# 	var eventArray  = []
+# 	eventArray = eventData[events]
+# 	pass
 
 func checkScope(scope):
 
@@ -30,15 +43,16 @@ func checkScope(scope):
 func checkRequirements():
 	pass
 
-func createEvent():
+func createEvent(event):
 	#here we add the event to the object and add the choices along with it, maybe have a countdown?
+	SignalManager.emit_signal("NewEventLaunched", event)
 	pass
 
 func checkActions(actions):
 	#these are events that are fired by the results
-	for action in actions:
-		#action should be a dictionary, 'actions' should be a list of dictionaries
-		SignalManager.emit_signal(action[name], action[parameters])
+	for action in actions.keys():
+		#action should be a key value pair, 'actions' should be a dictionary
+		SignalManager.emit_signal(action, actions[action])
 	pass
 func showResult(chosenResultSet):
 	SignalManager.emit_signal("UpdateEvent", chosenResultSet)		
@@ -49,8 +63,13 @@ func calculateResultSet(resultSets):
 	var chosenResultSet = null
 	var randomNumber = randf()
 	for item in resultSets:
-		if item[weight] >= randomNumber:
+		#each of these items is a dictionary
+		if item["weight"] >= randomNumber:
+			#if the dictionary key named 'weight' is less than or equal to the rolled number
 			item = chosenResultSet
+			#choose this dictionary
+
 	showResult(chosenResultSet)
-	for item in chosenResultSet[result]:
-		checkActions()
+	#update the event with this result
+	for result in chosenResultSet["results"]:
+		checkActions(result["actions"])

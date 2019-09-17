@@ -2,6 +2,7 @@
     "events": [
         {
             "title": "",
+            "weight": "",
             "description": [],
             "image": [],
             "scope": [],
@@ -33,7 +34,7 @@
                                     "scope": "",
                                     "addedTraits": [],
                                     "removedTraits": [],
-                                    "actions": []
+                                    "actions": {} 
                                 }
                             ]
                         }
@@ -42,9 +43,12 @@
             ]
         },
         {
-            "title": "",
-            "description": "",
-            "image": {},
+            "title": "Character on asteroid",
+            "weight": "",
+            "description": [
+                "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures on the asteroid. What do you do?"
+            ],
+            "image": [],
             "scope": [],
             "requirements": [
                 {
@@ -56,47 +60,62 @@
             ],
             "options": [
                 {
-                    "text": "",
+                    "text": "Bring them on board.",
                     "requirements": [
                         {
                             "scope": "",
-                            "requiredTraits": [],
-                            "excludedTraits": [],
-                            "comparisons": []
-                        },
-                        {
-                            "scope": "",
-                            "requiredTraits": [],
-                            "excludedTraits": [],
+                            "requiredtraits": [],
+                            "excludedtraits": [],
                             "comparisons": []
                         }
                     ],
-                    "resultSets": [
+                    "resultsets": [
                         {
-                            "weight": 0.25,
+                            "description": "The shadowy figures were new characters! You've gained two new crewmembers.",
+                            "weight": 0.5,
                             "results": [
                                 {
                                     "scope": "",
-                                    "addedTraits": [],
-                                    "removedTraits": [],
-                                    "actions": []
-                                },
-                                {
-                                    "scope": "",
-                                    "addedTraits": [],
-                                    "removedTraits": [],
-                                    "actions": []
+                                    "addedtraits": [],
+                                    "removedtraits": [],
+                                    "actions": {"GenerateNewCharacter" : []}
                                 }
                             ]
                         },
                         {
-                            "weight": 0.25,
+                            "description": "The shadowy figures were demons! They attacked. Your ship took 5 damage.",
+                            "weight": 0.5,
                             "results": [
                                 {
                                     "scope": "",
                                     "addedTraits": [],
                                     "removedTraits": [],
-                                    "actions": []
+                                    "actions": {}
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "Leave them stranded.",
+                    "requirements": [
+                        {
+                            "scope": "",
+                            "requiredtraits": [],
+                            "excludedtraits": [],
+                            "comparisons": []
+                        }
+                    ],
+                    "resultsets": [
+                        {
+                            "description": "You take off and leave them behind. Oh well. Maybe you should've helped.",
+                            "weight": 1.0,
+                            "results": [
+                                {
+                                    "scope": "",
+                                    "addedtraits": [],
+                                    "removedtraits": [],
+                                    "actions": {}
                                 }
                             ]
                         }

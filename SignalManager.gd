@@ -40,6 +40,8 @@ signal EventChoiceClicked(whichOptions)
 #for characters with random stats
 signal generateRandomNewCharacter
 
+signal NewEventLaunched(parameters)
+
 signal EndEvent(parameters)
 
 signal UpdateEvent(parameters)
