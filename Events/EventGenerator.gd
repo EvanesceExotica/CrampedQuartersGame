@@ -45,8 +45,8 @@ func StartArrivalEvent(event):
 		
 func ChooseDayEvent():
 	#choose a delay period when this event will happen
-	dayEvent = randomDayEventObject.ChooseRandomFromDictionary()
-	#dayEvent = "FIRE OH NO"
+	#dayEvent = randomDayEventObject.ChooseRandomFromDictionary()
+	dayEvent = "FIRE OH NO"
 
 	#this multiplication will give the number of hours in the day "Full Day Duration" times seconds in the hour to get the  number of seconds in day
 	var secondsInDay = System.totalSecondsInHour * System.fullDayDuration
@@ -55,6 +55,7 @@ func ChooseDayEvent():
 
 func _ready():
 	SignalManager.connect("OnArrival", self, "StartArrivalEvent")
+	#TODO: #Put this back in
 	SignalManager.connect("DayPassed", self, "ChooseDayEvent")
 	#Should be 'new day started' for some delay
 	randomize()
