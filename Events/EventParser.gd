@@ -45,6 +45,7 @@ func checkScope(scope):
 	pass
 
 func checkRequirements():
+	
 	pass
 
 func createEvent(event):

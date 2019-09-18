@@ -35,12 +35,30 @@ func FindCharacterWithComparison(comparison):
     for character in dictionary.keys():
         pass
 
-func checkIncludedTraits(traits):
-    var traitIncluded = false
-    for trait in traits:
-        traitIncluded = compareTraits(trait)
-    return traitIncluded
+func FindFittingCharacter(requirements):
+    var potentialCharacters = [] + characters
+    checkIncludedTraits(requirements["requiredTraits"], potentialCharacters)
+    checkExcludedTraits(requirements["excludedTraits"], potentialCharacters)
+
+    #if there are multipole characters that fit the requirements
+    if potentialCharacters.size() > 0:
+        var randomNumber = randi()%potentialCharacters.size()
+        return potentialCharacters[randomNumber]
+        
+
+func checkIncludedTraits(traits, potentialCharacters):
+    var charactersThatMayHaveTraits = [] + potentialCharacters
+    for character in charactersThatMayHaveTraits:
+        if !character.characterAttributes.has(trait): 
+            #if the character doesn't have this trait
+            potentialCharacters.erase(character)
+
     
+func checkExcludedTraits(traits, potentialCharacters):
+    var charactersThatMayHaveTraits = [] + potentialCharacters
+    for character in characterThatMayHaveTraits:
+        if character.characterAttributes.has(trait):
+            potentialCharacters.erase(character)
 
 func compareTraits(trait):
     #pass
