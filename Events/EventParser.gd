@@ -44,7 +44,9 @@ func checkScope(scope):
 	#station with specific stats
 	pass
 
-func checkRequirements():
+func checkRequirements(requirements):
+	#for a character
+	CharacterTracker.FindFittingCharacter(requirements)
 	
 	pass
 

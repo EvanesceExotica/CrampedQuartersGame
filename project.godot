@@ -91,6 +91,7 @@ CharacterAttributes="*res://CharacterAttributes.gd"
 AttributeJSONParser="*res://AttributeJSONParser.gd"
 SignalManager="*res://SignalManager.gd"
 EventParser="*res://Events/EventParser.gd"
+CharacterTracker="*res://Character/CharacterTracker.gd"
 
 [debug]
 

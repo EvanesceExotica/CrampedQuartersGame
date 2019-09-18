@@ -124,6 +124,7 @@ func generateNewCharacter():
 	#var slot = chooseCharacterSlot(species)
 	var slot = chooseRandomSlot()
 	slot.addCharacterToSlot(characterInstance)
+	CharacterTracker.AddCharacter(characterInstance)
 
 func generateSpecies(randomNumber):
 	var species = speciesOptions[randomNumber]

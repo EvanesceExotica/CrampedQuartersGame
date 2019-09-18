@@ -13,7 +13,7 @@ func ConnectSignals(character):
 func DisconnectSignals(character):
     pass
 
-func RemoveCharacter(character)#, methodOfRemoval): //TODO add the removal method onto different method
+func RemoveCharacter(character):#, methodOfRemoval): //TODO add the removal method onto different method
     #methodOfRemoval = death
     #methodOfRemoval = disappearance, etc.
     DisconnectSignals(character)
@@ -22,24 +22,24 @@ func RemoveCharacter(character)#, methodOfRemoval): //TODO add the removal metho
 
 func FindCharacterWithComparison(comparison):
     var comparisonDictionary = {}
-    if comparison.contains('currentHealth'):
-        comparisonDictionary[character] = character.statCurrentValues[character.stringToEnum['health']]
-    if comparison.contains('currentSanity'):
-        comparisonDictionary[character] = character.statCurrentValues[character.stringToEnum['sanity']]
-    if comparison.contains('currentSustenance'):
-        comparisonDictionary[character] = character.statCurrentValues[character.stringToEnum['sustenance']]
-    if comparison.contains('currentRelationship'):
-        comparisonDictionary[character] = character.statCurrentValues[character.stringToEnum['relationship']]
+    # if comparison.contains('currentHealth'):
+    #     comparisonDictionary[character] = character.statCurrentValues[character.stringToEnum['health']]
+    # if comparison.contains('currentSanity'):
+    #     comparisonDictionary[character] = character.statCurrentValues[character.stringToEnum['sanity']]
+    # if comparison.contains('currentSustenance'):
+    #     comparisonDictionary[character] = character.statCurrentValues[character.stringToEnum['sustenance']]
+    # if comparison.contains('currentRelationship'):
+    #     comparisonDictionary[character] = character.statCurrentValues[character.stringToEnum['relationship']]
     #... FIX MORE HERE AFTER CONVERSION FROM ENUM TO DICTIONARY
 
-    for character in dictionary.keys():
-        pass
+    #for character in dictionary.keys():
+    #    pass
 
 func FindFittingCharacter(requirements):
     var potentialCharacters = [] + characters
     checkIncludedTraits(requirements["requiredTraits"], potentialCharacters)
     checkExcludedTraits(requirements["excludedTraits"], potentialCharacters)
-
+    print(potentialCharacters.size())
     #if there are multipole characters that fit the requirements
     if potentialCharacters.size() > 0:
         var randomNumber = randi()%potentialCharacters.size()
@@ -49,16 +49,18 @@ func FindFittingCharacter(requirements):
 func checkIncludedTraits(traits, potentialCharacters):
     var charactersThatMayHaveTraits = [] + potentialCharacters
     for character in charactersThatMayHaveTraits:
-        if !character.characterAttributes.has(trait): 
+        for trait in traits:
+            if !character.characterAttributes.has(trait): 
             #if the character doesn't have this trait
-            potentialCharacters.erase(character)
+                potentialCharacters.erase(character)
 
     
 func checkExcludedTraits(traits, potentialCharacters):
     var charactersThatMayHaveTraits = [] + potentialCharacters
     for character in characterThatMayHaveTraits:
-        if character.characterAttributes.has(trait):
-            potentialCharacters.erase(character)
+        for trait in traits:
+            if character.characterAttributes.has(trait):
+                potentialCharacters.erase(character)
 
 func compareTraits(trait):
     #pass
