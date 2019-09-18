@@ -6,7 +6,7 @@ export var event : Resource
 # var b = "text"
 onready var eventText = get_node("Panel/MarginContainer/VBoxContainer2/RichTextLabel")
 var eventChoice = preload("res://Events/EventChoice.tscn")
-onready var choiceContainer = get_node("Panel/MarginContainer/VBoxContainer2")
+onready var choiceContainer = get_node("Panel/MarginContainer/VBoxContainer2/ChoiceContainer")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SignalManager.connect("UpdateEvent", self, "updateEvent")
@@ -17,6 +17,9 @@ func _ready():
 func updateEvent(updateParameters):
 	#this will be a result set
 	eventText.text = updateParameters["description"]
+	#CHECK IF THERE'S A LINKED EVENT
+	resetOptions()
+	setContinueOption()
 
 func chooseRandomDescription(descriptionParameters):
 	#for variety in event description, have multiple descriptions of same event
@@ -25,13 +28,26 @@ func chooseRandomDescription(descriptionParameters):
 	description = descriptionParameters[randomNumber]
 	return description
 
+
+func resetOptions():
+	
+	for child in choiceContainer.get_children():
+		child.queue_free()
+
+func setContinueOption():
+	#this will reset to default, meaning nothing will happen but the event ending
+	var newChoice = eventChoice.instance()
+	choiceContainer.add_child(newChoice)
+
 func showEvent(eventParameters):
+	self.show()
+	resetOptions()
 	eventText.text = chooseRandomDescription(eventParameters["description"])
 	for option in eventParameters["options"]:
 		#array of options
 		var newChoice = eventChoice.instance()
 		newChoice.text = option["text"]
-		newChoice.resultSets = option["resultsets"]
+		newChoice.resultSets = option["resultSets"]
 		choiceContainer.add_child(newChoice)
 	##NOTE FOR MORNING, TRYING TO GET EVENT OPTIONS CONNECTED -- SHOULD WE MAKE IT AN OBJECT?	
 
@@ -45,6 +61,7 @@ func initializeEvent():
 		choiceContainer.add_child(newChoice)
 
 func hideEventContainer(param):
+	self.hide()
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

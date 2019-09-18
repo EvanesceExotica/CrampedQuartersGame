@@ -2,7 +2,7 @@ extends Node2D
 
 
 var eventData
-
+var eventArray = []
 func _ready():
 	randomize()
 	SignalManager.connect("EventChoiceClicked", self, "calculateResultSet")
@@ -20,13 +20,17 @@ func generateAllEvents():
 
 func chooseRandomEvent():
 	#change to non-random later
-	var eventArray  = []
 	eventArray = eventData["events"]
 	var randomNumber = randi()%eventArray.size()
 	#createEvent(eventArray[randomNumber])
 	createEvent(eventArray[1])
 
-
+func chooseSpecificEvent(id):
+	#might need to change event array to a dictionary if that would make this more efficient (using the key instead of a for loop)
+	for event in eventArray:
+		if event["id"] == id:
+			createEvent(event)
+			
 # func sendEventSignals():
 # 	var eventArray  = []
 # 	eventArray = eventData[events]
@@ -53,10 +57,13 @@ func checkActions(actions):
 	for action in actions.keys():
 		#action should be a key value pair, 'actions' should be a dictionary
 		SignalManager.emit_signal(action, actions[action])
-	pass
+
 func showResult(chosenResultSet):
-	SignalManager.emit_signal("UpdateEvent", chosenResultSet)		
-	pass
+	if chosenResultSet["linkedEvent"] > 0:
+		#if the ID for this is greater than zero, which is the 'blank' event
+		chooseSpecificEvent(chosenResultSet["linkedEvent"])
+	else:
+		SignalManager.emit_signal("UpdateEvent", chosenResultSet)		
 
 func calculateResultSet(resultSets):
 	print("Calculating result!")

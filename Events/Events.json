@@ -2,6 +2,7 @@
     "events": [
         {
             "title": "",
+            "id": 0,
             "weight": "",
             "description": [],
             "image": [],
@@ -29,12 +30,13 @@
                         {
                             "description": "",
                             "weight": 0.25,
+                            "linkedEvent": 0,
                             "results": [
                                 {
                                     "scope": "",
                                     "addedTraits": [],
                                     "removedTraits": [],
-                                    "actions": {} 
+                                    "actions": {}
                                 }
                             ]
                         }
@@ -44,6 +46,7 @@
         },
         {
             "title": "Character on asteroid",
+            "id": 1,
             "weight": "",
             "description": [
                 "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures on the asteroid. What do you do?"
@@ -69,22 +72,26 @@
                             "comparisons": []
                         }
                     ],
-                    "resultsets": [
+                    "resultSets": [
                         {
-                            "description": "The shadowy figures were new characters! You've gained two new crewmembers.",
+                            "description": "The shadowy figures were new characters! You've gained a new crewmember.",
                             "weight": 0.5,
+                            "linkedEvent": 0,
                             "results": [
                                 {
                                     "scope": "",
                                     "addedtraits": [],
                                     "removedtraits": [],
-                                    "actions": {"GenerateNewCharacter" : []}
+                                    "actions": {
+                                        "GenerateNewCharacter": []
+                                    }
                                 }
                             ]
                         },
                         {
                             "description": "The shadowy figures were demons! They attacked. Your ship took 5 damage.",
                             "weight": 0.5,
+                            "linkedEvent": 0,
                             "results": [
                                 {
                                     "scope": "",
@@ -106,16 +113,89 @@
                             "comparisons": []
                         }
                     ],
-                    "resultsets": [
+                    "resultSets": [
                         {
                             "description": "You take off and leave them behind. Oh well. Maybe you should've helped.",
                             "weight": 1.0,
+                            "linkedEvent": 2,
                             "results": [
                                 {
                                     "scope": "",
                                     "addedtraits": [],
                                     "removedtraits": [],
                                     "actions": {}
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "The Shimmery God",
+            "id": 2,
+            "weight": "",
+            "description": [
+                "The shimmery god is upon your vessel. They request a meal of one of your passengers."
+            ],
+            "image": [],
+            "scope": [],
+            "requirements": [
+                {
+                    "scope": "",
+                    "requiredTraits": [],
+                    "excludedTraits": [],
+                    "comparisons": []
+                }
+            ],
+            "options": [
+                {
+                    "text": "Accept and feed him one of your passengers",
+                    "requirements": [
+                        {
+                            "scope": "",
+                            "requiredTraits": [],
+                            "excludedTraits": [],
+                            "comparisons": []
+                        }
+                    ],
+                    "resultSets": [
+                        {
+                            "description": "A passenger died.",
+                            "weight": 1.0,
+                            "linkedEvent": 0,
+                            "results": [
+                                {
+                                    "scope": "",
+                                    "addedTraits": [],
+                                    "removedTraits": [],
+                                    "actions": {}
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "Refuse to feed him one of your passengers",
+                    "requirements": [
+                        {
+                            "scope": "",
+                            "requiredTraits": [],
+                            "excludedTraits": [],
+                            "comparisons": []
+                        }
+                    ],
+                    "resultSets": [
+                        {
+                            "description": "He grows angry. And hungry. He may just eat whomever he wants next time.",
+                            "weight": 1.0,
+                            "linkedEvent": 0,
+                            "results": [
+                                {
+                                    "scope": "",
+                                    "addedTraits": [],
+                                    "removedTraits": [],
+                                    "actions": {} 
                                 }
                             ]
                         }

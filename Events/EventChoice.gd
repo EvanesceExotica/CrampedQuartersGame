@@ -15,5 +15,8 @@ func _ready():
 #	pass
 func _on_EventChoice_pressed():
 	#pass a character through here rather than the list of parameters 
-	SignalManager.emit_signal("EventChoiceClicked", resultSets)
+	if resultSets == null:
+		SignalManager.emit_signal("EndEvent", null)
+	else:
+		SignalManager.emit_signal("EventChoiceClicked", resultSets)
 	#SignalManager.emit_signal(calledSignal.calledSignalName, calledSignal.signalParameters)

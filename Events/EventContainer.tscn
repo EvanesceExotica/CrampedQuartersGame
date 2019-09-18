@@ -29,11 +29,16 @@ margin_bottom = 180.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer2"]
 margin_right = 390.0
-margin_bottom = 180.0
+margin_bottom = 176.0
 size_flags_horizontal = 15
 size_flags_vertical = 15
 custom_fonts/normal_font = SubResource( 1 )
 text = "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures there on the asteroid. What do you do?
 "
 scroll_active = false
+
+[node name="ChoiceContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer2"]
+margin_top = 180.0
+margin_right = 390.0
+margin_bottom = 180.0
 
