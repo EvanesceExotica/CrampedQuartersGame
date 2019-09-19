@@ -114,10 +114,12 @@ func generateNewCharacter():
 		#attributes.append(generateNewAttribute())
 
 	var characterInstance = characterTemplate.instance()
+	characterInstance.characterName = NameGenerator.generateName()
 	add_child(characterInstance)
 
 	for item in attributes:
 		characterInstance.applyNewAttribute(item)
+
 
 	var randomSpeciesNumber = rand_range(0, speciesOptions.size())
 	var species = generateSpecies(randomSpeciesNumber)

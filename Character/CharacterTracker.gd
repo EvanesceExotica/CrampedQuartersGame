@@ -37,30 +37,53 @@ func FindCharacterWithComparison(comparison):
 
 func FindFittingCharacter(requirements):
     var potentialCharacters = [] + characters
-    checkIncludedTraits(requirements["requiredTraits"], potentialCharacters)
-    checkExcludedTraits(requirements["excludedTraits"], potentialCharacters)
-    print(potentialCharacters.size())
+    for requirement in requirements:
+        if requirement["requiredTraits"].size() > 0:
+            checkIncludedTraits(requirement["requiredTraits"], potentialCharacters)
+        if requirement["excludedTraits"].size() > 0:
+            checkExcludedTraits(requirement["excludedTraits"], potentialCharacters)
     #if there are multipole characters that fit the requirements
-    if potentialCharacters.size() > 0:
+    if potentialCharacters.size() > 1:
         var randomNumber = randi()%potentialCharacters.size()
         return potentialCharacters[randomNumber]
+    elif potentialCharacters.size() == 1:
+        return potentialCharacters[0]
+    elif potentialCharacters.size() == 0:
+        return null
         
 
 func checkIncludedTraits(traits, potentialCharacters):
     var charactersThatMayHaveTraits = [] + potentialCharacters
+
     for character in charactersThatMayHaveTraits:
+        var attributeList = []
+        for attribute in character.characterAttributes:
+            attributeList.append(attribute.attributeName)
         for trait in traits:
-            if !character.characterAttributes.has(trait): 
-            #if the character doesn't have this trait
+            if !attributeList.has(trait):
                 potentialCharacters.erase(character)
+        
+
+    # for character in charactersThatMayHaveTraits:
+    #     for trait in traits:
+    #         if !character.characterAttributes.has(trait): 
+    #         #if the character doesn't have this trait
+    #             potentialCharacters.erase(character)
 
     
 func checkExcludedTraits(traits, potentialCharacters):
     var charactersThatMayHaveTraits = [] + potentialCharacters
-    for character in characterThatMayHaveTraits:
+    for character in charactersThatMayHaveTraits:
+        var attributeList = []
+        for attribute in character.characterAttributes:
+            attributeList.append(attribute.attributeName)
         for trait in traits:
-            if character.characterAttributes.has(trait):
+            if attributeList.has(trait):
                 potentialCharacters.erase(character)
+    # for character in charactersThatMayHaveTraits:
+    #     for trait in traits:
+    #         if character.characterAttributes.has(trait):
+    #             potentialCharacters.erase(character)
 
 func compareTraits(trait):
     #pass
@@ -71,9 +94,9 @@ func compareTraits(trait):
     return traitContained
 
 func compareValues(comparison, characterDictionary):
-    var splitArray = comparision.split(",")
+    var splitArray = comparison.split(",")
     #keep to it being three values, second index should be the number
-    var charactersFittingComparision = []
+    var charactersFittingComparison = []
     if ">" in comparison:
         for character in characterDictionary.keys():
             if characterDictionary[character] > splitArray[2] :
@@ -94,7 +117,7 @@ func compareValues(comparison, characterDictionary):
             if characterDictionary[character] <= splitArray[2] :
                 charactersFittingComparison.append(character)
     
-    elif "==" in comparision:
+    elif "==" in comparison:
         for character in characterDictionary.keys():
             if characterDictionary[character] == splitArray[2] :
                 charactersFittingComparison.append(character)

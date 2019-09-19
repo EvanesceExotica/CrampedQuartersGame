@@ -56,8 +56,8 @@
             "requirements": [
                 {
                     "scope": "",
-                    "requiredTraits": [],
-                    "excludedTraits": [],
+                    "requiredTraits": ["Underwater"],
+                    "excludedTraits": ["OnFire"],
                     "comparisons": []
                 }
             ],

@@ -46,12 +46,17 @@ func checkScope(scope):
 
 func checkRequirements(requirements):
 	#for a character
-	CharacterTracker.FindFittingCharacter(requirements)
+	return CharacterTracker.FindFittingCharacter(requirements)
 	
 	pass
 
 func createEvent(event):
 	#here we add the event to the object and add the choices along with it, maybe have a countdown?
+	var character = checkRequirements(event["requirements"])
+	if character == null:
+		print("Couldn't find character")
+	else:
+		print(character.characterName)
 	SignalManager.emit_signal("NewEventLaunched", event)
 	pass
 

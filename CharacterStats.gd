@@ -1,7 +1,7 @@
 extends Control
 
 
-
+onready var nameLabel = get_node("Panel/NameLabel")
 onready var scanLabel = get_node("ScanLabel")
 var attributeArray = []
 var attributeDescriptorTemplate =  preload("res://AttributeDescriptor.tscn")
@@ -72,7 +72,7 @@ func _ready():
 	statBars = {System.DynamicStats.health: healthBar, System.DynamicStats.sustenance: sustenanceBar, System.DynamicStats.sanity: sanityBar, System.DynamicStats.relationship: relationshipBar}
 	statTweens = {System.DynamicStats.health: healthTween, System.DynamicStats.sustenance: sustenanceTween, System.DynamicStats.sanity: sanityTween, System.DynamicStats.relationship: relationshipTween}
 	statAnimationPlayers = {System.DynamicStats.health: healthAnimationPlayer, System.DynamicStats.sustenance: sustenanceAnimationPlayer, System.DynamicStats.sanity: sanityAnimationPlayer, System.DynamicStats.relationship: relationshipAnimationPlayer}
-
+	nameLabel.text = "Name: " + character.characterName
 # func mouseOverPanel():
 # 	print("Mouse over panel!")
 # 	hoveringOverPanel = true

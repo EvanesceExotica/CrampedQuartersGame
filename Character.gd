@@ -31,6 +31,20 @@ var stringToEnum = {"health" : DynamicStats.health, "sustenance" : DynamicStats.
 #TODO ADD SOMETHING IN ATTRIBUTES THAT AFFECTS DRAIN RATES
 signal MouseHover
 
+const _DynamicStats = {
+	health = "currentHealth",
+	sanity = "currentSanity",
+	sustenance = "currentSustenance",
+	relationship = "currentRelationship"
+}
+
+const _MaxStats = {
+	health = "maxHealth",
+	sanity = "maxSanity",
+	sustenance = "maxSustenance",
+	relationship = "maxRelationship"
+}
+
 var health = Stat.new(Stat.StatType.health)
 var sustenance = Stat.new(Stat.StatType.sustenance)
 var sanity = Stat.new(Stat.StatType.sanity)
