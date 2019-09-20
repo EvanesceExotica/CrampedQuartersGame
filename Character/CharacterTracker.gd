@@ -35,13 +35,19 @@ func FindCharacterWithComparison(comparison):
     #for character in dictionary.keys():
     #    pass
 
-func FindFittingCharacter(requirements):
+func FindFittingCharacter():
+
     var potentialCharacters = [] + characters
-    for requirement in requirements:
-        if requirement["requiredTraits"].size() > 0:
-            checkIncludedTraits(requirement["requiredTraits"], potentialCharacters)
-        if requirement["excludedTraits"].size() > 0:
-            checkExcludedTraits(requirement["excludedTraits"], potentialCharacters)
+    if requirement["requiredTraits"].size() > 0:
+            #remove all that don't have the required traits
+        checkIncludedTraits(requirement["requiredTraits"], potentialCharacters)
+    if requirement["excludedTraits"].size() > 0:
+            #remove all that have the included traits
+        checkExcludedTraits(requirement["excludedTraits"], potentialCharacters)
+    if requirement["requiredTraits"].size() == 0 && requirement["excludedTraits"].size() == 0:
+            #remove none and go on to choose a random character
+        print("This had no requirements, return a random character")
+
     #if there are multipole characters that fit the requirements
     if potentialCharacters.size() > 1:
         var randomNumber = randi()%potentialCharacters.size()

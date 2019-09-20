@@ -5,7 +5,7 @@
 [ext_resource path="res://bag_furniture_wallcabinet_spaceship_wall_locker.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 140, 150 )
+extents = Vector2( 121, 150 )
 
 [node name="Station" type="Node2D"]
 script = ExtResource( 1 )

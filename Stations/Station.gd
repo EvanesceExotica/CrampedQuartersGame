@@ -10,8 +10,18 @@ var screenInstance
 #export var TypeOfStation
 #maybe when health is low, have cracks and glitches on screen
 var mouseHovering = false
-var health = 3
-# var b = "text"
+var currentHealth = 3
+var maxHealth = 3
+
+const hale = "hale"
+const minorDamage = "minorDamage" #glitches appear on screen making it hard to see?
+const majorDamage = "majorDamage" #non-functional but can be repaired
+const destroyed = "destroyed"
+
+
+var damageLevel
+var tags = []
+
 func interactWith():
 	#different ways to interact with
 	pass
@@ -25,11 +35,37 @@ func loadMinigameScene():
 		get_parent().add_child(screenInstance)
 	screenInstance.initializeGame()
 
-func changeHealthAmount(amount):
-	health+= amount
-	#environmental effects can deal damage to stations too
-	pass
+func addDamageTag(tag):
+	tags.append(tag)
 
+
+func changeHealthAmount(amount):
+	currentHealth+= int(amount)
+	if currentHealth > maxHealth:
+		currentHealth = maxHealth
+
+	if currentHealth == 3:
+		damageLevel = hale
+
+	elif currentHealth == 2:
+		damageLevel = minorDamage
+
+	elif currentHealth == 1:
+		damageLevel = majorDamage
+
+	elif currentHealth == 0:
+		damageLevel = destroyed
+	# if currentHealth < maxHealth && currentHealth > getHalfHealthValue():
+	# 	damageLevel = minorDamage
+	# elif currentHealth <= getHalfHealthValue():
+	# 	damageLevel = majorDamage
+	# elif 
+
+	# #environmental effects can deal damage to stations too
+	# pass
+
+func getHalfHealthValue():
+	return int((floor(maxHealth/2)))
 
 func damage(amount):
 
@@ -40,7 +76,8 @@ func repair():
 	pass
 
 func _ready():
-	pass # Replace with function body.
+	add_to_group("Stations")
+
 func _input(event):
 	if(event.is_action_pressed("ui_interact")):
 		if(mouseHovering):

@@ -44,6 +44,21 @@ func checkScope(scope):
 	#station with specific stats
 	pass
 
+func validateRequirements(requirements):
+	var allTrue = true
+	for requirement in event["requirements"]:
+		if scope == "ship":
+			pass
+
+		elif scope == "character":
+			CharacterTracker.FindFittingCharacter(requirement)
+
+		elif scope == "station":
+			pass
+
+		elif scope == "slot":
+			pass
+
 func checkRequirements(requirements):
 	#for a character
 	return CharacterTracker.FindFittingCharacter(requirements)
