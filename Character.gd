@@ -119,6 +119,9 @@ onready var healthTween = healthBar.get_node("HealthTween")
 # 		if(stringName == "")
 # 	pass
 #
+
+
+
 func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
@@ -169,6 +172,7 @@ func applyNewAttribute(newAttribute):
 		removeAttribute(newAttribute)
 
 signal newAttributeAdded(attribute)
+signal attributeRemoved(attribute)
 
 func applyNewAttributes(newAttributes):
 	for newTrait in newAttributes:
@@ -246,6 +250,7 @@ func removeAttribute(attribute):
 			RemoveNewDrainSource(drainedDynamicStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStat])
 
 	characterAttributes.erase(attribute)
+	emit_signal("attributeRemoved", attribute)
 
 func SetInitialValues(conditions, attributes):
 	pass

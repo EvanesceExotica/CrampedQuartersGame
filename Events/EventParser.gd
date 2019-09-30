@@ -46,12 +46,16 @@ func checkScope(scope):
 
 func validateRequirements(requirements):
 	var allTrue = true
-	for requirement in event["requirements"]:
+	for requirement in requirements:
+		var scope = requirement["scope"]
 		if scope == "ship":
+			#WholeShip.checkAllTags(requirement)
 			pass
 
 		elif scope == "character":
-			CharacterTracker.FindFittingCharacter(requirement)
+			for item in get_tree().get_nodes_in_group("Characters"):
+				item.get_child("TraitChecker").FindFittingCharacter(requirement)
+			#CharacterTracker.FindFittingCharacter(requirement)
 
 		elif scope == "station":
 			pass

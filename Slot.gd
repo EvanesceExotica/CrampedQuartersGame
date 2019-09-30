@@ -17,9 +17,13 @@ export(Array) var adjacentSlots = []
 #Examples of inherent attributes would be "Underwater" for tank, "Terrifying" for airlock
 #Examples of non-inherent attributes would be "Poisoned" for tank
 
+
 var slotAttributes = []
 var inherentAttributes = []
 var temporaryOrRemoveableAttributes = []
+signal newAttributeAdded
+signal attributeRemoved
+
 
 signal someoneEnteredSlot(whichSlot, whichChar)
 
@@ -43,6 +47,7 @@ func applyNewAttributeToSlot(attribute):
 	slotAttributes.append(attribute)
 	if(occupied):
 		characterInSlot.applyNewAttributeToCharacter(attribute)
+	emit_signal("newAttributeAdded")
 
 	pass
 func removeAttributeFromSlot(attribute):
@@ -51,6 +56,7 @@ func removeAttributeFromSlot(attribute):
 	if(occupied):
 		#if there is a character in this slot, remove the attribute from the character as well
 		removeAttributeFromCharacter(attribute)
+	emit_signal("attributeRemoved")
 
 func removeAttributeFromCharacter(attribute):
 	#used when an attribute is timed out or removed from the slot

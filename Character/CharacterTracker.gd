@@ -35,9 +35,11 @@ func FindCharacterWithComparison(comparison):
     #for character in dictionary.keys():
     #    pass
 
-func FindFittingCharacter():
+func FindFittingCharacter(requirement):
 
     var potentialCharacters = [] + characters
+    if requirement["requiredTraits"].size() > 0:
+        checkIfCharacterHasAnyOfTraits(requirement["requiredTraits"], potentialCharacters)
     if requirement["requiredTraits"].size() > 0:
             #remove all that don't have the required traits
         checkIncludedTraits(requirement["requiredTraits"], potentialCharacters)
@@ -57,7 +59,25 @@ func FindFittingCharacter():
     elif potentialCharacters.size() == 0:
         return null
         
-
+func checkIfCharacterHasAnyOfTraits(traits, potentialCharacters):
+    var charactersThatMayHaveTraits = [] + potentialCharacters
+    #make a character list
+    for character in charactersThatMayHaveTraits:
+        #for all characters that haven't been excluded yet
+        var attributeList = []
+        for attribute in character.characterAttributes:
+            #get the characters attributes and dump them into a list with the names
+            attributeList.append(attribute.attributeName)
+        var hasAny = false
+        for trait in traits:
+            #for all the traits that we want any of
+            if attributeList.has(trait):
+                #if any of these traits exist in any capacity in the list
+                hasAny = true
+        if hasAny == false:
+            #if the character has NONE of the traits above, erase it
+            potentialCharacters.erase(character)
+        
 func checkIncludedTraits(traits, potentialCharacters):
     var charactersThatMayHaveTraits = [] + potentialCharacters
 
@@ -66,7 +86,9 @@ func checkIncludedTraits(traits, potentialCharacters):
         for attribute in character.characterAttributes:
             attributeList.append(attribute.attributeName)
         for trait in traits:
+            #for all the traits that are required
             if !attributeList.has(trait):
+                #if this list doesn't have a trait, it doesn't have all of them, so erase
                 potentialCharacters.erase(character)
         
 

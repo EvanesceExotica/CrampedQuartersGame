@@ -10,6 +10,7 @@
             "requirements": [
                 {
                     "scope": "",
+                    "anyOfTheseTraits": [],
                     "requiredTraits": [],
                     "excludedTraits": [],
                     "comparisons": []
@@ -21,6 +22,7 @@
                     "requirements": [
                         {
                             "scope": "",
+                            "anyOfTheseTraits": [],
                             "requiredTraits": [],
                             "excludedTraits": [],
                             "comparisons": []
@@ -56,8 +58,13 @@
             "requirements": [
                 {
                     "scope": "",
-                    "requiredTraits": ["Underwater"],
-                    "excludedTraits": ["OnFire"],
+                    "anyOfTheseTraits": [],
+                    "requiredTraits": [
+                        "Underwater"
+                    ],
+                    "excludedTraits": [
+                        "OnFire"
+                    ],
                     "comparisons": []
                 }
             ],
@@ -67,8 +74,9 @@
                     "requirements": [
                         {
                             "scope": "",
-                            "requiredtraits": [],
-                            "excludedtraits": [],
+                            "anyOfTheseTraits": [],
+                            "requiredTraits": [],
+                            "excludedTraits": [],
                             "comparisons": []
                         }
                     ],
@@ -80,8 +88,8 @@
                             "results": [
                                 {
                                     "scope": "",
-                                    "addedtraits": [],
-                                    "removedtraits": [],
+                                    "addedTraits": [],
+                                    "removedTraits": [],
                                     "actions": {
                                         "GenerateNewCharacter": []
                                     }
@@ -108,8 +116,9 @@
                     "requirements": [
                         {
                             "scope": "",
-                            "requiredtraits": [],
-                            "excludedtraits": [],
+                            "anyOfTheseTraits": [],
+                            "requiredTraits": [],
+                            "excludedTraits": [],
                             "comparisons": []
                         }
                     ],
@@ -121,8 +130,8 @@
                             "results": [
                                 {
                                     "scope": "",
-                                    "addedtraits": [],
-                                    "removedtraits": [],
+                                    "addedTraits": [],
+                                    "removedTraits": [],
                                     "actions": {}
                                 }
                             ]
@@ -154,6 +163,7 @@
                     "requirements": [
                         {
                             "scope": "",
+                            "anyOfTheseTraits": [],
                             "requiredTraits": [],
                             "excludedTraits": [],
                             "comparisons": []
@@ -180,6 +190,7 @@
                     "requirements": [
                         {
                             "scope": "",
+                            "anyOfTheseTraits": [],
                             "requiredTraits": [],
                             "excludedTraits": [],
                             "comparisons": []
@@ -195,7 +206,7 @@
                                     "scope": "",
                                     "addedTraits": [],
                                     "removedTraits": [],
-                                    "actions": {} 
+                                    "actions": {}
                                 }
                             ]
                         }

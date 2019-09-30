@@ -18,9 +18,17 @@ const minorDamage = "minorDamage" #glitches appear on screen making it hard to s
 const majorDamage = "majorDamage" #non-functional but can be repaired
 const destroyed = "destroyed"
 
+signal newAttributeAdded
+signal attributeRemoved
 
 var damageLevel
 var tags = []
+
+func addAttribute(attribute):
+	emit_signal("newAttributeAdded")
+
+func removeAttribute(attribute):
+	emit_signal("attributeRemoved")
 
 func interactWith():
 	#different ways to interact with

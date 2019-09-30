@@ -13,11 +13,39 @@ func _ready():
 func ChangeHullPoints(amount):
 	hullPoints += amount
 
-func checkIfHasTag(tag):
-	if tags.has(tag):
-		return true
-	else:
-		return false
+func checkAllTags(requirement):
+
+	var meetsRequirements = true
+	if requirement["requiredtraits"].size() > 0:
+			#remove all that don't have the required traits
+		meetsRequirements = checkIfHasRequiredTags(requirement["requiredtraits"])
+	if requirement["excludedtraits"].size() > 0:
+			#remove all that have the included traits
+		meetsRequirements = checkIfHasExcludedTags(requirement["excludedtraits"])
+	if requirement["requiredtraits"].size() == 0 && requirement["excludedtraits"].size() == 0:
+			#remove none and go on to choose a random character
+		print("This had no requirements, so just affect the ship")
+	return meetsRequirements
+	# if meetsRequirements == false:
+	# 	return false
+
+
+
+func checkIfHasRequiredTags(requiredTags):
+	var hasAll = true
+	for tag in requiredTags:
+		if !tags.has(tag):
+			hasAll = false
+	return hasAll
+
+func checkIfHasExcludedTags(requiredTags):
+	var doesntHaveTag = true
+	for tag in requiredTags:
+		if tags.has(tag):
+			doesntHaveTag = false
+	return doesntHaveTag
+	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
