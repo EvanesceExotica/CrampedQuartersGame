@@ -3,6 +3,10 @@ extends Node2D
 
 var eventData
 var eventArray = []
+
+
+#put events that have already been triggered here
+var alreadyTriggeredEvents = []
 func _ready():
 	randomize()
 	SignalManager.connect("EventChoiceClicked", self, "calculateResultSet")
@@ -21,9 +25,24 @@ func generateAllEvents():
 func chooseRandomEvent():
 	#change to non-random later
 	eventArray = eventData["events"]
-	var randomNumber = randi()%eventArray.size()
 	#createEvent(eventArray[randomNumber])
-	createEvent(eventArray[1])
+	var validEvents = []
+	for event in eventArray:
+
+		#if all the requirements fit, append this event to an array
+		if validateRequirements(event["requirements"]):
+			validEvents.append(event):
+
+	#choose a random number that fits within the size of the valid events array
+	var randomNumber = randi()%validEvents.size()
+
+	if validEvents.size() > 1:
+		#if the array has more than one event in it, choose a random one
+		createEvent(validEvents[randomNumber])
+	elif validEvents.size() == 1:
+		#if there's only one event that fits
+		createEvent(validEvents[0])
+
 
 func chooseSpecificEvent(id):
 	#might need to change event array to a dictionary if that would make this more efficient (using the key instead of a for loop)
@@ -53,15 +72,22 @@ func validateRequirements(requirements):
 			pass
 
 		elif scope == "character":
-			for item in get_tree().get_nodes_in_group("Characters"):
-				item.get_child("TraitChecker").FindFittingCharacter(requirement)
-			#CharacterTracker.FindFittingCharacter(requirement)
+			#TODO FIDDLE WITH THIS
+			var potentialCharacters = []
+			var meetsRequirements = false
+			for character in get_tree().get_nodes_in_group("Characters"):
+				meetsRequirements = character.get_child("TraitChecker").checkAllTags(requirement)
+			# 	if meetsRequirements:
+			# 		potentialCharacters.append(character)
+			# var randomNumber = randi()%potentialCharacters.size()
+			# potentialCharacters[randomNumber]
 
 		elif scope == "station":
 			pass
 
 		elif scope == "slot":
 			pass
+	return allTrue
 
 func checkRequirements(requirements):
 	#for a character
@@ -71,13 +97,12 @@ func checkRequirements(requirements):
 
 func createEvent(event):
 	#here we add the event to the object and add the choices along with it, maybe have a countdown?
-	var character = checkRequirements(event["requirements"])
-	if character == null:
-		print("Couldn't find character")
-	else:
-		print(character.characterName)
+	# var character = checkRequirements(event["requirements"])
+	# if character == null:
+	# 	print("Couldn't find character")
+	# else:
+	# 	print(character.characterName)
 	SignalManager.emit_signal("NewEventLaunched", event)
-	pass
 
 func checkActions(actions):
 	#these are events that are fired by the results

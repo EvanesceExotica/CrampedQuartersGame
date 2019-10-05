@@ -14,6 +14,8 @@ var dayEventDelay = 12
 
 var dayEvent
 
+var dayEventTriggered = false
+
 var randomDayEventObject
 
 func chooseRandomEvent():
@@ -44,6 +46,8 @@ func StartArrivalEvent(event):
 # 	pass
 	
 func ChooseDayEventDelay():
+	#setting this to false to restart day and let a new day event be triggered V
+	dayEventTriggered = false
 	var secondsInDay = System.totalSecondsInHour * System.fullDayDuration
 	dayEventDelay = rand_range(0, secondsInDay)
 	print("Event delay chosen " + str(dayEventDelay))
@@ -87,7 +91,7 @@ func _process(delta):
 	#print(str(System.elapsedSecondsInDay) + "vs" + str(dayEventDelay))
 	#if(dayEvent != null):
 		#print(str(System.elapsedSecondsInDay))
-		if(int(System.elapsedSecondsInDay) == int(dayEventDelay)):
-			print("Event triggered")
+		if(System.elapsedSecondsInDay >= dayEventDelay && !dayEventTriggered):
 			TriggerEvent(dayEvent)
+			dayEventTriggered = true
 		#if the current hour equals the delayed time for the event to trigger
