@@ -19,6 +19,7 @@
             "options": [
                 {
                     "text": "",
+                    "applyResultsToObject": false,
                     "requirements": [
                         {
                             "scope": "",
@@ -57,7 +58,7 @@
             "scope": [],
             "requirements": [
                 {
-                    "scope": "",
+                    "scope": "character",
                     "anyOfTheseTraits": [],
                     "requiredTraits": [
                         "Underwater"
@@ -71,6 +72,7 @@
             "options": [
                 {
                     "text": "Bring them on board.",
+                    "applyResultsToObject": false,
                     "requirements": [
                         {
                             "scope": "",
@@ -113,6 +115,7 @@
                 },
                 {
                     "text": "Leave them stranded.",
+                    "applyResultsToObject": false,
                     "requirements": [
                         {
                             "scope": "",
@@ -160,6 +163,7 @@
             "options": [
                 {
                     "text": "Accept and feed him one of your passengers",
+                    "applyResultsToObject": false,
                     "requirements": [
                         {
                             "scope": "",
@@ -179,7 +183,7 @@
                                     "scope": "",
                                     "addedTraits": [],
                                     "removedTraits": [],
-                                    "actions": {}
+                                    "actions": {"KillCharacter":[]}
                                 }
                             ]
                         }
@@ -187,6 +191,7 @@
                 },
                 {
                     "text": "Refuse to feed him one of your passengers",
+                    "applyResultsToObject": false,
                     "requirements": [
                         {
                             "scope": "",
@@ -213,6 +218,53 @@
                     ]
                 }
             ]
-        }
+        },
+        {
+            "title": "Radiation Poisoning",
+            "id": 3,
+            "weight": "",
+            "description": ["Radiation leak, oh no!"],
+            "image": [],
+            "scope": [],
+            "requirements": [
+                {
+                    "scope": "",
+                    "anyOfTheseTraits": [],
+                    "requiredTraits": [],
+                    "excludedTraits": [],
+                    "comparisons": []
+                }
+            ],
+            "options": [
+                {
+                    "text": "Ignore this leak.",
+                    "applyResultsToObject": true,
+                    "requirements": [
+                        {
+                            "scope": "",
+                            "anyOfTheseTraits": [],
+                            "requiredTraits": [],
+                            "excludedTraits": [],
+                            "comparisons": []
+                        }
+                    ],
+                    "resultSets": [
+                        {
+                            "description": "A passenger is blasted with radiation",
+                            "weight": 1.0,
+                            "linkedEvent": 0,
+                            "results": [
+                                {
+                                    "scope": "",
+                                    "addedTraits": [],
+                                    "removedTraits": [],
+                                    "actions": {}
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
     ]
 }

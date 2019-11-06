@@ -29,6 +29,7 @@ func ChooseRandomFromDictionary():
 		#if the randomnumber is less than the event
 		if(randomGeneratedNumber <= randomChanceDictionary[entry]):
 			return entry
-
+func ClearAllEntries():
+	randomChanceDictionary.clear()
 func _init():
 	pass

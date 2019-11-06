@@ -15,7 +15,7 @@ func remove(attribute):
 
 
 func checkAllTags(requirement):
-
+	print("Checked all tags on " + get_parent().name)
 	var meetsRequirements = true
 
 	var anyTraits = requirement["anyOfTheseTraits"]

@@ -36,7 +36,7 @@ signal OnSleep
 
 signal GenerateNewCharacter(characterParameters)
 
-signal EventChoiceClicked(whichOptions)
+signal EventChoiceClicked(whichOptions, affectedObjects)
 #for characters with random stats
 signal generateRandomNewCharacter
 

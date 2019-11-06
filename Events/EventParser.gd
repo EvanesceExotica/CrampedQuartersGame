@@ -30,8 +30,8 @@ func chooseRandomEvent():
 	for event in eventArray:
 
 		#if all the requirements fit, append this event to an array
-		if validateRequirements(event["requirements"]):
-			validEvents.append(event):
+		if validateRequirements(event["requirements"], false):
+			validEvents.append(event)
 
 	#choose a random number that fits within the size of the valid events array
 	var randomNumber = randi()%validEvents.size()
@@ -50,22 +50,16 @@ func chooseSpecificEvent(id):
 		if event["id"] == id:
 			createEvent(event)
 			
-# func sendEventSignals():
-# 	var eventArray  = []
-# 	eventArray = eventData[events]
-# 	pass
 
-func checkScope(scope):
 
-	#random station
-	#random character
-	#character with specific stats
-	#station with specific stats
-	pass
 
-func validateRequirements(requirements):
+func validateRequirements(requirements, returnObject):
+
+	#this validateRequirements is to check if something exists and return true, not to return that object itself, though maybe it could do both
 	var allTrue = true
+	var affectedObjectDictionary = []
 	for requirement in requirements:
+		#check all the requirements for this event, regardless of if they're from a character, station, etc. Make sure they're all true
 		var scope = requirement["scope"]
 		if scope == "ship":
 			#WholeShip.checkAllTags(requirement)
@@ -74,20 +68,42 @@ func validateRequirements(requirements):
 		elif scope == "character":
 			#TODO FIDDLE WITH THIS
 			var potentialCharacters = []
-			var meetsRequirements = false
+			var meetsRequirements
 			for character in get_tree().get_nodes_in_group("Characters"):
-				meetsRequirements = character.get_child("TraitChecker").checkAllTags(requirement)
-			# 	if meetsRequirements:
-			# 		potentialCharacters.append(character)
-			# var randomNumber = randi()%potentialCharacters.size()
-			# potentialCharacters[randomNumber]
+				#find all of he characters in the game, and check their tags
+				meetsRequirements = character.get_node("TraitChecker").checkAllTags(requirement)
+				#if this particular character meets all the requirements, add them to a list
+				if meetsRequirements:
+					potentialCharacters.append(character)
+
+			if !returnObject:
+				#if we're not looking for a specific object, but instead seeing if all of these are true
+				if potentialCharacters.size() == 0:
+					#if there's nothing in this array, all the requirements aren't true
+					allTrue = false 
+					print("No character matches these requirements")
+				else:
+					print("Found character that matches requirements")
+
+			if returnObject:
+				#if we're returning the object here to apply effects to, and not just seeing if this exists for the event to trigger in the first place
+				 var randomNumber = randi()%potentialCharacters.size()
+				 affectedObjectDictionary.append(potentialCharacters[randomNumber])
+			 	#return potentialCharacters[randomNumber]
 
 		elif scope == "station":
 			pass
 
 		elif scope == "slot":
 			pass
-	return allTrue
+
+	return [allTrue, affectedObjectDictionary]
+	# if !returnObject:
+	# 	#if we're not looking for a specific object, but instead seeing if all of these are true
+	# 	return allTrue
+	# else:
+	# 	#if we're returning the object here to apply effects to, and not just seeing if this exists for the event to trigger in the first place
+	# 	return affectedObjectDictionary
 
 func checkRequirements(requirements):
 	#for a character
@@ -107,18 +123,25 @@ func createEvent(event):
 func checkActions(actions):
 	#these are events that are fired by the results
 	for action in actions.keys():
-		#action should be a key value pair, 'actions' should be a dictionary
+		#action should be a key value pair, 'actions' should be a dictionary, actions[action] is choosing the parameter set value for the particular action which is a string to call a event
 		SignalManager.emit_signal(action, actions[action])
 
+func affectObjects(objects):
+	
+	pass
+
 func showResult(chosenResultSet):
+	#if this will update to another event, check (if the 'linked event' value is greater than zero, it will)
+	#else, just show the results of the current event
 	if chosenResultSet["linkedEvent"] > 0:
 		#if the ID for this is greater than zero, which is the 'blank' event
 		chooseSpecificEvent(chosenResultSet["linkedEvent"])
 	else:
 		SignalManager.emit_signal("UpdateEvent", chosenResultSet)		
 
-func calculateResultSet(resultSets):
-	print("Calculating result!")
+
+
+func calculateResultSet(resultSets, affectedObjects):
 	#when an event choice is clicked, roll weighted results to see which one appears
 	var chosenResultSet = null
 	#var randomNumber = randf()
@@ -135,6 +158,14 @@ func calculateResultSet(resultSets):
 	# 		#choose this dictionary
 
 	showResult(chosenResultSet)
+#clearing the dictionary on the object isn't necessary since it's a new object each time you calculate the result
+
 	#update the event with this result
 	for result in chosenResultSet["results"]:
-		checkActions(result["actions"])
+		if scope == "":
+			#if there is no particular scope
+			checkActions(result["actions"])
+		else:
+			#if there is a scope, like a specific character
+			pass
+

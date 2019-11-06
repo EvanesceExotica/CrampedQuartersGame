@@ -39,17 +39,41 @@ func setContinueOption():
 	var newChoice = eventChoice.instance()
 	choiceContainer.add_child(newChoice)
 
+
+func checkOptionRequirements(option, newChoice):
+	var objectHolderDictionary = []
+	if option["applyResultsToObject"] == true:
+		#if the results are going to be applied to an object
+		var validatedRequirements = EventParser.validateRequirements(option["requirements"], true)   
+		if validatedRequirements[0] == true:
+			#if all of the requirements were true, collect the objects that are to be affeccted in a dictionary
+			var newChoice = eventChoice.instance()
+			newChoice.text = option["text"]
+			newChoice.resultSets = option["resultSets"]
+			newChoice.affectedObjectDictionary + validatedRequirements[1]
+			choiceContainer.add_child(newChoice)
+			#if all of the requirements were true
+	else:
+		var validatedRequirements = EventParser.validateRequirements(option["requirements"], false)   
+		if validatedRequirements[0] == true:
+			var newChoice = eventChoice.instance()
+			newChoice.text = option["text"]
+			newChoice.resultSets = option["resultSets"]
+			newChoice.affectedObjectDictionary + validatedRequirements[1]
+			choiceContainer.add_child(newChoice)
+
+
 func showEvent(eventParameters):
 	self.show()
 	resetOptions()
 	eventText.text = chooseRandomDescription(eventParameters["description"])
 	for option in eventParameters["options"]:
 		#array of options
-		var newChoice = eventChoice.instance()
-		newChoice.text = option["text"]
-		newChoice.resultSets = option["resultSets"]
-		choiceContainer.add_child(newChoice)
-	##NOTE FOR MORNING, TRYING TO GET EVENT OPTIONS CONNECTED -- SHOULD WE MAKE IT AN OBJECT?	
+		checkOptionRequirements(option)
+		# var newChoice = eventChoice.instance()
+		# newChoice.text = option["text"]
+		# newChoice.resultSets = option["resultSets"]
+		# choiceContainer.add_child(newChoice)
 
 func initializeEvent():
 	#change this so that each event has multiple branches of text?
