@@ -26,7 +26,8 @@
                             "anyOfTheseTraits": [],
                             "requiredTraits": [],
                             "excludedTraits": [],
-                            "comparisons": []
+                            "comparisons": [],
+                            "storedName": ""
                         }
                     ],
                     "resultSets": [
@@ -79,7 +80,8 @@
                             "anyOfTheseTraits": [],
                             "requiredTraits": [],
                             "excludedTraits": [],
-                            "comparisons": []
+                            "comparisons": [],
+                            "storedName": ""
                         }
                     ],
                     "resultSets": [
@@ -122,7 +124,8 @@
                             "anyOfTheseTraits": [],
                             "requiredTraits": [],
                             "excludedTraits": [],
-                            "comparisons": []
+                            "comparisons": [],
+                            "storedName": ""
                         }
                     ],
                     "resultSets": [
@@ -163,14 +166,15 @@
             "options": [
                 {
                     "text": "Accept and feed him one of your passengers",
-                    "applyResultsToObject": false,
+                    "applyResultsToObject": true,
                     "requirements": [
                         {
-                            "scope": "",
+                            "scope": "character",
                             "anyOfTheseTraits": [],
-                            "requiredTraits": [],
+                            "requiredTraits": ["Underwater"],
                             "excludedTraits": [],
-                            "comparisons": []
+                            "comparisons": [],
+                            "storedName": "characterToEat"
                         }
                     ],
                     "resultSets": [
@@ -180,10 +184,10 @@
                             "linkedEvent": 0,
                             "results": [
                                 {
-                                    "scope": "",
+                                    "scope": "characterToEat",
                                     "addedTraits": [],
-                                    "removedTraits": [],
-                                    "actions": {"KillCharacter":[]}
+                                    "removedTraits": ["Paranoid"],
+                                    "actions": {}
                                 }
                             ]
                         }
@@ -198,7 +202,8 @@
                             "anyOfTheseTraits": [],
                             "requiredTraits": [],
                             "excludedTraits": [],
-                            "comparisons": []
+                            "comparisons": [],
+                            "storedName": ""
                         }
                     ],
                     "resultSets": [
@@ -232,7 +237,7 @@
                     "anyOfTheseTraits": [],
                     "requiredTraits": [],
                     "excludedTraits": [],
-                    "comparisons": []
+                    "comparisons": [],
                 }
             ],
             "options": [
@@ -245,7 +250,8 @@
                             "anyOfTheseTraits": [],
                             "requiredTraits": [],
                             "excludedTraits": [],
-                            "comparisons": []
+                            "comparisons": [],
+                            "storedName": ""
                         }
                     ],
                     "resultSets": [

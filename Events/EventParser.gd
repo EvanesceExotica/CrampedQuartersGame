@@ -23,6 +23,7 @@ func generateAllEvents():
 	load_json()
 
 func chooseRandomEvent():
+	#add some sort of queue so that the events don't override each other
 	#change to non-random later
 	eventArray = eventData["events"]
 	#createEvent(eventArray[randomNumber])
@@ -45,10 +46,12 @@ func chooseRandomEvent():
 
 
 func chooseSpecificEvent(id):
+	eventArray = eventData["events"]
+	createEvent(eventArray[id])
 	#might need to change event array to a dictionary if that would make this more efficient (using the key instead of a for loop)
-	for event in eventArray:
-		if event["id"] == id:
-			createEvent(event)
+	# for event in eventArray:
+	# 	if event["id"] == id:
+	# 		createEvent(event)
 			
 
 
@@ -57,7 +60,7 @@ func validateRequirements(requirements, returnObject):
 
 	#this validateRequirements is to check if something exists and return true, not to return that object itself, though maybe it could do both
 	var allTrue = true
-	var affectedObjectDictionary = []
+	var affectedObjectDictionary = {}
 	for requirement in requirements:
 		#check all the requirements for this event, regardless of if they're from a character, station, etc. Make sure they're all true
 		var scope = requirement["scope"]
@@ -88,7 +91,9 @@ func validateRequirements(requirements, returnObject):
 			if returnObject:
 				#if we're returning the object here to apply effects to, and not just seeing if this exists for the event to trigger in the first place
 				 var randomNumber = randi()%potentialCharacters.size()
-				 affectedObjectDictionary.append(potentialCharacters[randomNumber])
+
+				 #this should put the affected object under the stored name in a dictionary, and the scope of the result will grab it
+				 affectedObjectDictionary[requirement["storedName"]] = potentialCharacters[randomNumber]
 			 	#return potentialCharacters[randomNumber]
 
 		elif scope == "station":
@@ -126,9 +131,25 @@ func checkActions(actions):
 		#action should be a key value pair, 'actions' should be a dictionary, actions[action] is choosing the parameter set value for the particular action which is a string to call a event
 		SignalManager.emit_signal(action, actions[action])
 
-func affectObjects(objects):
+func affectObjects(scope, result, affectedObjects):
+
+	#the scope should equal the key to the dictionary that was the 'stored name' of the found object
+	var object = affectedObjects[scope]
+	print(object.name)
 	
-	pass
+	if(result["actions"]).size() > 0:
+		checkActions(result["actions"])
+		pass
+	if(result["addedTraits"]).size() > 0: 
+		for trait in result["addedTraits"]:
+			#trait = attributeName
+			object.applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute(trait))
+		pass
+	if(result["removedTraits"]).size() > 0:
+		for trait in result["removedTraits"]:
+			print("Removing this trait " + trait)
+			object.removeAttributeByName(trait)
+		pass
 
 func showResult(chosenResultSet):
 	#if this will update to another event, check (if the 'linked event' value is greater than zero, it will)
@@ -162,10 +183,12 @@ func calculateResultSet(resultSets, affectedObjects):
 
 	#update the event with this result
 	for result in chosenResultSet["results"]:
-		if scope == "":
+		if result["scope"] == "":
 			#if there is no particular scope
 			checkActions(result["actions"])
 		else:
+			affectObjects(result["scope"], result, affectedObjects)
+			
 			#if there is a scope, like a specific character
 			pass
 

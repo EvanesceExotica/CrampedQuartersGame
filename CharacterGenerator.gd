@@ -82,6 +82,24 @@ func TestCharacterGen(parameters):
 	#print("Character generated")
 	pass
 
+
+func generatePremadeCharacter(attributeNames):
+	var createdAttributes = []
+	for name in attributeNames:
+		createdAttributes.append(AttributeJSONParser.fetchAndCreateAttribute(name))
+
+	var characterInstance = characterTemplate.instance()
+	characterInstance.characterName = NameGenerator.generateName()
+	add_child(characterInstance)
+
+	for item in createdAttributes:
+		characterInstance.applyNewAttribute(item)
+		
+	var slot = chooseRandomSlot()
+	slot.addCharacterToSlot(characterInstance)
+	CharacterTracker.AddCharacter(characterInstance)
+	characterInstance.add_to_group("Characters")
+
 func generateNewCharacter():
 
 	#events the character goes through before being added to the ship can cause extra attribute
@@ -232,7 +250,8 @@ func chooseCharacterSlot(species):
 
 func _on_Button_button_down():
 	print("Generating new character")
-	generateNewCharacter()
+	generatePremadeCharacter(["Paranoid", "Frail", "Strong"])
+	#generateNewCharacter()
 
 func printWarning():
 	#This individual will be extremely uncomfortable in this slotType

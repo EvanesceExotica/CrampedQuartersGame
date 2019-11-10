@@ -206,6 +206,14 @@ func applyNewAttributes(newAttributes):
 			pass
 	pass
 
+func removeAttributeByName(removeableAttributeName):
+	#there's got to be some way to streamline this
+	for attribute in characterAttributes:
+		if attribute.attributeName == removeableAttributeName:
+			removeAttribute(attribute)
+
+	
+
 func removeAttribute(attribute):
 	for oldTrait in characterAttributes:
 		if(attribute.canCombineWith.size() > 0):

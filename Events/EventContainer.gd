@@ -40,7 +40,7 @@ func setContinueOption():
 	choiceContainer.add_child(newChoice)
 
 
-func checkOptionRequirements(option, newChoice):
+func checkOptionRequirements(option):
 	var objectHolderDictionary = []
 	if option["applyResultsToObject"] == true:
 		#if the results are going to be applied to an object
@@ -50,7 +50,7 @@ func checkOptionRequirements(option, newChoice):
 			var newChoice = eventChoice.instance()
 			newChoice.text = option["text"]
 			newChoice.resultSets = option["resultSets"]
-			newChoice.affectedObjectDictionary + validatedRequirements[1]
+			newChoice.affectedObjectDictionary = validatedRequirements[1]
 			choiceContainer.add_child(newChoice)
 			#if all of the requirements were true
 	else:
@@ -59,7 +59,7 @@ func checkOptionRequirements(option, newChoice):
 			var newChoice = eventChoice.instance()
 			newChoice.text = option["text"]
 			newChoice.resultSets = option["resultSets"]
-			newChoice.affectedObjectDictionary + validatedRequirements[1]
+			newChoice.affectedObjectDictionary = validatedRequirements[1]
 			choiceContainer.add_child(newChoice)
 
 
