@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Events/EventContainer.gd" type="Script" id=1]
 [ext_resource path="res://Events/TestNewPlanetEvent.tres" type="Resource" id=2]
 [ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Stations/TimerClickMinigame/Assets/CountdownCircle.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 3 )
@@ -42,3 +43,21 @@ margin_top = 180.0
 margin_right = 390.0
 margin_bottom = 180.0
 
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="CountdownCircle" type="TextureProgress" parent="."]
+modulate = Color( 0.0313726, 0.682353, 1, 0.439216 )
+margin_left = 230.0
+margin_top = 190.0
+margin_right = 413.0
+margin_bottom = 373.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.0
+value = 100.0
+texture_progress = ExtResource( 4 )
+fill_mode = 4
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

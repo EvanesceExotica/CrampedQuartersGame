@@ -11,6 +11,7 @@
 modulate = Color( 0.0470588, 0.0666667, 0.105882, 1 )
 
 [node name="Light2D" type="Light2D" parent="." index="2"]
+visible = false
 position = Vector2( 500, 390 )
 scale = Vector2( 0.998298, 1 )
 texture = ExtResource( 2 )

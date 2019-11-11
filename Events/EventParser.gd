@@ -92,12 +92,19 @@ func validateRequirements(requirements, returnObject):
 					print("Found character that matches requirements")
 
 			if returnObject:
-				#if we're returning the object here to apply effects to, and not just seeing if this exists for the event to trigger in the first place
-				 var randomNumber = randi()%potentialCharacters.size()
 
-				 #this should put the affected object under the stored name in a dictionary, and the scope of the result will grab it
-				 affectedObjectDictionary[requirement["storedName"]] = potentialCharacters[randomNumber]
-			 	#return potentialCharacters[randomNumber]
+				if potentialCharacters.size() == 0:
+					#if there are no potential characters to match, then it's obviously false
+					allTrue = false
+
+				else:
+					#if there are some potential charcters, find a random one
+				#if we're returning the object here to apply effects to, and not just seeing if this exists for the event to trigger in the first place
+				 	var randomNumber = randi()%potentialCharacters.size()
+
+				 	#this should put the affected object under the stored name in a dictionary, and the scope of the result will grab it
+				 	affectedObjectDictionary[requirement["storedName"]] = potentialCharacters[randomNumber]
+			 		#return potentialCharacters[randomNumber]
 
 		elif scope == "station":
 			pass

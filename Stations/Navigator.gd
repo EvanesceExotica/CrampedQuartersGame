@@ -138,6 +138,24 @@ func findClosestNode(node):
 	lineHolder.add_child(newLine)
 	newLine.z_index = 50
 
+func InitalizeNodes():
+	#this generates new ones, filling the connections dictionaries
+	spawnInArea()
+
+	#this chooses a random location to start in
+	startingLocation = chooseRandomLocation()
+	#startingLocation.modulate = Color.cornflower
+
+	#setting the current location to the starting location
+	currentLocation = startingLocation
+	previousLocation = null
+	#this activates the nodes that are reachable from the starting location
+	activateReachableNodes()
+
+	#this colors the lines from the startinng location
+	showTraversibleLines()
+
+	currentLocation.setCurrentLocationDressing()
 
 func ResetNodesUponArrival():
 	remove_child(starInstance)
@@ -199,6 +217,9 @@ func SetSpacetimeJumpInactive():
 func SetSpacetimeJumpActive():
 	spacetimeJumpButton.disabled = false
 
+
+var menuJustOpened = false
+
 func _ready():
 	
 	SignalManager.connect("SelectedLocationNode", self, "SelectLocation")
@@ -213,7 +234,8 @@ func _ready():
 	SignalManager.connect("OnSpacetimeJumpArrival", self, "ResetNodesUponArrival")
 	randomize()
 
-	ResetNodesUponArrival()
+	InitalizeNodes()
+	#ResetNodesUponArrival()
 	# spawnInArea()
 	# startingLocation = chooseRandomLocation()
 	# #startingLocation.modulate = Color.cornflower
@@ -227,7 +249,9 @@ func _ready():
 
 func activateReachableNodes():
 	for location in generatedLocations.keys():
+		#for all the generated locations
 		if location == currentLocation:
+			#if the location is the current one, make it unpickable so it's not picked again
 			location.setUnpickable()
 			continue
 		if generatedLocations[currentLocation].has(location):
@@ -240,6 +264,7 @@ func activateReachableNodes():
 
 func showTraversibleLines():
 
+	#this is for connections that can be made from this current node
 	for connection in connectionsMade[currentLocation]:
 		connection.default_color = Color.green
 #	for location in generatedLocations[currentLocation]: 

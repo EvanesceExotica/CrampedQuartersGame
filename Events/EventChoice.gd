@@ -15,9 +15,13 @@ func _ready():
 #func _process(delta):
 #	pass
 func _on_EventChoice_pressed():
-	#pass a character through here rather than the list of parameters 
+
+	#this method is just for reseting the timer on the event and anything else that should happen when an event is clicked or defaulted
+	SignalManager.emit_signal("EventProgressed")
 	if resultSets == null:
+		#this method ends the event if there are no results
 		SignalManager.emit_signal("EndEvent", null)
 	else:
+		#this method applies the results
 		SignalManager.emit_signal("EventChoiceClicked", resultSets, affectedObjectDictionary)
 	#SignalManager.emit_signal(calledSignal.calledSignalName, calledSignal.signalParameters)

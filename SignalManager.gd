@@ -36,6 +36,8 @@ signal OnSleep
 
 signal GenerateNewCharacter(characterParameters)
 
+signal EventProgressed
+
 signal EventChoiceClicked(whichOptions, affectedObjects)
 #for characters with random stats
 signal generateRandomNewCharacter
