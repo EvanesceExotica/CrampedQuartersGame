@@ -31,6 +31,9 @@ func chooseRandomEvent():
 	for event in eventArray:
 
 		#if all the requirements fit, append this event to an array
+		if event["id"] == 0:
+			#if this is the first event, the empty one
+			continue
 		if validateRequirements(event["requirements"], false):
 			validEvents.append(event)
 
@@ -148,7 +151,8 @@ func affectObjects(scope, result, affectedObjects):
 	if(result["removedTraits"]).size() > 0:
 		for trait in result["removedTraits"]:
 			print("Removing this trait " + trait)
-			object.removeAttributeByName(trait)
+			object.removeAttribute(AttributeJSONParser.fetchAndCreateAttribute(trait))
+			#object.removeAttributeByName(trait)
 		pass
 
 func showResult(chosenResultSet):

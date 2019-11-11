@@ -4,7 +4,7 @@ extends Node2D
 
 export(Array) var eventArray = []
 
-onready var eventContainer = get_node("EventContainer")
+onready var eventContainer = get_parent().get_node("CanvasLayer").get_node("EventContainer")
 
 var randomEventDictionary = {}
 
@@ -34,9 +34,11 @@ func AddEntry(event):
 
 #func populateSpecificEventArray(array):
 	
-func StartArrivalEvent(event):
-	eventContainer.event = event
-	eventContainer.initializeEvent()
+func StartArrivalEvent(locationNode):
+	print("We've arrived at a location and are triggering an event")
+	TriggerSpecificEvent(locationNode.arrivalEventID)
+	#eventContainer.event = locationNode.event
+	#eventContainer.initializeEvent()
 
 # func ChooseArrivalEvent(event):
 # 	#choose an event from the 'onArrival' event array	
@@ -81,6 +83,8 @@ func TriggerEvent(dayEvent):
 	# eventContainer.event = dayEvent
 	# eventContainer.initializeEvent
 	pass
+func TriggerSpecificEvent(id):
+	EventParser.chooseSpecificEvent(id)
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):

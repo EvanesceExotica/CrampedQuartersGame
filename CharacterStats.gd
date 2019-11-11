@@ -68,6 +68,7 @@ func _ready():
 	# 	child.connect("mouse_exit", self, "mouseNotOverPanel")
 	hoveringOverPanel = false
 	character.connect("newAttributeAdded", self, "addAttributeToPanel")
+	character.connect("attributeRemoved", self, "removeAttributeFromPanel")
 	character.connect("statAtZero", self, "EatCheese")
 	statBars = {System.DynamicStats.health: healthBar, System.DynamicStats.sustenance: sustenanceBar, System.DynamicStats.sanity: sanityBar, System.DynamicStats.relationship: relationshipBar}
 	statTweens = {System.DynamicStats.health: healthTween, System.DynamicStats.sustenance: sustenanceTween, System.DynamicStats.sanity: sanityTween, System.DynamicStats.relationship: relationshipTween}
@@ -97,11 +98,20 @@ func addAttributeToPanel(attribute):
 	#attach the UI signals for hovering mouse over elements
 	#attributeDescriptorInstance.connect("mouse_enter", self, "mouseOverPanel")
 	attributeDescriptorInstance.setAttribute(attribute)
-	#TODO: DO THE EQUIVALENT FOR REMOVAL BELOW
-	pass
 
 func removeAttributeFromPanel(attribute):
+
+	#remove from our array of attributes
 	attributeArray.erase(attribute)
+
+	#find the instance of the descriptor
+	var attributeDescriptorInstance = attributeHolder.get_node(attribute.attributeName)
+
+	#remove the descriptor object from the node tree in game
+	attributeHolder.remove_child(attributeDescriptorInstance)
+
+	#erase from the statUiChildren array, which is the list of cihldren in the panel
+	statUIChildren.erase(attributeDescriptorInstance)
 
 func hideDisplay():
 	$Tween.stop_all()

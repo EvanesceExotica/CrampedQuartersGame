@@ -68,7 +68,7 @@ func spawnInArea():
 		#find random position for location^
 
 		
-		star.position = to_local(spawnPosition) #spawnPositio
+		star.position = spawnPosition #spawnPositio
 
 		locationHolder.add_child(star)
 
@@ -189,7 +189,7 @@ func SelectLocation(node):
 	#selected new node
 	selectedNextLocation = node
 	print("Selected new location " + str(node.label.text))
-	print(node.backgroundLocation.description)
+#	print(node.backgroundLocation.description)
 
 	pass
 

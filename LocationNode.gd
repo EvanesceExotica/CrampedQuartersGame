@@ -15,7 +15,7 @@ onready var tween = get_node("Tween")
 onready var dottedCircle = get_node("DottedCircle")
 onready var pointer = get_node("Pointer")
 
-var event 
+var arrivalEventID = 1 
 var selected = false
 
 var isCurrentLocation = false
