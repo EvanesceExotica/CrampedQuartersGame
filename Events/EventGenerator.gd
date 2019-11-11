@@ -79,7 +79,8 @@ func _ready():
 
 func TriggerEvent(dayEvent):
 #	print("Event Triggered " + dayEvent)
-	EventParser.chooseRandomEvent()
+	#TODO #put this back in
+	#EventParser.chooseRandomEvent()
 	# eventContainer.event = dayEvent
 	# eventContainer.initializeEvent
 	pass

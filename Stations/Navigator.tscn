@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Stations/Navigator.gd" type="Script" id=1]
 [ext_resource path="res://Stations/Stars.png" type="Texture" id=2]
 [ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://SpacetimeEngine.tscn" type="PackedScene" id=4]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 852.054, 302.469 )
@@ -15,6 +16,9 @@ font_data = ExtResource( 3 )
 [sub_resource type="DynamicFont" id=3]
 size = 30
 font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 5 )
 
 [node name="Navigator" type="Node2D"]
 position = Vector2( 32.1603, 0 )
@@ -76,6 +80,14 @@ text = "Warp Jump Through Spacetime"
 position = Vector2( 25, 400 )
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="TravelTimeLabel" type="RichTextLabel" parent="."]
+margin_left = 768.0
+margin_top = 570.0
+margin_right = 983.0
+margin_bottom = 595.0
+custom_fonts/normal_font = SubResource( 4 )
+text = "TRAVEL TIME LEFT: "
 
 [connection signal="pressed" from="HSplitContainer/JumpButton" to="." method="_on_JumpButton_pressed"]
 [connection signal="pressed" from="HSplitContainer/SpacetimeJump" to="." method="_on_SpacetimeJump_pressed"]

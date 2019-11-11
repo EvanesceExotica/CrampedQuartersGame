@@ -35,6 +35,10 @@ export(int) var lineWidth = 5
 export(Color) var lineColor = Color("#a2b2ff")
 onready var locationHolder = get_node("LocationHolder")
 
+var currentlyTravelling = false
+var travelStartTime = 0
+var timeToDestination = 0
+
 var connectionsMade = {}
 
 func spawnInArea():
@@ -100,6 +104,7 @@ func findClosestNode(node):
 			continue
 		if generatedLocations[location].size() > 0 :
 
+			#the ggeneratedLocations stores the location and the ones it's connected to
 			#this will skip the first node with a connection, but the last node that doesn't have one can connect to any before
 			#make sure the location doesn't already have a connection to it
 			continue
@@ -138,6 +143,29 @@ func findClosestNode(node):
 	lineHolder.add_child(newLine)
 	newLine.z_index = 50
 
+func CalculateTravelDistance():
+	var distanceToTravel = currentLocation.position.distance_to(selectedNextLocation.position)
+	#each 50 units takes 1 minute of travel. --Tweak this unit
+	var timeToTravel = int(round(distanceToTravel/50))
+	return timeToTravel
+	
+
+
+
+func InitiateTravel():
+	var timeToTravel = CalculateTravelDistance()
+	currentlyTravelling = true
+	var timer = Timer.new()
+	timer.set_wait_time(timeToTravel)
+	timer.one_shot = true
+	timer.connect("timeout", self, "TravelTimeOver")
+	add_child(timer)
+	timer.start()
+
+func TravelTimeOver():
+	setNewLocation(selectedNextLocation)
+
+
 func InitalizeNodes():
 	#this generates new ones, filling the connections dictionaries
 	spawnInArea()
@@ -156,6 +184,7 @@ func InitalizeNodes():
 	showTraversibleLines()
 
 	currentLocation.setCurrentLocationDressing()
+
 
 func ResetNodesUponArrival():
 	remove_child(starInstance)
@@ -300,10 +329,12 @@ func _on_SpacetimeJump_pressed():
 
 func _input(event):
 	if event.is_action_pressed("ui_interact"):
-		setNewLocation(selectedNextLocation)
+		InitiateTravel()
+		#setNewLocation(selectedNextLocation)
 
 func _on_JumpButton_pressed():
-	setNewLocation(selectedNextLocation)
+	InitiateTravel()
+	#setNewLocation(selectedNextLocation)
 	print("Jumped to new location")
 	#ArrivedAtNewLocation()
 

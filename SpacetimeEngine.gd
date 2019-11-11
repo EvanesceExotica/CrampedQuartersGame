@@ -19,6 +19,7 @@ func startCooldown():
 	print("Cooldown started")
 	SignalManager.emit_signal("OnSpacetimeEngineCooldown")
 	timer.wait_time = cooldown
+	timer.one_shot = true
 	timer.start()
 	tween.interpolate_property(countdownCircle, "value", 100, 0, cooldown, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
@@ -43,6 +44,7 @@ func runEngine():
 	jumping = true #engine is running, meaning we're jumping through spacetime
 	active = false #engine can't be activated whiel we're already jumping through spacetime
 	timer.wait_time = engineRunTime
+	timer.one_shot = true
 	timer.start()
 	yield(timer, "timeout")
 	SignalManager.emit_signal("OnSpacetimeJumpArrival")

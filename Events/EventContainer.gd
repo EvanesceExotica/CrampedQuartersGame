@@ -41,7 +41,6 @@ func pauseTime():
 
 func _on_Timer_timeout():
 	waitingForChoice = false
-	print("CHOICE TIME IS OVER")
 	get_tree().paused = false
 
 	#maybe make a separate "Eve"
@@ -49,6 +48,7 @@ func _on_Timer_timeout():
 
 func EventDefaulted():
 	SignalManager.emit_signal("EventChoiceClicked", availableChoices[0].resultSets, availableChoices[0].affectedObjectDictionary)
+	get_tree().paused = false
 
 func updateEvent(updateParameters):
 	#this will be a result set
