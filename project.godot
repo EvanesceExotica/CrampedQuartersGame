@@ -93,6 +93,7 @@ SignalManager="*res://SignalManager.gd"
 EventParser="*res://Events/EventParser.gd"
 CharacterTracker="*res://Character/CharacterTracker.gd"
 NameGenerator="*res://Character/NameGenerator.gd"
+TimeConverter="*res://Helper/TimeConverter.gd"
 
 [debug]
 

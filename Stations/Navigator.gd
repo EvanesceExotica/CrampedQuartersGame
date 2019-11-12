@@ -36,8 +36,8 @@ export(Color) var lineColor = Color("#a2b2ff")
 onready var locationHolder = get_node("LocationHolder")
 
 var currentlyTravelling = false
-var travelStartTime = 0
-var timeToDestination = 0
+onready var travelTimer = get_node("TravelTimer")
+onready var travelTimeLabel = get_node("TravelTimeLabel")
 
 var connectionsMade = {}
 
@@ -154,16 +154,18 @@ func CalculateTravelDistance():
 
 func InitiateTravel():
 	var timeToTravel = CalculateTravelDistance()
+	#var travelTimer = Timer.new()
+	travelTimer.set_wait_time(timeToTravel)
+	travelTimer.one_shot = true
+	travelTimer.connect("timeout", self, "TravelTimeOver")
+	travelTimer.start()
 	currentlyTravelling = true
-	var timer = Timer.new()
-	timer.set_wait_time(timeToTravel)
-	timer.one_shot = true
-	timer.connect("timeout", self, "TravelTimeOver")
-	add_child(timer)
-	timer.start()
+	travelTimeLabel.show()
 
 func TravelTimeOver():
 	setNewLocation(selectedNextLocation)
+	currentlyTravelling = false
+	travelTimeLabel.hide()
 
 
 func InitalizeNodes():
@@ -338,3 +340,6 @@ func _on_JumpButton_pressed():
 	print("Jumped to new location")
 	#ArrivedAtNewLocation()
 
+func _process(delta):
+	if(currentlyTravelling):
+		travelTimeLabel.text = "TRAVEL TIME LEFT: " + str(TimeConverter.round_to_dec(travelTimer.time_left, 1)).pad_decimals(1)
