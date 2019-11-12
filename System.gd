@@ -251,6 +251,16 @@ var currentDayInRun = 1
 var totalSecondsInHour = 12.5
 var elapsedSecondsInDay = 0
 
+
+var gameSecondsSinceBeginningOfDay = 0
+var gameHours
+var gameMinutes
+var gameSeconds
+
+func WrapClockTime():
+	pass
+	
+
 func convertToClockTime(delta):
 
 	elapsedSecondsInHour += delta
@@ -264,9 +274,7 @@ func convertToClockTime(delta):
 #add 'skip' where can jump to 24 when asleep
 	if(currentHour == fullDayDuration):
 		SignalManager.emit_signal("DayPassed")
-		print("Day passed")
 		currentDayInRun+=1
-		print("Now day: " + str(currentDayInRun))
 		currentHour = 0
 		elapsedSecondsInDay = 0
 
@@ -280,7 +288,7 @@ func _process(delta):
 	else:
 		dragging = false
 
-	convertToClockTime(delta)
+	#convertToClockTime(delta)
 	# elapsedSecondsInPeriod += delta
 	# elapsedSecondsInDay += delta
 	# if elapsedSecondsInPeriod > totalSecondsInPeriod:

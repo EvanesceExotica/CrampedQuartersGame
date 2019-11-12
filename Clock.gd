@@ -13,8 +13,9 @@ func _ready():
 	SignalManager.connect("HourPassed", self, "SetClockHour")
 
 func SetClockHour(hour):
-	print("Setting clock hour")
-	label.text = str(hour)
+	pass
+	# print("Setting clock hour")
+	# label.text = str(hour).pad_zeros(2)
 
 func convertToClockTime(delta):
 	elapsedSecondsInHour += delta
@@ -34,7 +35,8 @@ func convertToClockTime(delta):
 	pass
 
 func _process(delta):
-	convertToClockTime(delta)#System.elapsedSecondsInDay)
+	label.text = str(TimeConverter.Hours()).pad_zeros(2) + ":" + str(TimeConverter.Minutes()).pad_zeros(2)
+	#convertToClockTime(delta)#System.elapsedSecondsInDay)
 	#label.text = str(System.elapsedSecondsInDay)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

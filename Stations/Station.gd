@@ -21,7 +21,7 @@ const destroyed = "destroyed"
 signal newAttributeAdded
 signal attributeRemoved
 
-var maintenaceTimer = get_node("MaintenaceTimer")
+onready var maintenanceTimer = get_node("MaintenanceTimer")
 
 var damageLevel
 var tags = []

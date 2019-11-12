@@ -34,7 +34,6 @@ margin_bottom = 80.0
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 510, 299.38 )
 current = true
-zoom = Vector2( 3, 3 )
 
 [node name="Tween" type="Tween" parent="Camera2D"]
 
