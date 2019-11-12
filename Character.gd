@@ -258,7 +258,6 @@ func removeAttribute(attribute):
 			RemoveNewDrainSource(drainedDynamicStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStat])
 
 	characterAttributes.erase(attribute)
-	print("Attribute FINALLY removed " + attribute.attributeName)
 	emit_signal("attributeRemoved", attribute)
 
 func SetInitialValues(conditions, attributes):
