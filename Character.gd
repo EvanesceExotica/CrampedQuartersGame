@@ -163,9 +163,13 @@ func applyNewAttribute(newAttribute):
 	characterAttributes.append(newAttribute)
 	emit_signal("newAttributeAdded", newAttribute)
 	if(newAttribute.typeOfAttribute == System.attributeType.temporaryCondition):
-		print("It's a temporary condition")
 
-		yield(get_tree().create_timer(newAttribute.duration), "timeout")
+		var timer = Timer.new()
+		timer.wait_time = newTrait.duration
+		timer.connect("timeout",self,"_on_timer_timeout") 
+		add_child(timer) #to process
+		timer.start() #to start
+
 	if(newAttribute.statSignalsToWatchFor.size() > 0):
 		for signals in newAttribute.statSignalsToWatchFor.keys():
 				pass

@@ -21,6 +21,8 @@ const destroyed = "destroyed"
 signal newAttributeAdded
 signal attributeRemoved
 
+var maintenaceTimer = get_node("MaintenaceTimer")
+
 var damageLevel
 var tags = []
 
@@ -72,6 +74,11 @@ func changeHealthAmount(amount):
 	# #environmental effects can deal damage to stations too
 	# pass
 
+func maintenaceTimer():
+	pass
+
+func callForMaintenance():
+	pass
 func getHalfHealthValue():
 	return int((floor(maxHealth/2)))
 

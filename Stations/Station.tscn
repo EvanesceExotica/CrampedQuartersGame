@@ -26,5 +26,7 @@ shape = SubResource( 1 )
 
 [node name="TraitChecker" parent="." instance=ExtResource( 4 )]
 
+[node name="MaintenanceTimer" type="Timer" parent="."]
+
 [connection signal="mouse_entered" from="InteractionSpace" to="." method="_on_InteractionSpace_mouse_entered"]
 [connection signal="mouse_exited" from="InteractionSpace" to="." method="_on_InteractionSpace_mouse_exited"]
