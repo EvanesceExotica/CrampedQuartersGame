@@ -3,6 +3,10 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+
+signal success
+signal gameOver
+
 signal meterEffected(amount)
 
 func initializeGame():
@@ -19,10 +23,12 @@ func closeScreen():
 # Called when the node enters the scene tree for the first time.
 func gameSuccess():
 	print("SUCCESS")
+	emit_signal("success")
 	closeScreen()
 
 func gameOver():
 	print("Game over")
+	emit_signal("gameOver")
 	closeScreen()
 
 

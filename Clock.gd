@@ -35,7 +35,7 @@ func convertToClockTime(delta):
 	pass
 
 func _process(delta):
-	label.text = str(TimeConverter.Hours()).pad_zeros(2) + ":" + str(TimeConverter.Minutes()).pad_zeros(2)
+	label.text = str(TimeConverter.Hours()).pad_zeros(2) + ":" + str(TimeConverter.Minutes()).pad_zeros(2) + ":" + str(TimeConverter.Seconds()).pad_zeros(2)
 	#convertToClockTime(delta)#System.elapsedSecondsInDay)
 	#label.text = str(System.elapsedSecondsInDay)
 

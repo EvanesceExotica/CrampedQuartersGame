@@ -13,6 +13,13 @@ var mouseHovering = false
 var currentHealth = 3
 var maxHealth = 3
 
+#for how long until the station needs maintenance
+var cooldownMaxValue = 30 
+var cooldownMinValue = 20
+
+#for how long the warning will go off until maintenance
+var warningDuration = 10
+
 const hale = "hale"
 const minorDamage = "minorDamage" #glitches appear on screen making it hard to see?
 const majorDamage = "majorDamage" #non-functional but can be repaired
@@ -22,6 +29,7 @@ signal newAttributeAdded
 signal attributeRemoved
 
 onready var maintenanceTimer = get_node("MaintenanceTimer")
+onready var warningTimer =  get_node("WarningTimer")
 
 var damageLevel
 var tags = []
@@ -43,9 +51,14 @@ func loadMinigameScene():
 		get_parent().add_child(screenInstance)
 	else:
 		get_parent().add_child(screenInstance)
+
+		#the game was a success, reset the maintenance timer
+	screenInstance.connect("success", self, "resetMaintenanceTimer")
+	screenInstance.connect("gameOver", self, "disableStation")
 	screenInstance.initializeGame()
 
 func addDamageTag(tag):
+	#damage makes games harder
 	tags.append(tag)
 
 
@@ -74,10 +87,22 @@ func changeHealthAmount(amount):
 	# #environmental effects can deal damage to stations too
 	# pass
 
-func maintenaceTimer():
-	pass
+func resetMaintenanceTimer():
+	randomize()
+	var randomValue = rand_range(cooldownMinValue, cooldownMaxValue)
+	maintenanceTimer.wait_time = randomValue
+	maintenanceTimer.one_shot = true
+	maintenanceTimer.connect("timeout", self, "callForMaintenance")
+	maintenanceTimer.start()
+
 
 func callForMaintenance():
+	#here, flash a red caution sign on the screen and a beeping noise
+	pass
+
+func disableStation():
+	print("Station disabled! -- affects taking place!")
+	#this happens when the station takes too much damage or a maintenance check is failed or runs out of time
 	pass
 func getHalfHealthValue():
 	return int((floor(maxHealth/2)))

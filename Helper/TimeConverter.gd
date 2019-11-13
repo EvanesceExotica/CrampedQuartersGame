@@ -2,8 +2,7 @@ extends Node
 
 var timeRatio = 0.00694 #0.01
 var gameTime = 0
-#var fullDayTimeInMinutes = 8 #8 minutes
-#var hours  #20 seconds
+
 var handledHourPass = false
 var handledDayPass = false
 
@@ -12,19 +11,21 @@ func round_to_dec(num, places):
 
 func HandleDayPassing():
     print("A day has passed")
+    SignalManager.emit_signal("DayPassed")
 
 func HandleHourPassing():
     print("An hour has passed")
+    SignalManager.emit_signal("HourPassed", Hours())
 
 func _process(delta):
     gameTime += delta /  timeRatio
 
 
     #figure out cleaner way to handle this
-    if Minutes() == 0 && Seconds() == 0 && !handledHourPass:
+    if Minutes() == 0 && !handledHourPass:
         handledHourPass = true
         HandleHourPassing()
-    if Seconds() == 1:
+    if Minutes() == 1:
         handledHourPass = false
 
     if Hours() == 0 && Minutes() == 0 && !handledDayPass:
@@ -34,6 +35,9 @@ func _process(delta):
         #reset the bool once the minutes are no longer zero
         handledDayPass = false
     
+
+
+
 
 func Milliseconds():
 
