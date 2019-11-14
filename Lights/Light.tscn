@@ -10,5 +10,4 @@ script = ExtResource( 1 )
 position = Vector2( 7.62939e-006, -7.62939e-006 )
 scale = Vector2( 1.32645, 1.32645 )
 texture = ExtResource( 2 )
-energy = 2.0
 
