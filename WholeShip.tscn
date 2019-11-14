@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://StatData/AirBreather.tres" type="Resource" id=11]
 [ext_resource path="res://Stations/Station.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Events/EventGenerator.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Stations/PowerStation.tscn" type="PackedScene" id=14]
 
 [node name="WholeShip" type="Node2D"]
 script = ExtResource( 1 )
@@ -34,6 +35,7 @@ margin_bottom = 80.0
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 510, 299.38 )
 current = true
+zoom = Vector2( 3, 3 )
 
 [node name="Tween" type="Tween" parent="Camera2D"]
 
@@ -106,5 +108,9 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="EventGenerator" parent="." instance=ExtResource( 13 )]
 position = Vector2( 672.925, 245.064 )
+
+[node name="Station2" parent="." instance=ExtResource( 14 )]
+position = Vector2( 290, 125 )
+scale = Vector2( 0.5, 0.5 )
 
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]

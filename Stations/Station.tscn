@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Stations/Station.gd" type="Script" id=1]
 [ext_resource path="res://Stations/HexScreen.tscn" type="PackedScene" id=2]
 [ext_resource path="res://bag_furniture_wallcabinet_spaceship_wall_locker.png" type="Texture" id=3]
 [ext_resource path="res://Utility/TraitChecker.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Stations/WarningFlash.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 121, 150 )
@@ -30,5 +31,17 @@ shape = SubResource( 1 )
 
 [node name="WarningTimer" type="Timer" parent="."]
 
+[node name="WarningFlash" parent="." instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 129, 140 )
+scale = Vector2( 0.274834, 0.274834 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 10.0
+margin_right = 240.0
+margin_bottom = 50.0
+text = "DISABLE"
+
 [connection signal="mouse_entered" from="InteractionSpace" to="." method="_on_InteractionSpace_mouse_entered"]
 [connection signal="mouse_exited" from="InteractionSpace" to="." method="_on_InteractionSpace_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

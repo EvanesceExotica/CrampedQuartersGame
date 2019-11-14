@@ -1,5 +1,7 @@
 extends Node2D
 
+
+onready var warningFlash = get_node("WarningFlash")
 onready var room
 onready var interactionSpace = get_node("InteractionSpace")
 # Declare member variables here. Examples:
@@ -14,8 +16,8 @@ var currentHealth = 3
 var maxHealth = 3
 
 #for how long until the station needs maintenance
-var cooldownMaxValue = 30 
-var cooldownMinValue = 20
+var cooldownMaxValue = 15 
+var cooldownMinValue = 10
 
 #for how long the warning will go off until maintenance
 var warningDuration = 10
@@ -45,6 +47,9 @@ func interactWith():
 	pass
 # Called when the node enters the scene tree for the first time.
 func loadMinigameScene():
+
+	#stop warning timer
+	warningTimer.stop()
 	print("Loading minigame scene")
 	if screenInstance == null:
 		screenInstance = minigameScreen.instance()
@@ -88,19 +93,34 @@ func changeHealthAmount(amount):
 	# pass
 
 func resetMaintenanceTimer():
-	randomize()
+
+	hideAndStopWarningFlash()
 	var randomValue = rand_range(cooldownMinValue, cooldownMaxValue)
 	maintenanceTimer.wait_time = randomValue
 	maintenanceTimer.one_shot = true
 	maintenanceTimer.connect("timeout", self, "callForMaintenance")
 	maintenanceTimer.start()
 
+func hideAndStopWarningFlash():
+	warningFlash.StopWarningFlash()
+	warningFlash.hide()
+
+func showAndPlayWarningFlash():
+	warningFlash.show()
+	warningFlash.PlayWarningFlash()
 
 func callForMaintenance():
+	#here, the station will beep and show a warning, showing it's about to be disabled.
+	showAndPlayWarningFlash()
+	warningTimer.wait_time = warningDuration
+	warningTimer.one_shot = true
+	warningTimer.connect("timeout", self, "disableStation")
+	warningTimer.start()
 	#here, flash a red caution sign on the screen and a beeping noise
 	pass
 
 func disableStation():
+	hideAndStopWarningFlash()
 	print("Station disabled! -- affects taking place!")
 	#this happens when the station takes too much damage or a maintenance check is failed or runs out of time
 	pass
@@ -116,7 +136,9 @@ func repair():
 	pass
 
 func _ready():
+	randomize()
 	add_to_group("Stations")
+	resetMaintenanceTimer()
 
 func _input(event):
 	if(event.is_action_pressed("ui_interact")):
@@ -125,8 +147,11 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _on_InteractionSpace_mouse_entered():
 	mouseHovering = true
-	pass
 
 func _on_InteractionSpace_mouse_exited():
 	mouseHovering = false
+
+
+func _on_Button_pressed():
+	disableStation()
 	pass # Replace with function body.

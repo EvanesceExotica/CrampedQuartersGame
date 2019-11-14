@@ -46,7 +46,11 @@ func applyNewAttributeToSlot(attribute):
 	#when a brand new attribute is applied, apply it to the character as well
 	slotAttributes.append(attribute)
 	if(occupied):
-		characterInSlot.applyNewAttributeToCharacter(attribute)
+		print("We have a character here and we're going to add this attribute")
+		print(characterInSlot.characterName)
+		characterInSlot.applyNewAttribute(attribute)
+		for attribute in characterInSlot.characterAttributes:
+			print("Charcter has these : " + attribute.attributeName)
 	emit_signal("newAttributeAdded")
 
 	pass
@@ -84,12 +88,13 @@ func checkIfCharacterDontLikeInAdjacentSlot():
 	pass
 
 func addCharacterToSlot(character):
-		characterInSlot = character
-		character.currentSlot = self
-		character.global_position = self.global_position
-		applyExistingAttributesToCharacter()
-		emit_signal("someoneEnteredSlot", self, character)
-		System.updateSlots(self, character)
+	characterInSlot = character
+	character.currentSlot = self
+	character.global_position = self.global_position
+	applyExistingAttributesToCharacter()
+	emit_signal("someoneEnteredSlot", self, character)
+	System.updateSlots(self, character)
+	occupied = true
 
 func removeCharacterFromSlot(character):
 	#TODO ADD SOMETHING THAT TRIGGERS THIS
@@ -97,6 +102,7 @@ func removeCharacterFromSlot(character):
 	removeAllExitingAttributesFromCharacter()
 	emit_signal("someoneVacatedSlot", self, character)
 	System.updateSlots(self, character)
+	occupied = false
 
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):
@@ -121,10 +127,10 @@ func checkIfAdjacentSlotsFull():
 func _ready():
 
 	add_to_group("slots")
-	var testAttribute = System.attributeScript.new("Underwater")
-#	testAttribute.attributeType = System.attributeType.auraCondition
-	testAttribute.DrainingDynamicStats = {System.DynamicStats.health: 10}
-	applyNewAttributeToSlot(testAttribute)
+# 	var testAttribute = System.attributeScript.new("Underwater")
+# #	testAttribute.attributeType = System.attributeType.auraCondition
+# 	testAttribute.DrainingDynamicStats = {System.DynamicStats.health: 10}
+# 	applyNewAttributeToSlot(testAttribute)
 	System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
 	for item in System.allSlots:
 		item.connect("someoneVacatedSlot", self, "checkIfCharacterMovedToDifferentSlot")

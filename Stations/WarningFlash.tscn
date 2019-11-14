@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Stations/WarningFlash.png" type="Texture" id=1]
+[ext_resource path="res://Stations/WarningFlash.gd" type="Script" id=2]
+[ext_resource path="res://Stations/WarningDark.png" type="Texture" id=3]
+[ext_resource path="res://LightCookie.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FlashWarning"
+length = 0.35
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 3 ) ]
+}
+
+[node name="WarningFlash" type="Sprite"]
+position = Vector2( 490, 260 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FlashWarning = SubResource( 1 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, 30 )
+scale = Vector2( 1.31028, 1.27075 )
+texture = ExtResource( 4 )
+color = Color( 1, 0, 0, 1 )
+
