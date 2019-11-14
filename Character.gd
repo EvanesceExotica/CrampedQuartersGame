@@ -105,21 +105,6 @@ signal healedOverMax(whichStat) #this one would apply to being overfed or being 
 
 onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
 onready var healthTween = healthBar.get_node("HealthTween")
-# func convertStringToEnum(stringName):
-# 		if(stringName == "health"):
-# 			return System.DynamicStats.health
-# 		if(stringName == "sanity")
-# 			return System.DynamicStats.sanity
-# 		if(stringName == "sustenance"):
-# 			return System.DynamicStats.sustenance
-# 		if(stringName == "relationship")
-# 			return System.DynamicStats.relationship
-# 		if(stringName == "damageDealt"):
-# 			return Staticstats.damageDealt
-# 		if(stringName == "")
-# 	pass
-#
-
 
 
 func applyNewAttribute(newAttribute):
@@ -157,7 +142,6 @@ func applyNewAttribute(newAttribute):
 	if(newTrait.DrainingDynamicStats.size() > 0):
 		#how many points drained per second
 		for drainedDynamicStat in newTrait.DrainingDynamicStats.keys():
-			print("This is what our trait drains " + str(newTrait.DrainingDynamicStats[drainedDynamicStat]))
 			addNewDrainSource(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
 
 	characterAttributes.append(newAttribute)
@@ -188,13 +172,11 @@ func applyNewAttributes(newAttributes):
 			#for immediate "chunks" of damage
 			for currentDynamicStat in newTrait.AffectedDynamicStatsCurrent.keys:
 				changeStatValue(currentDynamicStat, newTrait.AffectedDynamicStatsCurrent[currentDynamicStat], false)
-				#statCurrentValues[currentDynamicStat] - newTrait.AffectedDynamicStatsCurrent[currentDynamicStat]
 				pass
 			pass
 		if(newTrait.AffectedDynamicStatsMax.size > 0):
 			#for things that affect maxStats
 			for maxDynamicStat in newTrait.AffectedDynamicStatsMax.keys:
-				#changeStatValue(currentDynamicStat, newTrait.AffectedDynamicStatsMax[maxDynamicStat], true)
 				statMaxValues[maxDynamicStat] * newTrait.AffectedDynamicStatsMax[maxDynamicStat]
 			pass
 		if(newTrait.AffectedStaticStats.size > 0):
@@ -206,7 +188,6 @@ func applyNewAttributes(newAttributes):
 			#how many points drained per second
 			for drainedDynamicStat in newTrait.DrainingDynamicStats.keys:
 				drainValueOverTime(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
-				#statCurrentValues[drainedDynamicStat]
 			pass
 	pass
 
@@ -229,11 +210,7 @@ func removeAttribute(attribute):
 					#also remove the attribute caused by them being combined
 					removeAttribute(attribute.canCombineWith[possibleCombineableTrait])
 					#TODO: FIND A WAY TO REMOVE IT AS WELL
-	# for item in characterAttributes:
-	# 	print(item.description)
-	# 	print(item.attributeName)
-	# print(attribute)
-	# print(attribute.description)
+
 	# #TODO: Switch these variables so that they are being removed instead
 
 	if(attribute.AffectedDynamicStatsCurrent.size() > 0):
@@ -457,23 +434,29 @@ func calculateCurrentHealthPercentage(whichStat, oldMaxHealthValue):
 
 
 func changeMaxStatValue(whichStat, amount):
-	#print("MAX STAT VALUE BEING CHANGED " + str(amount))
+
+	#set the old maximum v alue for printing purposes
 	var oldStatValue = statMaxValues[whichStat]
+
+	#multiply the current maxValue by the amont (should be a decimal if lowering, wholenumber+ if raising)
 	statMaxValues[whichStat] *=  amount
 	print("Max stat value was " + str(oldStatValue))
 	print("Max stat value is now " + str(statMaxValues[whichStat]))
 	#TODO: MAYBE JUST MULTIPLY CURRENT HP BY AMOUNT TOO IF IT'S INCREASED
-	#if(statMaxValues[whichStat] > oldStatValue)
+
+	#make sure that if the currentStat is higher now, make it equal the maximum stat
 	if statCurrentValues[whichStat] > statMaxValues[whichStat]:
 		statCurrentValues[whichStat] = statMaxValues[whichStat]
-	#if statCurrentValues[whichStat] < statMaxValues[whichStat]:
 
+		#I forget why this part is necessary
 	var statValueToSet = statPropertyNames[whichStat]
 	set(statValueToSet, statCurrentValues[whichStat])
 
 	var maxStatValueToSet = maxStatPropertyNames[whichStat]
 	set(maxStatValueToSet, statMaxValues[whichStat])
-#warning-ignore:unused_class_variable
+
+	#make sure the value of the bars are being changed too
+	characterStats.changeBarMaxValue(characterStats.statBars[whichStat], statMaxValues[whichStat])
 
 
 

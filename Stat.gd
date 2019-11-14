@@ -13,8 +13,19 @@ enum StatType{
 
 var ourType = StatType.health; 
      
+#what sources are draining this stat
+var drainSources = []
+
+#is the stat currently draining? If sources >=1, then it is
+var drainState = false
+
+#sources can add up to make the stat drain faster, the number of points drained per second will add together with each additional source
+var drainRate = 0
+
+#the currentValue of the stat
 var currentValue = 100
-#warning-ignore:unused_class_variable
+
+#the max Value of the stat
 var maxValue = 100
      
 func changeValue(amount):
@@ -24,37 +35,8 @@ func changeValue(amount):
           emit_signal("valueAtZero")
      pass
      
-signal valueAtZero
-     
-#warning-ignore:unused_signal
-signal valueAtMax
-    
-func drainSustenanceOverTime():
 
-	var timer = Timer.new()
-	timer.connect("timeout", self, "onTimerTimeout")
-	timer.set_wait_time(0.1)
-	timer.set_one_shot(false)
-	timer.start()
-	
-
-func onTimerTimeout():
-	currentValue-= 1
-	
-func drainOverTime():
-     pass
-	
-     # Called when the node enters the scene tree for the first time.
-func _ready():
-
-     pass # Replace with function body.
      
 func _init(ourStatType):
      ourType = ourStatType
      pass
-
-#warning-ignore:unused_class_variable
-var draining = false
-
-#warning-ignore:unused_class_variable
-var drainIncrement
