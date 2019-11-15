@@ -58,6 +58,10 @@ func getAllNodes(node):
 			statUIChildren.append(child)
 			getAllNodes(child)
 
+func setStatBars():
+	statBars = {character.health: healthBar, character.sustenance: sustenanceBar, character.sanity: sanityBar, character.relationship: relationshipBar}
+	statTweens = {character.health: healthTween, character.sustenance: sustenanceTween, character.sanity: sanityTween, character.relationship: relationshipTween}
+	statAnimationPlayers = {character.health: healthAnimationPlayer, character.sustenance: sustenanceAnimationPlayer, character.sanity: sanityAnimationPlayer, character.relationship: relationshipAnimationPlayer}
 
 func _ready():
 
@@ -70,9 +74,6 @@ func _ready():
 	character.connect("newAttributeAdded", self, "addAttributeToPanel")
 	character.connect("attributeRemoved", self, "removeAttributeFromPanel")
 	character.connect("statAtZero", self, "EatCheese")
-	statBars = {System.DynamicStats.health: healthBar, System.DynamicStats.sustenance: sustenanceBar, System.DynamicStats.sanity: sanityBar, System.DynamicStats.relationship: relationshipBar}
-	statTweens = {System.DynamicStats.health: healthTween, System.DynamicStats.sustenance: sustenanceTween, System.DynamicStats.sanity: sanityTween, System.DynamicStats.relationship: relationshipTween}
-	statAnimationPlayers = {System.DynamicStats.health: healthAnimationPlayer, System.DynamicStats.sustenance: sustenanceAnimationPlayer, System.DynamicStats.sanity: sanityAnimationPlayer, System.DynamicStats.relationship: relationshipAnimationPlayer}
 	nameLabel.text = "Name: " + character.characterName
 # func mouseOverPanel():
 # 	print("Mouse over panel!")
@@ -131,6 +132,14 @@ func displayAttributes():
 func displayConditions():
 	pass
 
+func SetToLeftFacingPosition():
+	#character is sitting on right of room
+	self.rect_position = character.leftFacingPosition.position
+
+func SetToRightFacingPosition():
+	#character is sitting on right of room
+	self.rect_position = character.rightFacingPosition.position
+	pass
 var isHealthTweenRunning = false
 var isSustenanceTweenRunning = false
 var isSanityTweenRunning = false
@@ -192,10 +201,10 @@ func EatCheese(test):
 	print("Cheese was eaten")
 
 func _process(delta):
-	healthLabel.text = str(int(character.currentHealth)) + " / " + str(int(character.maxHealth))
-	sanityLabel.text = str(int(character.currentSanity)) + " / " + str(int(character.maxSanity))
-	sustenanceLabel.text = str(int(character.currentSustenance)) + " / " + str(int(character.maxSustenance))
-	relationshipLabel.text = str(int(character.currentRelationship)) + " / " + str(int(character.maxRelationship))
+	healthLabel.text = str(int(character.health.currentValue)) + " / " + str(int(character.health.maxValue))
+	sanityLabel.text = str(int(character.sanity.currentValue)) + " / " + str(int(character.sanity.maxValue))
+	sustenanceLabel.text = str(int(character.sustenance.currentValue)) + " / " + str(int(character.sustenance.maxValue))
+	relationshipLabel.text = str(int(character.relationship.currentValue)) + " / " + str(int(character.relationship.maxValue))
 
 	pass
 
@@ -203,23 +212,22 @@ func _process(delta):
 
 func _on_HealthTween_tween_completed(object, key):
 	print("health tween completed")
-	var stat = character.DynamicStats.health
+	var stat = character.health
 	var startHealth = character.currentHealth
-	isHealthTweenRunning = false
-	if(character.statDrainState[stat] == true):
-		#print("Current health" + str(character.currentHealth))
 
-		#The health itself isn't restarting to drain here
+	isHealthTweenRunning = false
+	if(character.health.drainState == true):
 		character.restartInterruptedDrain(stat)
-		#animateBar(healthTween, healthBar, startHealth, 0, character.calculateDrainRate(character.valueDrainRates[stat]))
+
+
 
 func _on_SustenanceTween_tween_completed(object, key):
 
 	isSustenanceTweenRunning = false
-	var stat = character.DynamicStats.sustenance
+	var stat = character.sustenance
 	var startSustenance = character.currentSustenance
 
-	if(character.statDrainState[stat] == true):
+	if(character.sustenance.drainState == true):
 		character.restartInterruptedDrain(stat)
 		#animateBar(sustenanceTween, sustenanceBar, startSustenance, 0, character.calculateDrainRate(stat, character.valueDrainRates[stat]))
 
@@ -227,18 +235,18 @@ func _on_SanityTween_tween_completed(object, key):
 
 	isSanityTweenRunning = false
 
-	var stat = character.DynamicStats.sanity
+	var stat = character.sanity
 	var startSanity = character.currentSanity
 
-	if(character.statDrainState[stat] == true):
+	if(character.sanity.drainState == true):
 		character.restartInterruptedDrain(stat)
 		#animateBar(sanityTween, sanityBar, startSanity, 0, character.calculateDrainRate(character.valueDrainRates[stat]))
 
 
 func _on_RelationshipTween_tween_completed(object, key):
 	isRelationshipTweenRunning = false
-	var stat = character.DynamicStats.relationship
+	var stat = character.relationship
 	var startRelationship = character.currentRelationship
-	if(character.statDrainState[stat] == true):
+	if(character.relationship.drainState == true):
 		character.restartInterruptedDrain(stat)
 		#animateBar(relationshipTween, relationshipBar, startRelationship, 0, character.calculateDrainRate(character.valueDrainRates[stat]))

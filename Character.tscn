@@ -13,6 +13,9 @@ height = 199.698
 [node name="Character" type="Area2D"]
 scale = Vector2( 0.72, 0.68 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -94.1474 ]
+}
 
 [node name="TamelaUpdated" type="Sprite" parent="."]
 position = Vector2( 10.6802, 46.4731 )
@@ -54,6 +57,12 @@ text = "Remove Fire"
 script = ExtResource( 4 )
 
 [node name="TraitChecker" parent="." instance=ExtResource( 5 )]
+
+[node name="RightPosition" type="Position2D" parent="."]
+position = Vector2( 40.8223, -138.452 )
+
+[node name="LeftPosition" type="Position2D" parent="."]
+position = Vector2( -444.444, -138.452 )
 
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]

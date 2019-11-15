@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Stations/Station.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Events/EventGenerator.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Stations/PowerStation.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Stations/WasteManagementStation.tscn" type="PackedScene" id=16]
 
 [node name="WholeShip" type="Node2D"]
 script = ExtResource( 1 )
@@ -115,6 +116,10 @@ position = Vector2( 672.925, 245.064 )
 
 [node name="Station2" parent="." instance=ExtResource( 15 )]
 position = Vector2( 290, 125 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="WasteManagementStation" parent="." instance=ExtResource( 16 )]
+position = Vector2( 820, 218.302 )
 scale = Vector2( 0.5, 0.5 )
 
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]

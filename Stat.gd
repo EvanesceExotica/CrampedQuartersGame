@@ -37,6 +37,6 @@ func changeValue(amount):
      
 
      
-func _init(ourStatType):
-     ourType = ourStatType
+func _init():
+    # self.ourType = ourStatType
      pass

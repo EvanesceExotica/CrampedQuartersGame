@@ -15,19 +15,11 @@ var currentSlot
 #warning-ignore:unused_class_variable
 var characterAttributes = [ ]
 
+onready var rightFacingPosition = get_node("RightPosition")
+onready var leftFacingPosition = get_node("LeftPosition")
 
 onready var characterStats = get_node("CharacterStats")
 
-#this dictionary is to handle which dynamic stat is being effected by a drain source
-var statDrainSources = { DynamicStats.health: [], DynamicStats.sustenance: [], DynamicStats.sanity: [], DynamicStats.relationship: [] }
-var statDrainState = {DynamicStats.health: false, DynamicStats.sustenance: false, DynamicStats.sanity: false, DynamicStats.relationship: false}
-var statDrainRates = {DynamicStats.health: 0, DynamicStats.sustenance: 3, DynamicStats.sanity: 0, DynamicStats.relationship: 3}
-var statCurrentValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, DynamicStats.sanity: 100, DynamicStats.relationship: 50}
-var statMaxValues = {DynamicStats.health: 100, DynamicStats.sustenance: 100, DynamicStats.sanity: 100, DynamicStats.relationship: 50}
-var statPropertyNames = {DynamicStats.health: 'currentHealth', DynamicStats.sustenance: 'currentSustenance', DynamicStats.sanity: 'currentSanity', DynamicStats.relationship: 'currentRelationship'}
-var maxStatPropertyNames = {DynamicStats.health: 'maxHealth', DynamicStats.sustenance: 'maxSustenance', DynamicStats.sanity: 'maxSanity', DynamicStats.relationship: 'maxRelationship'}
-var staticStatValues = {StaticStats.damageDealt: 25, StaticStats.spaceRequirement : 1} #add station training? 'Profession' type attributes? 'Botanist -- good in garden?'
-var stringToEnum = {"health" : DynamicStats.health, "sustenance" : DynamicStats.sustenance, "sanity" : DynamicStats.sanity, "relationship" : DynamicStats.relationship, "damageDealt" : StaticStats.damageDealt, "spaceRequirement" : StaticStats.spaceRequirement}
 #TODO ADD SOMETHING IN ATTRIBUTES THAT AFFECTS DRAIN RATES
 signal MouseHover
 
@@ -45,10 +37,10 @@ const _MaxStats = {
 	relationship = "maxRelationship"
 }
 
-var health = Stat.new(Stat.StatType.health)
-var sustenance = Stat.new(Stat.StatType.sustenance)
-var sanity = Stat.new(Stat.StatType.sanity)
-var relationship = Stat.new(Stat.StatType.relationship)
+var health 
+var sustenance 
+var sanity 
+var relationship 
 
 var tempHealthValue
 var tempSustenanceValue
@@ -106,7 +98,6 @@ signal healedOverMax(whichStat) #this one would apply to being overfed or being 
 onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
 onready var healthTween = healthBar.get_node("HealthTween")
 
-
 func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
@@ -125,24 +116,32 @@ func applyNewAttribute(newAttribute):
 
 	if(newTrait.AffectedDynamicStatsCurrent.size() > 0):
 		#for immediate "chunks" of damage
-		for currentDynamicStat in newTrait.AffectedDynamicStatsCurrent.keys():
-			changeStatValue(currentDynamicStat, newTrait.AffectedDynamicStatsCurrent[currentDynamicStat], false)
+		for currentDynamicStatName in newTrait.AffectedDynamicStatsCurrent.keys():
+			#
+			#var affectedStat = determineStat(currentDynamicStat)
+			#this passes the stat object, then the value of it,
+			var affectedStat = determineStat(currentDynamicStatName)
+			changeStatValue(affectedStat, newTrait.AffectedDynamicStatsCurrent[currentDynamicStatName], false)
 
 	if(newTrait.AffectedDynamicStatsMax.size() > 0):
 		#for things that affect maxStats
-		for maxDynamicStat in newTrait.AffectedDynamicStatsMax.keys():
-			changeMaxStatValue(maxDynamicStat, newTrait.AffectedDynamicStatsMax[maxDynamicStat])
+		for maxDynamicStatName in newTrait.AffectedDynamicStatsMax.keys():
+			var affectedStat = determineStat(maxDynamicStatName)
+			changeMaxStatValue(affectedStat, newTrait.AffectedDynamicStatsMax[maxDynamicStatName])
 		pass
 	if(newTrait.AffectedStaticStats.size() > 0):
 		#for things that are affecting the static stats
-		for staticStat in newTrait.AffectedStaticStats.keys():
+		for staticStatName in newTrait.AffectedStaticStats.keys():
 			#var enumStat = stringToEnum[staticStat]
-			staticStatValues[staticStat] + newTrait.AffectedStaticStats[staticStat]
+			var newStaticStatValue = get(staticStatName) + newTrait.AffectedStaticStats[staticStatName]
+			set(staticStatName, newStaticStatValue)
+			#set(staticStat, (get)) += newTrait.AffectedStaticStats[staticStat]
 
 	if(newTrait.DrainingDynamicStats.size() > 0):
 		#how many points drained per second
-		for drainedDynamicStat in newTrait.DrainingDynamicStats.keys():
-			addNewDrainSource(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
+		for drainedDynamicStatName in newTrait.DrainingDynamicStats.keys():
+			var affectedStat = determineStat(drainedDynamicStatName)
+			addNewDrainSource(affectedStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStatName])
 
 	characterAttributes.append(newAttribute)
 	emit_signal("newAttributeAdded", newAttribute)
@@ -162,34 +161,6 @@ func applyNewAttribute(newAttribute):
 signal newAttributeAdded(attribute)
 signal attributeRemoved(attribute)
 
-func applyNewAttributes(newAttributes):
-	for newTrait in newAttributes:
-		for oldTrait in characterAttributes:
-			if(newTrait.ConflictingAttributes.has(oldTrait)):
-				#don't apply
-				pass
-		if(newTrait.AffectedDynamicStatsCurrent.size > 0):
-			#for immediate "chunks" of damage
-			for currentDynamicStat in newTrait.AffectedDynamicStatsCurrent.keys:
-				changeStatValue(currentDynamicStat, newTrait.AffectedDynamicStatsCurrent[currentDynamicStat], false)
-				pass
-			pass
-		if(newTrait.AffectedDynamicStatsMax.size > 0):
-			#for things that affect maxStats
-			for maxDynamicStat in newTrait.AffectedDynamicStatsMax.keys:
-				statMaxValues[maxDynamicStat] * newTrait.AffectedDynamicStatsMax[maxDynamicStat]
-			pass
-		if(newTrait.AffectedStaticStats.size > 0):
-			#for things that are affecting the static stats
-			for staticStat in newTrait.AffectedStaticStats.keys:
-				staticStatValues[staticStat] + newTrait.AffectedStaticStats[staticStat]
-			pass
-		if(newTrait.DrainingDynamicStats.size > 0):
-			#how many points drained per second
-			for drainedDynamicStat in newTrait.DrainingDynamicStats.keys:
-				drainValueOverTime(drainedDynamicStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStat])
-			pass
-	pass
 
 func removeAttributeByName(removeableAttributeName):
 	#there's got to be some way to streamline this
@@ -221,22 +192,24 @@ func removeAttribute(attribute):
 		# 	pass
 	if(attribute.AffectedDynamicStatsMax.size() > 0):
 			#for things that affect maxStats
-		for maxDynamicStat in attribute.AffectedDynamicStatsMax.keys():
+		for maxDynamicStatName in attribute.AffectedDynamicStatsMax.keys():
+			var affectedStat = determineStat(maxDynamicStatName)
+			changeMaxStatValue(affectedStat, 1/attribute.AffectedDynamicStatsMax[maxDynamicStatName])
 			#multiplying the value by one/THENUMBER will be the same as dividing the value by the THENUMBER
 			#value goes into the numerator
 			#IE: 100 * 0.5 = 50. 50/0.5 = 100. 50 * 1/0.5 = 100, as 50/1 * 1/0.5 = 50/0.5
-			changeMaxStatValue(maxDynamicStat, 1/(attribute.AffectedDynamicStatsMax[maxDynamicStat]))
-			#statMaxValues[maxDynamicStat] / attribute.AffectedDynamicStatsMax[maxDynamicStat]
 			pass
 	if(attribute.AffectedStaticStats.size() > 0):
 			#for things that are affecting the static stats
-		for staticStat in attribute.AffectedStaticStats.keys():
-			staticStatValues[staticStat] - attribute.AffectedStaticStats[staticStat]
-			pass
+		for staticStatName in attribute.AffectedStaticStats.keys():
+			var newStaticStatValue = get(staticStatName) - attribute.AffectedStaticStats[staticStatName]
+			set(staticStatName, newStaticStatValue)
+
 	if(attribute.DrainingDynamicStats.size() > 0):
 			#how many points drained per second
-		for drainedDynamicStat in attribute.DrainingDynamicStats.keys():
-			RemoveNewDrainSource(drainedDynamicStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStat])
+		for drainedDynamicStatName in attribute.DrainingDynamicStats.keys():
+			var affectedStat = determineStat(drainedDynamicStatName)
+			RemoveNewDrainSource(affectedStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStatName])
 
 	characterAttributes.erase(attribute)
 	emit_signal("attributeRemoved", attribute)
@@ -244,64 +217,60 @@ func removeAttribute(attribute):
 func SetInitialValues(conditions, attributes):
 	pass
 
-func calculateDrainRate(whichStat, pointsDrainedPerSecond):
+func calculateDrainRate(affectedStat, pointsDrainedPerSecond):
 
 	#this will determine how many seconds total the drain should take if we're trying to drain X points per second
 	#current health = points to drain divided by points per second drained = how many seconds it should take
-	var currentValue
-	if(whichStat == DynamicStats.health):
-		currentValue = currentHealth
-	elif(whichStat == DynamicStats.sustenance):
-		currentValue = currentSustenance
-	elif(whichStat == DynamicStats.sanity):
-		currentValue = currentSanity
-	elif(whichStat == DynamicStats.relationship):
-		currentValue = currentRelationship
-
-	print("Current value " + str(currentValue) + "Points per second " + str(pointsDrainedPerSecond) + " = " + str(currentValue/pointsDrainedPerSecond))
+	var currentValue = affectedStat.currentValue
 
 	var rate = currentValue/pointsDrainedPerSecond
 
 
 	return rate
 
-func addNewDrainSource(whichStat, drainSource, newDrainPerSecond):
+func determineStat(statName):
+	#will return the object that's variable name is health, sanity, sustenance, or relationship
+	return get(statName)
+
+func addNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
+
+	#var affectedStat = determineStat(whichStat)
+
 
 	#this is adding to the sources that may be draining the  stat
-	statDrainSources[whichStat].append(drainSource)
+	affectedStat.drainSources.append(drainSource)
 
 	#this is determining wether the stat is overall being drained, which if the sources are greater than one, yes
-	statDrainState[whichStat] = true
+	affectedStat.drainState = true
+
+	affectedStat.drainRate += newDrainPerSecond
 
 	#RATES -- determining the drain rate (how many points are being drained per second) and adding to it
-	statDrainRates[whichStat]+= newDrainPerSecond
 
-	if(statDrainRates[whichStat] >= 20):
-		statDrainRates[whichStat] = 20
+	if(affectedStat.drainRate >= 20):
+		affectedStat.drainRate = 20
 
-	drainValueOverTime(whichStat, drainSource, calculateDrainRate(whichStat, statDrainRates[whichStat]))
+	drainValueOverTime(affectedStat, drainSource, calculateDrainRate(affectedStat, affectedStat.drainRate))
 
-func RemoveNewDrainSource(whichStat, drainSource, newDrainPerSecond):
-	for item in statDrainSources[whichStat]:
-		print("Sources draining " + str(item))
-	if(statDrainSources[whichStat].size() > 0):
+func RemoveNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
+	#var affectedStat = determineStat(whichStat)
+
+	if(affectedStat.drainSources.size() > 0):
 
 		#if there are still sources draining the health, remove the drain source not acting any longer,
 		# and start over the healthTween with the decreased rate
 
-		if(statDrainSources[whichStat].has(drainSource)):
-			statDrainSources[whichStat].erase(drainSource)
+		if(affectedStat.drainSources.has(drainSource)):
+			affectedStat.drainSources.erase(drainSource)
 
-			statDrainRates[whichStat] -= newDrainPerSecond
-			if(statDrainRates[whichStat] <= 0):
-				statDrainRates[whichStat] = 0
-			#pointsDrainedPerSecond -= newDrainPerSecond
-			#drainHealthOverTime(drainSource, calculateDrainRate(whichStat, statDrainRates[whichStat]))
+			affectedStat.drainRates -= newDrainPerSecond
+			if(affectedStat.drainRates <= 0):
+				affectedStat.drainRates = 0
 
-	if(statDrainSources[whichStat].size() == 0):
+	if(affectedStat.drainSources.size() == 0):
 		#if there aren't any sources draining any longer, set to false
-		statDrainState[whichStat] = false
-		stopAllDrains(whichStat)
+		affectedStat.drainState = false
+		stopAllDrains(affectedStat) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #
 
@@ -321,40 +290,38 @@ func DetermineWhichValue(whichStat):
 
 	return currentValue
 
-func restartInterruptedDrain(whichStat):
+func restartInterruptedDrain(affectedStat):
 
-	var currentValue = DetermineWhichValue(whichStat)
-	if(statDrainSources[whichStat].size() > 0 && currentValue > 0):
+
+	var currentValue = affectedStat.currentValue #DetermineWhichValue(whichStat)
+	if(affectedStat.drainSources.size() > 0 && currentValue > 0):
 		#only restart if there's some shit still draining
-		drainValueOverTime(whichStat, null, 2)
+		drainValueOverTime(affectedStat, null, 2)
 
-func stopAllDrains(whichStat):
+func stopAllDrains(affectedStat):
 	#when there are no more drain sources, stop the tween that is interating the current hp AND the tween that is iterating the bar
-	$Tween.stop(self, statPropertyNames[whichStat])
-	characterStats.stopAnimatingBar(characterStats.statTweens[whichStat])
+	$Tween.stop(affectedStat, "currentValue")
+	characterStats.stopAnimatingBar(characterStats.statTweens[affectedStat])
 
-	pass
-func drainValueOverTime(whichStat, drainSource, rate):
+func drainValueOverTime(affectedStat, drainSource, rate):
 
-	var whichProperty
 	var currentValue
 	var whichBar
 	var whichTween
-	var whichPointsDrainedPerSecond
 
-	whichProperty = statPropertyNames[whichStat]
-	currentValue = statCurrentValues[whichStat]
-	whichBar = characterStats.statBars[whichStat]
-	whichTween = characterStats.statTweens[whichStat]
-	whichPointsDrainedPerSecond = statDrainRates[whichStat]
+	currentValue = affectedStat.currentValue #statCurrentValues[whichStat]
+	whichBar = characterStats.statBars[affectedStat]
+	whichTween = characterStats.statTweens[affectedStat]
+	#whichPointsDrainedPerSecond = statDrainRates[whichStat]
 
-	$Tween.stop(self, whichProperty)
+	#pause any tweens already happening and rstart to add a ny new values
+	$Tween.stop(affectedStat, "currentValue")
 	
 
-	$Tween.interpolate_property(self, whichProperty, currentValue, 0, calculateDrainRate(whichStat, whichPointsDrainedPerSecond), Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	$Tween.start()
+	$Tween.interpolate_property(affectedStat, "currentValue", currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate), Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 
-	characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(whichStat, whichPointsDrainedPerSecond))
+	characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
+	$Tween.start()
 
 var maxSustenance = 100
 var currentSustenance = 100
@@ -379,42 +346,38 @@ var currentRelationship = 100
 #this is for if anything doubles or reduces damage taken
 var damageModifiers = []
 var timer
-func changeStatValue(dynamicStat, amount, isMultiplicative):
-	var currentBar
-	var currentTween
-	var currentValue
-	var startValue
+func changeStatValue(affectedStat, amount, isMultiplicative):
+	#var affectedStat = determineStat(dynamicStat)
+
 	var endValue
-	var currentAnim
-	currentBar = characterStats.statBars[dynamicStat]
-	currentTween = characterStats.statTweens[dynamicStat]
-	currentAnim = characterStats.statAnimationPlayers[dynamicStat]
-	startValue = statCurrentValues[dynamicStat]
+	var currentBar = characterStats.statBars[affectedStat]
+	var currentTween = characterStats.statTweens[affectedStat]
+	var currentAnim = characterStats.statAnimationPlayers[affectedStat]
+	var startValue = affectedStat.currentValue
 
 	if(isMultiplicative):
-		endValue = statCurrentValues[dynamicStat] * amount
+		endValue = affectedStat.currentValue * amount
 	else:
-		endValue = statCurrentValues[dynamicStat] + amount
+		endValue = affectedStat.currentValue + amount
 
 	if($Tween.is_active()):
-		$Tween.stop(self, statPropertyNames[dynamicStat])
+		$Tween.stop(affectedStat, "currentValue")
 
 	if(isMultiplicative):
-			statCurrentValues[dynamicStat] *= amount
+			affectedStat.currentValue *= amount
 	else:
-			statCurrentValues[dynamicStat] +=amount
+			affectedStat.currentValue +=amount
 
-			print("Current stat is now " + str(statCurrentValues[dynamicStat]))
-	if(statCurrentValues[dynamicStat] <= 0):
-		statCurrentValues[dynamicStat] = 0
-		print("At zero")
-		emit_signal("statAtZero", dynamicStat)
-	if(statCurrentValues[dynamicStat] > statMaxValues[dynamicStat]):
-		statCurrentValues[dynamicStat] = statMaxValues[dynamicStat]
+	if(affectedStat.currentValue <= 0):
+		affectedStat.currentValue = 0
+		emit_signal("statAtZero", affectedStat)
+
+	if(affectedStat.currentValue > affectedStat.maxValue ):
+		affectedStat.currentValue = affectedStat.maxValue
 	
 
-	var statValueToSet = statPropertyNames[dynamicStat]
-	set(statValueToSet, statCurrentValues[dynamicStat])
+	#var statValueToSet = statPropertyNames[dynamicStat]
+	#set(statValueToSet, statCurrentValues[dynamicStat])
 
 	#print(statPropertyNames[dynamicStat] + " " + str(statCurrentValues[dynamicStat]))
 	if(amount < 0):
@@ -424,53 +387,50 @@ func changeStatValue(dynamicStat, amount, isMultiplicative):
 
 	characterStats.animateBar(currentTween, currentBar, startValue, endValue, 0.25)
 
-func calculateCurrentHealthPercentage(whichStat, oldMaxHealthValue):
-	#calculate what percentage of maxHealth is currentHealth
-	var percentageOfMax = (statCurrentValues[whichStat]/oldMaxHealthValue) * 100
-	var onePercent = statCurrentValues[whichStat]/100
-	var equivalentPercentageValue = onePercent * percentageOfMax
-	return equivalentPercentageValue
-	#return percentageOfMax
+# func calculateCurrentHealthPercentage(whichStat, oldMaxHealthValue):
+# 	#calculate what percentage of maxHealth is currentHealth
+# 	var percentageOfMax = (statCurrentValues[whichStat]/oldMaxHealthValue) * 100
+# 	var onePercent = statCurrentValues[whichStat]/100
+# 	var equivalentPercentageValue = onePercent * percentageOfMax
+# 	return equivalentPercentageValue
+# 	#return percentageOfMax
 
 
-func changeMaxStatValue(whichStat, amount):
+func changeMaxStatValue(affectedStat, amount):
+
 
 	#set the old maximum v alue for printing purposes
-	var oldStatValue = statMaxValues[whichStat]
+	var oldStatValue = affectedStat.maxValue
 
 	#multiply the current maxValue by the amont (should be a decimal if lowering, wholenumber+ if raising)
-	statMaxValues[whichStat] *=  amount
-	print("Max stat value was " + str(oldStatValue))
-	print("Max stat value is now " + str(statMaxValues[whichStat]))
+	affectedStat.maxValue *=  amount
+
 	#TODO: MAYBE JUST MULTIPLY CURRENT HP BY AMOUNT TOO IF IT'S INCREASED
 
 	#make sure that if the currentStat is higher now, make it equal the maximum stat
-	if statCurrentValues[whichStat] > statMaxValues[whichStat]:
-		statCurrentValues[whichStat] = statMaxValues[whichStat]
-
-		#I forget why this part is necessary
-	var statValueToSet = statPropertyNames[whichStat]
-	set(statValueToSet, statCurrentValues[whichStat])
-
-	var maxStatValueToSet = maxStatPropertyNames[whichStat]
-	set(maxStatValueToSet, statMaxValues[whichStat])
+	if affectedStat.currentValue > affectedStat.maxValue:
+		affectedStat.currentValue = affectedStat.maxValue
 
 	#make sure the value of the bars are being changed too
-	characterStats.changeBarMaxValue(characterStats.statBars[whichStat], statMaxValues[whichStat])
+	characterStats.changeBarMaxValue(characterStats.statBars[affectedStat], affectedStat.maxValue)
 
 
 
-#var attributeScript = preload("res://Attribute.gd")
 func _ready():
+
+	health = Stat.new()
+	sanity = Stat.new()
+	sustenance = Stat.new()
+	relationship = Stat.new()
+
 	sustenanceBar.max_value = maxSustenance
 	currentSustenance = maxSustenance
 	System.connect("stoppedDraggingItem", self, "checkIfSomethingDropped")
 	SignalManager.connect("AddTrait", self, "ApplyNewAttribute")
 	SignalManager.connect("RemoveTrait", self, "removeAttribute")
-#	sustenanceBar.max_value = maxSustenance
+	characterStats.setStatBars()
 
 
-	pass # Replace with function body.
 
 
 func checkIfSomethingDropped(dispenser):
@@ -588,55 +548,60 @@ func _on_Attack_pressed():
 	pass # Replace with function body.
 
 func _on_Tween_tween_step(object, key, elapsed, value):
-	#this feels dirty. Maybe find a better way in the future
-	#This is matching the in-dictionary value to the tweened value 'currentHealth' whenever it's being tweened, to keep them equal
-	if(key == ':currentHealth'):
-		var stat = DynamicStats.health
-		statCurrentValues[DynamicStats.health] = value
+	pass
+	if object.currentValue <= 0:
+		 emit_signal("statAtZero", object)
 
-		if(statCurrentValues[DynamicStats.health] <= 0):
-			emit_signal("statAtZero", DynamicStats.health)
+	if object.currentValue >= object.maxValue:
+		emit_signal("statAtMax", object)
 
-		if(statCurrentValues[stat] >= statMaxValues[stat]):
-			emit_signal("statAtMax", stat)
+# 	if(key == ':currentHealth'):
+# 		var stat = DynamicStats.health
+# 		statCurrentValues[DynamicStats.health] = value
 
-	elif(key == ':currentSustenance'):
-		var stat = DynamicStats.sustenance
-		statCurrentValues[DynamicStats.sustenance] = value
+# 		if(statCurrentValues[DynamicStats.health] <= 0):
+# 			emit_signal("statAtZero", DynamicStats.health)
 
-		if(statCurrentValues[DynamicStats.sustenance] <= 0):
-			emit_signal("statAtZero", DynamicStats.sustenance)
+# 		if(statCurrentValues[stat] >= statMaxValues[stat]):
+# 			emit_signal("statAtMax", stat)
 
-		if(statCurrentValues[stat] >= statMaxValues[stat]):
-			emit_signal("statAtMax", stat)
+# 	elif(key == ':currentSustenance'):
+# 		var stat = DynamicStats.sustenance
+# 		statCurrentValues[DynamicStats.sustenance] = value
 
-	elif(key == ':currentSanity'):
-		var stat = DynamicStats.sanity
-		statCurrentValues[DynamicStats.sanity] = value
+# 		if(statCurrentValues[DynamicStats.sustenance] <= 0):
+# 			emit_signal("statAtZero", DynamicStats.sustenance)
 
-		if(statCurrentValues[DynamicStats.sanity] <= 0):
-			emit_signal("statAtZero", DynamicStats.sanity)
+# 		if(statCurrentValues[stat] >= statMaxValues[stat]):
+# 			emit_signal("statAtMax", stat)
 
-		if(statCurrentValues[stat] >= statMaxValues[stat]):
-			emit_signal("statAtMax", stat)
+# 	elif(key == ':currentSanity'):
+# 		var stat = DynamicStats.sanity
+# 		statCurrentValues[DynamicStats.sanity] = value
 
-	elif(key == ':currentRelationship'):
-		var stat = DynamicStats.relationship
-		statCurrentValues[DynamicStats.relationship] = value
+# 		if(statCurrentValues[DynamicStats.sanity] <= 0):
+# 			emit_signal("statAtZero", DynamicStats.sanity)
 
-		if(statCurrentValues[DynamicStats.relationship] <= 0):
-			emit_signal("statAtZero", DynamicStats.relationshipBar)
+# 		if(statCurrentValues[stat] >= statMaxValues[stat]):
+# 			emit_signal("statAtMax", stat)
 
-		if(statCurrentValues[stat] >= statMaxValues[stat]):
-			emit_signal("statAtMax", stat)
+# 	elif(key == ':currentRelationship'):
+# 		var stat = DynamicStats.relationship
+# 		statCurrentValues[DynamicStats.relationship] = value
 
-func _on_Tween_tween_completed(object, key):
-	if(object == self):
-		if(key == 'currentHealth'):
-			pass
-		elif(key == 'currentSustenance'):
-			pass
-		elif(key == 'currentSanity'):
-			pass
-		elif(key == 'currentRelationship'):
-			pass
+# 		if(statCurrentValues[DynamicStats.relationship] <= 0):
+# 			emit_signal("statAtZero", DynamicStats.relationshipBar)
+
+# 		if(statCurrentValues[stat] >= statMaxValues[stat]):
+# 			emit_signal("statAtMax", stat)
+
+# func _on_Tween_tween_completed(object, key):
+# 	if(object == self):
+# 		if(key == 'currentHealth'):
+# 			pass
+# 		elif(key == 'currentSustenance'):
+# 			pass
+# 		elif(key == 'currentSanity'):
+# 			pass
+# 		elif(key == 'currentRelationship'):
+# 			pass

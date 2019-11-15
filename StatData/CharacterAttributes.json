@@ -275,5 +275,30 @@
 		"modifiedAttributes" : {} ,
 		"characterEventTypeChance" : { },
 		"externalCombinations" : []
-	}
+	},
+"Diseased" : {	
+	"attributeName": "Asphixiating",
+	"entitiesCanApplyTo" : ["character", "slot"],
+	"attributeTypes" : ["temporaryCondition"],
+	"description" : "I feel nauseous...(Max health reduced)",
+	"contagious" : false,
+	"contagionChance" : 0.50,
+	"stackable": false,
+	"ConflictingAttributes" : [],
+	"PreRequisiteAttributes" : {},
+	"ResultingAttributes" : [],
+	"AffectedDynamicStatsCurrent" : {},
+	"AffectedDynamicStatsMax" : {"health" : 0.75},
+	"AffectedStaticStats" : { } ,
+	"DrainingDynamicStats" : {} ,
+	"duration" : 20 ,
+	"statSignalsToWatchFor" : {},
+	"signalsThatWillRemoveAttribute" : {},
+	"canCombineWith" : {} ,
+	"modifiedAttributes" : {} ,
+	"characterEventTypeChance" : { },
+	"externalCombinations" : []
+
+}
+	
 }

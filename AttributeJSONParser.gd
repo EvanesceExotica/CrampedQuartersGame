@@ -87,7 +87,7 @@ func fetchAndCreateAttribute(attributeName):
 	attribute.attributeName = thisAttributeDictionary["attributeName"]
 	attribute.entitiesCanApplyTo = thisAttributeDictionary["entitiesCanApplyTo"]
 	attribute.attributeTypes =  thisAttributeDictionary["attributeTypes"]
-	attribute.attributeTypes = convertArrayStringsToEnum(thisAttributeDictionary["attributeTypes"])
+	#attribute.attributeTypes = (thisAttributeDictionary["attributeTypes"])
 
 	attribute.description = thisAttributeDictionary["description"]
 	attribute.contagious = thisAttributeDictionary["contagious"]
@@ -99,16 +99,15 @@ func fetchAndCreateAttribute(attributeName):
 	attribute.ResultingAttributes = thisAttributeDictionary["ResultingAttributes"]
 
 	attribute.AffectedDynamicStatsCurrent = thisAttributeDictionary["AffectedDynamicStatsCurrent"]
-	attribute.AffectedDynamicStatsCurrent = convertDictionaryStringsToEnum(thisAttributeDictionary["AffectedDynamicStatsCurrent"])
+	#attribute.AffectedDynamicStatsCurrent = (thisAttributeDictionary["AffectedDynamicStatsCurrent"])
 
 	attribute.AffectedDynamicStatsMax = thisAttributeDictionary["AffectedDynamicStatsMax"]
-	attribute.AffectedDynamicStatsMax = convertDictionaryStringsToEnum(thisAttributeDictionary["AffectedDynamicStatsMax"])
+	#attribute.AffectedDynamicStatsMax = (thisAttributeDictionary["AffectedDynamicStatsMax"])
 
 	attribute.AffectedStaticStats = thisAttributeDictionary["AffectedStaticStats" ]
-	attribute.AffectedStaticStats = convertDictionaryStringsToEnum(thisAttributeDictionary["AffectedStaticStats"])
 
 	attribute.DrainingDynamicStats = thisAttributeDictionary["DrainingDynamicStats"]
-	attribute.DrainingDynamicStats = convertDictionaryStringsToEnum(thisAttributeDictionary["DrainingDynamicStats"])
+	#attribute.DrainingDynamicStats = (thisAttributeDictionary["DrainingDynamicStats"])
 
 	attribute.duration = thisAttributeDictionary["duration"]
 	attribute.statSignalsToWatchFor = thisAttributeDictionary["statSignalsToWatchFor"]

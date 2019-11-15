@@ -8,6 +8,7 @@ extends Area2D
 var comfortLevel = 1
 var characterInSlot
 var occupied = false
+export var onLeftOfRoom = true
 
 export(int) var prioritySeatingLevel  #as the ship is auto-filled up, seats will go here first
 # Airlock should be second to last maybe after underwater, perhaps if > 5, dangerous, do not auto-fill
@@ -95,6 +96,12 @@ func addCharacterToSlot(character):
 	emit_signal("someoneEnteredSlot", self, character)
 	System.updateSlots(self, character)
 	occupied = true
+	if(onLeftOfRoom):
+		#if the slot is on the left of this room
+		character.characterStats.SetToRightFacingPosition()
+	elif(!onLeftOfRoom):
+		#if this slot is on the right of this orom
+		character.characterStats.SetToLeftFacingPosition()
 
 func removeCharacterFromSlot(character):
 	#TODO ADD SOMETHING THAT TRIGGERS THIS
