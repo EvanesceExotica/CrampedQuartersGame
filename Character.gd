@@ -142,6 +142,7 @@ func applyNewAttribute(newAttribute):
 		for drainedDynamicStatName in newTrait.DrainingDynamicStats.keys():
 			var affectedStat = determineStat(drainedDynamicStatName)
 			addNewDrainSource(affectedStat, newTrait, newTrait.DrainingDynamicStats[drainedDynamicStatName])
+	
 
 	characterAttributes.append(newAttribute)
 	emit_signal("newAttributeAdded", newAttribute)
@@ -210,6 +211,15 @@ func removeAttribute(attribute):
 		for drainedDynamicStatName in attribute.DrainingDynamicStats.keys():
 			var affectedStat = determineStat(drainedDynamicStatName)
 			RemoveNewDrainSource(affectedStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStatName])
+	if(newTrait.ResultingAttributes.size() > 0):
+		#maybe make it a dictionary with a key attribute value chance?
+		#if this has any attributes that result from it
+		for resultingAttribute in newTrait.ResultingAttributesbutes.keys():
+			var randomValue = randf()
+
+			#this is checking the chance of the attribute
+			if randomValue <= ResultingAttributes[resultingAttribute]:
+				applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute))
 
 	characterAttributes.erase(attribute)
 	emit_signal("attributeRemoved", attribute)
