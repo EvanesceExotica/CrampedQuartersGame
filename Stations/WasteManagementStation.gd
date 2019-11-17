@@ -1,7 +1,7 @@
 extends "res://Stations/Station.gd"
 
 
-var appliedAttributeOnFailure = "Diseased"
+var appliedAttributeOnFailure = "Contaminated"
 
 func disableStation():
     .disableStation()

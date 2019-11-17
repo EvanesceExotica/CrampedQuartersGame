@@ -1,9 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Stations/Station.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Stations/WasteManagementStation.gd" type="Script" id=2]
+[ext_resource path="res://furniture_walldeco_red_slimy.png" type="Texture" id=3]
+[ext_resource path="res://furniture_walldeco_green_slimy.png" type="Texture" id=4]
 
 [node name="WasteManagementStation" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 minigameScreen = null
+
+[node name="furniture_walldeco_red_slimy" type="Sprite" parent="." index="1"]
+modulate = Color( 0.615686, 1, 0, 1 )
+position = Vector2( 129, 220 )
+scale = Vector2( 0.275, 0.24643 )
+texture = ExtResource( 3 )
+
+[node name="furniture_walldeco_green_slimy" type="Sprite" parent="." index="2"]
+position = Vector2( 129, 210 )
+scale = Vector2( 0.275, 0.24643 )
+texture = ExtResource( 4 )
 

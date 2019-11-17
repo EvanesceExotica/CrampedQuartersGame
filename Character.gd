@@ -112,7 +112,8 @@ func applyNewAttribute(newAttribute):
 				if oldTrait.attributeName == possibleCombineableTrait:
 					#if we find one of them already applied to the character, apply it
 					#TODO: FIND A WAY TO REMOVE IT AS WELL
-					applyNewAttribute(newTrait.canCombineWith[possibleCombineableTrait])
+					var combinedAttribute = AttributeJSONParser.fetchAndCreateAttribute(newTrait.canCombineWithn[possibleCombineableTrait])
+					applyNewAttribute(combinedAttribute)
 
 	if(newTrait.AffectedDynamicStatsCurrent.size() > 0):
 		#for immediate "chunks" of damage
@@ -146,11 +147,11 @@ func applyNewAttribute(newAttribute):
 
 	characterAttributes.append(newAttribute)
 	emit_signal("newAttributeAdded", newAttribute)
-	if(newAttribute.typeOfAttribute == System.attributeType.temporaryCondition):
+	if(newAttribute.attributeTypes.has("temporaryCondition")):
 
 		var timer = Timer.new()
 		timer.wait_time = newTrait.duration
-		timer.connect("timeout",self,"_on_timer_timeout") 
+		timer.connect("timeout",self,"conditionTimedOut", [newAttribute]) 
 		add_child(timer) #to process
 		timer.start() #to start
 
@@ -162,7 +163,10 @@ func applyNewAttribute(newAttribute):
 signal newAttributeAdded(attribute)
 signal attributeRemoved(attribute)
 
-
+func conditionTimedOut(attribute):
+	print(attribute.attributeName + " was temporary and has been removed")
+	removeAttribute(attribute)
+	pass
 func removeAttributeByName(removeableAttributeName):
 	#there's got to be some way to streamline this
 	for attribute in characterAttributes:
@@ -211,14 +215,15 @@ func removeAttribute(attribute):
 		for drainedDynamicStatName in attribute.DrainingDynamicStats.keys():
 			var affectedStat = determineStat(drainedDynamicStatName)
 			RemoveNewDrainSource(affectedStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStatName])
-	if(newTrait.ResultingAttributes.size() > 0):
+
+	if(attribute.ResultingAttributes.size() > 0):
 		#maybe make it a dictionary with a key attribute value chance?
 		#if this has any attributes that result from it
-		for resultingAttribute in newTrait.ResultingAttributesbutes.keys():
+		for resultingAttribute in attribute.ResultingAttributes.keys():
 			var randomValue = randf()
 
 			#this is checking the chance of the attribute
-			if randomValue <= ResultingAttributes[resultingAttribute]:
+			if randomValue <= attribute.ResultingAttributes[resultingAttribute]:
 				applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute))
 
 	characterAttributes.erase(attribute)
