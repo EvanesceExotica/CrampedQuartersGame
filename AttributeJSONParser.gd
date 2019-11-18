@@ -105,6 +105,7 @@ func fetchAndCreateAttribute(attributeName):
 	#attribute.AffectedDynamicStatsMax = (thisAttributeDictionary["AffectedDynamicStatsMax"])
 
 	attribute.AffectedStaticStats = thisAttributeDictionary["AffectedStaticStats" ]
+	attribute.AuraAttributes = thisAttributeDictionary["AuraAttributes"]
 
 	attribute.DrainingDynamicStats = thisAttributeDictionary["DrainingDynamicStats"]
 	#attribute.DrainingDynamicStats = (thisAttributeDictionary["DrainingDynamicStats"])

@@ -98,6 +98,7 @@ signal healedOverMax(whichStat) #this one would apply to being overfed or being 
 onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
 onready var healthTween = healthBar.get_node("HealthTween")
 
+
 func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
@@ -112,8 +113,15 @@ func applyNewAttribute(newAttribute):
 				if oldTrait.attributeName == possibleCombineableTrait:
 					#if we find one of them already applied to the character, apply it
 					#TODO: FIND A WAY TO REMOVE IT AS WELL
-					var combinedAttribute = AttributeJSONParser.fetchAndCreateAttribute(newTrait.canCombineWithn[possibleCombineableTrait])
+					var combinedAttribute = AttributeJSONParser.fetchAndCreateAttribute(newTrait.canCombineWith[possibleCombineableTrait])
 					applyNewAttribute(combinedAttribute)
+
+	if(newTrait.attributeTypes.has("aura")):
+		print("We have an aura-- going nto apply")
+		#if this trait is an aura, meaning it applies to other slots
+		for auraAttributeName in newAttribute.AuraAttributes:
+			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
+			SignalManager.emit_signal("emittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttributeName])
 
 	if(newTrait.AffectedDynamicStatsCurrent.size() > 0):
 		#for immediate "chunks" of damage
@@ -429,7 +437,9 @@ func changeMaxStatValue(affectedStat, amount):
 	#make sure the value of the bars are being changed too
 	characterStats.changeBarMaxValue(characterStats.statBars[affectedStat], affectedStat.maxValue)
 
-
+func Die():
+	print(characterName + " died")
+	pass
 
 func _ready():
 
@@ -511,27 +521,28 @@ func _input(event):
 			viewingCharacterDetail = false
 
 func _on_Button_pressed():
+	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
 	#var attribute = Attribute.new("OnFire")
-	var attribute = System.attributeScript.new("OnFire")
-	#attribute.sayHello()
-	connect("statAtZero", attribute, "sayHello")
-	#attribute._init("OnFire")
-	attribute.characterAttachedTo = self
-	attribute.description = "Help I'm on fire"
-	attribute.ConflictingAttributes.append("Underwater")
-	attribute.ResultingAttributes =  ["Shaken"] #Attributes that will result from this one 'On Fire --> Shaken'
-	attribute.AffectedDynamicStatsMax = {System.DynamicStats.sustenance : 0.5}
-	attribute.AffectedDynamicStatsCurrent = {System.DynamicStats.sanity : -50}
-	attribute.DrainingDynamicStats = { System.DynamicStats.health : 20} #if any dynamic stats are actively drained
-	attribute.duration = 2
-	attribute.typeOfAttribute = System.attributeType.temporaryCondition
+	# var attribute = System.attributeScript.new("OnFire")
+	# #attribute.sayHello()
+	# connect("statAtZero", attribute, "sayHello")
+	# #attribute._init("OnFire")
+	# attribute.characterAttachedTo = self
+	# attribute.description = "Help I'm on fire"
+	# attribute.ConflictingAttributes.append("Underwater")
+	# attribute.ResultingAttributes =  ["Shaken"] #Attributes that will result from this one 'On Fire --> Shaken'
+	# attribute.AffectedDynamicStatsMax = {System.DynamicStats.sustenance : 0.5}
+	# attribute.AffectedDynamicStatsCurrent = {System.DynamicStats.sanity : -50}
+	# attribute.DrainingDynamicStats = { System.DynamicStats.health : 20} #if any dynamic stats are actively drained
+	# attribute.duration = 2
+	# attribute.typeOfAttribute = System.attributeType.temporaryCondition
 
-	attribute.externalCombinations = {[attribute.externalCombinations.new("Greasy", true)] : attribute.externalCombinations.new("Fine", false)}
+	#attribute.externalCombinations = {[attribute.externalCombinations.new("Greasy", true)] : attribute.externalCombinations.new("Fine", false)}
 #	attribute.attributeTypes.append(System.attributeType.temporaryCondition)
 	# for item in attribute.attributeTypes:
 	#
 	# 	print(System.attributeType[item])
-	applyNewAttribute(attribute)
+#	applyNewAttribute(attribute)
 	#characterAttributes.append(attribute)
 	#addNewDrainSource(DynamicStats.sanity, null, 1)
 	#addHealthDrainSource("test", 1.0)

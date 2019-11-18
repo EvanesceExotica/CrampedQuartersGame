@@ -16,8 +16,8 @@ var currentHealth = 3
 var maxHealth = 3
 
 #for how long until the station needs maintenance
-var cooldownMaxValue = 15 
-var cooldownMinValue = 10
+var cooldownMaxValue = 500 
+var cooldownMinValue = 200
 
 #for how long the warning will go off until maintenance
 var warningDuration = 10

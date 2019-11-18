@@ -48,6 +48,8 @@ var description = ""
 var ConflictingAttributes =  [] #Other attributes that conflict with this one
 var PreRequisiteAttributes = [] #Attributes that cause this one
 var ResultingAttributes =  [] #Attributes that will result from this one 'On Fire --> Shaken'
+var AuraAttributes = {}
+
 var AffectedDynamicStatsCurrent = {} #if one of the dynamic stats will take an immediate 'chunk' hit
 var AffectedDynamicStatsMax = {} #if this will lower one of the maximum stats
 var AffectedStaticStats = { } #if this will effect a static stat like 'damage dealt' or 'space needed'
@@ -59,6 +61,7 @@ var canCombineWith = {} #can comebine with key to cause value; i.e:, if Aquatic 
 var modifiedAttributes = {} #other attributes this one will modify?
 var characterEventTypeChance = { } #insanity events; drift events
 var externalCombinations = [] #alien:self
+
 func CheckRemoveableCritera(signalCalled):
 	var numberOfTimesCalled = 0
 	numberOfTimesCalled+= 1

@@ -36,6 +36,8 @@ signal OnSleep
 
 signal GenerateNewCharacter(characterParameters)
 
+signal emittingAura(currentSlot, attribute, howManyAdjacentSlotsAffected)
+
 signal EventProgressed
 
 signal EventChoiceClicked(whichOptions, affectedObjects)

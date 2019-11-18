@@ -82,7 +82,6 @@ func _input(event):
 
 func _on_Bulkhead_area_entered(area):
 	if(area.name == "Hand"):
-		print("TouchingBulkhead")
 #		startCountdown()
 		handInZone = true
 

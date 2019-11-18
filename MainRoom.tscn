@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://MainRoom.gd" type="Script" id=1]
 [ext_resource path="res://Gradient/Reddish.tres" type="Gradient" id=2]
@@ -11,9 +11,10 @@
 [ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://furniture_loveseat_spaceship_love_seat.png" type="Texture" id=10]
 [ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=11]
-[ext_resource path="res://Slot.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Stations/SlotManager.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Slot.tscn" type="PackedScene" id=15]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -124,32 +125,34 @@ position = Vector2( 904.304, 493.132 )
 scale = Vector2( -0.302, 0.302 )
 texture = ExtResource( 11 )
 
-[node name="Slot" parent="." instance=ExtResource( 12 )]
-position = Vector2( 941.001, 454.693 )
-
-[node name="Slot2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 622.955, 476.916 )
-
-[node name="Slot6" parent="." instance=ExtResource( 12 )]
-position = Vector2( 772.74, 402.023 )
-
-[node name="Slot3" parent="." instance=ExtResource( 12 )]
-position = Vector2( 463.288, 479.248 )
-
-[node name="Slot4" parent="." instance=ExtResource( 12 )]
-position = Vector2( 125.475, 439.654 )
-
-[node name="Slot5" parent="." instance=ExtResource( 12 )]
-position = Vector2( 308.408, 408.96 )
-
-[node name="HealthDispenser" parent="." instance=ExtResource( 13 )]
+[node name="HealthDispenser" parent="." instance=ExtResource( 12 )]
 position = Vector2( 810, 110 )
 scale = Vector2( 0.439999, 0.44 )
 
-[node name="Dispenser" parent="." instance=ExtResource( 14 )]
+[node name="Dispenser" parent="." instance=ExtResource( 13 )]
 position = Vector2( 550, 101.695 )
 scale = Vector2( 0.48, 0.52 )
 
 [node name="CameraPosition" type="Position2D" parent="."]
 position = Vector2( 560, 291.866 )
+
+[node name="SlotManager" parent="." instance=ExtResource( 14 )]
+
+[node name="Slot-1" parent="SlotManager" instance=ExtResource( 15 )]
+position = Vector2( 125.475, 439.654 )
+
+[node name="Slot-2" parent="SlotManager" instance=ExtResource( 15 )]
+position = Vector2( 308.408, 408.96 )
+
+[node name="Slot-3" parent="SlotManager" instance=ExtResource( 15 )]
+position = Vector2( 463.288, 479.248 )
+
+[node name="Slot-4" parent="SlotManager" instance=ExtResource( 15 )]
+position = Vector2( 622.955, 476.916 )
+
+[node name="Slot-5" parent="SlotManager" instance=ExtResource( 15 )]
+position = Vector2( 772.74, 402.023 )
+
+[node name="Slot-6" parent="SlotManager" instance=ExtResource( 15 )]
+position = Vector2( 941.001, 454.693 )
 
