@@ -117,10 +117,8 @@ func applyNewAttribute(newAttribute):
 					applyNewAttribute(combinedAttribute)
 
 	if(newTrait.attributeTypes.has("aura")):
-		print("We have an aura-- going nto apply")
 		#if this trait is an aura, meaning it applies to other slots
 		for auraAttributeName in newAttribute.AuraAttributes:
-			print(auraAttributeName + " is affecting everyone in " + str(newAttribute.AuraAttributes[auraAttributeName]) + " slots' range")
 			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
 			SignalManager.emit_signal("emittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttributeName])
 

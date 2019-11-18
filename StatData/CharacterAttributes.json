@@ -410,5 +410,29 @@
 		"modifiedAttributes" : {} ,
 		"characterEventTypeChance" : { },
 		"externalCombinations" : []
+	},
+	"Isolated" : {
+		"attributeName": "Isolated",
+		"entitiesCanApplyTo" : ["character", "slot"],
+		"attributeTypes" : ["removeableCondition"],
+		"description" : "I feel lonely (slow sanity drain if alone in room)",
+		"contagious" : false,
+		"contagionChance" : 0.0,
+		"stackable": false,
+		"ConflictingAttributes" : [],
+		"PreRequisiteAttributes" : {},
+		"ResultingAttributes" : {},
+		"AuraAttributes": {},
+		"AffectedDynamicStatsCurrent" : {},
+		"AffectedDynamicStatsMax" : {},
+		"AffectedStaticStats" : { } ,
+		"DrainingDynamicStats" : {"sanity" : 1.0 } ,
+		"duration" : 10,
+		"statSignalsToWatchFor" : {},
+		"signalsThatWillRemoveAttribute" : {},
+		"canCombineWith" : {} ,
+		"modifiedAttributes" : {} ,
+		"characterEventTypeChance" : { },
+		"externalCombinations" : []
 	}
 }
