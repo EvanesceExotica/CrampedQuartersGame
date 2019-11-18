@@ -108,7 +108,7 @@ func removeCharacterFromSlot(character):
 	characterInSlot = null
 	removeAllExitingAttributesFromCharacter()
 	emit_signal("someoneVacatedSlot", self, character)
-	System.updateSlots(self, character)
+	System.updateSlots(self, null)
 	occupied = false
 
 func checkIfCharacterDropped(character):

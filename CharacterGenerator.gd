@@ -143,9 +143,12 @@ func generateNewCharacter():
 	var species = generateSpecies(randomSpeciesNumber)
 	#var slot = chooseCharacterSlot(species)
 	var slot = chooseRandomSlot()
-	slot.addCharacterToSlot(characterInstance)
-	CharacterTracker.AddCharacter(characterInstance)
-	characterInstance.add_to_group("Characters")
+	if slot != null:
+		slot.addCharacterToSlot(characterInstance)
+		CharacterTracker.AddCharacter(characterInstance)
+		characterInstance.add_to_group("Characters")
+	else:
+		print("All slots occupied, couldn't add character")
 
 func generateSpecies(randomNumber):
 	var species = speciesOptions[randomNumber]
@@ -176,9 +179,21 @@ func generateNewAttribute(generalList, nameList):
 
 func chooseRandomSlot():
 	#for testing until I get the species working
-	var randomNumber = range(0,System.allSlots.size())[randi()%range(0,System.allSlots.size()).size()]
-	var randomKey = System.allSlots.keys()[randomNumber]
+	var unoccupiedSlots = []
+	for slot in System.allSlots.keys():
+		if System.allSlots[slot] == null:
+			#if there's no character in this slot, character being the value to the key
+			unoccupiedSlots.append(slot)
 
+
+	var randomKey
+	if unoccupiedSlots.size() > 0:
+		var randomNumber = randi()%unoccupiedSlots.size()
+		#var randomNumber = range(0,unoccupiedSlots.size()))[randi()%range(0,System.allSlots.size()).size()]
+		randomKey = unoccupiedSlots[randomNumber]
+	else:
+		randomKey = null
+	
 	return randomKey #System.allSlots[randomNumber]
 
 func chooseCharacterSlot(species):
