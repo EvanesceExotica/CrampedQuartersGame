@@ -14,7 +14,7 @@ var characterName
 var currentSlot
 #warning-ignore:unused_class_variable
 var characterAttributes = [ ]
-
+var auras = []
 onready var rightFacingPosition = get_node("RightPosition")
 onready var leftFacingPosition = get_node("LeftPosition")
 
@@ -98,7 +98,6 @@ signal healedOverMax(whichStat) #this one would apply to being overfed or being 
 onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
 onready var healthTween = healthBar.get_node("HealthTween")
 
-
 func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
@@ -121,7 +120,7 @@ func applyNewAttribute(newAttribute):
 		for auraAttributeName in newAttribute.AuraAttributes:
 			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
 			SignalManager.emit_signal("emittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttributeName])
-
+			auras.append(aura)
 	if(newTrait.AffectedDynamicStatsCurrent.size() > 0):
 		#for immediate "chunks" of damage
 		for currentDynamicStatName in newTrait.AffectedDynamicStatsCurrent.keys():
@@ -222,6 +221,13 @@ func removeAttribute(attribute):
 		for drainedDynamicStatName in attribute.DrainingDynamicStats.keys():
 			var affectedStat = determineStat(drainedDynamicStatName)
 			RemoveNewDrainSource(affectedStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStatName])
+
+	if(newTrait.attributeTypes.has("aura")):
+		#if this trait is an aura, meaning it applies to other slots, stop emitting the aura
+		for auraAttributeName in newAttribute.AuraAttributes:
+			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
+			SignalManager.emit_signal("stoppedEmittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttributeName])
+			auras.erase(aura)
 
 	if(attribute.ResultingAttributes.size() > 0):
 		#maybe make it a dictionary with a key attribute value chance?
@@ -455,7 +461,11 @@ func _ready():
 	characterStats.setStatBars()
 
 
-
+func resetAuras(oldSlot, newSlot):
+	pass
+	#TODO: aura no longer has access to the number oa affected slots, find some way to share this information
+	for aura in auras:
+		SignalManager.emit_signal("stoppedEmittingAura", aura, oldSlot, aura.)
 
 func checkIfSomethingDropped(dispenser):
 	if(handInZone):
