@@ -88,8 +88,9 @@ func TriggerSpecificEvent(id):
 	EventParser.chooseSpecificEvent(id)
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		TriggerEvent(null)
+	pass
+	# if event.is_action_pressed("ui_accept"):
+	# 	TriggerEvent(null)
 
 
 func _process(delta):

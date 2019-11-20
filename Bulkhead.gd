@@ -69,7 +69,7 @@ func _ready():
 		destinationRoom = get_parent().get_node("ReactorRoom")
 
 	elif(destinationRoomType == Rooms.mainRoom):
-		destinationRoom = get_parent().get_node("MainRoom")
+		destinationRoom = get_parent().get_node("PassengerRoom")
 
 	destinationCameraPosition = destinationRoom.get_node("CameraPosition")
 	#print(destinationCameraPosition.global_position)

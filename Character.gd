@@ -12,9 +12,10 @@ signal stoppedDraggingCharacter(character)
 var characterName
 
 var currentSlot
+var previousSlot
 #warning-ignore:unused_class_variable
 var characterAttributes = [ ]
-var auras = []
+var auraSlotRange = {}
 onready var rightFacingPosition = get_node("RightPosition")
 onready var leftFacingPosition = get_node("LeftPosition")
 
@@ -120,7 +121,7 @@ func applyNewAttribute(newAttribute):
 		for auraAttributeName in newAttribute.AuraAttributes:
 			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
 			SignalManager.emit_signal("emittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttributeName])
-			auras.append(aura)
+			auraSlotRange[aura] = newAttribute.AuraAttributes[auraAttributeName]
 	if(newTrait.AffectedDynamicStatsCurrent.size() > 0):
 		#for immediate "chunks" of damage
 		for currentDynamicStatName in newTrait.AffectedDynamicStatsCurrent.keys():
@@ -222,12 +223,12 @@ func removeAttribute(attribute):
 			var affectedStat = determineStat(drainedDynamicStatName)
 			RemoveNewDrainSource(affectedStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStatName])
 
-	if(newTrait.attributeTypes.has("aura")):
+	if(attribute.attributeTypes.has("aura")):
 		#if this trait is an aura, meaning it applies to other slots, stop emitting the aura
-		for auraAttributeName in newAttribute.AuraAttributes:
+		for auraAttributeName in attribute.AuraAttributes:
 			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
-			SignalManager.emit_signal("stoppedEmittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttributeName])
-			auras.erase(aura)
+			SignalManager.emit_signal("stoppedEmittingAura", currentSlot, aura, attribute.AuraAttributes[auraAttributeName])
+			auraSlotRange.erase(aura)
 
 	if(attribute.ResultingAttributes.size() > 0):
 		#maybe make it a dictionary with a key attribute value chance?
@@ -460,12 +461,14 @@ func _ready():
 	SignalManager.connect("RemoveTrait", self, "removeAttribute")
 	characterStats.setStatBars()
 
+func turnOffAuras():
+	for aura in auraSlotRange.keys():
+		print("Stopping aura " + aura.attributeName)
+		SignalManager.emit_signal("stoppedEmittingAura", previousSlot, aura, auraSlotRange[aura])
+func turnOnAuras():
+	for aura in auraSlotRange.keys():
+		SignalManager.emit_signal("emittingAura", currentSlot, aura, auraSlotRange[aura])
 
-func resetAuras(oldSlot, newSlot):
-	pass
-	#TODO: aura no longer has access to the number oa affected slots, find some way to share this information
-	for aura in auras:
-		SignalManager.emit_signal("stoppedEmittingAura", aura, oldSlot, aura.)
 
 func checkIfSomethingDropped(dispenser):
 	if(handInZone):

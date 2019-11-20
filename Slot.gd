@@ -57,9 +57,10 @@ func applyNewAttributeToSlot(attribute):
 	pass
 func removeAttributeFromSlot(attribute):
 	#when an attribute is removed (such as a fire extenguished
-	slotAttributes.remove(attribute)
+	slotAttributes.erase(attribute)
 	if(occupied):
 		#if there is a character in this slot, remove the attribute from the character as well
+		print("Removing attribute from slot and character: " + attribute.attributeName)
 		removeAttributeFromCharacter(attribute)
 	emit_signal("attributeRemoved")
 
@@ -102,14 +103,16 @@ func addCharacterToSlot(character):
 	elif(!onLeftOfRoom):
 		#if this slot is on the right of this orom
 		character.characterStats.SetToLeftFacingPosition()
+	character.turnOnAuras()
 
 func removeCharacterFromSlot(character):
-	#TODO ADD SOMETHING THAT TRIGGERS THIS
 	characterInSlot = null
 	removeAllExitingAttributesFromCharacter()
 	emit_signal("someoneVacatedSlot", self, character)
 	System.updateSlots(self, null)
+	character.previousSlot = self
 	occupied = false
+	character.turnOffAuras()
 
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):
@@ -140,6 +143,7 @@ func _ready():
 # 	applyNewAttributeToSlot(testAttribute)
 	System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
 	for item in System.allSlots:
+		#if any slot received a "CharacterMoved" signal, check if it moved to a different slot
 		item.connect("someoneVacatedSlot", self, "checkIfCharacterMovedToDifferentSlot")
 	if(adjacentSlots.size() > 0):
 		for item in adjacentSlots:

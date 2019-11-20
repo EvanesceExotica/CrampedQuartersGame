@@ -8,7 +8,7 @@ func _ready():
 
 func addAndConvert(attribute):
     traits.append(attribute.attributeName)
-    print("Trait checker added " + attribute.attributeName)
+    #print("Trait checker added " + attribute.attributeName)
 
 func remove(attribute):
     traits.remove(attribute.attributeName)

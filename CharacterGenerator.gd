@@ -30,11 +30,11 @@ func separateOutAttributes():
 	attributesDictionary = AttributeJSONParser.attributeData
 	for attribute in attributesDictionary.keys():
 		var tempDictionary = attributesDictionary[attribute]
-		print("Generating attributes " + tempDictionary["attributeName"])
+	#	print("Generating attributes " + tempDictionary["attributeName"])
 		if tempDictionary["entitiesCanApplyTo"].has("character") && tempDictionary["attributeTypes"].has("inherentAttribute"):
 			availableAttributeNames.append(attribute)
 			availableCharacterAttributes.append(tempDictionary)
-			print("Available attribute " + tempDictionary["attributeName"])
+		#	print("Available attribute " + tempDictionary["attributeName"])
 	# 	for applicableEntity in attribute["entitiesCanApplyTo"]:
 	# 		if(applicableEntity == System.entitiesAppliedTo.character):
 	# 			availableCharacterAttributes.append(attribute):
@@ -264,7 +264,7 @@ func chooseCharacterSlot(species):
 	# 	# 		slotToChoose = false
 
 func _on_Button_button_down():
-	print("Generating new character")
+	#print("Generating new character")
 	generatePremadeCharacter(["Paranoid", "Frail", "Strong"])
 	#generateNewCharacter()
 
@@ -275,7 +275,9 @@ func printWarning():
 #			if(availableCharacterAttributes[randomNumber]) == conflictingAttibute:
 
 # Called when the node enters the scene tree for the first time.
-
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		generatePremadeCharacter(["Paranoid", "Frail", "Strong"])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

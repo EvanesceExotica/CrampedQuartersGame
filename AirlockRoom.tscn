@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://furniture_door_spaceship_door.png" type="Texture" id=2]
 [ext_resource path="res://SpaceWindow.png" type="Texture" id=3]
-[ext_resource path="res://Slot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Stations/SlotManager.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Slot.tscn" type="PackedScene" id=5]
 
 [node name="AirlockRoom" instance=ExtResource( 1 )]
 
@@ -23,7 +24,13 @@ position = Vector2( 513.5, 233.099 )
 scale = Vector2( 0.571078, 0.612531 )
 texture = ExtResource( 3 )
 
-[node name="Slot" parent="." index="4" instance=ExtResource( 4 )]
-position = Vector2( 520, 390 )
+[node name="SlotManager" parent="." index="5" instance=ExtResource( 4 )]
+
+[node name="Slot" parent="SlotManager" index="0" instance=ExtResource( 5 )]
+position = Vector2( 340, 500 )
+slotType = 3
+
+[node name="Slot2" parent="SlotManager" index="1" instance=ExtResource( 5 )]
+position = Vector2( 697.656, 500 )
 slotType = 3
 
