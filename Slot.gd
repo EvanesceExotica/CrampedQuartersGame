@@ -47,11 +47,11 @@ func applyNewAttributeToSlot(attribute):
 	#when a brand new attribute is applied, apply it to the character as well
 	slotAttributes.append(attribute)
 	if(occupied):
-		print("We have a character here and we're going to add this attribute")
-		print(characterInSlot.characterName)
+		#print("We have a character here and we're going to add this attribute")
+		#print(characterInSlot.characterName)
 		characterInSlot.applyNewAttribute(attribute)
-		for attribute in characterInSlot.characterAttributes:
-			print("Charcter has these : " + attribute.attributeName)
+		#for attribute in characterInSlot.characterAttributes:
+		#	print("Charcter has these : " + attribute.attributeName)
 	emit_signal("newAttributeAdded")
 
 	pass
@@ -106,6 +106,7 @@ func addCharacterToSlot(character):
 	character.turnOnAuras()
 
 func removeCharacterFromSlot(character):
+	print("Character removed from slot")
 	characterInSlot = null
 	removeAllExitingAttributesFromCharacter()
 	emit_signal("someoneVacatedSlot", self, character)
@@ -117,9 +118,14 @@ func removeCharacterFromSlot(character):
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):
 		addCharacterToSlot(character)
+		#emit_signal("someoneEnteredSlot", self, character)
 
-func checkIfCharacterMovedToDifferentSlot(character, slot):
+func checkIfCharacterMovedToDifferentSlot(slot, character):
+	#print(character.characterName + " moved to different slot: " +  slot.name)
+	if(characterInSlot != null):
+		print(character.characterName + " vs " + characterInSlot.characterName)
 	if character == characterInSlot:
+		print("We are this slot " + slot.name + " and had this character " + characterInSlot.characterName)
 		if slot != self:
 			removeCharacterFromSlot(character)
 	pass
@@ -144,7 +150,7 @@ func _ready():
 	System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
 	for item in System.allSlots:
 		#if any slot received a "CharacterMoved" signal, check if it moved to a different slot
-		item.connect("someoneVacatedSlot", self, "checkIfCharacterMovedToDifferentSlot")
+		item.connect("someoneEnteredSlot", self, "checkIfCharacterMovedToDifferentSlot")
 	if(adjacentSlots.size() > 0):
 		for item in adjacentSlots:
 			item.connect("someoneEnteredSlot", self, "checkIfAdjacentSlotsFull")
