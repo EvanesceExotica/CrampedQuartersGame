@@ -70,11 +70,14 @@ func _ready():
 	# 	print(str(child))
 	# 	child.connect("mouse_enter", self, "mouseOverPanel")
 	# 	child.connect("mouse_exit", self, "mouseNotOverPanel")
+
 	hoveringOverPanel = false
 	character.connect("newAttributeAdded", self, "addAttributeToPanel")
 	character.connect("attributeRemoved", self, "removeAttributeFromPanel")
 	character.connect("statAtZero", self, "EatCheese")
 	nameLabel.text = "Name: " + character.characterName
+	self.modulate = Color(1, 1, 1, 0)
+	#hideDisplay()
 # func mouseOverPanel():
 # 	print("Mouse over panel!")
 # 	hoveringOverPanel = true

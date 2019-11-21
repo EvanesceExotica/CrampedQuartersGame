@@ -118,14 +118,9 @@ func removeCharacterFromSlot(character):
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):
 		addCharacterToSlot(character)
-		#emit_signal("someoneEnteredSlot", self, character)
 
 func checkIfCharacterMovedToDifferentSlot(slot, character):
-	#print(character.characterName + " moved to different slot: " +  slot.name)
-	if(characterInSlot != null):
-		print(character.characterName + " vs " + characterInSlot.characterName)
 	if character == characterInSlot:
-		print("We are this slot " + slot.name + " and had this character " + characterInSlot.characterName)
 		if slot != self:
 			removeCharacterFromSlot(character)
 	pass
@@ -139,14 +134,9 @@ func checkIfAdjacentSlotsFull():
 		comfortLevel-=1
 	pass
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 
 	add_to_group("slots")
-# 	var testAttribute = System.attributeScript.new("Underwater")
-# #	testAttribute.attributeType = System.attributeType.auraCondition
-# 	testAttribute.DrainingDynamicStats = {System.DynamicStats.health: 10}
-# 	applyNewAttributeToSlot(testAttribute)
 	System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
 	for item in System.allSlots:
 		#if any slot received a "CharacterMoved" signal, check if it moved to a different slot
@@ -161,15 +151,10 @@ func _ready():
 
 func _on_Slot_area_entered(area):
 	if(area.name == "Hand"):
-	#	print("Hand entered " + self.name)
 		handInZone = true
 	pass
 
 func _on_Slot_area_exited(area):
 	if(area.name == "Hand"):
-	#	print("Hand exited " + self.name)
 		handInZone = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
