@@ -99,6 +99,18 @@ signal healedOverMax(whichStat) #this one would apply to being overfed or being 
 onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
 onready var healthTween = healthBar.get_node("HealthTween")
 
+
+# "stats" : {
+	# "health" : {
+		#"draining"
+		#"max"
+		#"current"
+#	}
+#}
+
+#func _applyNewAttribute(newAttribute):
+#	if newAttribute.stats["health"]
+
 func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:

@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Character.gd" type="Script" id=1]
 [ext_resource path="res://TamelaUpdated.png" type="Texture" id=2]
-[ext_resource path="res://CharacterStats.tscn" type="PackedScene" id=3]
-[ext_resource path="res://RelationshipModule.gd" type="Script" id=4]
-[ext_resource path="res://Utility/TraitChecker.tscn" type="PackedScene" id=5]
+[ext_resource path="res://RelationshipModule.gd" type="Script" id=3]
+[ext_resource path="res://Utility/TraitChecker.tscn" type="PackedScene" id=4]
+[ext_resource path="res://CharacterStats.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 86.2526
@@ -21,13 +21,6 @@ __meta__ = {
 position = Vector2( 10.6802, 46.4731 )
 scale = Vector2( 0.238553, 0.238553 )
 texture = ExtResource( 2 )
-
-[node name="CharacterStats" parent="." instance=ExtResource( 3 )]
-margin_left = -194.444
-margin_top = -352.941
-margin_right = -194.444
-margin_bottom = -352.941
-rect_scale = Vector2( 0.44, 0.4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -54,15 +47,22 @@ text = "Remove Fire"
 [node name="Tween" type="Tween" parent="."]
 
 [node name="RelationshipModule" type="Node2D" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 
-[node name="TraitChecker" parent="." instance=ExtResource( 5 )]
+[node name="TraitChecker" parent="." instance=ExtResource( 4 )]
 
 [node name="RightPosition" type="Position2D" parent="."]
 position = Vector2( -194.444, -352.941 )
 
 [node name="LeftPosition" type="Position2D" parent="."]
 position = Vector2( -194.444, -352.941 )
+
+[node name="CharacterStats" parent="." instance=ExtResource( 5 )]
+margin_left = -216.111
+margin_top = -411.765
+margin_right = -216.111
+margin_bottom = -411.765
+rect_scale = Vector2( 0.5, 0.5 )
 
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]

@@ -73,14 +73,7 @@ font_data = ExtResource( 6 )
 extents = Vector2( 388.889, 235.294 )
 
 [node name="CharacterStats" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_scale = Vector2( 0.72, 0.68 )
-mouse_filter = 1
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_vertical_guides_": [  ]
-}
 
 [node name="Panel" type="Panel" parent="."]
 margin_right = 847.0

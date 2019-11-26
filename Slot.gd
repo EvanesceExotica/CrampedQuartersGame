@@ -19,7 +19,7 @@ export(Array) var adjacentSlots = []
 #Examples of non-inherent attributes would be "Poisoned" for tank
 
 
-var slotAttributes = []
+export var slotAttributes = []
 var inherentAttributes = []
 var temporaryOrRemoveableAttributes = []
 signal newAttributeAdded
@@ -147,6 +147,13 @@ func _ready():
 			item.connect("someoneVacatedSlot", self, "checkIfAdjacentSlotsFull")
 	pass # Replace with function body.
 	System.updateSlots(self, characterInSlot)
+
+	if slotAttributes.size() > 0:
+		#if this has a preset attribute, apply that attribute
+		for attributeName in slotAttributes:
+			var attribute =	AttributeJSONParser.fetchAndCreateAttribute(attributeName)
+			applyNewAttributeToSlot(attribute)
+
 
 
 func _on_Slot_area_entered(area):
