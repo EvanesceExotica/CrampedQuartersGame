@@ -1,0 +1,218 @@
+{
+	"sheets": [
+		{
+			"name": "Attributes",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id"
+				},
+				{
+					"typeStr": "1",
+					"name": "attributeName",
+					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "description",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "affectedStats"
+				}
+			],
+			"lines": [
+				{
+					"id": "tough",
+					"attributeName": "Tough",
+					"description": "I'm tougher than normal (Max health: x1.5)",
+					"index": 0,
+					"affectedStats": [
+						{
+							"health": {
+								"max": 1.5
+							}
+						}
+					]
+				},
+				{
+					"id": "mentallySound",
+					"attributeName": "MentallySound",
+					"description": "Sane as hell!! (Maximum Sanity: x1.5)",
+					"affectedStats": [
+						{
+							"sanity": {
+								"max": 1.5
+							}
+						}
+					],
+					"index": 1
+				},
+				{
+					"id": "frail",
+					"attributeName": "Frail",
+					"description": "I can't take a hit (Maximum Health x0.5)",
+					"affectedStats": [
+						{
+							"health": {
+								"max": 0.5
+							}
+						}
+					],
+					"index": 2
+				},
+				{
+					"id": "paranoid",
+					"attributeName": "Paranoid",
+					"description": "Everything freaks me out (Maximum sanity x0.5)",
+					"affectedStats": [
+						{
+							"sanity": {
+								"max": 0.5
+							}
+						}
+					],
+					"index": 3
+				},
+				{
+					"id": "smallStomach",
+					"attributeName": "SmallStomach",
+					"description": "I'm hungry but can't hold much food (Max sustenance x0.5)",
+					"affectedStats": [
+						{
+							"sustenance": {
+								"max": 0.5
+							}
+						}
+					],
+					"index": 4
+				},
+				{
+					"id": "bigStomach",
+					"attributeName": "BigStomach",
+					"description": "I can store a lot of food (Max sustenance x2)",
+					"affectedStats": [
+						{
+							"sustenance": {
+								"max": 2
+							}
+						}
+					],
+					"index": 5
+				},
+				{
+					"id": "onFire",
+					"attributeName": "OnFire",
+					"description": "I'M ON FIRE (Current health drained 20 points per second)",
+					"affectedStats": [
+						{
+							"health": {
+								"drain": 20
+							}
+						}
+					],
+					"index": 6
+				},
+				{
+					"id": "afraid",
+					"attributeName": "Afraid",
+					"description": "I'm terrified! (Current sanity drained at 20 points per second)",
+					"affectedStats": [
+						{
+							"sanity": {
+								"drain": 20
+							}
+						}
+					],
+					"index": 7
+				},
+				{
+					"id": "asphixiating",
+					"attributeName": "Asphixiating",
+					"description": "I can't breathe (Current health drained at 5 points per second)",
+					"affectedStats": [
+						{
+							"health": {
+								"drain": 5
+							}
+						}
+					],
+					"index": 8
+				},
+				{
+					"id": "shaken",
+					"attributeName": "Shaken",
+					"description": "That was awful... (Max sanity reduced)",
+					"affectedStats": [
+						{
+							"sanity": {
+								"max": 0.25
+							}
+						}
+					],
+					"index": 9
+				},
+				{
+					"id": "contaminated",
+					"attributeName": "Contaminated",
+					"description": "I feel nauseous (Max health reduced)",
+					"affectedStats": [
+						{
+							"health": {
+								"max": 0.75
+							}
+						}
+					],
+					"index": 10
+				}
+			],
+			"separators": [],
+			"props": {
+				"hasGroup": true,
+				"hasIndex": true
+			}
+		},
+		{
+			"name": "Attributes@ArrayTest",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": []
+		},
+		{
+			"name": "Attributes@affectedStats",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "16",
+					"name": "health",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "sanity",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "sustenance",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "relationship",
+					"display": null
+				}
+			]
+		}
+	],
+	"customTypes": [],
+	"compress": false
+}
