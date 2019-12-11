@@ -108,8 +108,58 @@ onready var healthTween = healthBar.get_node("HealthTween")
 #	}
 #}
 
-#func _applyNewAttribute(newAttribute):
-#	if newAttribute.stats["health"]
+func _applyNewAttribute(newAttribute):	
+
+	for oldTrait in characterAttributes:
+		for possibleConflictingTrait in newTrait.ConflictingAttributes:
+			if oldTrait.attributeName == possibleConflictingTrait:
+				print("Conflicting trait existed")
+				return #this Return statement should pop the player out of this method
+	if(newTrait.attributeTypes.has("aura")):
+		#if this trait is an aura, meaning it applies to other slots
+		for auraAttributeName in newAttribute.AuraAttributes:
+			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
+			SignalManager.emit_signal("emittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttributeName])
+
+	for stat in newAttribute["AffectedStats"]:
+		var affectedStat = determineStat(stat["statName"])
+		match stat["whichValue"]:	
+			"max":
+				changeMaxStatValue(affectedStat, stat["amount"])
+
+			"current":
+				changeStatValue(affectedStat, stat["amount"], false)
+			"drain":
+				addNewDrainSource(affectedStat, newAttribute, stat["amount"])
+			"static":
+				var newValue = get(stat["statName"]) + stat["amount"])
+				set(stat["statName"], newValue)
+
+	characterAttributes.append(newAttribute)
+	emit_signal("newAttributeAdded", newAttribute)
+
+	if(newAttribute.attributeTypes.has("temporaryCondition")):
+
+		var timer = Timer.new()
+		timer.wait_time = newAttribute.duration
+		timer.connect("timeout",self,"conditionTimedOut", [newAttribute]) 
+		add_child(timer) #to process
+		timer.start() #to start
+
+func _removeNewAttribute(attribute):
+	for stat in newAttribute["AffectedStats"]:
+		var affectedStat = determineStat(stat["statName"])
+		match stat["whichValue"]:	
+			"max":
+				changeMaxStatValue(affectedStat, 1/stat["amount"])
+			"current":
+				pass
+				#changeStatValue(affectedStat, stat["amount"], false)
+			"drain":
+				RemoveNewDrainSource(affectedStat, attribute, stat["amount"])
+			"static":
+				var newValue = get(stat["statName"]) - stat["amount"])
+				set(stat["statName"], newValue)
 
 func applyNewAttribute(newAttribute):
 	var newTrait = newAttribute

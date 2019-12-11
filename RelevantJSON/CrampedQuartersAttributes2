@@ -19,11 +19,31 @@
 				},
 				{
 					"typeStr": "8",
-					"name": "affectedStats"
+					"name": "AffectedStats",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "ConflictingAttributes",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "AuraAttributes"
+				},
+				{
+					"typeStr": "16",
+					"name": "ResultingAttributes",
+					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "duration",
+					"display": null
 				},
 				{
 					"typeStr": "8",
-					"name": "AffectedStats",
+					"name": "eventChance",
 					"display": null
 				}
 			],
@@ -33,190 +53,212 @@
 					"attributeName": "Tough",
 					"description": "I'm tougher than normal (Max health: x1.5)",
 					"index": 0,
-					"affectedStats": [
-						{
-							"health": {
-								"max": 1.5
-							}
-						}
-					],
 					"AffectedStats": [
 						{
 							"statName": "health",
 							"whichValue": "max",
 							"amount": 1.5
 						}
-					]
+					],
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "mentallySound",
 					"attributeName": "MentallySound",
 					"description": "Sane as hell!! (Maximum Sanity: x1.5)",
-					"affectedStats": [
+					"index": 1,
+					"AffectedStats": [
 						{
-							"sanity": {
-								"max": 1.5
-							}
+							"statName": "sanity",
+							"whichValue": "max",
+							"amount": 1.5
 						}
 					],
-					"index": 1,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "frail",
 					"attributeName": "Frail",
 					"description": "I can't take a hit (Maximum Health x0.5)",
-					"affectedStats": [
+					"index": 2,
+					"AffectedStats": [
 						{
-							"health": {
-								"max": 0.5
-							}
+							"statName": "health",
+							"whichValue": "max",
+							"amount": 0.5
 						}
 					],
-					"index": 2,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "paranoid",
 					"attributeName": "Paranoid",
 					"description": "Everything freaks me out (Maximum sanity x0.5)",
-					"affectedStats": [
+					"index": 3,
+					"AffectedStats": [
 						{
-							"sanity": {
-								"max": 0.5
-							}
+							"statName": "sanity",
+							"whichValue": "max",
+							"amount": 0.5
 						}
 					],
-					"index": 3,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "smallStomach",
 					"attributeName": "SmallStomach",
 					"description": "I'm hungry but can't hold much food (Max sustenance x0.5)",
-					"affectedStats": [
+					"index": 4,
+					"AffectedStats": [
 						{
-							"sustenance": {
-								"max": 0.5
-							}
+							"statName": "sustenance",
+							"whichValue": "max",
+							"amount": 0.5
 						}
 					],
-					"index": 4,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "bigStomach",
 					"attributeName": "BigStomach",
 					"description": "I can store a lot of food (Max sustenance x2)",
-					"affectedStats": [
+					"index": 5,
+					"AffectedStats": [
 						{
-							"sustenance": {
-								"max": 2
-							}
+							"statName": "sustenance",
+							"whichValue": "max",
+							"amount": 2
 						}
 					],
-					"index": 5,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "onFire",
 					"attributeName": "OnFire",
 					"description": "I'M ON FIRE (Current health drained 20 points per second)",
-					"affectedStats": [
+					"index": 6,
+					"AffectedStats": [
 						{
-							"health": {
-								"drain": 20
-							}
+							"statName": "health",
+							"whichValue": "drain",
+							"amount": 20
 						}
 					],
-					"index": 6,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "afraid",
 					"attributeName": "Afraid",
 					"description": "I'm terrified! (Current sanity drained at 20 points per second)",
-					"affectedStats": [
+					"index": 7,
+					"AffectedStats": [
 						{
-							"sanity": {
-								"drain": 20
-							}
+							"statName": "sanity",
+							"whichValue": "drain",
+							"amount": 20
 						}
 					],
-					"index": 7,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "asphixiating",
 					"attributeName": "Asphixiating",
 					"description": "I can't breathe (Current health drained at 5 points per second)",
-					"affectedStats": [
+					"index": 8,
+					"AffectedStats": [
 						{
-							"health": {
-								"drain": 5
-							}
+							"statName": "health",
+							"whichValue": "drain",
+							"amount": 5
 						}
 					],
-					"index": 8,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "shaken",
 					"attributeName": "Shaken",
 					"description": "That was awful... (Max sanity reduced)",
-					"affectedStats": [
+					"index": 9,
+					"AffectedStats": [
 						{
-							"sanity": {
-								"max": 0.25
-							}
+							"statName": "sanity",
+							"whichValue": "max",
+							"amount": 0.25
 						}
 					],
-					"index": 9,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "contaminated",
 					"attributeName": "Contaminated",
 					"description": "I feel nauseous (Max health reduced)",
-					"affectedStats": [
+					"index": 10,
+					"AffectedStats": [
 						{
-							"health": {
-								"max": 0.75
-							}
+							"statName": "health",
+							"whichValue": "max",
+							"amount": 0.75
+						},
+						{
+							"statName": "sanity",
+							"whichValue": "drain",
+							"amount": 0
 						}
 					],
-					"index": 10,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "diseased",
 					"attributeName": "Diseased",
 					"description": "I feel nauseous (Max health reduced)",
-					"affectedStats": [
+					"index": 11,
+					"AffectedStats": [
 						{
-							"health": {
-								"max": 0.75
-							}
+							"statName": "health",
+							"whichValue": "max",
+							"amount": 0.75
 						}
 					],
-					"index": 11,
-					"AffectedStats": []
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "smelly",
 					"attributeName": "Smelly",
 					"description": "Boy do I smell bad. I make other people sick.",
-					"affectedStats": [],
 					"index": 12,
-					"AffectedStats": []
+					"AffectedStats": [],
+					"AuraAttributes": [
+						"Nauseated"
+					],
+					"duration": 0,
+					"eventChance": []
 				},
 				{
 					"id": "nauseated",
 					"attributeName": "Nauseated",
 					"description": "I feel ill... what's that smell?",
-					"affectedStats": [],
 					"index": 13,
-					"AffectedStats": []
+					"AffectedStats": [
+						{
+							"statName": "sustenance",
+							"whichValue": "drain",
+							"amount": 10
+						}
+					],
+					"duration": 0,
+					"eventChance": []
 				}
 			],
 			"separators": [],
@@ -233,41 +275,6 @@
 			"separators": [],
 			"lines": [],
 			"columns": []
-		},
-		{
-			"name": "Attributes@affectedStats",
-			"props": {
-				"hide": true
-			},
-			"separators": [],
-			"lines": [],
-			"columns": [
-				{
-					"typeStr": "16",
-					"name": "health",
-					"display": null
-				},
-				{
-					"typeStr": "16",
-					"name": "sanity",
-					"display": null
-				},
-				{
-					"typeStr": "16",
-					"name": "sustenance",
-					"display": null
-				},
-				{
-					"typeStr": "16",
-					"name": "relationship",
-					"display": null
-				},
-				{
-					"typeStr": "16",
-					"name": "damageDealt",
-					"display": null
-				}
-			]
 		},
 		{
 			"name": "Attributes@AffectedStats",
@@ -290,6 +297,26 @@
 				{
 					"typeStr": "4",
 					"name": "amount",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Attributes@eventChance",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "event",
+					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "chance",
 					"display": null
 				}
 			]

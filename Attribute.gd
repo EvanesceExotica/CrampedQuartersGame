@@ -49,7 +49,7 @@ var ConflictingAttributes =  [] #Other attributes that conflict with this one
 var PreRequisiteAttributes = [] #Attributes that cause this one
 var ResultingAttributes =  [] #Attributes that will result from this one 'On Fire --> Shaken'
 var AuraAttributes = {}
-
+var AffectedStats = {}
 var AffectedDynamicStatsCurrent = {} #if one of the dynamic stats will take an immediate 'chunk' hit
 var AffectedDynamicStatsMax = {} #if this will lower one of the maximum stats
 var AffectedStaticStats = { } #if this will effect a static stat like 'damage dealt' or 'space needed'
