@@ -4,6 +4,14 @@ extends Node2D
 var selectedCharacter
 var attributeScript = preload("res://Attribute.gd")
 
+enum attributeTypes  {inherentAttribute, condition}
+enum entities {character, station, slot}
+
+
+var bf 
+var entitiesFlag
+
+
 var enumToSlotTypeDictionary = {
 
 }
@@ -223,6 +231,12 @@ func tweenMainCameraToNewRoom(destinationPosition):
 	pass
 
 func _ready():
+	bf = BitFlag.new(attributeTypes, true)
+	bf.inherentAttribute = false
+	bf.condition = true
+	print(bf._flags)
+	print(bf.check(bf.inherentAttribute))
+	entitiesFlag = BitFlag.new(entities, true)
 	SlotTypeOccupiedDictionary = {
 		slotTypes.mainRoom : false,
 		slotTypes.closet : false,

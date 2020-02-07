@@ -28,13 +28,12 @@
 					"display": null
 				},
 				{
-					"typeStr": "16",
+					"typeStr": "8",
 					"name": "AuraAttributes"
 				},
 				{
 					"typeStr": "16",
-					"name": "ResultingAttributes",
-					"display": null
+					"name": "ResultingAttributes"
 				},
 				{
 					"typeStr": "4",
@@ -44,6 +43,11 @@
 				{
 					"typeStr": "8",
 					"name": "eventChance",
+					"display": null
+				},
+				{
+					"typeStr": "2",
+					"name": "inherentAttribute",
 					"display": null
 				}
 			],
@@ -61,7 +65,15 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": true,
+					"ConflictingAttributes": [
+						"Frail"
+					],
+					"ResultingAttributes": [
+						"Test"
+					],
+					"AuraAttributes": []
 				},
 				{
 					"id": "mentallySound",
@@ -76,7 +88,12 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": true,
+					"ConflictingAttributes": [
+						"Paranoid"
+					],
+					"AuraAttributes": []
 				},
 				{
 					"id": "frail",
@@ -91,7 +108,12 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": true,
+					"ConflictingAttributes": [
+						"Tough"
+					],
+					"AuraAttributes": []
 				},
 				{
 					"id": "paranoid",
@@ -106,13 +128,29 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": true,
+					"ConflictingAttributes": [
+						"MentallySound"
+					],
+					"AuraAttributes": []
+				},
+				{
+					"id": "strong",
+					"attributeName": "Strong",
+					"description": "\"I'm powerful, do a lot of damage.\"",
+					"AffectedStats": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"index": 4,
+					"AuraAttributes": []
 				},
 				{
 					"id": "smallStomach",
 					"attributeName": "SmallStomach",
 					"description": "I'm hungry but can't hold much food (Max sustenance x0.5)",
-					"index": 4,
+					"index": 5,
 					"AffectedStats": [
 						{
 							"statName": "sustenance",
@@ -121,13 +159,18 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": true,
+					"ConflictingAttributes": [
+						"BigStomach"
+					],
+					"AuraAttributes": []
 				},
 				{
 					"id": "bigStomach",
 					"attributeName": "BigStomach",
 					"description": "I can store a lot of food (Max sustenance x2)",
-					"index": 5,
+					"index": 6,
 					"AffectedStats": [
 						{
 							"statName": "sustenance",
@@ -136,13 +179,18 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": true,
+					"ConflictingAttributes": [
+						"SmallStomach"
+					],
+					"AuraAttributes": []
 				},
 				{
 					"id": "onFire",
 					"attributeName": "OnFire",
 					"description": "I'M ON FIRE (Current health drained 20 points per second)",
-					"index": 6,
+					"index": 7,
 					"AffectedStats": [
 						{
 							"statName": "health",
@@ -151,13 +199,18 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": false,
+					"ConflictingAttributes": [
+						"Underwater"
+					],
+					"AuraAttributes": []
 				},
 				{
 					"id": "afraid",
 					"attributeName": "Afraid",
 					"description": "I'm terrified! (Current sanity drained at 20 points per second)",
-					"index": 7,
+					"index": 8,
 					"AffectedStats": [
 						{
 							"statName": "sanity",
@@ -166,13 +219,15 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": false,
+					"AuraAttributes": []
 				},
 				{
 					"id": "asphixiating",
 					"attributeName": "Asphixiating",
 					"description": "I can't breathe (Current health drained at 5 points per second)",
-					"index": 8,
+					"index": 9,
 					"AffectedStats": [
 						{
 							"statName": "health",
@@ -181,13 +236,15 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": false,
+					"AuraAttributes": []
 				},
 				{
 					"id": "shaken",
 					"attributeName": "Shaken",
 					"description": "That was awful... (Max sanity reduced)",
-					"index": 9,
+					"index": 10,
 					"AffectedStats": [
 						{
 							"statName": "sanity",
@@ -196,13 +253,15 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": false,
+					"AuraAttributes": []
 				},
 				{
 					"id": "contaminated",
 					"attributeName": "Contaminated",
 					"description": "I feel nauseous (Max health reduced)",
-					"index": 10,
+					"index": 11,
 					"AffectedStats": [
 						{
 							"statName": "health",
@@ -221,13 +280,15 @@
 							"event": "",
 							"chance": 0
 						}
-					]
+					],
+					"inherentAttribute": false,
+					"AuraAttributes": []
 				},
 				{
 					"id": "diseased",
 					"attributeName": "Diseased",
 					"description": "I feel nauseous (Max health reduced)",
-					"index": 11,
+					"index": 12,
 					"AffectedStats": [
 						{
 							"statName": "health",
@@ -236,25 +297,31 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": false,
+					"AuraAttributes": []
 				},
 				{
-					"id": "smelly",
+					"id": "Smelly",
 					"attributeName": "Smelly",
 					"description": "Boy do I smell bad. I make other people sick.",
-					"index": 12,
+					"index": 13,
 					"AffectedStats": [],
-					"AuraAttributes": [
-						"Nauseated"
-					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": true,
+					"AuraAttributes": [
+						{
+							"Range": 3,
+							"AttributeName": "Smelly"
+						}
+					]
 				},
 				{
 					"id": "nauseated",
 					"attributeName": "Nauseated",
 					"description": "I feel ill... what's that smell?",
-					"index": 13,
+					"index": 14,
 					"AffectedStats": [
 						{
 							"statName": "sustenance",
@@ -263,7 +330,9 @@
 						}
 					],
 					"duration": 0,
-					"eventChance": []
+					"eventChance": [],
+					"inherentAttribute": false,
+					"AuraAttributes": []
 				}
 			],
 			"separators": [],
@@ -323,6 +392,39 @@
 					"typeStr": "4",
 					"name": "chance",
 					"display": null
+				}
+			]
+		},
+		{
+			"name": "Attributes@test",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "Art",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Attributes@AuraAttributes",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "6:Attributes",
+					"name": "AttributeName"
+				},
+				{
+					"typeStr": "3",
+					"name": "Range"
 				}
 			]
 		}

@@ -17,7 +17,7 @@ var slotStringToEnum = {}
 
 var allAttributes = []
 var availableAttributeNames = []
-var attributesDictionary = {}
+var attributesDictionary = []
 var speciesAttributes
 var availableCharacterAttributes = []
 export var speciesOptions : Array = []
@@ -26,14 +26,23 @@ var maxNumberOfStartingAttributes = 3 #change this later
 #perhaps separate into attributes that can only apply to characters
 
 func separateOutAttributes():
-	allAttributes = AttributeJSONParser.attributeData.keys()
+	#allAttributes = AttributeJSONParser.attributeData.keys()
 	attributesDictionary = AttributeJSONParser.attributeData
-	for attribute in attributesDictionary.keys():
-		var tempDictionary = attributesDictionary[attribute]
+	for attribute in attributesDictionary:
+		if attribute["inherentAttribute"] == true:
+			availableAttributeNames.append(attribute["attributeName"])
+			availableCharacterAttributes.append(attribute)
+	# for attribute in attributesDictionary.keys():
+	# 	var tempDictionary = attributesDictionary[attribute]
+	# 	if tempDictionary["inherentAttribute"] == true:
+	# 		#if this is a trait that can be randomly generated on a character, rather than a condition
+	# 		availableAttributeNames.append(attribute)
+	# 		availableCharacterAttributes.append(tempDictionary)
 	#	print("Generating attributes " + tempDictionary["attributeName"])
-		if tempDictionary["entitiesCanApplyTo"].has("character") && tempDictionary["attributeTypes"].has("inherentAttribute"):
-			availableAttributeNames.append(attribute)
-			availableCharacterAttributes.append(tempDictionary)
+		# if tempDictionary["entitiesCanApplyTo"].has("character") && tempDictionary["attributeTypes"].has("inherentAttribute"):
+		# 	#this means this attribute applies to characters and is an attribute that arises naturally (rather than a condition)
+		# 	availableAttributeNames.append(attribute)
+		# 	availableCharacterAttributes.append(tempDictionary)
 		#	print("Available attribute " + tempDictionary["attributeName"])
 	# 	for applicableEntity in attribute["entitiesCanApplyTo"]:
 	# 		if(applicableEntity == System.entitiesAppliedTo.character):
@@ -265,7 +274,7 @@ func chooseCharacterSlot(species):
 
 func _on_Button_button_down():
 	#print("Generating new character")
-	generatePremadeCharacter(["Paranoid", "Frail", "Strong"])
+	generatePremadeCharacter(["Paranoid", "Frail", "BigStomach"])
 	#generateNewCharacter()
 
 func printWarning():

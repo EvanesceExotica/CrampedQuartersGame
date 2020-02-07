@@ -45,6 +45,15 @@ func _ready():
 # }
 func load_json():
 	var file = File.new()
+	assert file.file_exists("res://RelevantJSON/CrampedQuartersAttributes2.json")
+	file.open("res://RelevantJSON/CrampedQuartersAttributes2.json", file.READ)
+	var entireFile = parse_json(file.get_as_text())
+	attributeData = entireFile["sheets"][0]["lines"]
+	#attributeData = parse_json(file.get_as_text())
+	return attributeData
+
+func _load_json():
+	var file = File.new()
 	assert file.file_exists("res://StatData/CharacterAttributes.json")
 	file.open("res://StatData/CharacterAttributes.json", file.READ)
 	#var attributeData = JSON.parse(file.get_as_text())
@@ -80,6 +89,69 @@ func fetchAndCreateAttribute(attributeName):
 		if stat.attributeName == attributeName:
 			return stat
 
+	for item in attributeData:
+		#for every attribute copied to attributeData from the 'lines' array
+		if item["attributeName"] == attributeName:
+			thisAttributeDictionary = item.duplicate()
+
+	#thisAttributeDictionary = attributeData[attributeName]
+	var attribute = System.attributeScript.new(attributeName)
+	#Add functions to fill variables
+	#for item in thisAttributeDictionary:
+	print(attribute.attributeName)
+	attribute.attributeName = thisAttributeDictionary["attributeName"]
+	#attribute.entitiesCanApplyTo = thisAttributeDictionary["entitiesCanApplyTo"]
+	#attribute.attributeTypes =  thisAttributeDictionary["attributeTypes"]
+	#attribute.attributeTypes = (thisAttributeDictionary["attributeTypes"])
+
+	attribute.description = thisAttributeDictionary["description"]
+	#attribute.contagious = thisAttributeDictionary["contagious"]
+	#attribute.contagionChance = thisAttributeDictionary["contagionChance"]
+	#attribute.stackable = thisAttributeDictionary["stackable"]
+	if thisAttributeDictionary.has("ConflictingAttributes") && thisAttributeDictionary["ConflictingAttributes"].size() > 0:
+		attribute.ConflictingAttributes = thisAttributeDictionary["ConflictingAttributes"]
+	#attribute.PreRequisiteAttributes = thisAttributeDictionary["PreRequisiteAttributes"]
+	if thisAttributeDictionary.has("ResultingAttributes") && thisAttributeDictionary["ResultingAttributes"].size() > 0:
+		attribute.ResultingAttributes = thisAttributeDictionary["ResultingAttributes"]
+
+	attribute.AffectedStats = thisAttributeDictionary["AffectedStats"]
+
+	#attribute.AffectedDynamicStatsCurrent = thisAttributeDictionary["AffectedDynamicStatsCurrent"]
+	#attribute.AffectedDynamicStatsCurrent = (thisAttributeDictionary["AffectedDynamicStatsCurrent"])
+
+	#attribute.AffectedDynamicStatsMax = thisAttributeDictionary["AffectedDynamicStatsMax"]
+	#attribute.AffectedDynamicStatsMax = (thisAttributeDictionary["AffectedDynamicStatsMax"])
+
+	#attribute.AffectedStaticStats = thisAttributeDictionary["AffectedStaticStats" ]
+	if thisAttributeDictionary.has("AuraAttributes") && thisAttributeDictionary["AuraAttributes"].size() > 0:
+		attribute.AuraAttributes = thisAttributeDictionary["AuraAttributes"]
+
+	#attribute.DrainingDynamicStats = thisAttributeDictionary["DrainingDynamicStats"]
+	#attribute.DrainingDynamicStats = (thisAttributeDictionary["DrainingDynamicStats"])
+
+	attribute.duration = thisAttributeDictionary["duration"]
+	#attribute.statSignalsToWatchFor = thisAttributeDictionary["statSignalsToWatchFor"]
+	#attribute.signalsThatWillRemoveAttribute = thisAttributeDictionary["signalsThatWillRemoveAttribute"]
+	#attribute.canCombineWith = thisAttributeDictionary["canCombineWith"]
+	#attribute.modifiedAttributes = thisAttributeDictionary["modifiedAttributes"]
+	#attribute.characterEventTypeChance = thisAttributeDictionary["characterEventTypeChance"]
+	#attribute.externalCombinations = thisAttributeDictionary["externalCombinations"]
+
+	createdAttributes.append(attribute)
+
+	return attribute
+
+
+	
+func _fetchAndCreateAttribute(attributeName):
+	var thisAttributeDictionary  = {}
+	#dictionary for a single attribute
+	for stat in createdAttributes:
+	#if this attribute has already been created once,
+	# use the version already created
+		if stat.attributeName == attributeName:
+			return stat
+
 	thisAttributeDictionary = attributeData[attributeName]
 	var attribute = System.attributeScript.new(attributeName)
 	#Add functions to fill variables
@@ -97,6 +169,8 @@ func fetchAndCreateAttribute(attributeName):
 	attribute.description = thisAttributeDictionary["description"]
 	attribute.PreRequisiteAttributes = thisAttributeDictionary["PreRequisiteAttributes"]
 	attribute.ResultingAttributes = thisAttributeDictionary["ResultingAttributes"]
+
+	#attribute.AffectedStats = thisAttributeDictionary["AffectedStats"]
 
 	attribute.AffectedDynamicStatsCurrent = thisAttributeDictionary["AffectedDynamicStatsCurrent"]
 	#attribute.AffectedDynamicStatsCurrent = (thisAttributeDictionary["AffectedDynamicStatsCurrent"])

@@ -5,7 +5,7 @@ var handInZone = false
 
 var viewingCharacterDetail = false
 var dragging = true
-
+export (int, FLAGS, "blue", "green", "red", "yellow") var characterType = 0
 signal draggingCharacter(character)
 signal stoppedDraggingCharacter(character)
 #warning-ignore:unused_class_variable
@@ -108,18 +108,19 @@ onready var healthTween = healthBar.get_node("HealthTween")
 #	}
 #}
 
-func _applyNewAttribute(newAttribute):	
+func applyNewAttribute(newAttribute):	
 
+	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
 		for possibleConflictingTrait in newTrait.ConflictingAttributes:
 			if oldTrait.attributeName == possibleConflictingTrait:
 				print("Conflicting trait existed")
 				return #this Return statement should pop the player out of this method
-	if(newTrait.attributeTypes.has("aura")):
+	if(newTrait.AuraAttributes != null && newTrait.AuraAttributes.size() > 0):
 		#if this trait is an aura, meaning it applies to other slots
-		for auraAttributeName in newAttribute.AuraAttributes:
-			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
-			SignalManager.emit_signal("emittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttributeName])
+		for auraAttribute in newAttribute.AuraAttributes:
+			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttribute["AttributeName"])
+			SignalManager.emit_signal("emittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttribute["AttributeName"]])
 
 	for stat in newAttribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
@@ -132,7 +133,7 @@ func _applyNewAttribute(newAttribute):
 			"drain":
 				addNewDrainSource(affectedStat, newAttribute, stat["amount"])
 			"static":
-				var newValue = get(stat["statName"]) + stat["amount"])
+				var newValue = get(stat["statName"] + stat["amount"])
 				set(stat["statName"], newValue)
 
 	characterAttributes.append(newAttribute)
@@ -146,8 +147,8 @@ func _applyNewAttribute(newAttribute):
 		add_child(timer) #to process
 		timer.start() #to start
 
-func _removeNewAttribute(attribute):
-	for stat in newAttribute["AffectedStats"]:
+func removeAttribute(attribute):
+	for stat in attribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
 		match stat["whichValue"]:	
 			"max":
@@ -158,10 +159,10 @@ func _removeNewAttribute(attribute):
 			"drain":
 				RemoveNewDrainSource(affectedStat, attribute, stat["amount"])
 			"static":
-				var newValue = get(stat["statName"]) - stat["amount"])
+				var newValue = get(stat["statName"] - stat["amount"])
 				set(stat["statName"], newValue)
 
-func applyNewAttribute(newAttribute):
+func _applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
 	for oldTrait in characterAttributes:
 		for possibleConflictingTrait in newTrait.ConflictingAttributes:
@@ -178,7 +179,7 @@ func applyNewAttribute(newAttribute):
 					var combinedAttribute = AttributeJSONParser.fetchAndCreateAttribute(newTrait.canCombineWith[possibleCombineableTrait])
 					applyNewAttribute(combinedAttribute)
 
-	if(newTrait.attributeTypes.has("aura")):
+	if(newTrait.AuraAttributes != null && newTrait.AuraAttributes.size() > 0):
 		#if this trait is an aura, meaning it applies to other slots
 		for auraAttributeName in newAttribute.AuraAttributes:
 			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
@@ -244,7 +245,7 @@ func removeAttributeByName(removeableAttributeName):
 
 	
 
-func removeAttribute(attribute):
+func _removeAttribute(attribute):
 	for oldTrait in characterAttributes:
 		if(attribute.canCombineWith.size() > 0):
 			#if traits in this dictionary do exist
@@ -511,6 +512,7 @@ func Die():
 
 func _ready():
 
+	print("Character type is " + str(characterType))
 	health = Stat.new()
 	sanity = Stat.new()
 	sustenance = Stat.new()
