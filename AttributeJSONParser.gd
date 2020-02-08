@@ -126,6 +126,7 @@ func fetchAndCreateAttribute(attributeName):
 	if thisAttributeDictionary.has("AuraAttributes") && thisAttributeDictionary["AuraAttributes"].size() > 0:
 		attribute.AuraAttributes = thisAttributeDictionary["AuraAttributes"]
 
+	attribute.temporary - thisAttributeDictionary["temporary"]
 	#attribute.DrainingDynamicStats = thisAttributeDictionary["DrainingDynamicStats"]
 	#attribute.DrainingDynamicStats = (thisAttributeDictionary["DrainingDynamicStats"])
 

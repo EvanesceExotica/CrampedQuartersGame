@@ -16,6 +16,8 @@ var previousSlot
 #warning-ignore:unused_class_variable
 var characterAttributes = [ ]
 var auraSlotRange = {}
+
+var potentialResultingAttributes = {}
 onready var rightFacingPosition = get_node("RightPosition")
 onready var leftFacingPosition = get_node("LeftPosition")
 
@@ -120,7 +122,19 @@ func applyNewAttribute(newAttribute):
 		#if this trait is an aura, meaning it applies to other slots
 		for auraAttribute in newAttribute.AuraAttributes:
 			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttribute["AttributeName"])
-			SignalManager.emit_signal("emittingAura", currentSlot, aura, newAttribute.AuraAttributes[auraAttribute["AttributeName"]])
+			SignalManager.emit_signal("emittingAura", currentSlot, aura, auraAttribute["Range"])
+			auraSlotRange[aura] = auraAttribute["Range"] 
+	if(newTrait.ResultingAttributes != null && newTrait.ResultingAttributes.size() > 0):
+		for resultingAttribute in newTrait.ResultingAttributes:
+			var result = AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["AttributeName"])
+			#put this in the
+			potentialResultingAttributes["result"] = resultingAttribute["chancePerHalfHour"]
+			#just start a timer here, it's simpler
+		var resultTimer = Timer.new()
+		timer.wait_time = 30 #TODO: calculate 30 seconds here
+		timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
+		add_child(timer) #to process
+		timer.start() #to start
 
 	for stat in newAttribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
@@ -139,6 +153,12 @@ func applyNewAttribute(newAttribute):
 	characterAttributes.append(newAttribute)
 	emit_signal("newAttributeAdded", newAttribute)
 
+	if newAttribute["temporary"] == true:
+		var timer = Timer.new()
+		timer.wait_time = newAttribute.duration
+		timer.connect("timeout",self,"conditionTimedOut", [newAttribute]) 
+		add_child(timer) #to process
+		timer.start() #to start
 	if(newAttribute.attributeTypes.has("temporaryCondition")):
 
 		var timer = Timer.new()
@@ -161,6 +181,27 @@ func removeAttribute(attribute):
 			"static":
 				var newValue = get(stat["statName"] - stat["amount"])
 				set(stat["statName"], newValue)
+
+# func ActivateResultingAttributes():
+# 	#this will tick every X seconds -- find way to have it tick from game time
+# 	var randomValue = randf()
+# 	for item in potentialResultingAttributes:
+# 		if randomValue <= resultingAttribute["chancePerHalfHour"]:
+# 			#if the generated number is less than
+# 			applyNewAttribute(resultingAttribute["attributeName"])
+
+func ActivateResultingAttribute(resultingAttribute):
+	var randomValue = randf()
+	if randomValue <= resultingAttribute["chancePerHalfHour"]:
+		#if the chance is rolled, apply the attribute
+		applyNewAttribute(resultingAttribute["attributeName"])
+	else:
+		#if not, restart the timer for each time it checks
+		var timer = Timer.new()
+		timer.wait_time = newAttribute.duration
+		timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
+		add_child(timer) #to process
+		timer.start() #to sta
 
 func _applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
@@ -511,7 +552,7 @@ func Die():
 	pass
 
 func _ready():
-
+	Randomize()
 	print("Character type is " + str(characterType))
 	health = Stat.new()
 	sanity = Stat.new()

@@ -32,10 +32,6 @@
 					"name": "AuraAttributes"
 				},
 				{
-					"typeStr": "16",
-					"name": "ResultingAttributes"
-				},
-				{
 					"typeStr": "4",
 					"name": "duration",
 					"display": null
@@ -48,6 +44,16 @@
 				{
 					"typeStr": "2",
 					"name": "inherentAttribute",
+					"display": null
+				},
+				{
+					"typeStr": "2",
+					"name": "temporary",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "ResultingAttributes",
 					"display": null
 				}
 			],
@@ -70,10 +76,9 @@
 					"ConflictingAttributes": [
 						"Frail"
 					],
-					"ResultingAttributes": [
-						"Test"
-					],
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "mentallySound",
@@ -93,7 +98,9 @@
 					"ConflictingAttributes": [
 						"Paranoid"
 					],
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "frail",
@@ -113,7 +120,9 @@
 					"ConflictingAttributes": [
 						"Tough"
 					],
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "paranoid",
@@ -133,7 +142,9 @@
 					"ConflictingAttributes": [
 						"MentallySound"
 					],
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "strong",
@@ -144,7 +155,9 @@
 					"eventChance": [],
 					"inherentAttribute": false,
 					"index": 4,
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "smallStomach",
@@ -164,7 +177,9 @@
 					"ConflictingAttributes": [
 						"BigStomach"
 					],
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "bigStomach",
@@ -184,7 +199,9 @@
 					"ConflictingAttributes": [
 						"SmallStomach"
 					],
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "onFire",
@@ -204,7 +221,9 @@
 					"ConflictingAttributes": [
 						"Underwater"
 					],
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "afraid",
@@ -221,7 +240,9 @@
 					"duration": 0,
 					"eventChance": [],
 					"inherentAttribute": false,
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "asphixiating",
@@ -238,7 +259,9 @@
 					"duration": 0,
 					"eventChance": [],
 					"inherentAttribute": false,
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "shaken",
@@ -255,7 +278,9 @@
 					"duration": 0,
 					"eventChance": [],
 					"inherentAttribute": false,
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "contaminated",
@@ -282,7 +307,15 @@
 						}
 					],
 					"inherentAttribute": false,
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [
+						{
+							"AttributeName": "diseased",
+							"appliesOnRemoval": false,
+							"chancePerHalfHour": 0.5
+						}
+					],
+					"temporary": false
 				},
 				{
 					"id": "diseased",
@@ -299,7 +332,9 @@
 					"duration": 0,
 					"eventChance": [],
 					"inherentAttribute": false,
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
 					"id": "Smelly",
@@ -313,12 +348,14 @@
 					"AuraAttributes": [
 						{
 							"Range": 3,
-							"AttributeName": "Smelly"
+							"AttributeName": "Nauseated"
 						}
-					]
+					],
+					"ResultingAttributes": [],
+					"temporary": false
 				},
 				{
-					"id": "nauseated",
+					"id": "Nauseated",
 					"attributeName": "Nauseated",
 					"description": "I feel ill... what's that smell?",
 					"index": 14,
@@ -332,7 +369,9 @@
 					"duration": 0,
 					"eventChance": [],
 					"inherentAttribute": false,
-					"AuraAttributes": []
+					"AuraAttributes": [],
+					"ResultingAttributes": [],
+					"temporary": false
 				}
 			],
 			"separators": [],
@@ -425,6 +464,31 @@
 				{
 					"typeStr": "3",
 					"name": "Range"
+				}
+			]
+		},
+		{
+			"name": "Attributes@ResultingAttributes",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "6:Attributes",
+					"name": "AttributeName",
+					"display": null
+				},
+				{
+					"typeStr": "2",
+					"name": "appliesOnRemoval",
+					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "chancePerHalfHour",
+					"display": null
 				}
 			]
 		}

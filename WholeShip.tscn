@@ -114,7 +114,7 @@ scale = Vector2( 0.5, 0.5 )
 position = Vector2( 672.925, 245.064 )
 
 [node name="PowerStaton" parent="." instance=ExtResource( 14 )]
-position = Vector2( 290, 125 )
+position = Vector2( -890, 50.033 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="WasteManagementStation" parent="." instance=ExtResource( 15 )]
