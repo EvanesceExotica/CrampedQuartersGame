@@ -118,23 +118,25 @@ func applyNewAttribute(newAttribute):
 			if oldTrait.attributeName == possibleConflictingTrait:
 				print("Conflicting trait existed")
 				return #this Return statement should pop the player out of this method
+
 	if(newTrait.AuraAttributes != null && newTrait.AuraAttributes.size() > 0):
 		#if this trait is an aura, meaning it applies to other slots
 		for auraAttribute in newAttribute.AuraAttributes:
 			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttribute["AttributeName"])
 			SignalManager.emit_signal("emittingAura", currentSlot, aura, auraAttribute["Range"])
 			auraSlotRange[aura] = auraAttribute["Range"] 
+
 	if(newTrait.ResultingAttributes != null && newTrait.ResultingAttributes.size() > 0):
 		for resultingAttribute in newTrait.ResultingAttributes:
 			var result = AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["AttributeName"])
 			#put this in the
-			potentialResultingAttributes["result"] = resultingAttribute["chancePerHalfHour"]
 			#just start a timer here, it's simpler
-		var resultTimer = Timer.new()
-		timer.wait_time = 30 #TODO: calculate 30 seconds here
-		timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
-		add_child(timer) #to process
-		timer.start() #to start
+			var resultTimer = Timer.new()
+			timer.wait_time = 30 #TODO: calculate 30 seconds here
+			timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
+			add_child(timer) #to process
+			timer.start() #to start
+			potentialResultingAttributes[result] = { resultingAttribute["chancePerHalfHour"], resultTimer } 
 
 	for stat in newAttribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
@@ -159,13 +161,7 @@ func applyNewAttribute(newAttribute):
 		timer.connect("timeout",self,"conditionTimedOut", [newAttribute]) 
 		add_child(timer) #to process
 		timer.start() #to start
-	if(newAttribute.attributeTypes.has("temporaryCondition")):
-
-		var timer = Timer.new()
-		timer.wait_time = newAttribute.duration
-		timer.connect("timeout",self,"conditionTimedOut", [newAttribute]) 
-		add_child(timer) #to process
-		timer.start() #to start
+	
 
 func removeAttribute(attribute):
 	for stat in attribute["AffectedStats"]:
@@ -182,21 +178,33 @@ func removeAttribute(attribute):
 				var newValue = get(stat["statName"] - stat["amount"])
 				set(stat["statName"], newValue)
 
-# func ActivateResultingAttributes():
-# 	#this will tick every X seconds -- find way to have it tick from game time
-# 	var randomValue = randf()
-# 	for item in potentialResultingAttributes:
-# 		if randomValue <= resultingAttribute["chancePerHalfHour"]:
-# 			#if the generated number is less than
-# 			applyNewAttribute(resultingAttribute["attributeName"])
+
+	if(newTrait.ResultingAttributes != null && newTrait.ResultingAttributes.size() > 0):
+		for resultingAttribute in newTrait.ResultingAttributes:
+			for item in potentialResultingAttributes[result]:
+				
+			var result = AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["AttributeName"])
+			#put this in the
+			potentialResultingAttributes[result] = resultingAttribute["chancePerHalfHour"]
+			#just start a timer here, it's simpler
+			var resultTimer = Timer.new()
+			timer.wait_time = 30 #TODO: calculate 30 seconds here
+			timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
+			add_child(timer) #to process
+			timer.start() #to start
+
+func RemoveResultingAttribute(resultingAttribute):
+
 
 func ActivateResultingAttribute(resultingAttribute):
 	var randomValue = randf()
 	if randomValue <= resultingAttribute["chancePerHalfHour"]:
 		#if the chance is rolled, apply the attribute
+		print("Resulting attribute has applied!" + resultingAttribute["attributeName"])
 		applyNewAttribute(resultingAttribute["attributeName"])
 	else:
 		#if not, restart the timer for each time it checks
+		print("Check again  for " + resultingAttribute["attributeName"])
 		var timer = Timer.new()
 		timer.wait_time = newAttribute.duration
 		timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 

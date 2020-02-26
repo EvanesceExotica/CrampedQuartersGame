@@ -2,6 +2,7 @@ extends Node
 
 var timeRatio = 0.00694 #0.01
 var gameTime = 0
+var realTime = 0
 
 var handledHourPass = false
 var handledDayPass = false
@@ -19,6 +20,7 @@ func HandleHourPassing():
 
 func _process(delta):
     gameTime += delta /  timeRatio
+    realTime += delta
 
 
     #figure out cleaner way to handle this
@@ -43,6 +45,15 @@ func Milliseconds():
 
     #gmaeTime converts totalSeconds to int, so this subtraction may be getting the difference of that to apply to the miliseconds which would be behind the decimal place
     return int(gameTime - totalSeconds()) * 1000
+
+# func realTotalSeconds():
+#     return int(realTime)
+# func RealSeconds():
+#     return int(realTotalSeconds() % 60)
+# func RealMinutes():
+#     #get the amount of minutes, see how many times they go into 60 which should euqal the number of hours that have passed, and gets what's left over to display as minutes
+#     return int((realTotalSeconds() / 60) % 60)
+
 
 func Seconds():
 

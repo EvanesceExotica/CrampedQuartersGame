@@ -3,7 +3,6 @@ extends Node2D
 
 var selectedCharacter
 var attributeScript = preload("res://Attribute.gd")
-
 enum attributeTypes  {inherentAttribute, condition}
 enum entities {character, station, slot}
 
