@@ -136,7 +136,8 @@ func applyNewAttribute(newAttribute):
 			timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
 			add_child(timer) #to process
 			timer.start() #to start
-			potentialResultingAttributes[result] = { resultingAttribute["chancePerHalfHour"], resultTimer } 
+			# TODO: Put this back in VVV
+			#potentialResultingAttributes[result] = { resultingAttribute["chancePerHalfHour"], resultTimer } 
 
 	for stat in newAttribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
@@ -179,21 +180,24 @@ func removeAttribute(attribute):
 				set(stat["statName"], newValue)
 
 
-	if(newTrait.ResultingAttributes != null && newTrait.ResultingAttributes.size() > 0):
-		for resultingAttribute in newTrait.ResultingAttributes:
-			for item in potentialResultingAttributes[result]:
+	if(attribute.ResultingAttributes != null && attribute.ResultingAttributes.size() > 0):
+		for resultingAttribute in attribute.ResultingAttributes:
+			pass
+			#TODO: PUT THIS BACK IN 
+			# for item in potentialResultingAttributes[result]:
 				
-			var result = AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["AttributeName"])
-			#put this in the
-			potentialResultingAttributes[result] = resultingAttribute["chancePerHalfHour"]
-			#just start a timer here, it's simpler
-			var resultTimer = Timer.new()
-			timer.wait_time = 30 #TODO: calculate 30 seconds here
-			timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
-			add_child(timer) #to process
-			timer.start() #to start
+			# 	var result = AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["AttributeName"])
+			# 	#put this in the
+			# 	potentialResultingAttributes[result] = resultingAttribute["chancePerHalfHour"]
+			# 	#just start a timer here, it's simpler
+			# 	var resultTimer = Timer.new()
+			# 	timer.wait_time = 30 #TODO: calculate 30 seconds here
+			# 	timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
+			# 	add_child(timer) #to process
+			# 	timer.start() #to start
 
 func RemoveResultingAttribute(resultingAttribute):
+	pass
 
 
 func ActivateResultingAttribute(resultingAttribute):
@@ -206,7 +210,7 @@ func ActivateResultingAttribute(resultingAttribute):
 		#if not, restart the timer for each time it checks
 		print("Check again  for " + resultingAttribute["attributeName"])
 		var timer = Timer.new()
-		timer.wait_time = newAttribute.duration
+		timer.wait_time = resultingAttribute.duration
 		timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
 		add_child(timer) #to process
 		timer.start() #to sta
@@ -560,7 +564,7 @@ func Die():
 	pass
 
 func _ready():
-	Randomize()
+	randomize()
 	print("Character type is " + str(characterType))
 	health = Stat.new()
 	sanity = Stat.new()

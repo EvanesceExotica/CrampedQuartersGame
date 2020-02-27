@@ -1,19 +1,20 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Room.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Gradient/Reddish.tres" type="Gradient" id=2]
-[ext_resource path="res://sci_fi_bg1.jpg" type="Texture" id=3]
-[ext_resource path="res://Clock.gd" type="Script" id=4]
-[ext_resource path="res://bag_furniture_sdb_sci-fi_monitor_storage_display_box.png" type="Texture" id=5]
-[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://furniture_loveseat_spaceship_love_seat.png" type="Texture" id=8]
-[ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=9]
-[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Lights/Light.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Stations/SlotManager.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Slot.tscn" type="PackedScene" id=14]
+[ext_resource path="res://02-25-20_9-26-59 PM.png" type="Texture" id=2]
+[ext_resource path="res://Gradient/Reddish.tres" type="Gradient" id=3]
+[ext_resource path="res://sci_fi_bg1.jpg" type="Texture" id=4]
+[ext_resource path="res://Clock.gd" type="Script" id=5]
+[ext_resource path="res://bag_furniture_sdb_sci-fi_monitor_storage_display_box.png" type="Texture" id=6]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://furniture_loveseat_spaceship_love_seat.png" type="Texture" id=9]
+[ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=10]
+[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Lights/Light.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Stations/SlotManager.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Slot.tscn" type="PackedScene" id=15]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -33,7 +34,7 @@ void fragment()
 }"
 
 [sub_resource type="GradientTexture" id=2]
-gradient = ExtResource( 2 )
+gradient = ExtResource( 3 )
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 1 )
@@ -42,31 +43,43 @@ shader_param/gradient = SubResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 60
-font_data = ExtResource( 6 )
+font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 50
-font_data = ExtResource( 7 )
+font_data = ExtResource( 8 )
 
 [node name="PassengerRoom" instance=ExtResource( 1 )]
+modulate = Color( 0.345098, 0.305882, 0.564706, 1 )
 
-[node name="Objects" type="Node2D" parent="." index="3"]
+[node name="02-25-20_9-26-59 PM" type="Sprite" parent="." index="0"]
+position = Vector2( 520, 310 )
+scale = Vector2( 0.56432, 0.56432 )
+texture = ExtResource( 2 )
+
+[node name="sci_fi_bg1" parent="." index="1"]
+visible = false
+
+[node name="Objects" type="Node2D" parent="." index="4"]
+editor/display_folded = true
+visible = false
 
 [node name="sci_fi_bg1" type="Sprite" parent="Objects" index="0"]
+visible = false
 modulate = Color( 0.0627451, 0.152941, 0.176471, 1 )
 material = SubResource( 3 )
 position = Vector2( 528.404, 296.29 )
 scale = Vector2( 0.546471, 0.552421 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Clock" type="Node2D" parent="Objects" index="1"]
 position = Vector2( 354.92, 174.117 )
 scale = Vector2( 0.371125, 0.371125 )
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="Monitor" type="Sprite" parent="Objects/Clock" index="0"]
 modulate = Color( 0.113725, 0.133333, 0.145098, 1 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Label" type="Label" parent="Objects/Clock" index="1"]
 margin_left = -140.0
@@ -89,50 +102,52 @@ text = "DAY"
 modulate = Color( 0.0156863, 0.0784314, 0.101961, 1 )
 position = Vector2( 543.391, 487.011 )
 scale = Vector2( 0.517764, 0.517764 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="furniture_armchair_blue_modern_box_chair" type="Sprite" parent="Objects" index="3"]
+visible = false
 modulate = Color( 0.0117647, 0.117647, 0.164706, 1 )
 position = Vector2( 175.746, 508.716 )
 scale = Vector2( 0.302081, 0.302081 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="furniture_armchair_blue_modern_box_chair2" type="Sprite" parent="Objects" index="4"]
+visible = false
 modulate = Color( 0.0117647, 0.117647, 0.164706, 1 )
 position = Vector2( 904.304, 493.132 )
 scale = Vector2( -0.302, 0.302 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
-[node name="HealthDispenser" parent="Objects" index="5" instance=ExtResource( 10 )]
+[node name="HealthDispenser" parent="Objects" index="5" instance=ExtResource( 11 )]
 position = Vector2( 810, 110 )
 scale = Vector2( 0.439999, 0.44 )
 
-[node name="Dispenser" parent="Objects" index="6" instance=ExtResource( 11 )]
+[node name="Dispenser" parent="Objects" index="6" instance=ExtResource( 12 )]
 position = Vector2( 550, 101.695 )
 scale = Vector2( 0.48, 0.52 )
 
 [node name="CameraPosition" type="Position2D" parent="Objects" index="7"]
 position = Vector2( 560, 291.866 )
 
-[node name="Light" parent="." index="4" instance=ExtResource( 12 )]
+[node name="Light" parent="." index="5" instance=ExtResource( 13 )]
 position = Vector2( 130, 150 )
 
-[node name="Light2" parent="." index="5" instance=ExtResource( 12 )]
+[node name="Light2" parent="." index="6" instance=ExtResource( 13 )]
 position = Vector2( 760, 180 )
 
-[node name="SlotManager" parent="." index="6" instance=ExtResource( 13 )]
+[node name="SlotManager" parent="." index="7" instance=ExtResource( 14 )]
 
-[node name="Slot-1" parent="SlotManager" index="0" instance=ExtResource( 14 )]
-position = Vector2( 125.475, 439.654 )
+[node name="Slot-1" parent="SlotManager" index="0" instance=ExtResource( 15 )]
+position = Vector2( 210, 410 )
 
-[node name="Slot-3" parent="SlotManager" index="1" instance=ExtResource( 14 )]
-position = Vector2( 390, 470 )
+[node name="Slot-3" parent="SlotManager" index="1" instance=ExtResource( 15 )]
+position = Vector2( 390, 400 )
 
-[node name="Slot-4" parent="SlotManager" index="2" instance=ExtResource( 14 )]
-position = Vector2( 660, 476.916 )
+[node name="Slot-4" parent="SlotManager" index="2" instance=ExtResource( 15 )]
+position = Vector2( 650, 390 )
 onLeftOfRoom = false
 
-[node name="Slot-6" parent="SlotManager" index="3" instance=ExtResource( 14 )]
-position = Vector2( 941.001, 454.693 )
+[node name="Slot-6" parent="SlotManager" index="3" instance=ExtResource( 15 )]
+position = Vector2( 820, 430 )
 onLeftOfRoom = false
 

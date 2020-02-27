@@ -45,7 +45,7 @@ var attributeTypes =  [] #what type(s) of attribute this is
 
 #var characterAttachedTo
 var description = ""
-var temproary = false
+var temporary = false
 var ConflictingAttributes =  [] #Other attributes that conflict with this one
 var PreRequisiteAttributes = [] #Attributes that cause this one
 var ResultingAttributes =  [] #Attributes that will result from this one 'On Fire --> Shaken'
