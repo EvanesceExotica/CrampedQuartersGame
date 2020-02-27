@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Bulkhead.gd" type="Script" id=1]
 [ext_resource path="res://furniture_door_spaceship_door.png" type="Texture" id=2]
+[ext_resource path="res://Utility/Arrow.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 140, 180 )
@@ -10,11 +11,14 @@ extents = Vector2( 140, 180 )
 script = ExtResource( 1 )
 
 [node name="furniture_door_spaceship_door" type="Sprite" parent="."]
+visible = false
 scale = Vector2( 0.285, 0.285 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Node2D" parent="." instance=ExtResource( 3 )]
 
 [connection signal="area_entered" from="." to="." method="_on_Bulkhead_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Bulkhead_area_exited"]

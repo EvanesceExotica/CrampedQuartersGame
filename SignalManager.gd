@@ -1,6 +1,6 @@
 extends Node
 
-
+signal OnRoomSwitched(oldRoom, newRoom)
 signal AddTrait(parameters)
 signal RemoveTrait(parameters)
 

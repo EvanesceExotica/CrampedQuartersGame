@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Stations/PowerStation.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Stations/WasteManagementStation.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Stations/AtmosphereStation.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Utility/RoomSwitchController.tscn" type="PackedScene" id=17]
 
 [node name="WholeShip" type="Node2D"]
 script = ExtResource( 1 )
@@ -42,21 +43,29 @@ zoom = Vector2( 2, 2 )
 [node name="Tween" type="Tween" parent="Camera2D"]
 
 [node name="PassengerRoom" parent="." instance=ExtResource( 3 )]
+roomAbove = NodePath("../AirlockRoom")
+roomToRight = NodePath("../AquariumRoom")
+roomBelow = NodePath("../SupplyClosetRoom")
+roomToLeft = NodePath("../ReactorRoom")
 
 [node name="AirlockRoom" parent="." instance=ExtResource( 4 )]
 position = Vector2( 3.79181, -760 )
+roomBelow = NodePath("../PassengerRoom")
 
 [node name="AquariumRoom" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1140, -2.0173 )
+roomToLeft = NodePath("../PassengerRoom")
 
 [node name="SupplyClosetRoom" parent="." instance=ExtResource( 6 )]
 position = Vector2( -22.6275, 770 )
+roomAbove = NodePath("../PassengerRoom")
 
 [node name="ReactorRoom" parent="." instance=ExtResource( 7 )]
 position = Vector2( -1130, 10 )
+roomToRight = NodePath("../PassengerRoom")
 
 [node name="RToMain" parent="." instance=ExtResource( 8 )]
-position = Vector2( -100, 450 )
+position = Vector2( -181.435, 236.427 )
 scale = Vector2( 0.52, 0.56 )
 destinationRoomType = 4
 
@@ -71,7 +80,7 @@ scale = Vector2( 0.52, 0.56 )
 destinationRoomType = 4
 
 [node name="AQtoMain" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1170, 443 )
+position = Vector2( 1360, 138.86 )
 scale = Vector2( 0.52, 0.56 )
 destinationRoomType = 4
 
@@ -124,5 +133,7 @@ scale = Vector2( 0.5, 0.5 )
 [node name="AtmosphereStation" parent="." instance=ExtResource( 16 )]
 position = Vector2( 630, 44.4081 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="RoomSwitchController" parent="." instance=ExtResource( 17 )]
 
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]

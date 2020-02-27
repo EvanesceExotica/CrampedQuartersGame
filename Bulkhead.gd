@@ -40,7 +40,7 @@ func switchRooms():
 	# #System.tweenMainCameraToNewRoom(destinationCameraPosition)
 
 	#destinationCamera.current = true
-
+var ship = null
 func startCountdown():
 	timer = Timer.new()
 	timer.set_wait_time(hoverTimeRequired)
@@ -56,20 +56,21 @@ func onBulkheadHoverTimeout():
 	pass
 
 func _ready():
+	ship = get_tree().get_root().get_node("WholeShip")
 	if(destinationRoomType == Rooms.airlock):
-		destinationRoom = get_parent().get_node("AirlockRoom")
+		destinationRoom = ship.get_node("AirlockRoom")
 
 	elif(destinationRoomType == Rooms.aquarium):
-		destinationRoom = get_parent().get_node("AquariumRoom")
+		destinationRoom = ship.get_node("AquariumRoom")
 
 	elif(destinationRoomType == Rooms.supplyCloset):
-		destinationRoom = get_parent().get_node("SupplyClosetRoom")
+		destinationRoom = ship.get_node("SupplyClosetRoom")
 
 	elif(destinationRoomType == Rooms.reactorRoom):
-		destinationRoom = get_parent().get_node("ReactorRoom")
+		destinationRoom = ship.get_node("ReactorRoom")
 
 	elif(destinationRoomType == Rooms.mainRoom):
-		destinationRoom = get_parent().get_node("PassengerRoom")
+		destinationRoom = ship.get_node("PassengerRoom")
 
 	destinationCameraPosition = destinationRoom.get_node("CameraPosition")
 	#print(destinationCameraPosition.global_position)

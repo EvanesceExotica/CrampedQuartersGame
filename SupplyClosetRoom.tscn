@@ -6,7 +6,7 @@
 [ext_resource path="res://Stations/SlotManager.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Slot.tscn" type="PackedScene" id=5]
 
-[node name="SupplyClosetRoom" index="0" instance=ExtResource( 1 )]
+[node name="SupplyClosetRoom" instance=ExtResource( 1 )]
 
 [node name="sci_fi_bg1" parent="." index="0"]
 visible = false
