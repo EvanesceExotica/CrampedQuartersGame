@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -7,16 +7,15 @@
 [ext_resource path="res://AquariumRoom.tscn" type="PackedScene" id=5]
 [ext_resource path="res://SupplyClosetRoom.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ReactorRoom.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Bulkhead.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Hand.tscn" type="PackedScene" id=9]
-[ext_resource path="res://CharacterGenerator.tscn" type="PackedScene" id=10]
-[ext_resource path="res://StatData/AirBreather.tres" type="Resource" id=11]
-[ext_resource path="res://Stations/Station.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Events/EventGenerator.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Stations/PowerStation.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Stations/WasteManagementStation.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Stations/AtmosphereStation.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Utility/RoomSwitchController.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Hand.tscn" type="PackedScene" id=8]
+[ext_resource path="res://CharacterGenerator.tscn" type="PackedScene" id=9]
+[ext_resource path="res://StatData/AirBreather.tres" type="Resource" id=10]
+[ext_resource path="res://Stations/Station.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Events/EventGenerator.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Stations/PowerStation.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Stations/WasteManagementStation.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Stations/AtmosphereStation.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Utility/RoomSwitchController.tscn" type="PackedScene" id=16]
 
 [node name="WholeShip" type="Node2D"]
 script = ExtResource( 1 )
@@ -64,49 +63,10 @@ roomAbove = NodePath("../PassengerRoom")
 position = Vector2( -1130, 10 )
 roomToRight = NodePath("../PassengerRoom")
 
-[node name="RToMain" parent="." instance=ExtResource( 8 )]
-position = Vector2( -181.435, 236.427 )
-scale = Vector2( 0.52, 0.56 )
-destinationRoomType = 4
+[node name="Hand" parent="." instance=ExtResource( 8 )]
 
-[node name="SCtoMain" parent="." instance=ExtResource( 8 )]
-position = Vector2( 598.825, 790 )
-scale = Vector2( 0.52, 0.56 )
-destinationRoomType = 4
-
-[node name="ALtoMain" parent="." instance=ExtResource( 8 )]
-position = Vector2( 510, -210 )
-scale = Vector2( 0.52, 0.56 )
-destinationRoomType = 4
-
-[node name="AQtoMain" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1360, 138.86 )
-scale = Vector2( 0.52, 0.56 )
-destinationRoomType = 4
-
-[node name="ToReactor" parent="." instance=ExtResource( 8 )]
-position = Vector2( 40, 160 )
-scale = Vector2( 0.52, 0.56 )
-destinationRoomType = 3
-
-[node name="toAqua" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1010, 183.794 )
-scale = Vector2( 0.52, 0.56 )
-destinationRoomType = 1
-
-[node name="toSC" parent="." instance=ExtResource( 8 )]
-position = Vector2( 279.875, 610 )
-scale = Vector2( 0.52, 0.56 )
-destinationRoomType = 2
-
-[node name="toAL" parent="." instance=ExtResource( 8 )]
-position = Vector2( 300, -10 )
-scale = Vector2( 0.52, 0.56 )
-
-[node name="Hand" parent="." instance=ExtResource( 9 )]
-
-[node name="CharacterGenerator" parent="." instance=ExtResource( 10 )]
-speciesOptions = [ ExtResource( 11 ) ]
+[node name="CharacterGenerator" parent="." instance=ExtResource( 9 )]
+speciesOptions = [ ExtResource( 10 ) ]
 
 [node name="Button" type="Button" parent="CharacterGenerator"]
 margin_left = 480.0
@@ -115,25 +75,25 @@ margin_right = 647.0
 margin_bottom = 265.064
 text = "Generate New Character"
 
-[node name="Station" parent="." instance=ExtResource( 12 )]
+[node name="Station" parent="." instance=ExtResource( 11 )]
 position = Vector2( 130, 100 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="EventGenerator" parent="." instance=ExtResource( 13 )]
+[node name="EventGenerator" parent="." instance=ExtResource( 12 )]
 position = Vector2( 672.925, 245.064 )
 
-[node name="PowerStaton" parent="." instance=ExtResource( 14 )]
+[node name="PowerStaton" parent="." instance=ExtResource( 13 )]
 position = Vector2( -890, 50.033 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="WasteManagementStation" parent="." instance=ExtResource( 15 )]
+[node name="WasteManagementStation" parent="." instance=ExtResource( 14 )]
 position = Vector2( 820, 218.302 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="AtmosphereStation" parent="." instance=ExtResource( 16 )]
+[node name="AtmosphereStation" parent="." instance=ExtResource( 15 )]
 position = Vector2( 630, 44.4081 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="RoomSwitchController" parent="." instance=ExtResource( 17 )]
+[node name="RoomSwitchController" parent="." instance=ExtResource( 16 )]
 
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]

@@ -5,33 +5,41 @@ var roomSwitched = false
 func _input(event):
 
     var destinationRoom
+    #unassigned, these nodepaths will default to the current node
+    #if(currentRoom.roomAbove == NodePath()):
+    #    print(currentRoom.name + ": going Up is an Empty nodepath!!!")
     if event.is_action_pressed("ui_right"):
-        print("Room to right of current is " + currentRoom.roomToRight)
-        if currentRoom.roomToRight != null:
+        if currentRoom.roomToRight != NodePath():
+        #if get_node(currentRoom.roomToRight) != self:
             destinationRoom = currentRoom.roomToRight;
             roomSwitched = true
 
     elif event.is_action_pressed("ui_left"):
-        if currentRoom.roomToLeft != null:
+        if currentRoom.roomToLeft != NodePath():
+        #if get_node(currentRoom.roomToLeft) != self:
             destinationRoom = currentRoom.roomToLeft;
             roomSwitched = true
 
     elif event.is_action_pressed("ui_up"):
-        if currentRoom.roomAbove != null:
+        if currentRoom.roomAbove != NodePath():
+        #if get_node(currentRoom.roomAbove) != self:
             destinationRoom = currentRoom.roomAbove;
             roomSwitched = true
 
     elif event.is_action_pressed("ui_down"):
-        if currentRoom.roomBelow != null:
+        if currentRoom.roomBelow != NodePath():
+        #if get_node(currentRoom.roomBelow) != self:
             destinationRoom = currentRoom.roomBelow;
             roomSwitched = true
-
-    if(roomSwitched):
-        SignalManager.emit_signal("OnRoomSwitched", currentRoom, get_node("destinationRoom"))
+    else:
+        roomSwitched = false
+    if(roomSwitched && destinationRoom != NodePath()):
+        SignalManager.emit_signal("OnRoomSwitched", currentRoom, get_node(destinationRoom))
         currentRoom = get_node(destinationRoom)
         currentRoom.camera.current = true
         #currentRoom.SetCurrentRoom()
         roomSwitched = false
+       # print(str(roomSwitched))
         print("Current room is " + currentRoom.name);
 
 func _ready():

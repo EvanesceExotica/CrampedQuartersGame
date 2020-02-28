@@ -45,8 +45,8 @@ func _ready():
 # }
 func load_json():
 	var file = File.new()
-	assert file.file_exists("res://RelevantJSON/CrampedQuartersAttributes2.json")
-	file.open("res://RelevantJSON/CrampedQuartersAttributes2.json", file.READ)
+	assert file.file_exists("res://RelevantJSON/CrampedQuartersAttributes2.JSON")
+	file.open("res://RelevantJSON/CrampedQuartersAttributes2.JSON", file.READ)
 	var entireFile = parse_json(file.get_as_text())
 	attributeData = entireFile["sheets"][0]["lines"]
 	#attributeData = parse_json(file.get_as_text())
