@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -16,6 +16,12 @@
 [ext_resource path="res://Stations/WasteManagementStation.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Stations/AtmosphereStation.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Utility/RoomSwitchController.tscn" type="PackedScene" id=16]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 121, 98.7021 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 61, 86.604 )
 
 [node name="WholeShip" type="Node2D"]
 script = ExtResource( 1 )
@@ -83,12 +89,21 @@ scale = Vector2( 0.5, 0.5 )
 position = Vector2( 672.925, 245.064 )
 
 [node name="PowerStaton" parent="." instance=ExtResource( 13 )]
-position = Vector2( -890, 50.033 )
+position = Vector2( -1010, 74.3511 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="CollisionShape2D" parent="PowerStaton/InteractionSpace" index="0"]
+shape = SubResource( 2 )
 
 [node name="WasteManagementStation" parent="." instance=ExtResource( 14 )]
 position = Vector2( 820, 218.302 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="InteractionSpace" parent="WasteManagementStation" index="3"]
+position = Vector2( 160, 136.604 )
+
+[node name="CollisionShape2D" parent="WasteManagementStation/InteractionSpace" index="0"]
+shape = SubResource( 1 )
 
 [node name="AtmosphereStation" parent="." instance=ExtResource( 15 )]
 position = Vector2( 630, 44.4081 )
@@ -97,3 +112,7 @@ scale = Vector2( 0.5, 0.5 )
 [node name="RoomSwitchController" parent="." instance=ExtResource( 16 )]
 
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]
+
+[editable path="PowerStaton"]
+
+[editable path="WasteManagementStation"]

@@ -14,6 +14,7 @@ var dispensedItem
 var maxAmountHeld = 3
 var amountToDispense = 3
 
+var initialRespawnWaitTime = 100
 var respawnWaitTime = 100
 
 func removeDispensedItemFromDispenser(dispenser, character):
@@ -64,6 +65,15 @@ func onRespawnTimerTimeout():
 		amountToDispense = maxAmountHeld
 	else:
 		respawnItem()
+
+func slowRespawnRate():
+	respawnWaitTime = respawnWaitTime * 0.5;
+
+func resetRespawnRate():
+	respawnWaitTime = initialRespawnWaitTime
+
+func haltRespawning():
+	
 
 func _on_Dispenser_area_entered(area):
 	if(area.name == "Hand"):
