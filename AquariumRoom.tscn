@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://02-26-20_10-18-16 PM.png" type="Texture" id=2]
@@ -13,8 +13,12 @@
 [ext_resource path="res://Lights/Light.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Stations/SlotManager.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Slot.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Stations/WaterStation.tscn" type="PackedScene" id=14]
 
-[node name="AquariumRoom" instance=ExtResource( 1 )]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 31, 150 )
+
+[node name="AquariumRoom" index="0" instance=ExtResource( 1 )]
 modulate = Color( 0.0392157, 0.333333, 0.568627, 1 )
 
 [node name="sci_fi_bg1" parent="." index="0"]
@@ -152,5 +156,13 @@ position = Vector2( 10, -10 )
 [node name="Light" parent="." index="6" instance=ExtResource( 11 )]
 position = Vector2( 510, 230 )
 
+[node name="WaterStation" parent="." index="7" instance=ExtResource( 14 )]
+position = Vector2( 270, 90 )
+
+[node name="CollisionShape2D" parent="WaterStation/InteractionSpace" index="0"]
+shape = SubResource( 1 )
+
 
 [editable path="SlotManager/Slot"]
+
+[editable path="WaterStation"]
