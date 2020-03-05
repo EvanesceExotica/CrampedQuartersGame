@@ -7,6 +7,9 @@
 [node name="HealthDispenser" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="bag_furniture_sdb_blue_light_glass_display_box" parent="." index="1"]
+visible = false
+
 [node name="furniture_walldeco_i_heart_8bit_life_wall_deco" type="Sprite" parent="." index="3"]
 position = Vector2( 0, 55.5555 )
 scale = Vector2( 0.5, 0.5 )

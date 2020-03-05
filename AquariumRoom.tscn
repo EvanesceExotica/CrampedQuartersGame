@@ -18,7 +18,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 31, 150 )
 
-[node name="AquariumRoom" index="0" instance=ExtResource( 1 )]
+[node name="AquariumRoom" instance=ExtResource( 1 )]
 modulate = Color( 0.0392157, 0.333333, 0.568627, 1 )
 
 [node name="sci_fi_bg1" parent="." index="0"]

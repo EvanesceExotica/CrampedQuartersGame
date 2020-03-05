@@ -1,6 +1,6 @@
 extends Node2D
 
-
+onready var nameDisplay = get_node("ShowName")
 onready var warningFlash = get_node("WarningFlash")
 onready var room
 onready var interactionSpace = get_node("InteractionSpace")
@@ -121,7 +121,7 @@ func callForMaintenance():
 
 func disableStation():
 	hideAndStopWarningFlash()
-	print("Station disabled! -- affects taking place!")
+	print("Station disabled! -- effects taking place!")
 	#this happens when the station takes too much damage or a maintenance check is failed or runs out of time
 	pass
 func getHalfHealthValue():
@@ -147,9 +147,11 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _on_InteractionSpace_mouse_entered():
 	mouseHovering = true
+	nameDisplay.showDisplay()
 
 func _on_InteractionSpace_mouse_exited():
 	mouseHovering = false
+	nameDisplay.hideDisplay()
 
 
 func _on_Button_pressed():
