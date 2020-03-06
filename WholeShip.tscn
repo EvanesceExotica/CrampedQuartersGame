@@ -43,10 +43,8 @@ margin_bottom = 80.0
 [node name="CharacterAttributes" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-editor/display_folded = true
 position = Vector2( 510, 299.38 )
 current = true
-zoom = Vector2( 2, 2 )
 
 [node name="Tween" type="Tween" parent="Camera2D"]
 
@@ -89,6 +87,7 @@ text = "Generate New Character"
 position = Vector2( 672.925, 245.064 )
 
 [node name="PowerStaton" parent="." instance=ExtResource( 12 )]
+editor/display_folded = true
 position = Vector2( -750, 157.983 )
 scale = Vector2( 0.5, 0.5 )
 

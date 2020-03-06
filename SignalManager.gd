@@ -4,6 +4,9 @@ signal OnRoomSwitched(oldRoom, newRoom)
 signal AddTrait(parameters)
 signal RemoveTrait(parameters)
 
+signal FoodHarvested(amount)
+signal ChangeFoodProductionRate(amount)
+
 signal SelectedLocationNode(node)
 
 signal DeselectedLocationNode(node)

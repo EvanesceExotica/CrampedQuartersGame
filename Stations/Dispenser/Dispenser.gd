@@ -17,6 +17,8 @@ var amountToDispense = 3
 var initialRespawnWaitTime = 100
 var respawnWaitTime = 100
 
+var appliedAttributes = []
+
 func removeDispensedItemFromDispenser(dispenser, character):
 	if(dispenser == self):
 		amountToDispense-= 1
@@ -73,6 +75,7 @@ func resetRespawnRate():
 	respawnWaitTime = initialRespawnWaitTime
 
 func haltRespawning():
+	pass
 	
 
 func _on_Dispenser_area_entered(area):

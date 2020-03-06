@@ -8,6 +8,7 @@
 minigameScreen = ExtResource( 2 )
 
 [node name="Interface" parent="." index="0"]
+visible = true
 position = Vector2( 252.2, 149.7 )
 scale = Vector2( 0.262708, 0.259815 )
 texture = ExtResource( 3 )

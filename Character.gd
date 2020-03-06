@@ -590,9 +590,9 @@ func turnOnAuras():
 func checkIfSomethingDropped(dispenser):
 	if(handInZone):
 		if(dispenser.dispensedItem == dispenser.ItemOptions.health):
-			changeStatValue(DynamicStats.health, dispenser.dispensedItemValue, false)
+			changeStatValue(health, dispenser.dispensedItemValue, false)
 		elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
-			changeStatValue(DynamicStats.sustenance, dispenser.dispensedItemValue, false)
+			changeStatValue(sustenance, dispenser.dispensedItemValue, false)
 		System.emit_signal("dispensedItemConsumed", dispenser, self)
 
 func _process(delta):
