@@ -14,6 +14,7 @@ func CalculateFoodValue(amount):
 	dispensedItemValue = amount
 	pass
 func ReduceFoodValue(amount):
+	pass
 	#Have it calculate from the health of the plants when the item is produced 
 	#that might end up inconsistent though
 	#or not if healing plants up takes a while

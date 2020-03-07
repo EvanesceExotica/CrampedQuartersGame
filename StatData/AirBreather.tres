@@ -7,4 +7,3 @@ script = ExtResource( 1 )
 speciesName = "AirBreather"
 slotComfortRanking = [ [ "mainRoom" ], [ "garden" ], [ "closet" ], [ "engine", "airLock" ], [ "aquatic" ] ]
 conflictingAttributes = [  ]
-

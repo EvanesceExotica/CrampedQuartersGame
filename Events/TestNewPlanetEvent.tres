@@ -14,4 +14,3 @@ eventChoices = {
 "Leave them stranded.": [ ExtResource( 1 ) ],
 "Take them aboard.": ExtResource( 2 )
 }
-

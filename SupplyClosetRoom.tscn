@@ -54,7 +54,6 @@ position = Vector2( 270, 340 )
 position = Vector2( 0, 41.6667 )
 scale = Vector2( 0.277778, 0.25 )
 
-
 [editable path="Dispenser"]
 
 [editable path="SlotManager/Slot"]
