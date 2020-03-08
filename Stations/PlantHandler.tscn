@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://PlantHandler.gd" type="Script" id=1]
 [ext_resource path="res://UtiliytScripts/HourCounter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+font_data = ExtResource( 3 )
 
 [node name="PlantHandler" type="Node2D"]
 script = ExtResource( 1 )
@@ -9,3 +14,37 @@ script = ExtResource( 1 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="HourCounter" parent="." instance=ExtResource( 2 )]
+
+[node name="StartDrain" type="Button" parent="."]
+modulate = Color( 0.301961, 1, 0.443137, 1 )
+margin_right = 279.0
+margin_bottom = 58.0
+text = "START DRAIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StopDrain" type="Button" parent="."]
+modulate = Color( 1, 0.305882, 0.305882, 1 )
+margin_left = -6.84961
+margin_top = 92.4691
+margin_right = 272.15
+margin_bottom = 150.469
+text = "STOP DRAIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthValueLabel" type="RichTextLabel" parent="."]
+margin_left = 2.0
+margin_top = 160.0
+margin_right = 304.0
+margin_bottom = 258.0
+custom_fonts/normal_font = SubResource( 1 )
+text = "test"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+[connection signal="pressed" from="StartDrain" to="." method="_on_StartDrain_pressed"]
+[connection signal="pressed" from="StopDrain" to="." method="_on_StopDrain_pressed"]

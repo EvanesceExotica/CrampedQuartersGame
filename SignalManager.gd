@@ -4,6 +4,7 @@ signal OnRoomSwitched(oldRoom, newRoom)
 signal AddTrait(parameters)
 signal RemoveTrait(parameters)
 
+signal GardenBolsteringStationDown(station, damageToGarden)
 signal FoodHarvested(amount)
 signal ChangeFoodProductionRate(amount)
 

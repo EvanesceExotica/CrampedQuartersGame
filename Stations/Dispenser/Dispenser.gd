@@ -2,6 +2,7 @@ extends Area2D
 
 var handInZone = false
 var dragging = false
+onready var label = get_node("QuantityLabel")
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -12,8 +13,9 @@ enum ItemOptions{
 var dispensedItem
 
 var maxAmountHeld = 3
-var amountToDispense = 3
+var amountToDispense = 0
 
+onready var respawnHours = 2
 var initialRespawnWaitTime = 100
 var respawnWaitTime = 100
 
@@ -25,7 +27,8 @@ func removeDispensedItemFromDispenser(dispenser, character):
 	#	print("We have " + str(amountToDispense) + " left in " + self.name)
 		if(amountToDispense <= 0):
 			amountToDispense = 0
-			respawnItem()
+		SetItemAmountLabel()
+			#respawnItem()
 
 
 var dispensedItemValue = 50
@@ -33,15 +36,21 @@ var dispensedItemValue = 50
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	System.connect("dispensedItemConsumed", self, "removeDispensedItemFromDispenser")
+	SetItemAmountLabel()
 	pass # Replace with function body.
 
 
 func _process(delta):
 
 	if(handInZone && Input.is_action_pressed("left_click")):
-		if(!dragging):
-			System.emit_signal("draggingItem", self)
-			dragging = true
+		if amountToDispense != 0:
+			#if there's actually something to drag
+			if(!dragging):
+				System.emit_signal("draggingItem", self)
+				dragging = true
+		else:
+			print("Dispenser is empty or processing! Nothing to drag")
+
 
 	if(dragging && Input.is_action_pressed("left_click")):
 		pass
@@ -52,21 +61,21 @@ func _process(delta):
 
 
 func respawnItem():
-	var timer = Timer.new()
-	timer.set_wait_time(respawnWaitTime)
-	timer.connect("timeout", self, "onRespawnTimerTimeout")
-	add_child(timer)
-	timer.start()
+	$Timer.set_wait_time(TimeConverter.GameHoursToSeconds(respawnHours))
+	$Timer.connect("timeout", self, "onRespawnTimerTimeout")
+	$Timer.start()
 	#this is for respawning item after certain amount of time is passed, can maybe manually work it to make new item appear?
 	#make interactWith a "Station" thing, make this inherit from station. Add a "repair" too.
 	pass
 
 func onRespawnTimerTimeout():
+	print("Item produced! Ready to be dispensed")
 	amountToDispense+= 1
 	if(amountToDispense >= maxAmountHeld):
 		amountToDispense = maxAmountHeld
-	else:
-		respawnItem()
+	SetItemAmountLabel()
+	#else:
+	#	respawnItem()
 
 func slowRespawnRate():
 	respawnWaitTime = respawnWaitTime * 0.5;
@@ -76,7 +85,9 @@ func resetRespawnRate():
 
 func haltRespawning():
 	pass
-	
+
+func SetItemAmountLabel():
+	label.text = str(amountToDispense) + " / " + str(maxAmountHeld)
 
 func _on_Dispenser_area_entered(area):
 	if(area.name == "Hand"):

@@ -8,6 +8,7 @@ onready var interactionSpace = get_node("InteractionSpace")
 # var a = 2
 export (PackedScene) var minigameScreen
 
+var gardenDamagePerSecondOnFail = 0
 var screenInstance
 #export var TypeOfStation
 #maybe when health is low, have cracks and glitches on screen

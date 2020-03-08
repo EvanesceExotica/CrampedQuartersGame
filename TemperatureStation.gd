@@ -2,6 +2,8 @@ extends "res://Stations/Station.gd"
 
 var appliedAttributeOnFailure;
 
+func _ready():
+    ._ready()
 
 func disableStation():
     .disableStation()

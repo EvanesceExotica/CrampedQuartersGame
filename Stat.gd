@@ -14,7 +14,7 @@ enum StatType{
 var ourType = StatType.health; 
      
 #what sources are draining this stat
-var drainSources = []
+var drainSources = {}
 
 #is the stat currently draining? If sources >=1, then it is
 var drainState = false

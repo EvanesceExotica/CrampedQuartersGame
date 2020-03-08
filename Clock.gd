@@ -11,8 +11,6 @@ var elapsedSecondsInHour = 0
 
 func _ready():
 	SignalManager.connect("HourPassed", self, "SetClockHour")
-	print("30 minutes in game is " + str(TimeConverter.GameMinutesToSeconds(30)))
-	print("2 hours in game is " + str(TimeConverter.GameHoursToSeconds(2)))
 
 func SetClockHour(hour):
 	pass

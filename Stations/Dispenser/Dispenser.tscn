@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Stations/Dispenser/Dispenser.gd" type="Script" id=1]
 [ext_resource path="res://Stations/Dispenser/yummy_gruel_unstacked.png" type="Texture" id=2]
 [ext_resource path="res://Stations/Dispenser/bag_furniture_sdb_blue_light_glass_display_box.png" type="Texture" id=3]
+[ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 180, 190 )
+extents = Vector2( 95.8963, 138.838 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = ExtResource( 4 )
 
 [node name="Dispenser" type="Area2D"]
 scale = Vector2( 0.72, 0.72 )
@@ -25,5 +30,16 @@ texture = ExtResource( 3 )
 position = Vector2( 0, 30 )
 shape = SubResource( 1 )
 
+[node name="Timer" type="Timer" parent="."]
+
+[node name="QuantityLabel" type="RichTextLabel" parent="."]
+margin_left = -50.9257
+margin_right = 159.074
+margin_bottom = 150.0
+custom_fonts/normal_font = SubResource( 2 )
+text = "1/10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="area_entered" from="." to="." method="_on_Dispenser_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Dispenser_area_exited"]

@@ -395,9 +395,12 @@ func addNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
 	if(affectedStat.drainRate >= 20):
 		affectedStat.drainRate = 20
 
-	drainValueOverTime(affectedStat, drainSource, calculateDrainRate(affectedStat, affectedStat.drainRate))
+#	drainValueOverTime(affectedStat, drainSource, calculateDrainRate(affectedStat, affectedStat.drainRate))
+		#the actualy drain speed is already being calculated in the "Drain value over time" method I think?
+	drainValueOverTime(affectedStat, drainSource, affectedStat.drainRate)
 
-func RemoveNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
+func RemoveNewDrainSource(affectedStat, drainSource, sourceDrainPerSecond):
+	#this source is usually going to be from an attribute. "drainSource" is the attribute and "sourceDrainPerSecond" is the attribute's drain amount. Could be better named. 
 	#var affectedStat = determineStat(whichStat)
 
 	if(affectedStat.drainSources.size() > 0):
@@ -408,7 +411,7 @@ func RemoveNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
 		if(affectedStat.drainSources.has(drainSource)):
 			affectedStat.drainSources.erase(drainSource)
 
-			affectedStat.drainRates -= newDrainPerSecond
+			affectedStat.drainRates -= sourceDrainPerSecond
 			if(affectedStat.drainRates <= 0):
 				affectedStat.drainRates = 0
 
@@ -416,6 +419,9 @@ func RemoveNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
 		#if there aren't any sources draining any longer, set to false
 		affectedStat.drainState = false
 		stopAllDrains(affectedStat) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	else:
+		drainValueOverTime(affectedStat, null, sourceDrainPerSecond)
+		#restartInterruptedDrain(affectedStat)
 
 #
 
@@ -441,7 +447,7 @@ func restartInterruptedDrain(affectedStat):
 	var currentValue = affectedStat.currentValue #DetermineWhichValue(whichStat)
 	if(affectedStat.drainSources.size() > 0 && currentValue > 0):
 		#only restart if there's some shit still draining
-		drainValueOverTime(affectedStat, null, 2)
+		drainValueOverTime(affectedStat, null, affectedStat.drainRate)
 
 func stopAllDrains(affectedStat):
 	#when there are no more drain sources, stop the tween that is interating the current hp AND the tween that is iterating the bar
@@ -592,7 +598,8 @@ func checkIfSomethingDropped(dispenser):
 		if(dispenser.dispensedItem == dispenser.ItemOptions.health):
 			changeStatValue(health, dispenser.dispensedItemValue, false)
 		elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
-			changeStatValue(sustenance, dispenser.dispensedItemValue, false)
+			changeStatValue(sustenance, dispenser.foodValues.pop_back(), false)
+			#changeStatValue(sustenance, dispenser.dispensedItemValue, false)
 		System.emit_signal("dispensedItemConsumed", dispenser, self)
 
 func _process(delta):
