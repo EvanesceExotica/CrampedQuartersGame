@@ -40,16 +40,26 @@ func _process(delta):
 func ConvertSecondsToGameSeconds(amount): 
     return amount / timeRatio
 
-func ConvertGameMinutesToSeconds(amount):
+func SecondsToGameMinutes(amount):
     var gameSeconds = amount/timeRatio
     var gameMinutes = gameSeconds/60
     return gameMinutes
-    pass
-func ConvertGameHoursToSeconds(amount):
+
+func SecondsToGameHours(amount):
     var gameSeconds = amount/timeRatio
     var gameHours = gameSeconds/(60 * 60)
     return gameHours
-    pass
+
+func GameMinutesToSeconds(gameMinutes):
+    #example: 30 minutes in game
+    var gameSeconds = gameMinutes * 60 #this should convert game minutes to game seconds
+    var realTimeSeconds = gameSeconds*timeRatio #this should undue the time ratio and convert to real seconds
+    return realTimeSeconds
+
+func GameHoursToSeconds(gameHours):
+    var gameSeconds = gameHours * (60 * 60) #this should convert game hours to game seconds
+    var realTimeSeconds = gameSeconds*timeRatio #this should undue the time ratio and convert to real seconds
+    return realTimeSeconds
 
 func Milliseconds():
 

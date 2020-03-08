@@ -3,4 +3,3 @@
 [resource]
 offsets = PoolRealArray( 0, 0.508993, 1 )
 colors = PoolColorArray( 1, 0, 0, 1, 0.460938, 0.115234, 0.285385, 1, 1, 0, 0, 1 )
-
