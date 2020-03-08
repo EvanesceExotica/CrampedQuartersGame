@@ -4,4 +4,6 @@
 
 [node name="HourCounter" type="Node2D"]
 script = ExtResource( 1 )
-
+__meta__ = {
+"_editor_description_": "This is an HourCounter, which counts the number of hours in case I need a signal on a custom hour amount. Could be more robust."
+}

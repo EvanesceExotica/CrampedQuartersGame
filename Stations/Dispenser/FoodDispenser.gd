@@ -12,6 +12,9 @@ func _ready():
 
 func CalculateFoodValue(amount):
 	dispensedItemValue = amount
+	startProducingFood()
+
+func startProducingFood():
 	pass
 func ReduceFoodValue(amount):
 	pass
@@ -20,6 +23,9 @@ func ReduceFoodValue(amount):
 	#or not if healing plants up takes a while
 	#but if it's producing the food from the plants over time... 
 	#maybe there should be a 'harvest' time, and a production time? 
+
+func intervalReached(interval):
+	pass
 
 func slowProduction():
 	pass

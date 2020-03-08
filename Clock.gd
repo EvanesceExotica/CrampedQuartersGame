@@ -4,14 +4,15 @@ extends Node2D
 # var a = 2
 # var b = "text"
 onready var label = get_node("Label")
-
+onready var realtimeLabel = get_node("RealTimeLabel")
 var currentHour = 0
 var elapsedSecondsInHour = 0
 #this stuff probably needs to be put in the "System" category
 
 func _ready():
 	SignalManager.connect("HourPassed", self, "SetClockHour")
-
+	print(TimeConverter.ConvertGameMinutesToSeconds(24))
+	print(TimeConverter.ConvertGameHoursToSeconds(48))
 func SetClockHour(hour):
 	pass
 	# print("Setting clock hour")
@@ -36,6 +37,7 @@ func convertToClockTime(delta):
 
 func _process(delta):
 	label.text = str(TimeConverter.Hours()).pad_zeros(2) + ":" + str(TimeConverter.Minutes()).pad_zeros(2) + ":" + str(TimeConverter.Seconds()).pad_zeros(2)
+	realtimeLabel.text = str(TimeConverter.RealSeconds()) #str(TimeConverter.Hours()/TimeConverter.timeRatio).pad_zeros(2) + ":" + str(TimeConverter.Minutes()/TimeConverter.timeRatio).pad_zeros(2)+ ":" + str(TimeConverter.Seconds()/TimeConverter.timeRatio).pad_zeros(2)
 	#convertToClockTime(delta)#System.elapsedSecondsInDay)
 	#label.text = str(System.elapsedSecondsInDay)
 

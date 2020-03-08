@@ -37,9 +37,19 @@ func _process(delta):
         #reset the bool once the minutes are no longer zero
         handledDayPass = false
     
+func ConvertSecondsToGameSeconds(amount): 
+    return amount / timeRatio
 
-
-
+func ConvertGameMinutesToSeconds(amount):
+    var gameSeconds = amount/timeRatio
+    var gameMinutes = gameSeconds/60
+    return gameMinutes
+    pass
+func ConvertGameHoursToSeconds(amount):
+    var gameSeconds = amount/timeRatio
+    var gameHours = gameSeconds/(60 * 60)
+    return gameHours
+    pass
 
 func Milliseconds():
 
@@ -82,3 +92,5 @@ func Days():
 func totalSeconds():
      return int(gameTime)
     
+func RealSeconds():
+    return int(realTime)

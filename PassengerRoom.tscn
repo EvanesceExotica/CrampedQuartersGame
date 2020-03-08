@@ -1,51 +1,20 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://02-25-20_9-26-59 PM.png" type="Texture" id=2]
-[ext_resource path="res://Gradient/Reddish.tres" type="Gradient" id=3]
-[ext_resource path="res://sci_fi_bg1.jpg" type="Texture" id=4]
 [ext_resource path="res://Clock.gd" type="Script" id=5]
 [ext_resource path="res://bag_furniture_sdb_sci-fi_monitor_storage_display_box.png" type="Texture" id=6]
 [ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://furniture_loveseat_spaceship_love_seat.png" type="Texture" id=9]
-[ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=10]
-[ext_resource path="res://Stations/Dispenser/HealthDispenser.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Stations/Dispenser/FoodDispenser.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Lights/Light.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Stations/SlotManager.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Slot.tscn" type="PackedScene" id=15]
 
-[sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
-render_mode unshaded;
-
-uniform sampler2D gradient: hint_black;
-uniform float mix_amount = 1.0;
-
-void fragment()
-{
-	vec4 input_color = texture(TEXTURE, UV);
-	float grayscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
-	vec3 sampled_color = texture(gradient, vec2(grayscale_value, 0.0)).rgb;
-	
-	COLOR.rgb = mix(input_color.rgb, sampled_color, mix_amount);
-	COLOR.a = input_color.a;	
-}"
-
-[sub_resource type="GradientTexture" id=2]
-gradient = ExtResource( 3 )
-
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 1 )
-shader_param/mix_amount = 0.0
-shader_param/gradient = SubResource( 2 )
-
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=1]
 size = 60
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=2]
 size = 50
 font_data = ExtResource( 8 )
 
@@ -61,23 +30,14 @@ texture = ExtResource( 2 )
 visible = false
 
 [node name="Objects" type="Node2D" parent="." index="4"]
-editor/display_folded = true
-visible = false
 
-[node name="sci_fi_bg1" type="Sprite" parent="Objects" index="0"]
-visible = false
-modulate = Color( 0.0627451, 0.152941, 0.176471, 1 )
-material = SubResource( 3 )
-position = Vector2( 528.404, 296.29 )
-scale = Vector2( 0.546471, 0.552421 )
-texture = ExtResource( 4 )
-
-[node name="Clock" type="Node2D" parent="Objects" index="1"]
-position = Vector2( 354.92, 174.117 )
+[node name="Clock" type="Node2D" parent="Objects" index="0"]
+position = Vector2( 504.213, 79.6425 )
 scale = Vector2( 0.371125, 0.371125 )
 script = ExtResource( 5 )
 
 [node name="Monitor" type="Sprite" parent="Objects/Clock" index="0"]
+visible = false
 modulate = Color( 0.113725, 0.133333, 0.145098, 1 )
 texture = ExtResource( 6 )
 
@@ -86,47 +46,27 @@ margin_left = -140.0
 margin_top = -95.0
 margin_right = 133.0
 margin_bottom = 30.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 1 )
 text = "TIME: "
 
-[node name="Label2" type="Label" parent="Objects/Clock" index="2"]
+[node name="RealTimeLabel" type="Label" parent="Objects/Clock" index="2"]
+margin_left = -149.428
+margin_top = -160.998
+margin_right = 174.572
+margin_bottom = -35.9977
+custom_fonts/font = SubResource( 1 )
+text = "REAL TIME: "
+
+[node name="Label2" type="Label" parent="Objects/Clock" index="3"]
 visible = false
 margin_left = -121.037
 margin_top = 15.8518
 margin_right = -24.0374
 margin_bottom = 84.8518
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 2 )
 text = "DAY"
 
-[node name="furniture_loveseat_spaceship_love_seat" type="Sprite" parent="Objects" index="2"]
-modulate = Color( 0.0156863, 0.0784314, 0.101961, 1 )
-position = Vector2( 543.391, 487.011 )
-scale = Vector2( 0.517764, 0.517764 )
-texture = ExtResource( 9 )
-
-[node name="furniture_armchair_blue_modern_box_chair" type="Sprite" parent="Objects" index="3"]
-visible = false
-modulate = Color( 0.0117647, 0.117647, 0.164706, 1 )
-position = Vector2( 175.746, 508.716 )
-scale = Vector2( 0.302081, 0.302081 )
-texture = ExtResource( 10 )
-
-[node name="furniture_armchair_blue_modern_box_chair2" type="Sprite" parent="Objects" index="4"]
-visible = false
-modulate = Color( 0.0117647, 0.117647, 0.164706, 1 )
-position = Vector2( 904.304, 493.132 )
-scale = Vector2( -0.302, 0.302 )
-texture = ExtResource( 10 )
-
-[node name="HealthDispenser" parent="Objects" index="5" instance=ExtResource( 11 )]
-position = Vector2( 810, 110 )
-scale = Vector2( 0.439999, 0.44 )
-
-[node name="Dispenser" parent="Objects" index="6" instance=ExtResource( 12 )]
-position = Vector2( 550, 101.695 )
-scale = Vector2( 0.48, 0.52 )
-
-[node name="CameraPosition" type="Position2D" parent="Objects" index="7"]
+[node name="CameraPosition" type="Position2D" parent="Objects" index="1"]
 position = Vector2( 560, 291.866 )
 
 [node name="Light" parent="." index="5" instance=ExtResource( 13 )]
@@ -150,4 +90,3 @@ onLeftOfRoom = false
 [node name="Slot-6" parent="SlotManager" index="3" instance=ExtResource( 15 )]
 position = Vector2( 820, 430 )
 onLeftOfRoom = false
-
