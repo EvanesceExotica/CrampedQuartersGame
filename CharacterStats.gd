@@ -218,7 +218,7 @@ func _process(delta):
 func _on_HealthTween_tween_completed(object, key):
 	print("health tween completed")
 	var stat = character.health
-	var startHealth = character.currentHealth
+	var startHealth = stat.currentValue
 
 	isHealthTweenRunning = false
 	if(character.health.drainState == true):
@@ -230,7 +230,7 @@ func _on_SustenanceTween_tween_completed(object, key):
 
 	isSustenanceTweenRunning = false
 	var stat = character.sustenance
-	var startSustenance = character.currentSustenance
+	var startSustenance = stat.currentValue
 
 	if(character.sustenance.drainState == true):
 		character.restartInterruptedDrain(stat)
@@ -241,7 +241,7 @@ func _on_SanityTween_tween_completed(object, key):
 	isSanityTweenRunning = false
 
 	var stat = character.sanity
-	var startSanity = character.currentSanity
+	var startSanity = stat.currentValue
 
 	if(character.sanity.drainState == true):
 		character.restartInterruptedDrain(stat)
@@ -251,7 +251,7 @@ func _on_SanityTween_tween_completed(object, key):
 func _on_RelationshipTween_tween_completed(object, key):
 	isRelationshipTweenRunning = false
 	var stat = character.relationship
-	var startRelationship = character.currentRelationship
+	var startRelationship = stat.currentValue
 	if(character.relationship.drainState == true):
 		character.restartInterruptedDrain(stat)
 		#animateBar(relationshipTween, relationshipBar, startRelationship, 0, character.calculateDrainRate(character.valueDrainRates[stat]))

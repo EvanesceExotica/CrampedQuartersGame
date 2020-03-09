@@ -5,7 +5,6 @@ var handInZone = false
 
 var viewingCharacterDetail = false
 var dragging = true
-export (int, FLAGS, "blue", "green", "red", "yellow") var characterType = 0
 signal draggingCharacter(character)
 signal stoppedDraggingCharacter(character)
 #warning-ignore:unused_class_variable
@@ -26,20 +25,6 @@ onready var characterStats = get_node("CharacterStats")
 #TODO ADD SOMETHING IN ATTRIBUTES THAT AFFECTS DRAIN RATES
 signal MouseHover
 
-const _DynamicStats = {
-	health = "currentHealth",
-	sanity = "currentSanity",
-	sustenance = "currentSustenance",
-	relationship = "currentRelationship"
-}
-
-const _MaxStats = {
-	health = "maxHealth",
-	sanity = "maxSanity",
-	sustenance = "maxSustenance",
-	relationship = "maxRelationship"
-}
-
 var health 
 var sustenance 
 var sanity 
@@ -53,30 +38,6 @@ var tempRelationshipValue
 var spaceRequirement = 2
 var damageDealt = 2
 
-enum DynamicStats{
-	health,
-	sustenance,
-	sanity,
-	relationship
-
-	}
-
-enum StaticStats{
-	damageDealt,
-	spaceRequirement
-	}
-
-enum Conditions{
-
-	injured, #lowers health over time
-	diseased,
-	insane, #increased likelyhood of insanty event, locked in for one day without curing
-	hungry,
-	impaired,
-	debilitated, #cannot move or be moved, health lowers over time
-	disabled,
-	starving, #health begins to lower
-	}
 
 #Here you can spend time training the characters to use stations,
 #there are 3 levels, and on level three the character will auto-handle things for you. Level two they'll warn you.
@@ -84,31 +45,11 @@ enum Conditions{
 var stationTraining = { }
 
 
-#[Dynamic Stats]
-#warning-ignore:unused_class_variable
-var maxHealth = 100
-var currentHealth = 100
-#warning-ignore:unused_class_variable
-var healthDraining = false
 
-var healthLossRate = 3
-var healthGainRate = 3
 
 signal statAtZero(whichStat)
 signal statAtMax(whichStat)
 signal healedOverMax(whichStat) #this one would apply to being overfed or being overhealed, which removes injuries
-
-onready var healthBar = get_node("CharacterStats/Panel/HealthBar")
-onready var healthTween = healthBar.get_node("HealthTween")
-
-
-# "stats" : {
-	# "health" : {
-		#"draining"
-		#"max"
-		#"current"
-#	}
-#}
 
 func applyNewAttribute(newAttribute):	
 
@@ -296,71 +237,6 @@ func removeAttributeByName(removeableAttributeName):
 		if attribute.attributeName == removeableAttributeName:
 			removeAttribute(attribute)
 
-	
-
-func _removeAttribute(attribute):
-	for oldTrait in characterAttributes:
-		if(attribute.canCombineWith.size() > 0):
-			#if traits in this dictionary do exist
-			for possibleCombineableTrait in attribute.canCombineWith.keys():
-				#for each trait that can combine with this current trait
-				if oldTrait.attributeName == possibleCombineableTrait:
-					#if we find one of them already applied to the character
-					#also remove the attribute caused by them being combined
-					removeAttribute(attribute.canCombineWith[possibleCombineableTrait])
-					#TODO: FIND A WAY TO REMOVE IT AS WELL
-
-	# #TODO: Switch these variables so that they are being removed instead
-
-	if(attribute.AffectedDynamicStatsCurrent.size() > 0):
-				#for immediate "chunks" of damage
-		pass
-		# for currentDynamicStat in attribute.AffectedDynamicStatsCurrent.keys:
-		# 	changeStatValue(currentDynamicStat, attribute.AffectedDynamicStatsCurrent[currentDynamicStat], false)
-		# 	pass
-	if(attribute.AffectedDynamicStatsMax.size() > 0):
-			#for things that affect maxStats
-		for maxDynamicStatName in attribute.AffectedDynamicStatsMax.keys():
-			var affectedStat = determineStat(maxDynamicStatName)
-			changeMaxStatValue(affectedStat, 1/attribute.AffectedDynamicStatsMax[maxDynamicStatName])
-			#multiplying the value by one/THENUMBER will be the same as dividing the value by the THENUMBER
-			#value goes into the numerator
-			#IE: 100 * 0.5 = 50. 50/0.5 = 100. 50 * 1/0.5 = 100, as 50/1 * 1/0.5 = 50/0.5
-			pass
-	if(attribute.AffectedStaticStats.size() > 0):
-			#for things that are affecting the static stats
-		for staticStatName in attribute.AffectedStaticStats.keys():
-			var newStaticStatValue = get(staticStatName) - attribute.AffectedStaticStats[staticStatName]
-			set(staticStatName, newStaticStatValue)
-
-	if(attribute.DrainingDynamicStats.size() > 0):
-			#how many points drained per second
-		for drainedDynamicStatName in attribute.DrainingDynamicStats.keys():
-			var affectedStat = determineStat(drainedDynamicStatName)
-			RemoveNewDrainSource(affectedStat, attribute, attribute.DrainingDynamicStats[drainedDynamicStatName])
-
-	if(attribute.attributeTypes.has("aura")):
-		#if this trait is an aura, meaning it applies to other slots, stop emitting the aura
-		for auraAttributeName in attribute.AuraAttributes:
-			var aura = AttributeJSONParser.fetchAndCreateAttribute(auraAttributeName)
-			SignalManager.emit_signal("stoppedEmittingAura", currentSlot, aura, attribute.AuraAttributes[auraAttributeName])
-			auraSlotRange.erase(aura)
-
-	if(attribute.ResultingAttributes.size() > 0):
-		#maybe make it a dictionary with a key attribute value chance?
-		#if this has any attributes that result from it
-		for resultingAttribute in attribute.ResultingAttributes.keys():
-			var randomValue = randf()
-
-			#this is checking the chance of the attribute
-			if randomValue <= attribute.ResultingAttributes[resultingAttribute]:
-				applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute))
-
-	characterAttributes.erase(attribute)
-	emit_signal("attributeRemoved", attribute)
-
-func SetInitialValues(conditions, attributes):
-	pass
 
 func calculateDrainRate(affectedStat, pointsDrainedPerSecond):
 
@@ -423,26 +299,7 @@ func RemoveNewDrainSource(affectedStat, drainSource, sourceDrainPerSecond):
 		drainValueOverTime(affectedStat, null, sourceDrainPerSecond)
 		#restartInterruptedDrain(affectedStat)
 
-#
-
-func DetermineWhichValue(whichStat):
-	var currentValue
-	if(whichStat == DynamicStats.health):
-		currentValue = currentHealth
-
-	elif(whichStat == DynamicStats.sanity):
-		currentValue = currentSanity
-
-	elif(whichStat == DynamicStats.sustenance):
-		currentValue = currentSustenance
-
-	elif(whichStat == DynamicStats.relationship):
-		currentValue = currentRelationship
-
-	return currentValue
-
 func restartInterruptedDrain(affectedStat):
-
 
 	var currentValue = affectedStat.currentValue #DetermineWhichValue(whichStat)
 	if(affectedStat.drainSources.size() > 0 && currentValue > 0):
@@ -474,24 +331,8 @@ func drainValueOverTime(affectedStat, drainSource, rate):
 	characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
 	$Tween.start()
 
-var maxSustenance = 100
-var currentSustenance = 100
 
 onready var sustenanceBar = get_node("CharacterStats/Panel/SustenanceBar")
-
-
-
-
-#warning-ignore:unused_class_variable
-var maxSanity = 100
-var currentSanity = 100
-
-
-#warning-ignore:unused_class_variable
-
-#warning-ignore:unused_class_variable
-var maxRelationship = 100
-var currentRelationship = 100
 
 
 #this is for if anything doubles or reduces damage taken
@@ -527,24 +368,12 @@ func changeStatValue(affectedStat, amount, isMultiplicative):
 		affectedStat.currentValue = affectedStat.maxValue
 	
 
-	#var statValueToSet = statPropertyNames[dynamicStat]
-	#set(statValueToSet, statCurrentValues[dynamicStat])
-
-	#print(statPropertyNames[dynamicStat] + " " + str(statCurrentValues[dynamicStat]))
 	if(amount < 0):
 		currentAnim.play(currentBar.get_name() + "Flash")
 		#currentBar.tint_progress = Color.red
 		pass
 
 	characterStats.animateBar(currentTween, currentBar, startValue, endValue, 0.25)
-
-# func calculateCurrentHealthPercentage(whichStat, oldMaxHealthValue):
-# 	#calculate what percentage of maxHealth is currentHealth
-# 	var percentageOfMax = (statCurrentValues[whichStat]/oldMaxHealthValue) * 100
-# 	var onePercent = statCurrentValues[whichStat]/100
-# 	var equivalentPercentageValue = onePercent * percentageOfMax
-# 	return equivalentPercentageValue
-# 	#return percentageOfMax
 
 
 func changeMaxStatValue(affectedStat, amount):
@@ -571,18 +400,17 @@ func Die():
 
 func _ready():
 	randomize()
-	print("Character type is " + str(characterType))
 	health = Stat.new()
 	sanity = Stat.new()
 	sustenance = Stat.new()
 	relationship = Stat.new()
 
-	sustenanceBar.max_value = maxSustenance
-	currentSustenance = maxSustenance
 	System.connect("stoppedDraggingItem", self, "checkIfSomethingDropped")
 	SignalManager.connect("AddTrait", self, "ApplyNewAttribute")
 	SignalManager.connect("RemoveTrait", self, "removeAttribute")
 	characterStats.setStatBars()
+
+	#this adds the attribute to have the characters be constantly hungry
 	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("NeedsSustenance"))
 
 func turnOffAuras():
@@ -659,33 +487,6 @@ func _input(event):
 
 func _on_Button_pressed():
 	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
-	#var attribute = Attribute.new("OnFire")
-	# var attribute = System.attributeScript.new("OnFire")
-	# #attribute.sayHello()
-	# connect("statAtZero", attribute, "sayHello")
-	# #attribute._init("OnFire")
-	# attribute.characterAttachedTo = self
-	# attribute.description = "Help I'm on fire"
-	# attribute.ConflictingAttributes.append("Underwater")
-	# attribute.ResultingAttributes =  ["Shaken"] #Attributes that will result from this one 'On Fire --> Shaken'
-	# attribute.AffectedDynamicStatsMax = {System.DynamicStats.sustenance : 0.5}
-	# attribute.AffectedDynamicStatsCurrent = {System.DynamicStats.sanity : -50}
-	# attribute.DrainingDynamicStats = { System.DynamicStats.health : 20} #if any dynamic stats are actively drained
-	# attribute.duration = 2
-	# attribute.typeOfAttribute = System.attributeType.temporaryCondition
-
-	#attribute.externalCombinations = {[attribute.externalCombinations.new("Greasy", true)] : attribute.externalCombinations.new("Fine", false)}
-#	attribute.attributeTypes.append(System.attributeType.temporaryCondition)
-	# for item in attribute.attributeTypes:
-	#
-	# 	print(System.attributeType[item])
-#	applyNewAttribute(attribute)
-	#characterAttributes.append(attribute)
-	#addNewDrainSource(DynamicStats.sanity, null, 1)
-	#addHealthDrainSource("test", 1.0)
-
-	pass # Replace with function body.
-
 
 func _on_FasterHealthDrain_pressed():
 	for item in characterAttributes:

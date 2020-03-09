@@ -1,0 +1,241 @@
+{
+	"sheets": [
+		{
+			"name": "Events",
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "title",
+					"display": null
+				},
+				{
+					"typeStr": "0",
+					"name": "id",
+					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "weight"
+				},
+				{
+					"typeStr": "1",
+					"name": "description",
+					"display": null
+				},
+				{
+					"typeStr": "7",
+					"name": "image",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "scope",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "requirements",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "options",
+					"display": null
+				}
+			],
+			"lines": [
+				{
+					"title": "",
+					"id": "",
+					"weight": 0,
+					"description": "",
+					"image": "",
+					"requirements": [],
+					"options": [
+						{
+							"text": "",
+							"applyResultsToObject": false,
+							"requirements": [],
+							"resultSets": [
+								{
+									"description": "",
+									"weight": 0,
+									"linkedEvent": "",
+									"results": []
+								}
+							]
+						}
+					]
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "Events@requirements",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "16",
+					"name": "scope",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "anyOfTheseTraits",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "requiredTraits",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "excludedTraits",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "comparisons",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Events@options",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "text",
+					"display": null
+				},
+				{
+					"typeStr": "2",
+					"name": "applyResultsToObject",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "requirements",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "resultSets",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Events@options@requirements",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "16",
+					"name": "scope",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "anyOfTheseTraits",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "requiredTraits",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "excludedTraits",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "comparisons",
+					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "storedName",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Events@options@resultSets",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "description",
+					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "weight"
+				},
+				{
+					"typeStr": "0",
+					"name": "linkedEvent",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "results",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Events@options@resultSets@results",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "16",
+					"name": "scope",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "addedTraits",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "removedTraits",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "actions",
+					"display": null
+				}
+			]
+		}
+	],
+	"customTypes": [],
+	"compress": false
+}
