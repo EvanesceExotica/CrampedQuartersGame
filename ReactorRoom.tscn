@@ -38,6 +38,13 @@ position = Vector2( 259, 140 )
 [node name="CollisionShape2D" parent="NavigatorStation/InteractionSpace" index="0"]
 shape = SubResource( 1 )
 
+[node name="ShowName" parent="NavigatorStation" index="7"]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+mouse_filter = 0
+
 [node name="Light" parent="." index="6" instance=ExtResource( 5 )]
 position = Vector2( 370, 370 )
 

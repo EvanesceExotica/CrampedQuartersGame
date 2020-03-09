@@ -89,6 +89,8 @@ func _ready():
 
 func addAttributeToPanel(attribute):
 	#add to attribute array to keep track
+	if attribute.specialAttribute == true:
+		return
 	attributeArray.append(attribute)
 
 	#instance the template, set name, add to holder which should align it

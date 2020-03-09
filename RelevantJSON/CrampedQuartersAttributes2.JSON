@@ -55,6 +55,10 @@
 					"typeStr": "8",
 					"name": "ResultingAttributes",
 					"display": null
+				},
+				{
+					"typeStr": "2",
+					"name": "SpecialAttribute"
 				}
 			],
 			"lines": [
@@ -78,7 +82,8 @@
 					],
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "mentallySound",
@@ -100,7 +105,8 @@
 					],
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "frail",
@@ -122,7 +128,8 @@
 					],
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "paranoid",
@@ -144,7 +151,8 @@
 					],
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "strong",
@@ -157,7 +165,8 @@
 					"index": 4,
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "smallStomach",
@@ -179,7 +188,8 @@
 					],
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "bigStomach",
@@ -201,7 +211,8 @@
 					],
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "onFire",
@@ -223,7 +234,8 @@
 					],
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "afraid",
@@ -242,7 +254,8 @@
 					"inherentAttribute": false,
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "asphixiating",
@@ -261,7 +274,8 @@
 					"inherentAttribute": false,
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "shaken",
@@ -280,7 +294,8 @@
 					"inherentAttribute": false,
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "contaminated",
@@ -315,7 +330,8 @@
 							"chancePerHalfHour": 0.5
 						}
 					],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "diseased",
@@ -334,7 +350,8 @@
 					"inherentAttribute": false,
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "Smelly",
@@ -352,7 +369,8 @@
 						}
 					],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
 				},
 				{
 					"id": "Nauseated",
@@ -371,7 +389,28 @@
 					"inherentAttribute": false,
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
-					"temporary": false
+					"temporary": false,
+					"SpecialAttribute": false
+				},
+				{
+					"id": "NeedsSustenance",
+					"attributeName": "NeedsSustenance",
+					"description": "Should be on all unless they have a 'doesn't eat'",
+					"AffectedStats": [
+						{
+							"statName": "sustenance",
+							"whichValue": "drain",
+							"amount": 0.5
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"index": 15,
+					"SpecialAttribute": true
 				}
 			],
 			"separators": [],

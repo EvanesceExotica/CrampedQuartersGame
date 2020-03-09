@@ -95,6 +95,13 @@ scale = Vector2( 0.5, 0.5 )
 [node name="CollisionShape2D" parent="PowerStaton/InteractionSpace" index="0"]
 shape = SubResource( 1 )
 
+[node name="ShowName" parent="PowerStaton" index="8"]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+mouse_filter = 0
+
 [node name="WasteManagementStation" parent="." instance=ExtResource( 13 )]
 position = Vector2( 820, 218.302 )
 scale = Vector2( 0.5, 0.5 )
@@ -105,12 +112,26 @@ position = Vector2( 160, 136.604 )
 [node name="CollisionShape2D" parent="WasteManagementStation/InteractionSpace" index="0"]
 shape = SubResource( 2 )
 
+[node name="ShowName" parent="WasteManagementStation" index="9"]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+mouse_filter = 0
+
 [node name="AtmosphereStation" parent="." instance=ExtResource( 14 )]
 position = Vector2( 0, 205.608 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="CollisionShape2D" parent="AtmosphereStation/InteractionSpace" index="0"]
 shape = SubResource( 3 )
+
+[node name="ShowName" parent="AtmosphereStation" index="8"]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+mouse_filter = 0
 
 [node name="RoomSwitchController" parent="." instance=ExtResource( 15 )]
 

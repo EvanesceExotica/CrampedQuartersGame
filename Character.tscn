@@ -1,14 +1,14 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Character.gd" type="Script" id=1]
-[ext_resource path="res://TamelaUpdated.png" type="Texture" id=2]
+[ext_resource path="res://AstronautA.png" type="Texture" id=2]
 [ext_resource path="res://RelationshipModule.gd" type="Script" id=3]
 [ext_resource path="res://Utility/TraitChecker.tscn" type="PackedScene" id=4]
 [ext_resource path="res://CharacterStats.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 86.2526
-height = 199.698
+height = 184.282
 
 [node name="Character" type="Area2D"]
 scale = Vector2( 0.72, 0.68 )
@@ -18,9 +18,9 @@ __meta__ = {
 }
 characterType = 3
 
-[node name="TamelaUpdated" type="Sprite" parent="."]
-position = Vector2( 10.6802, 46.4731 )
-scale = Vector2( 0.238553, 0.238553 )
+[node name="Naut" type="Sprite" parent="."]
+position = Vector2( 4.26169, -12.1247 )
+scale = Vector2( 0.347362, 0.347362 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -64,7 +64,6 @@ margin_top = -411.765
 margin_right = -216.111
 margin_bottom = -411.765
 rect_scale = Vector2( 0.5, 0.5 )
-
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

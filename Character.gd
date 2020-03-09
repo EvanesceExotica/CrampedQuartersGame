@@ -583,6 +583,7 @@ func _ready():
 	SignalManager.connect("AddTrait", self, "ApplyNewAttribute")
 	SignalManager.connect("RemoveTrait", self, "removeAttribute")
 	characterStats.setStatBars()
+	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("NeedsSustenance"))
 
 func turnOffAuras():
 	for aura in auraSlotRange.keys():

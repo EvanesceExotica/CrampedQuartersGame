@@ -127,6 +127,7 @@ func fetchAndCreateAttribute(attributeName):
 		attribute.AuraAttributes = thisAttributeDictionary["AuraAttributes"]
 
 	attribute.temporary = thisAttributeDictionary["temporary"]
+	attribute.specialAttribute = thisAttributeDictionary["SpecialAttribute"]
 	#attribute.DrainingDynamicStats = thisAttributeDictionary["DrainingDynamicStats"]
 	#attribute.DrainingDynamicStats = (thisAttributeDictionary["DrainingDynamicStats"])
 
