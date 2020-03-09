@@ -147,6 +147,7 @@ position = Vector2( 1020, 655.592 )
 
 [node name="Slot" parent="SlotManager" index="0" instance=ExtResource( 13 )]
 position = Vector2( 590, 337.796 )
+slotType = 2
 
 [node name="CollisionShape2D" parent="SlotManager/Slot" index="1"]
 position = Vector2( 10, -10 )

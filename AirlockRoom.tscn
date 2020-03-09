@@ -47,4 +47,3 @@ slotType = 3
 
 [node name="TemperatureStation" parent="." index="7" instance=ExtResource( 7 )]
 position = Vector2( -40, 120 )
-

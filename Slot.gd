@@ -104,6 +104,7 @@ func addCharacterToSlot(character):
 		#if this slot is on the right of this orom
 		character.characterStats.SetToLeftFacingPosition()
 	character.turnOnAuras()
+	self.modulate = Color.red
 
 func removeCharacterFromSlot(character):
 	print("Character removed from slot")
@@ -114,6 +115,7 @@ func removeCharacterFromSlot(character):
 	character.previousSlot = self
 	occupied = false
 	character.turnOffAuras()
+	self.modulate = Color.green
 
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):
@@ -153,7 +155,7 @@ func _ready():
 		for attributeName in slotAttributes:
 			var attribute =	AttributeJSONParser.fetchAndCreateAttribute(attributeName)
 			applyNewAttributeToSlot(attribute)
-
+	System.SlotsByType[slotType].append(self)
 
 
 func _on_Slot_area_entered(area):

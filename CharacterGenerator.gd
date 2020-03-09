@@ -104,7 +104,7 @@ func generatePremadeCharacter(attributeNames):
 	for item in createdAttributes:
 		characterInstance.applyNewAttribute(item)
 		
-	var slot = chooseRandomSlot()
+	var slot = chooseCharacterSlot(null)#chooseRandomSlot()
 	slot.addCharacterToSlot(characterInstance)
 	CharacterTracker.AddCharacter(characterInstance)
 	characterInstance.add_to_group("Characters")
@@ -151,7 +151,9 @@ func generateNewCharacter():
 	var randomSpeciesNumber = rand_range(0, speciesOptions.size())
 	var species = generateSpecies(randomSpeciesNumber)
 	#var slot = chooseCharacterSlot(species)
-	var slot = chooseRandomSlot()
+	var slot = chooseCharacterSlot(null) #chooseRandomSlot() Can use random slot for AI Insanity effects maybe
+
+	#TODO: Put this back in
 	if slot != null:
 		slot.addCharacterToSlot(characterInstance)
 		CharacterTracker.AddCharacter(characterInstance)
@@ -213,10 +215,35 @@ func chooseCharacterSlot(species):
 	# var foundSlot = false
 	# var rankingIndex = 0
 
+	var slotRank = [
+		System.slotTypes.mainRoom, 
+		System.slotTypes.garden,
+		System.slotTypes.garden,
+		System.slotTypes.engine,
+		System.slotTypes.aquarium,
+		System.slotTypes.airLock
+	]
+	#maybe have a separate if statement to see if the thing breathes water or not
+	var foundSlot
+	for slotType in slotRank:
+		#for each slotType ordered in preference of what we like
+		var slotsOfThisType = System.SlotsByType[slotType]
+		print(System.SlotsByType[slotType])
+		#find the array of slots that matches this type
+		for slot in slotsOfThisType:
+			#look through this array of slots, find one that's unoccupied, and set it to 'found slot' to return later
+			#also break out of the loop
+			if !slot.occupied:
+				print(str(slotType) + " type is unoccupied")
+				foundSlot = slot
+				print(foundSlot)
+				break 
+		if foundSlot != null:
+			break
+	return foundSlot
 	# var unoccupiedSlots = []
 	# for slot in System.allSlots.keys():
 	# 	#run through all the slots in the game
-
 	# 	if System.allSlots[slot] == null:
 	# 		#if the slot is unoccupied
 	# 		unoccupiedSlots.append(slot)

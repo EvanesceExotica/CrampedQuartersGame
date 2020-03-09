@@ -56,6 +56,9 @@ margin_right = 174.572
 margin_bottom = -35.9977
 custom_fonts/font = SubResource( 1 )
 text = "REAL TIME: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label2" type="Label" parent="Objects/Clock" index="3"]
 visible = false

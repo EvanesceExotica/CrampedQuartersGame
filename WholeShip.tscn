@@ -72,17 +72,21 @@ roomToRight = NodePath("../PassengerRoom")
 [node name="Hand" parent="." instance=ExtResource( 8 )]
 
 [node name="CharacterGenerator" parent="." instance=ExtResource( 9 )]
+position = Vector2( -286.999, -189 )
 speciesOptions = [ ExtResource( 10 ) ]
 
 [node name="Button" type="Button" parent="CharacterGenerator"]
-margin_left = 480.0
-margin_top = 245.064
-margin_right = 647.0
-margin_bottom = 265.064
+margin_left = 463.0
+margin_top = 242.064
+margin_right = 630.0
+margin_bottom = 262.064
 text = "Generate New Character"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="EventGenerator" parent="." instance=ExtResource( 11 )]
-position = Vector2( 672.925, 245.064 )
+position = Vector2( 735.925, 48.0643 )
 
 [node name="PowerStaton" parent="." instance=ExtResource( 12 )]
 position = Vector2( -750, 157.983 )

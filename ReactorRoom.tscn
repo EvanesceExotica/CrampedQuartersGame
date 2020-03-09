@@ -45,9 +45,10 @@ position = Vector2( 370, 370 )
 
 [node name="Slot" parent="SlotManager" index="0" instance=ExtResource( 7 )]
 position = Vector2( 310, 400 )
+slotType = 4
 
 [node name="Slot2" parent="SlotManager" index="1" instance=ExtResource( 7 )]
 position = Vector2( 830, 430 )
-
+slotType = 4
 
 [editable path="NavigatorStation"]

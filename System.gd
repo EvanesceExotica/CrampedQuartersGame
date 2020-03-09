@@ -11,6 +11,9 @@ var bf
 var entitiesFlag
 
 
+var SlotsByType = {
+
+}
 var enumToSlotTypeDictionary = {
 
 }
@@ -128,27 +131,31 @@ func populateSlots(slot):
 	for item in get_tree().get_nodes_in_group("slots"):
 		allSlots[item] = slot.characterInSlot
 	#allSlots.keys() = get_tree().get_nodes_in_group("slots")
-	for slot in allSlots.keys():
-		if slot.slotType == slotTypes.mainRoom:
-			mainRoomSlots[slot] = slot.characterInSlot
-		elif slot.slotType == slotTypes.closet:
-			closetSlots[slot] = slot.characterInSlot
+	# for slot in allSlots.keys():
+	# 	if slot.slotType == slotTypes.mainRoom:
+	# 		mainRoomSlots[slot] = slot.characterInSlot
+	# 	elif slot.slotType == slotTypes.closet:
+	# 		closetSlots[slot] = slot.characterInSlot
 
-		elif slot.slotType == slotTypes.garden:
-			gardenSlots[slot] = slot.characterInSlot
+	# 	elif slot.slotType == slotTypes.garden:
+	# 		gardenSlots[slot] = slot.characterInSlot
 
-		elif slot.slotType == slotTypes.airLock:
-			airlockSlots[slot] = slot.characterInSlot
+	# 	elif slot.slotType == slotTypes.airLock:
+	# 		airlockSlots[slot] = slot.characterInSlot
 
-		elif slot.slotType == slotTypes.engine:
-			engineSlots[slot] = slot.characterInSlot
+	# 	elif slot.slotType == slotTypes.engine:
+	# 		engineSlots[slot] = slot.characterInSlot
 
-		elif slot.slotType == slotTypes.aquarium:
-			aquariumSlots[slot] = slot.characterInSlot
-	print(str(slot.slotType))
+	# 	elif slot.slotType == slotTypes.aquarium:
+	# 		aquariumSlots[slot] = slot.characterInSlot
+	# print(str(slot.slotType))
 
 func updateSlots(slot, character):
+	#updates whether or not a slot is occupied
+
 	# print("Slot updated!" + str(slot) + str(character))
+	#put the character in the dictionary to show which character occupies this slot
+	var temp = SlotsByType[slot.slotType]
 	allSlots[slot] = character
 	if slot.slotType == slotTypes.mainRoom:
 		# print("This is a main room slot!")
@@ -230,6 +237,7 @@ func tweenMainCameraToNewRoom(destinationPosition):
 	pass
 
 func _ready():
+	print("Is this happening at all")
 	bf = BitFlag.new(attributeTypes, true)
 	bf.inherentAttribute = false
 	bf.condition = true
@@ -244,6 +252,28 @@ func _ready():
 		slotTypes.engine : false,
 		slotTypes.aquarium : false
 	}
+	SlotsByType = {
+		slotTypes.mainRoom : [],
+		slotTypes.closet : [],
+		slotTypes.garden : [],
+		slotTypes.airLock : [],
+		slotTypes.engine : [],
+		slotTypes.aquarium : []
+	}
+	# var totalSlots = get_tree().get_nodes_in_group("slots")
+	# for slot in totalSlots:
+	# 	#for all the slots in the game
+	# 	for slotType in SlotsByType.keys():
+	# 		#search through the keys for one that matches the slot type of the slot 
+	# 		if slot.slotType == slotType:
+	# 			print("Slot matches!")
+	# 			#if the slot's type matches the type of this particular key in the dictionary
+	# 			#add this slot to the 'array'/'list' that is the value paired with the key
+	# 			SlotsByType[slotType].append(slot)
+	# 			print(slot.name)
+	# 		else:
+	# 			print("slot doesn't match")
+
 
 	# enumToSlotTypeDictionary = {
 	# 	slotTypes.mainroom : mainRoomSlots,

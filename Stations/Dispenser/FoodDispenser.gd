@@ -15,7 +15,7 @@ func CalculateFoodValue(gardenHealth):
 	#this sets the value of the dispensed item to the health of the garden food
 	if hasRoom():
 		foodValues.append(gardenHealth)
-		print("Garden health is " + gardenHealth + " so food value is the same")
+		print("Garden health is " + str(gardenHealth) + " so food value is the same")
 		#dispensedItemValue = gardenHealth
 		startProducingFood()
 

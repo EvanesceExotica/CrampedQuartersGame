@@ -36,6 +36,7 @@ shape = SubResource( 1 )
 
 [node name="Slot" parent="SlotManager" index="0" instance=ExtResource( 5 )]
 position = Vector2( 500, 350 )
+slotType = 1
 
 [node name="CollisionShape2D" parent="SlotManager/Slot" index="1"]
 shape = SubResource( 2 )

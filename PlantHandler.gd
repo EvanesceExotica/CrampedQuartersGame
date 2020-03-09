@@ -129,4 +129,4 @@ func _on_StopDrain_pressed():
 	RemoveNewDrainSource(null, 1.5)
 	pass # Replace with function body.
 func _process(delta):
-	label.text = str(currentValue) + " / " + str(maxValue)
+	label.text = str((int(currentValue))) + " / " + str(maxValue)
