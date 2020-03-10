@@ -178,28 +178,36 @@ func stopAnimatingBar(certainTween):
 	#the tween ($TWEEN) back in the Character script is handling all the different stats
 	certainTween.stop_all()
 
-func animateBar(certainTween, certainBar, startValue, targetValue, rate):
-	if(certainBar == healthBar):
-		if(!isHealthTweenRunning):
-			isHealthTweenRunning = true
-		else:
-			healthTween.stop_all()
-	elif(certainBar == sustenanceBar):
-		if(!isSustenanceTweenRunning):
-			isSustenanceTweenRunning = true
-		else:
-			sustenanceTween.stop_all()
-	elif(certainBar == sanityBar):
-		if(!isSanityTweenRunning):
-			isSanityTweenRunning = true
-		else:
-			sanityTween.stop_all()
-	elif(certainBar == relationshipBar):
-		if(!isRelationshipTweenRunning):
-			isRelationshipTweenRunning = true
-		else:
-			relationshipTween.stop_all()
-	certainTween.interpolate_property(certainBar, 'value', startValue, targetValue, rate, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+func animateBar(affectedStat, startValue, targetValue, rate):#certainTween, certainBar, startValue, targetValue, rate):
+	var certainBar = statBars[affectedStat]
+	var certainTween = statTweens[affectedStat]
+	if !certainTween.is_active():
+		certainTween.stop_all()
+	# if(certainBar == healthBar):
+	# 	if(!isHealthTweenRunning):
+	# 		isHealthTweenRunning = true
+	# 	else:
+	# 		healthTween.stop_all()
+	# elif(certainBar == sustenanceBar):
+	# 	if(!isSustenanceTweenRunning):
+	# 		isSustenanceTweenRunning = true
+	# 	else:
+	# 		sustenanceTween.stop_all()
+	# elif(certainBar == sanityBar):
+	# 	if(!isSanityTweenRunning):
+	# 		isSanityTweenRunning = true
+	# 	else:
+	# 		sanityTween.stop_all()
+	# elif(certainBar == relationshipBar):
+	# 	if(!isRelationshipTweenRunning):
+	# 		isRelationshipTweenRunning = true
+	# 	else:
+	# 		relationshipTween.stop_all()
+	print("Sustenance value is " + str(character.sustenance.currentValue))
+	print("Sustenance BAR value is " + str(sustenanceBar.value))
+	#get_tree().paused = true
+	sustenanceBar.value = character.sustenance.currentValue
+	certainTween.interpolate_property(certainBar, 'value', affectedStat.currentValue + 1, targetValue, rate, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	certainTween.start()
 
 func EatCheese(test):
@@ -208,6 +216,7 @@ func EatCheese(test):
 func _process(delta):
 	healthLabel.text = str(int(character.health.currentValue)) + " / " + str(int(character.health.maxValue))
 	sanityLabel.text = str(int(character.sanity.currentValue)) + " / " + str(int(character.sanity.maxValue))
+	#sustenanceLabel.text = str(int(sustenanceBar.value)) + " / " + str(int(character.sustenance.maxValue))
 	sustenanceLabel.text = str(int(character.sustenance.currentValue)) + " / " + str(int(character.sustenance.maxValue))
 	relationshipLabel.text = str(int(character.relationship.currentValue)) + " / " + str(int(character.relationship.maxValue))
 
@@ -235,7 +244,10 @@ func _on_SustenanceTween_tween_completed(object, key):
 	if(character.sustenance.drainState == true):
 		character.restartInterruptedDrain(stat)
 		#animateBar(sustenanceTween, sustenanceBar, startSustenance, 0, character.calculateDrainRate(stat, character.valueDrainRates[stat]))
-
+func _on_SustenanceTween_tween_step(object, key, elaspsed, value):
+#	print(int(value))
+	#sustenanceLabel.text = str(int(value)) + " / " + str(int(character.sustenance.maxValue))
+	pass
 func _on_SanityTween_tween_completed(object, key):
 
 	isSanityTweenRunning = false

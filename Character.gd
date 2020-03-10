@@ -136,6 +136,7 @@ func removeAttribute(attribute):
 			# 	timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
 			# 	add_child(timer) #to process
 			# 	timer.start() #to start
+	emit_signal("attributeRemoved", attribute)
 
 func RemoveResultingAttribute(resultingAttribute):
 	pass
@@ -287,9 +288,9 @@ func RemoveNewDrainSource(affectedStat, drainSource, sourceDrainPerSecond):
 		if(affectedStat.drainSources.has(drainSource)):
 			affectedStat.drainSources.erase(drainSource)
 
-			affectedStat.drainRates -= sourceDrainPerSecond
-			if(affectedStat.drainRates <= 0):
-				affectedStat.drainRates = 0
+			affectedStat.drainRate -= sourceDrainPerSecond
+			if(affectedStat.drainRate <= 0):
+				affectedStat.drainRate = 0
 
 	if(affectedStat.drainSources.size() == 0):
 		#if there aren't any sources draining any longer, set to false
@@ -328,11 +329,11 @@ func drainValueOverTime(affectedStat, drainSource, rate):
 
 	$Tween.interpolate_property(affectedStat, "currentValue", currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate), Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 
-	characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
 	$Tween.start()
+	characterStats.animateBar(affectedStat, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
+	#characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
 
 
-onready var sustenanceBar = get_node("CharacterStats/Panel/SustenanceBar")
 
 
 #this is for if anything doubles or reduces damage taken
@@ -373,7 +374,7 @@ func changeStatValue(affectedStat, amount, isMultiplicative):
 		#currentBar.tint_progress = Color.red
 		pass
 
-	characterStats.animateBar(currentTween, currentBar, startValue, endValue, 0.25)
+	characterStats.animateBar(affectedStat, startValue, endValue, 0.25)
 
 
 func changeMaxStatValue(affectedStat, amount):
@@ -486,7 +487,9 @@ func _input(event):
 			viewingCharacterDetail = false
 
 func _on_Button_pressed():
-	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
+	#applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
+	print(sustenance.currentValue)
+	get_tree().paused = true
 
 func _on_FasterHealthDrain_pressed():
 	for item in characterAttributes:
@@ -512,12 +515,13 @@ func _on_Attack_pressed():
 	pass # Replace with function body.
 
 func _on_Tween_tween_step(object, key, elapsed, value):
-	pass
 	if object.currentValue <= 0:
 		 emit_signal("statAtZero", object)
 
 	if object.currentValue >= object.maxValue:
 		emit_signal("statAtMax", object)
+
+	#characterStats.sustenanceLabel.text = str(int(value)) + " / " + str(int(sustenance.maxValue))
 
 # 	if(key == ':currentHealth'):
 # 		var stat = DynamicStats.health

@@ -411,6 +411,31 @@
 					"ResultingAttributes": [],
 					"index": 15,
 					"SpecialAttribute": true
+				},
+				{
+					"id": "Irradiated",
+					"attributeName": "Irradiated",
+					"description": "Under the effects of radiation",
+					"AffectedStats": [
+						{
+							"statName": "health",
+							"whichValue": "drain",
+							"amount": 1
+						},
+						{
+							"statName": "health",
+							"whichValue": "max",
+							"amount": 0.5
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": false,
+					"index": 16
 				}
 			],
 			"separators": [],

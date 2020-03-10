@@ -16,7 +16,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -94.1474 ]
 }
-characterType = 3
 
 [node name="Naut" type="Sprite" parent="."]
 position = Vector2( 4.26169, -12.1247 )

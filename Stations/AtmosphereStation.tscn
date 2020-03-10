@@ -6,10 +6,8 @@
 
 [node name="AtmosphereStation" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-minigameScreen = null
 
 [node name="furniture_walldeco_8bit_cloud" type="Sprite" parent="." index="1"]
-position = Vector2( 120, 140 )
-scale = Vector2( 0.281421, 0.281421 )
+position = Vector2( 132.278, 149.407 )
+scale = Vector2( 0.175713, 0.175713 )
 texture = ExtResource( 3 )
-

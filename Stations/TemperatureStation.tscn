@@ -6,4 +6,3 @@
 [node name="TemperatureStation" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 minigameScreen = null
-

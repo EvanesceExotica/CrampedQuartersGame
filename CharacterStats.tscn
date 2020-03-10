@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://CharacterStats.gd" type="Script" id=1]
 [ext_resource path="res://Panel.png" type="Texture" id=2]
@@ -19,17 +19,15 @@
 [ext_resource path="res://brain.png" type="Texture" id=17]
 [ext_resource path="res://three-friends.png" type="Texture" id=18]
 
-[sub_resource type="StyleBoxTexture" id=1]
-
-[sub_resource type="StyleBoxTexture" id=2]
+[sub_resource type="StyleBoxTexture" id=8]
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 794, 461 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 30
 font_data = ExtResource( 6 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "SustenanceBarFlash"
 length = 0.5
 step = 0.05
@@ -58,30 +56,32 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "test"
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 size = 20
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 size = 30
 font_data = ExtResource( 6 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 388.889, 235.294 )
 
 [node name="CharacterStats" type="Control"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel" type="Panel" parent="."]
 margin_right = 847.0
 margin_bottom = 450.0
 focus_mode = 2
 mouse_filter = 1
-custom_styles/panelf = SubResource( 1 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 8 )
 script = ExtResource( 3 )
 
 [node name="HealthBar" type="TextureProgress" parent="Panel"]
@@ -92,6 +92,9 @@ margin_bottom = 97.7391
 value = 100.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HealthTween" type="Tween" parent="Panel/HealthBar"]
 
@@ -100,23 +103,27 @@ margin_left = 595.0
 margin_top = 8.0
 margin_right = 652.0
 margin_bottom = 51.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "100/100"
 align = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/HealthBar"]
-anims/Flash = SubResource( 4 )
+anims/Flash = SubResource( 3 )
 anims/HealthBarFlash = ExtResource( 7 )
-anims/test = SubResource( 5 )
+anims/test = SubResource( 4 )
 
 [node name="SustenanceBar" type="TextureProgress" parent="Panel"]
 margin_left = 111.111
 margin_top = 122.0
 margin_right = 704.111
 margin_bottom = 178.0
+step = 0.1
 value = 100.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SustenanceTween" type="Tween" parent="Panel/SustenanceBar"]
 
@@ -128,7 +135,7 @@ margin_left = 596.573
 margin_top = 10.3529
 margin_right = 653.573
 margin_bottom = 53.3529
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "100/100"
 align = 2
 
@@ -144,7 +151,7 @@ texture_progress = ExtResource( 10 )
 [node name="SanityTween" type="Tween" parent="Panel/SanityBar"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/SanityBar"]
-anims/Flash = SubResource( 4 )
+anims/Flash = SubResource( 3 )
 anims/SanityBarFlash = ExtResource( 11 )
 
 [node name="SanityLabel" type="Label" parent="Panel/SanityBar"]
@@ -152,7 +159,7 @@ margin_left = 595.0
 margin_top = 17.8492
 margin_right = 652.0
 margin_bottom = 60.8492
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "100/100"
 align = 2
 
@@ -182,7 +189,7 @@ margin_left = 595.0
 margin_top = 11.3786
 margin_right = 652.0
 margin_bottom = 54.3786
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "50/100"
 align = 2
 
@@ -223,7 +230,7 @@ margin_left = 60.0
 margin_top = 367.647
 margin_right = 227.0
 margin_bottom = 414.647
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Name: Lauren Jackson"
 
 [node name="AttributesLabel" type="Label" parent="Panel"]
@@ -232,7 +239,7 @@ margin_left = 310.0
 margin_top = 366.0
 margin_right = 477.0
 margin_bottom = 413.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Attributes: Coward, etc."
 
 [node name="ConditionsLabel" type="Label" parent="Panel"]
@@ -241,7 +248,7 @@ margin_left = 310.0
 margin_top = 411.765
 margin_right = 487.0
 margin_bottom = 458.765
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Conditions: Scared, etc."
 
 [node name="Tween" type="Tween" parent="."]
@@ -257,7 +264,7 @@ visible = false
 margin_left = 250.0
 margin_right = 583.0
 margin_bottom = 51.0
-custom_fonts/normal_font = SubResource( 7 )
+custom_fonts/normal_font = SubResource( 6 )
 text = "HOVER OVERVIEW"
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -265,9 +272,9 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 388.889, 220.588 )
-shape = SubResource( 8 )
-
+shape = SubResource( 7 )
 [connection signal="tween_completed" from="Panel/HealthBar/HealthTween" to="." method="_on_HealthTween_tween_completed"]
 [connection signal="tween_completed" from="Panel/SustenanceBar/SustenanceTween" to="." method="_on_SustenanceTween_tween_completed"]
+[connection signal="tween_step" from="Panel/SustenanceBar/SustenanceTween" to="." method="_on_SustenanceTween_tween_step"]
 [connection signal="tween_completed" from="Panel/SanityBar/SanityTween" to="." method="_on_SanityTween_tween_completed"]
 [connection signal="tween_completed" from="Panel/RelationshipBar/RelationshipTween" to="." method="_on_RelationshipTween_tween_completed"]

@@ -4,6 +4,10 @@ onready var nameDisplay = get_node("ShowName")
 onready var warningFlash = get_node("WarningFlash")
 onready var room
 onready var interactionSpace = get_node("InteractionSpace")
+
+var disabled
+var appliedAttributeOnFailure = ""
+var createdAttribute
 # Declare member variables here. Examples:
 # var a = 2
 export (PackedScene) var minigameScreen
@@ -47,7 +51,7 @@ func interactWith():
 	#different ways to interact with
 	pass
 # Called when the node enters the scene tree for the first time.
-func loadMinigameScene():
+func loadMinigameScene(repair):
 
 	#stop warning timer
 	warningTimer.stop()
@@ -59,8 +63,14 @@ func loadMinigameScene():
 		get_parent().add_child(screenInstance)
 
 		#the game was a success, reset the maintenance timer
-	screenInstance.connect("success", self, "resetMaintenanceTimer")
-	screenInstance.connect("gameOver", self, "disableStation")
+	if !repair:
+		#if you're doing maintenance, and not repairing, have a success reset the maintenace timer, and a gameOver disable the station
+		screenInstance.connect("success", self, "resetMaintenanceTimer")
+		screenInstance.connect("gameOver", self, "disableStation")
+	else:
+		#if you're repairing, have a success re-enable the station, turning off the ill effects, and reset the maintenace timer
+		screenInstance.connect("success", self, "enableStation")
+		screenInstance.connect("success", self, "resetMaintenanceTimer")
 	screenInstance.initializeGame()
 
 func addDamageTag(tag):
@@ -121,9 +131,22 @@ func callForMaintenance():
 	pass
 
 func disableStation():
+	disabled = true
 	hideAndStopWarningFlash()
 	print("Station disabled! -- effects taking place!")
 	#this happens when the station takes too much damage or a maintenance check is failed or runs out of time
+	if appliedAttributeOnFailure != null:
+		#if we have an attribute to apply 
+		if createdAttribute != null:
+			get_tree().call_group("slots", "applyNewAttributeToSlot", createdAttribute)
+		else:
+			createdAttribute = AttributeJSONParser.fetchAndCreateAttribute(appliedAttributeOnFailure)
+	pass
+func enableStation():
+	disabled = false
+	if createdAttribute != null:
+		#if this station has an attribute to apply
+		get_tree().call_group("slots", "removeAttributeFromSlot", createdAttribute)
 	pass
 func getHalfHealthValue():
 	return int((floor(maxHealth/2)))
@@ -134,6 +157,8 @@ func damage(amount):
 func damgeOverTime():
 	pass
 func repair():
+	print("Repairing!")
+	loadMinigameScene(true)
 	pass
 
 func _ready():
@@ -143,8 +168,10 @@ func _ready():
 
 func _input(event):
 	if(event.is_action_pressed("ui_interact")):
-		if(mouseHovering):
-			loadMinigameScene()
+		if(mouseHovering && !disabled):
+			loadMinigameScene(false)
+		elif(mouseHovering && disabled):
+			repair()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _on_InteractionSpace_mouse_entered():
 	mouseHovering = true

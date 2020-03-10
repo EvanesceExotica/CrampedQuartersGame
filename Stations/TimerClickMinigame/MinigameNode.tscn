@@ -31,6 +31,5 @@ texture_hover = ExtResource( 3 )
 texture_focused = ExtResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
-
 [connection signal="pressed" from="Hex" to="." method="_on_Hex_pressed"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

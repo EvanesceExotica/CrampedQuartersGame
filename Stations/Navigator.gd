@@ -342,4 +342,5 @@ func _on_JumpButton_pressed():
 
 func _process(delta):
 	if(currentlyTravelling):
-		travelTimeLabel.text = "TRAVEL TIME LEFT: " + str(TimeConverter.round_to_dec(travelTimer.time_left, 1)).pad_decimals(1)
+		#travelTimeLabel.text = "TRAVEL TIME LEFT: " + str(TimeConverter.round_to_dec(travelTimer.time_left, 1)).pad_decimals(1)
+		travelTimeLabel.text = "TRAVEL TIME LEFT: " + str(TimeConverter.SecondsToGameMinutes(travelTimer.time_left)).pad_decimals(1) + " Minutes"

@@ -38,12 +38,6 @@ visible = false
 position = Vector2( 129, 140 )
 scale = Vector2( 0.274834, 0.274834 )
 
-[node name="Button" type="Button" parent="."]
-margin_left = 10.0
-margin_right = 240.0
-margin_bottom = 50.0
-text = "DISABLE"
-
 [node name="ShowName" parent="." instance=ExtResource( 6 )]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 269.212
@@ -51,6 +45,15 @@ margin_top = 8.59186
 margin_right = 269.212
 margin_bottom = 8.59186
 mouse_filter = 2
+
+[node name="Button" type="Button" parent="."]
+margin_left = 10.0
+margin_right = 240.0
+margin_bottom = 50.0
+text = "DISABLE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="mouse_entered" from="InteractionSpace" to="." method="_on_InteractionSpace_mouse_entered"]
 [connection signal="mouse_exited" from="InteractionSpace" to="." method="_on_InteractionSpace_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

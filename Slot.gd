@@ -47,11 +47,7 @@ func applyNewAttributeToSlot(attribute):
 	#when a brand new attribute is applied, apply it to the character as well
 	slotAttributes.append(attribute)
 	if(occupied):
-		#print("We have a character here and we're going to add this attribute")
-		#print(characterInSlot.characterName)
 		characterInSlot.applyNewAttribute(attribute)
-		#for attribute in characterInSlot.characterAttributes:
-		#	print("Charcter has these : " + attribute.attributeName)
 	emit_signal("newAttributeAdded")
 
 	pass
