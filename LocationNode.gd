@@ -18,6 +18,9 @@ onready var pointer = get_node("Pointer")
 var arrivalEventID = 1 
 var selected = false
 
+func setAsDistressSignal():
+	print("Playing signal animation ")
+	anim.play("DistressPulse")
 var isCurrentLocation = false
 #maybe keep location info on this node too? But h ave it be a separate node or resource attached
 func setPickable():

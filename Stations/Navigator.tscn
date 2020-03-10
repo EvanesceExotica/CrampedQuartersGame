@@ -90,6 +90,5 @@ custom_fonts/normal_font = SubResource( 4 )
 text = "TRAVEL TIME LEFT: "
 
 [node name="TravelTimer" type="Timer" parent="."]
-
 [connection signal="pressed" from="HSplitContainer/JumpButton" to="." method="_on_JumpButton_pressed"]
 [connection signal="pressed" from="HSplitContainer/SpacetimeJump" to="." method="_on_SpacetimeJump_pressed"]

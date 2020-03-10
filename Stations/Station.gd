@@ -111,7 +111,8 @@ func resetMaintenanceTimer():
 	var randomValue = rand_range(cooldownMinValue, cooldownMaxValue)
 	maintenanceTimer.wait_time = randomValue
 	maintenanceTimer.one_shot = true
-	maintenanceTimer.connect("timeout", self, "callForMaintenance")
+	if !maintenanceTimer.is_connected("timeout", self, "callForMaintenance"):
+		maintenanceTimer.connect("timeout", self, "callForMaintenance")
 	maintenanceTimer.start()
 
 func hideAndStopWarningFlash():
@@ -138,12 +139,13 @@ func disableStation():
 	print("Station disabled! -- effects taking place!")
 	#this happens when the station takes too much damage or a maintenance check is failed or runs out of time
 	if appliedAttributeOnFailure != null:
-		#if we have an attribute to apply 
-		if createdAttribute != null:
-			get_tree().call_group("slots", "applyNewAttributeToSlot", createdAttribute)
-		else:
+		#if we have an attribute to apply  -- some stations won't
+		print("Our failure is going to apply " + appliedAttributeOnFailure)
+		if createdAttribute == null:
+			#if our attribute has NOT already been created by the AttributeJsonParser, create it, and set it to createdAttribute to be used again later which will pass this null check
 			createdAttribute = AttributeJSONParser.fetchAndCreateAttribute(appliedAttributeOnFailure)
-	pass
+		get_tree().call_group("slots", "applyNewAttributeToSlot", createdAttribute)
+
 func enableStation():
 	disabled = false
 	if createdAttribute != null:

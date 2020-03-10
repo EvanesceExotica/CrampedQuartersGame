@@ -153,6 +153,28 @@ func CalculateTravelDistance():
 func FindDistressSignalLocation():
 	#find a location that's a certan distance away from the starting location
 	pass
+func FindFarthestLocation(node):
+	#this will find the node that's the farthest from the starting node
+	var farthestLocation = generatedLocations.keys()[0]
+	var secondFarthestLocation
+	for location in generatedLocations.keys():
+		# if location == node:
+		# 	#make sure the same node as is 'node' isn't being chosen
+		# 	continue
+		# if generatedLocations[location].size() > 0 :
+
+		# 	#the ggeneratedLocations stores the location and the ones it's connected to
+		# 	#this will skip the first node with a connection, but the last node that doesn't have one can connect to any before
+		# 	#make sure the location doesn't already have a connection to it
+		# 	continue
+		if location.position.distance_to(node.position) > farthestLocation.position.distance_to(node.position):
+			#find the closest location that isn't already connected and isn't the same node
+
+			#store the location that's the second farthert
+			secondFarthestLocation = farthestLocation
+			farthestLocation = location
+	return farthestLocation
+
 
 
 func InitiateTravel():
@@ -178,7 +200,8 @@ func InitalizeNodes():
 	#this chooses a random location to start in
 	startingLocation = chooseRandomLocation()
 	#startingLocation.modulate = Color.cornflower
-
+	distressSignalLocation = FindFarthestLocation(startingLocation)
+	distressSignalLocation.setAsDistressSignal()
 	#setting the current location to the starting location
 	currentLocation = startingLocation
 	previousLocation = null
