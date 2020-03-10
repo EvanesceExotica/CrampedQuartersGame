@@ -436,6 +436,66 @@
 					"ResultingAttributes": [],
 					"SpecialAttribute": false,
 					"index": 16
+				},
+				{
+					"id": "Overheating",
+					"attributeName": "Overheating",
+					"description": "I'm really hot here",
+					"AffectedStats": [
+						{
+							"statName": "health",
+							"whichValue": "drain",
+							"amount": 1
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": false,
+					"index": 17
+				},
+				{
+					"id": "Freezing",
+					"attributeName": "Freezing",
+					"description": "I'm so cold",
+					"AffectedStats": [
+						{
+							"statName": "sustenance",
+							"whichValue": "drain",
+							"amount": -0.3
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [
+						{
+							"AttributeName": "Frozen",
+							"appliesOnRemoval": false,
+							"chancePerHalfHour": 0.5
+						}
+					],
+					"SpecialAttribute": false,
+					"index": 18
+				},
+				{
+					"id": "Frozen",
+					"attributeName": "Frozen",
+					"description": "I'm frozen solid",
+					"AffectedStats": [],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": false,
+					"index": 19
 				}
 			],
 			"separators": [],

@@ -26,7 +26,7 @@ var currentLocation
 var beaconLocation
 var selectedNextLocation
 var previousLocation
-# Called when the node enters the scene tree for the first time.
+var distressSignalLocation
 var locationNode = preload("res://LocationNode.tscn")
 
 onready var lineHolder = get_node("LineHolder")
@@ -40,6 +40,7 @@ onready var travelTimer = get_node("TravelTimer")
 onready var travelTimeLabel = get_node("TravelTimeLabel")
 
 var connectionsMade = {}
+
 
 func spawnInArea():
 	var centerpos = colshape2d.position + area2d.position
@@ -149,7 +150,9 @@ func CalculateTravelDistance():
 	var timeToTravel = int(round(distanceToTravel/50))
 	return timeToTravel
 	
-
+func FindDistressSignalLocation():
+	#find a location that's a certan distance away from the starting location
+	pass
 
 
 func InitiateTravel():

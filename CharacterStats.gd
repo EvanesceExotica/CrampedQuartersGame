@@ -74,7 +74,6 @@ func _ready():
 	hoveringOverPanel = false
 	character.connect("newAttributeAdded", self, "addAttributeToPanel")
 	character.connect("attributeRemoved", self, "removeAttributeFromPanel")
-	character.connect("statAtZero", self, "EatCheese")
 	nameLabel.text = "Name: " + character.characterName
 	self.modulate = Color(1, 1, 1, 0)
 	#hideDisplay()

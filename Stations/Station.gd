@@ -21,11 +21,13 @@ var currentHealth = 3
 var maxHealth = 3
 
 #for how long until the station needs maintenance
+var cooldownMaxInGameHours = 2
+var cooldownMinInGameHours = 1
 var cooldownMaxValue = 500 
 var cooldownMinValue = 200
 
 #for how long the warning will go off until maintenance
-var warningDuration = 10
+export var warningDuration = 10
 
 const hale = "hale"
 const minorDamage = "minorDamage" #glitches appear on screen making it hard to see?
