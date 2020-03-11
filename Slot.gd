@@ -45,7 +45,6 @@ enum slotSlotTypes{
 }
 func applyNewAttributeToSlot(attribute):
 	#when a brand new attribute is applied, apply it to the character as well
-	print("I have 'asphixiating' attached to me")
 	slotAttributes.append(attribute)
 	if(occupied):
 		characterInSlot.applyNewAttribute(attribute)

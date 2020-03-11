@@ -47,3 +47,13 @@ slotType = 3
 
 [node name="TemperatureStation" parent="." index="7" instance=ExtResource( 7 )]
 position = Vector2( -40, 120 )
+
+[node name="Button" type="Button" parent="." index="8"]
+margin_left = 430.426
+margin_top = 43.9522
+margin_right = 637.426
+margin_bottom = 89.9522
+text = "Open to Space"
+__meta__ = {
+"_edit_use_anchors_": false
+}
