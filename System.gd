@@ -220,11 +220,11 @@ func updateSlots(slot, character):
 
 func setDraggedCharacter(character):
 	selectedCharacter = character
-	print(character.name + " selected")
+	#print(character.name + " selected")
 
 func clearDraggedCharacter(character):
 	selectedCharacter = null
-	print(character.name + " dropped")
+	#print(character.name + " dropped")
 
 func pause():
 	paused = true

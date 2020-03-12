@@ -101,3 +101,9 @@ func _on_Dispenser_area_exited(area):
 		#print("Hand exited " + self.name) 
 		handInZone = false
 	pass # Replace with function body.
+
+func _on_Dispenser_mouse_entered():
+	handInZone = true
+
+func _on_Dispenser_mouse_exited():
+	handInZone = false

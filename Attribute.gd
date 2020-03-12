@@ -63,6 +63,7 @@ var canCombineWith = {} #can comebine with key to cause value; i.e:, if Aquatic 
 var modifiedAttributes = {} #other attributes this one will modify?
 var characterEventTypeChance = { } #insanity events; drift events
 var externalCombinations = [] #alien:self
+var deathType
 
 func CheckRemoveableCritera(signalCalled):
 	var numberOfTimesCalled = 0

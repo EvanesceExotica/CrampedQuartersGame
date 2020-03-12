@@ -505,7 +505,7 @@
 						{
 							"statName": "health",
 							"whichValue": "drain",
-							"amount": 1.25
+							"amount": 20
 						}
 					],
 					"AuraAttributes": [],

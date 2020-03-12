@@ -5,6 +5,7 @@ extends Area2D
 # var b = "text"
 #1 is normal comfort. zero is none. -1 is actively causing sanity drain
 #var attributeScript = preload("res://Attribute.gd")
+const Character = preload("res://Character.gd")
 var comfortLevel = 1
 var characterInSlot
 var occupied = false
@@ -85,6 +86,23 @@ func checkIfCharacterDontLikeInAdjacentSlot():
 	#(if they're a diff species as a xenophobe, or insane, or something)
 	pass
 
+# func addCorpseToSlot(corpse):
+# 	characterInSlot = corpse
+# 	corpse.currentSlot = self
+# 	corpse.global_position = self.global_position
+# 	emit_signal("someoneEnteredSlot", self, corpse)
+# 	System.updateSlots(self, corpse)
+# 	corpse.turnOnAuras()
+# 	pass
+# func removeCorpseFromSlot(corpse):
+# 	characterInSlot = null
+# 	emit_signal("someoneVacatedSlot", self, corpse)
+# 	System.updateSlots(self, null)
+# 	corpse.previousSlot = self
+# 	occupied = false
+# 	corpse.turnOffAuras()
+# 	pass
+
 func addCharacterToSlot(character):
 	characterInSlot = character
 	character.currentSlot = self
@@ -93,14 +111,15 @@ func addCharacterToSlot(character):
 	emit_signal("someoneEnteredSlot", self, character)
 	System.updateSlots(self, character)
 	occupied = true
-	if(onLeftOfRoom):
-		#if the slot is on the left of this room
-		character.characterStats.SetToRightFacingPosition()
-	elif(!onLeftOfRoom):
-		#if this slot is on the right of this orom
-		character.characterStats.SetToLeftFacingPosition()
+	if character is Character:
+		#if this is a character and not a corpse
+		if(onLeftOfRoom):
+			#if the slot is on the left of this room
+			character.characterStats.SetToRightFacingPosition()
+		elif(!onLeftOfRoom):
+			#if this slot is on the right of this orom
+			character.characterStats.SetToLeftFacingPosition()
 	character.turnOnAuras()
-	self.modulate = Color.red
 
 func removeCharacterFromSlot(character):
 	print("Character removed from slot")
@@ -111,7 +130,6 @@ func removeCharacterFromSlot(character):
 	character.previousSlot = self
 	occupied = false
 	character.turnOffAuras()
-	self.modulate = Color.green
 
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):

@@ -10,6 +10,7 @@ var handledDayPass = false
 func round_to_dec(num, places):
     return round (num * pow(10.0, places))/pow(10.0, places)
 
+#func SetGameTimer(timer, waitTime, oneshot, )
 func HandleDayPassing():
     print("A day has passed")
     SignalManager.emit_signal("DayPassed")

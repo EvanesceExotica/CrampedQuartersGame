@@ -68,6 +68,8 @@ rect_scale = Vector2( 0.5, 0.5 )
 [node name="DeathHandler" parent="." instance=ExtResource( 6 )]
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Character_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Attack" to="." method="_on_Attack_pressed"]
 [connection signal="pressed" from="FasterHealthDrain" to="." method="_on_FasterHealthDrain_pressed"]

@@ -44,7 +44,7 @@ var damageDealt = 2
 #warning-ignore:unused_class_variable
 var stationTraining = { }
 
-
+var starvingAttribute
 
 
 signal statAtZero(whichStat)
@@ -87,7 +87,7 @@ func applyNewAttribute(newAttribute):
 				changeMaxStatValue(affectedStat, stat["amount"])
 
 			"current":
-				changeStatValue(affectedStat, stat["amount"], false)
+				changeStatValue(affectedStat, newAttribute, stat["amount"], false)
 			"drain":
 				addNewDrainSource(affectedStat, newAttribute, stat["amount"])
 			"static":
@@ -187,7 +187,7 @@ func _applyNewAttribute(newAttribute):
 			#var affectedStat = determineStat(currentDynamicStat)
 			#this passes the stat object, then the value of it,
 			var affectedStat = determineStat(currentDynamicStatName)
-			changeStatValue(affectedStat, newTrait.AffectedDynamicStatsCurrent[currentDynamicStatName], false)
+			changeStatValue(affectedStat, null, newTrait.AffectedDynamicStatsCurrent[currentDynamicStatName], false)
 
 	if(newTrait.AffectedDynamicStatsMax.size() > 0):
 		#for things that affect maxStats
@@ -255,7 +255,9 @@ func determineStat(statName):
 	return get(statName)
 
 func addNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
-
+	if affectedStat == health && newDrainPerSecond > 0:
+		#if this is draining the health, and it's a positive, not a negative drain (i.e., not healing)
+		deathHandler.addPotentialDeathSource(drainSource, newDrainPerSecond)
 	#var affectedStat = determineStat(whichStat)
 
 
@@ -279,6 +281,9 @@ func addNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
 func RemoveNewDrainSource(affectedStat, drainSource, sourceDrainPerSecond):
 	#this source is usually going to be from an attribute. "drainSource" is the attribute and "sourceDrainPerSecond" is the attribute's drain amount. Could be better named. 
 	#var affectedStat = determineStat(whichStat)
+	if deathHandler.potentialDeathSources.keys().has(drainSource):
+		#if the death handler was tracking this source, remove it
+		deathHandler.removePotentialDeathSource(drainSource)
 
 	if(affectedStat.drainSources.size() > 0):
 
@@ -339,7 +344,7 @@ func drainValueOverTime(affectedStat, drainSource, rate):
 #this is for if anything doubles or reduces damage taken
 var damageModifiers = []
 var timer
-func changeStatValue(affectedStat, amount, isMultiplicative):
+func changeStatValue(affectedStat, newAttribute, amount, isMultiplicative):
 	#var affectedStat = determineStat(dynamicStat)
 
 	var endValue
@@ -364,6 +369,11 @@ func changeStatValue(affectedStat, amount, isMultiplicative):
 	if(affectedStat.currentValue <= 0):
 		affectedStat.currentValue = 0
 		emit_signal("statAtZero", affectedStat)
+		if affectedStat == health:
+			#if the affected stat is health and is zero, the character has died
+			Die(newAttribute, false)
+		elif affectedStat == sustenance:
+			Starve()
 
 	if(affectedStat.currentValue > affectedStat.maxValue ):
 		affectedStat.currentValue = affectedStat.maxValue
@@ -371,8 +381,12 @@ func changeStatValue(affectedStat, amount, isMultiplicative):
 
 	if(amount < 0):
 		currentAnim.play(currentBar.get_name() + "Flash")
-		#currentBar.tint_progress = Color.red
-		pass
+	if amount > 0 && affectedStat.currentValue > 0:
+		#if the affected stat was zero and has now been healed/regained
+		if affectedStat == sustenance:
+			#this should usually be applied by food, with the 'CheckIfSomethingDropped' method.
+			#make it so the character isn't starving anymore
+			ClearStarvation()
 
 	characterStats.animateBar(affectedStat, startValue, endValue, 0.25)
 
@@ -395,11 +409,17 @@ func changeMaxStatValue(affectedStat, amount):
 	#make sure the value of the bars are being changed too
 	characterStats.changeBarMaxValue(characterStats.statBars[affectedStat], affectedStat.maxValue)
 
-func Die():
+func Die(source, causedByDrain):
 	print(characterName + " died")
 	#later you can pass in the source of the death
-	deathHandler.handleDeath(self, null)
+	deathHandler.handleDeath(self, source, causedByDrain)
 	pass
+
+func Starve():
+	applyNewAttribute(starvingAttribute)
+
+func ClearStarvation():
+	removeAttribute(starvingAttribute)
 
 func _ready():
 	randomize()
@@ -415,6 +435,7 @@ func _ready():
 
 	#this adds the attribute to have the characters be constantly hungry
 	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("NeedsSustenance"))
+	starvingAttribute = AttributeJSONParser.fetchAndCreateAttribute("Starving")
 
 func turnOffAuras():
 	for aura in auraSlotRange.keys():
@@ -428,9 +449,9 @@ func turnOnAuras():
 func checkIfSomethingDropped(dispenser):
 	if(handInZone):
 		if(dispenser.dispensedItem == dispenser.ItemOptions.health):
-			changeStatValue(health, dispenser.dispensedItemValue, false)
+			changeStatValue(health, dispenser, dispenser.dispensedItemValue, false)
 		elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
-			changeStatValue(sustenance, dispenser.foodValues.pop_back(), false)
+			changeStatValue(sustenance, dispenser, dispenser.foodValues.pop_back(), false)
 			#changeStatValue(sustenance, dispenser.dispensedItemValue, false)
 		System.emit_signal("dispensedItemConsumed", dispenser, self)
 
@@ -490,12 +511,14 @@ func _input(event):
 
 func _on_Button_pressed():
 	#applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
-	get_tree().paused = true
+	Die(null, false)
+	#get_tree().paused = true
 
 func _on_FasterHealthDrain_pressed():
-	for item in characterAttributes:
-		if(item.attributeName == "OnFire"):
-			removeAttribute(item)
+	changeStatValue(sustenance, null, -100, false)
+	# for item in characterAttributes:
+	# 	if(item.attributeName == "OnFire"):
+	# 		removeAttribute(item)
 	#removeAttribute("OnFire")
 	#addNewDrainSource(DynamicStats.sanity, null, 2)
 	#addHealthDrainSource("test2", 3.0)
@@ -517,8 +540,17 @@ func _on_Attack_pressed():
 
 func _on_Tween_tween_step(object, key, elapsed, value):
 	if object.currentValue <= 0:
-		 emit_signal("statAtZero", object)
+		emit_signal("statAtZero", object)
+		if object == health:
+			Die(null, true)
+		if object == sustenance:
+			Starve()
 
 	if object.currentValue >= object.maxValue:
 		emit_signal("statAtMax", object)
 
+func _on_Character_mouse_entered():
+	handInZone = true
+
+func _on_Character_mouse_exited():
+	handInZone = false
