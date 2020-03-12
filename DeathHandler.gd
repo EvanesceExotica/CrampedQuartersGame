@@ -1,8 +1,19 @@
 extends Node2D
 
+onready var corpseSprite = get_node("CorpseSprite")
+#this dictionary will contain the sprites for the different types of death
+#maybe play a different animation too
+var potentialDeathSources = {
+
+}
+
+var corpseDictionary = {
+
+}
+var corpse = preload("res://Character/Corpse.tscn")
 
 #right after death, the corpse will apply the 'shaken' effect, which drains sanity. After that, it will apply the 'diseased' affect if not gotten rid of.
-var applyAuraa 
+var applyAura
 enum deathType{
     burning,
     freezing,
@@ -10,6 +21,50 @@ enum deathType{
     airLock,
 }
 
-func generateCorpse(typeOfDeath):
+func addPotentialDeathSource():
+    #add a drain source and its value to the dictionary, for determining which drain killed the character (highest drain wins out, or random if multiple highest)
+   pass
+
+func removePotentialDeathSource():
+    #removes a drain source and its value from the dictionary, as no longer needed for determining which drain killed the character 
+    pass
+
+var determineCauseOfDeath(drainSources):
+    #maybe in 'character' store source and amount
+    #this is for if there were multiple health drain sources at the time the character died. We'll take the one with the biggest value. If multiple with same value, choose random 
+    var highestDrainSource = potentialDeathSources.keys()[0]
+    for source in potentialDeathSources:
+        if source == highestDrainSource:
+            #if the source is the self, skip it
+            continue
+        if potentialDeathSources[source] > potentialDeathSources[highestDrainSource]:
+            #if this source's value is higher, set the higher one to the new highest drain source
+            highestDrainSource = source
+        if potentialDeathSources[source] == potentialDeathSources[highestDrainSource]:
+            #if they're equal, maybe choose a random one?
+            pass 
+    for source in drainSources:
+        if source
+
+
+func handleDeath(character, typeOfDeath):
+    #instance the corpse, and add it to the tree, then delete the character
+    if typeOfDeath != deathType.airLock:
+        #spacing does not leave a corpse behind
+        var newCorpse = corpse.instance()
+        get_tree().add_child(newCorpse)
+    #handle the character being removed from slot so typical auras are turned off
+    character.currentSlot.removeCharacterFromSlot(character)
+    removeCharacter(character)
+
+
+func removeCharacter(character):
+    #this literally just deletes the character
+    #maybe put something somewhere where the death type is tracked
+    character.queue_free()
+
+func determineCorpseType(typeOfDeath):
+    #not implementing this now, but later
+    corpseSprite.texture = corpseDictionary[typeOfDeath]
     pass
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-
+onready var deathHandler = get_node("DeathHandler")
 var handInZone = false
 
 var viewingCharacterDetail = false
@@ -397,6 +397,8 @@ func changeMaxStatValue(affectedStat, amount):
 
 func Die():
 	print(characterName + " died")
+	#later you can pass in the source of the death
+	deathHandler.handleDeath(self, null)
 	pass
 
 func _ready():
@@ -451,8 +453,9 @@ func _process(delta):
 func _on_Character_area_entered(area):
 	if(area.name == "Hand"):
 		handInZone = true
-		characterStats.showDisplay()
-	pass # Replace with function body.
+		if(!viewingCharacterDetail):
+			#if the character detail panel isn't already locked in
+			characterStats.showDisplay()
 
 
 func _on_Character_area_exited(area):
@@ -463,7 +466,6 @@ func _on_Character_area_exited(area):
 			#if the mouse isn't on the player anymore, and also isn't
 			#hovering over the panel, hide the display
 			characterStats.hideDisplay()
-	pass # Replace with function body.
 
 func _input(event):
 	if(event.is_action_pressed("ui_interact")):
@@ -488,7 +490,6 @@ func _input(event):
 
 func _on_Button_pressed():
 	#applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
-	print(sustenance.currentValue)
 	get_tree().paused = true
 
 func _on_FasterHealthDrain_pressed():
@@ -521,55 +522,3 @@ func _on_Tween_tween_step(object, key, elapsed, value):
 	if object.currentValue >= object.maxValue:
 		emit_signal("statAtMax", object)
 
-	#characterStats.sustenanceLabel.text = str(int(value)) + " / " + str(int(sustenance.maxValue))
-
-# 	if(key == ':currentHealth'):
-# 		var stat = DynamicStats.health
-# 		statCurrentValues[DynamicStats.health] = value
-
-# 		if(statCurrentValues[DynamicStats.health] <= 0):
-# 			emit_signal("statAtZero", DynamicStats.health)
-
-# 		if(statCurrentValues[stat] >= statMaxValues[stat]):
-# 			emit_signal("statAtMax", stat)
-
-# 	elif(key == ':currentSustenance'):
-# 		var stat = DynamicStats.sustenance
-# 		statCurrentValues[DynamicStats.sustenance] = value
-
-# 		if(statCurrentValues[DynamicStats.sustenance] <= 0):
-# 			emit_signal("statAtZero", DynamicStats.sustenance)
-
-# 		if(statCurrentValues[stat] >= statMaxValues[stat]):
-# 			emit_signal("statAtMax", stat)
-
-# 	elif(key == ':currentSanity'):
-# 		var stat = DynamicStats.sanity
-# 		statCurrentValues[DynamicStats.sanity] = value
-
-# 		if(statCurrentValues[DynamicStats.sanity] <= 0):
-# 			emit_signal("statAtZero", DynamicStats.sanity)
-
-# 		if(statCurrentValues[stat] >= statMaxValues[stat]):
-# 			emit_signal("statAtMax", stat)
-
-# 	elif(key == ':currentRelationship'):
-# 		var stat = DynamicStats.relationship
-# 		statCurrentValues[DynamicStats.relationship] = value
-
-# 		if(statCurrentValues[DynamicStats.relationship] <= 0):
-# 			emit_signal("statAtZero", DynamicStats.relationshipBar)
-
-# 		if(statCurrentValues[stat] >= statMaxValues[stat]):
-# 			emit_signal("statAtMax", stat)
-
-# func _on_Tween_tween_completed(object, key):
-# 	if(object == self):
-# 		if(key == 'currentHealth'):
-# 			pass
-# 		elif(key == 'currentSustenance'):
-# 			pass
-# 		elif(key == 'currentSanity'):
-# 			pass
-# 		elif(key == 'currentRelationship'):
-# 			pass

@@ -496,6 +496,26 @@
 					"ResultingAttributes": [],
 					"SpecialAttribute": false,
 					"index": 19
+				},
+				{
+					"id": "Starving",
+					"attributeName": "Starving",
+					"description": "I haven't eaten in too long. I'm starving.",
+					"AffectedStats": [
+						{
+							"statName": "health",
+							"whichValue": "drain",
+							"amount": 1.25
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": true,
+					"index": 20
 				}
 			],
 			"separators": [],
