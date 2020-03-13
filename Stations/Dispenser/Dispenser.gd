@@ -1,7 +1,13 @@
 extends Area2D
 
+class_name Dispenser
+
 var handInZone = false
 var dragging = false
+var notDraggable = false
+onready var draggableItem = get_node("DraggableItem")
+var dropType
+
 onready var label = get_node("QuantityLabel")
 export (Texture)var dragSprite
 # Declare member variables here. Examples:
@@ -28,6 +34,8 @@ func removeDispensedItemFromDispenser(dispenser, character):
 	#	print("We have " + str(amountToDispense) + " left in " + self.name)
 		if(amountToDispense <= 0):
 			amountToDispense = 0
+			#since there's nothing in the dispenser, nothing can be dragged
+			notDraggable = true
 		SetItemAmountLabel()
 			#respawnItem()
 
@@ -43,24 +51,25 @@ func _ready():
 
 
 func _process(delta):
+	#TODO: MAke sure the drag handler can handle when something's NOT draggable. Like set a flag to make it undraggable if there's no amount
+	pass
+	# if(handInZone && Input.is_action_pressed("left_click")):
+	# 	if amountToDispense != 0:
+	# 		#if there's actually something to drag
+	# 		if(!dragging):
+	# 			print("Dragging now")
+	# 			System.emit_signal("draggingItem", self)
+	# 			dragging = true
+	# 	else:
+	# 		print("Dispenser is empty or processing! Nothing to drag")
 
-	if(handInZone && Input.is_action_pressed("left_click")):
-		if amountToDispense != 0:
-			#if there's actually something to drag
-			if(!dragging):
-				print("Dragging now")
-				System.emit_signal("draggingItem", self)
-				dragging = true
-		else:
-			print("Dispenser is empty or processing! Nothing to drag")
 
-
-	if(dragging && Input.is_action_pressed("left_click")):
-		pass
-	else:
-		if(dragging):
-			dragging = false
-			System.emit_signal("stoppedDraggingItem", self)
+	# if(dragging && Input.is_action_pressed("left_click")):
+	# 	pass
+	# else:
+	# 	if(dragging):
+	# 		dragging = false
+	# 		System.emit_signal("stoppedDraggingItem", self)
 
 
 func respawnItem():
@@ -76,6 +85,9 @@ func onRespawnTimerTimeout():
 	amountToDispense+= 1
 	if(amountToDispense >= maxAmountHeld):
 		amountToDispense = maxAmountHeld
+	if(notDraggable):
+	#no longer empty, so can be dragged
+		notDraggable = false
 	SetItemAmountLabel()
 	#else:
 	#	respawnItem()
@@ -107,8 +119,10 @@ func _on_Dispenser_area_exited(area):
 
 func _on_Dispenser_mouse_entered():
 	handInZone = true
+	draggableItem.handInZone = true
 	System.emit_signal("HoveringOverInteractibleZone")
 
 func _on_Dispenser_mouse_exited():
 	handInZone = false
+	draggableItem.handInZone = false
 	System.emit_signal("StoppedHoveringOverInteractibleZone")

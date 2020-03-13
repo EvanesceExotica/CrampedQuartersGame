@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Character.gd" type="Script" id=1]
 [ext_resource path="res://AstronautA.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Utility/TraitChecker.tscn" type="PackedScene" id=4]
 [ext_resource path="res://CharacterStats.tscn" type="PackedScene" id=5]
 [ext_resource path="res://DeathHandler.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Utility/DroppableZone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Utility/DraggableItem.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Stations/Dispenser/Dispenser.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 86.2526
@@ -66,6 +69,12 @@ margin_bottom = -411.765
 rect_scale = Vector2( 0.5, 0.5 )
 
 [node name="DeathHandler" parent="." instance=ExtResource( 6 )]
+
+[node name="DraggableItem" parent="." instance=ExtResource( 8 )]
+
+[node name="DroppableZone" parent="." instance=ExtResource( 7 )]
+acceptedDrops = [ ExtResource( 9 ) ]
+acceptedDropType = 1
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]

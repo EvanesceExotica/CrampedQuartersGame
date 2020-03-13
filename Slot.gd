@@ -1,5 +1,7 @@
 extends Area2D
 
+onready var droppableZone = get_node("DroppableZone")
+var notDroppable = false
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -142,6 +144,12 @@ func removeCharacterFromSlot(character):
 	character.turnOffAuras()
 	print(character.name + " previous slot is " + self.name)
 
+func processDroppedItem(character):
+	if(!occupied):
+		if character.currentSlot != self:
+			character.currentSlot.removeCharacterFromSlot(character)
+			addCharacterToSlot(character)
+
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):
 		print("Checking if character dropped")
@@ -167,7 +175,7 @@ func checkIfAdjacentSlotsFull():
 func _ready():
 
 	add_to_group("slots")
-	System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
+	#System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
 	for item in get_tree().get_nodes_in_group("slots"):#System.allSlots:
 		#if any slot received a "CharacterMoved" signal, check if it moved to a different slot
 		item.connect("someoneEnteredSlot", self, "checkIfCharacterMovedToDifferentSlot")
@@ -213,8 +221,10 @@ func _on_Slot_area_exited(area):
 
 func _on_Slot_mouse_entered():
 	handInZone = true
+	droppableZone.handInZone = true
 	System.emit_signal("HoveringOverInteractibleZone")
 
 func _on_Slot_mouse_exited():
 	handInZone = false
+	droppableZone.handInZone = false
 	System.emit_signal("StoppedHoveringOverInteractibleZone")

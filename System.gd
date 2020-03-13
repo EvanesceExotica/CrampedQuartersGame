@@ -6,7 +6,8 @@ var attributeScript = preload("res://Attribute.gd")
 enum attributeTypes  {inherentAttribute, condition}
 enum entities {character, station, slot}
 
-
+var dragging = false
+var draggedItem
 var bf 
 var entitiesFlag
 
@@ -317,15 +318,14 @@ func convertToClockTime(delta):
 		currentHour = 0
 		elapsedSecondsInDay = 0
 
-var dragging = true
 func _process(delta):
-
-	if Input.is_action_pressed("left_click"):
-		dragging = true
-	if dragging && Input.is_action_pressed("left_click"):
-		pass
-	else:
-		dragging = false
+	pass
+	# if Input.is_action_pressed("left_click"):
+	# 	dragging = true
+	# if dragging && Input.is_action_pressed("left_click"):
+	# 	pass
+	# else:
+	# 	dragging = false
 
 	#convertToClockTime(delta)
 	# elapsedSecondsInPeriod += delta

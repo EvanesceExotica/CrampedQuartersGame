@@ -1,8 +1,15 @@
 extends Node2D
 
+class_name Character
+
 onready var dragSprite = get_node("Naut")
 onready var deathHandler = get_node("DeathHandler")
 var handInZone = false
+var notDraggable = false
+var notDroppable = false
+onready var droppableZone = get_node("DroppableZone")
+onready var draggableItem = get_node("DraggableItem")
+var dropType
 
 var viewingCharacterDetail = false
 var dragging = true
@@ -430,7 +437,7 @@ func _ready():
 	sustenance = Stat.new()
 	relationship = Stat.new()
 
-	System.connect("stoppedDraggingItem", self, "checkIfSomethingDropped")
+	#System.connect("stoppedDraggingItem", self, "checkIfSomethingDropped")
 	SignalManager.connect("AddTrait", self, "ApplyNewAttribute")
 	SignalManager.connect("RemoveTrait", self, "removeAttribute")
 	characterStats.setStatBars()
@@ -438,6 +445,7 @@ func _ready():
 	#this adds the attribute to have the characters be constantly hungry
 	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("NeedsSustenance"))
 	starvingAttribute = AttributeJSONParser.fetchAndCreateAttribute("Starving")
+
 
 func turnOffAuras():
 	for aura in auraSlotRange.keys():
@@ -447,6 +455,13 @@ func turnOnAuras():
 	for aura in auraSlotRange.keys():
 		SignalManager.emit_signal("emittingAura", currentSlot, aura, auraSlotRange[aura])
 
+func processDroppedItem(dispenser):
+	if(dispenser.dispensedItem == dispenser.ItemOptions.health):
+		changeStatValue(health, dispenser, dispenser.dispensedItemValue, false)
+	elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
+		changeStatValue(sustenance, dispenser, dispenser.foodValues.pop_back(), false)
+			#changeStatValue(sustenance, dispenser.dispensedItemValue, false)
+		System.emit_signal("dispensedItemConsumed", dispenser, self)
 
 func checkIfSomethingDropped(dispenser):
 	if(handInZone):
@@ -459,17 +474,18 @@ func checkIfSomethingDropped(dispenser):
 
 func _process(delta):
 
-	if(handInZone && Input.is_action_pressed("left_click")):
-		if(!dragging):
-			System.emit_signal("draggingCharacter", self)
-			dragging = true
+	pass
+	# if(handInZone && Input.is_action_pressed("left_click")):
+	# 	if(!dragging):
+	# 		System.emit_signal("draggingCharacter", self)
+	# 		dragging = true
 
-	if(dragging && Input.is_action_pressed("left_click")):
-		pass
-	else:
-		if(dragging):
-			dragging = false
-			System.emit_signal("stoppedDraggingCharacter", self)
+	# if(dragging && Input.is_action_pressed("left_click")):
+	# 	pass
+	# else:
+	# 	if(dragging):
+	# 		dragging = false
+	# 		System.emit_signal("stoppedDraggingCharacter", self)
 
 
 
@@ -554,6 +570,8 @@ func _on_Tween_tween_step(object, key, elapsed, value):
 
 func _on_Character_mouse_entered():
 	handInZone = true
+	droppableZone.handInZone = true
+	draggableItem.handInZone = true
 	System.emit_signal("HoveringOverInteractibleZone")
 	if(!viewingCharacterDetail):
 			#if the character detail panel isn't already locked in
@@ -563,6 +581,8 @@ func _on_Character_mouse_entered():
 
 func _on_Character_mouse_exited():
 	handInZone = false
+	droppableZone.handInZone = false
+	draggableItem.handInZone = false
 	System.emit_signal("StoppedHoveringOverInteractibleZone")
 	if(!viewingCharacterDetail):
 		#if the character viewing isn't locked in and the mouse is no longer hoevring over the character
