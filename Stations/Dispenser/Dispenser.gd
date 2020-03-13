@@ -3,6 +3,7 @@ extends Area2D
 var handInZone = false
 var dragging = false
 onready var label = get_node("QuantityLabel")
+export (Texture)var dragSprite
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -13,7 +14,7 @@ enum ItemOptions{
 var dispensedItem
 
 var maxAmountHeld = 3
-var amountToDispense = 0
+var amountToDispense = 1
 
 onready var respawnHours = 2
 var initialRespawnWaitTime = 100
@@ -35,7 +36,8 @@ var dispensedItemValue = 50
 #export(ItemOptions) var dispensedItem = ItemOptions.food
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	System.connect("dispensedItemConsumed", self, "removeDispensedItemFromDispenser")
+	if !System.is_connected("dispensedItemConsumed", self, "removeDispensedItemFromDispenser"):
+		System.connect("dispensedItemConsumed", self, "removeDispensedItemFromDispenser")
 	SetItemAmountLabel()
 	pass # Replace with function body.
 
@@ -46,6 +48,7 @@ func _process(delta):
 		if amountToDispense != 0:
 			#if there's actually something to drag
 			if(!dragging):
+				print("Dragging now")
 				System.emit_signal("draggingItem", self)
 				dragging = true
 		else:

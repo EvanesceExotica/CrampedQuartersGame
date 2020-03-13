@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var dragSprite = get_node("Naut")
 onready var deathHandler = get_node("DeathHandler")
 var handInZone = false
 
@@ -517,7 +518,6 @@ func _on_Button_pressed():
 
 func _on_FasterHealthDrain_pressed():
 	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Contaminated"))
-	#changeStatValue(sustenance, null, -100, false)
 	# for item in characterAttributes:
 	# 	if(item.attributeName == "OnFire"):
 	# 		removeAttribute(item)
@@ -529,13 +529,14 @@ func _on_FasterHealthDrain_pressed():
 
 
 func _on_Attack_pressed():
-	var attribute = Attribute.new("Underwater")
-	attribute.ConflictingAttributes.append("OnFire")
-	attribute.description = "I'm underwater"
-	attribute.ResultingAttributes = ["Wet"]
-	attribute.DrainingDynamicStats = {System.DynamicStats.health : 10}
-	attribute.typeOfAttribute = System.attributeType.auraCondition
-	applyNewAttribute(attribute)
+	changeStatValue(sustenance, null, -100, false)
+	# var attribute = Attribute.new("Underwater")
+	# attribute.ConflictingAttributes.append("OnFire")
+	# attribute.description = "I'm underwater"
+	# attribute.ResultingAttributes = ["Wet"]
+	# attribute.DrainingDynamicStats = {System.DynamicStats.health : 10}
+	# attribute.typeOfAttribute = System.attributeType.auraCondition
+	# applyNewAttribute(attribute)
 	#print("Attack pressed")
 	#changeStatValue(DynamicStats.sanity, -30, false)
 	pass # Replace with function body.

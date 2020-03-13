@@ -121,8 +121,8 @@ signal stoppedDraggingCharacter(character)
 signal HoveringOverInteractibleZone
 signal StoppedHoveringOverInteractibleZone
 
-signal draggingItem(item, tag)
-signal stoppedDraggingItem(item, tag)
+signal draggingItem(item)
+signal stoppedDraggingItem(item)
 
 var elapsedSecondsInPeriod = 0
 var totalSecondsInPeriod = 75

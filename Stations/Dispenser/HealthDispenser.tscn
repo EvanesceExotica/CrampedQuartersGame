@@ -6,6 +6,7 @@
 
 [node name="HealthDispenser" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+dragSprite = ExtResource( 3 )
 
 [node name="bag_furniture_sdb_blue_light_glass_display_box" parent="." index="1"]
 visible = false

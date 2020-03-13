@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Hand.gd" type="Script" id=1]
 [ext_resource path="res://HandIcons.png" type="Texture" id=2]
 [ext_resource path="res://Lights/Light.tscn" type="PackedScene" id=3]
+[ext_resource path="res://AstronautA.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hold"
@@ -75,5 +76,12 @@ anims/TargetInteractable = SubResource( 3 )
 
 [node name="Light2D" parent="Light" index="0"]
 scale = Vector2( 0.3, 0.3 )
+
+[node name="DragSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.439216 )
+position = Vector2( -14.8548, 33.0468 )
+scale = Vector2( 0.0946104, 0.0946104 )
+z_index = 10
+texture = ExtResource( 4 )
 
 [editable path="Light"]
