@@ -9,6 +9,7 @@ radius = 86.2526
 height = 184.282
 
 [node name="Corpse" type="Area2D"]
+modulate = Color( 0.129412, 0.121569, 0.180392, 1 )
 script = ExtResource( 2 )
 
 [node name="CorpseSprite" type="Sprite" parent="."]

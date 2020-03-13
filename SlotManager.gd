@@ -39,3 +39,10 @@ func applyToAdjacentSlots(slot, attribute, howManyAdjacent):
 func spreadToAdjacentSlots(originSlot):
     pass
 
+func killAllInSlots():
+    for slot in slotArrangement:
+        if slot.occupied:
+            if slot.characterInSlot.has_method("Die"):
+                slot.characterInSlot.Die(5, false)
+            elif slot.characterInSlot.has_method("Destroy"):
+                slot.characterInSlot.Destroy()

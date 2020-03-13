@@ -1,6 +1,5 @@
 extends Node2D
 
-onready var corpseSprite = get_node("CorpseSprite")
 #this dictionary will contain the sprites for the different types of death
 #maybe play a different animation too
 var potentialDeathSources = {
@@ -15,11 +14,11 @@ var corpse = preload("res://Character/Corpse.tscn")
 #right after death, the corpse will apply the 'shaken' effect, which drains sanity. After that, it will apply the 'diseased' affect if not gotten rid of.
 var applyAura
 enum deathType{
-    normal,
+    none,
+    bloodless,
     bloody,
     burning,
     freezing,
-    radiation,
     airLock,
 }
 
@@ -51,13 +50,20 @@ func determineCauseOfDeath():
             highestDrainSource = ChooseRandom.ChooseRandomFromList(randomList)
     #TODO: Once you have sprites for different deaths, PUT THIS BAKC IN
     #return highestDrainSource
-    return deathType.normal
+    return highestDrainSource.deathType
 
 
 func handleDeath(character, source, deathCausedByDrain):
     #instance the corpse, and add it to the tree, then delete the character
     #TODO: Find some way to determine the death type from attribute? Maybe add that too the actual attribute
-    var typeOfDeath = deathType.bloody
+    #TODO: find way to get deathType from non-attributes
+    #var typeOfDeath = source.deathType
+    var typeOfDeath = deathType.bloodless 
+    #TODO: 
+    if source == 5:
+        typeOfDeath = deathType.airLock
+        print("Sucked out airlock")
+
     if(deathCausedByDrain):
         #if caused by drain instead of an event or a straight hit 
         typeOfDeath = determineCauseOfDeath()
@@ -66,9 +72,13 @@ func handleDeath(character, source, deathCausedByDrain):
         #spacing does not leave a corpse behind
         var newCorpse = corpse.instance()
         character.get_parent().add_child(newCorpse)
-        newCorpse.position = character.position
+        #newCorpse.position = character.position
         character.currentSlot.removeCharacterFromSlot(character)
-        character.previousSlot.addCharacterToSlot(newCorpse)
+        character.currentSlot.addCharacterToSlot(newCorpse)
+        #character.previousSlot.addCharacterToSlot(newCorpse)
+        #TODO: Set sprite to whatever texture matches the death type
+        #newCorpse.SetSprite(null)
+
     #handle the character being removed from slot so typical auras are turned off
     removeCharacter(character)
 
@@ -80,6 +90,7 @@ func removeCharacter(character):
 
 func determineCorpseType(typeOfDeath):
     #not implementing this now, but later
-    corpseSprite.texture = corpseDictionary[typeOfDeath]
+    #corpseSprite.texture = corpseDictionary[typeOfDeath]
+    #
     pass
 

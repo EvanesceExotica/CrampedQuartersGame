@@ -28,9 +28,11 @@ func _on_Corpse_area_exited(area):
 
 func _on_Corpse_mouse_entered():
 	handInZone = true
+	System.emit_signal("HoveringOverInteractibleZone")
 
 func _on_Corpse_mouse_exited():
 	handInZone = false
+	System.emit_signal("StoppedHoveringOverInteractibleZone")
 
 func SetSprite(texture):
 	corpseSprite.texture = texture
@@ -39,7 +41,7 @@ func applyNewAttribute(attribute):
 	#apply just the effect here, if any
 	pass
 
-func removeNewAttribute(attribute):
+func removeAttribute(attribute):
 	#remove just the effect here, if any
 	pass
 
@@ -47,6 +49,7 @@ func turnOffAuras():
 	for aura in auraSlotRange.keys():
 		print("Stopping aura " + aura.attributeName)
 		SignalManager.emit_signal("stoppedEmittingAura", previousSlot, aura, auraSlotRange[aura])
+
 
 func turnOnAuras():
 	for aura in auraSlotRange.keys():
@@ -71,3 +74,7 @@ func _process(delta):
 			dragging = false
 			System.emit_signal("stoppedDraggingCharacter", self)
 
+func Destroy():
+	#destroy this object
+	turnOffAuras()
+	self.queue_free()

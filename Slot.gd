@@ -104,6 +104,7 @@ func checkIfCharacterDontLikeInAdjacentSlot():
 # 	pass
 
 func addCharacterToSlot(character):
+#	print("Character added to slot " + character.name)
 	characterInSlot = character
 	character.currentSlot = self
 	character.global_position = self.global_position
@@ -120,20 +121,26 @@ func addCharacterToSlot(character):
 			#if this slot is on the right of this orom
 			character.characterStats.SetToLeftFacingPosition()
 	character.turnOnAuras()
+	print(character.name + " current slot is " + self.name)
 
 func removeCharacterFromSlot(character):
 	print("Character removed from slot")
-	characterInSlot = null
 	removeAllExitingAttributesFromCharacter()
+	characterInSlot = null
 	emit_signal("someoneVacatedSlot", self, character)
 	System.updateSlots(self, null)
 	character.previousSlot = self
+	print("")
 	occupied = false
 	character.turnOffAuras()
+	print(character.name + " previous slot is " + self.name)
 
 func checkIfCharacterDropped(character):
 	if(handInZone && !occupied):
-		addCharacterToSlot(character)
+		print("Checking if character dropped")
+		if character.currentSlot != self:
+			character.currentSlot.removeCharacterFromSlot(character)
+			addCharacterToSlot(character)
 
 func checkIfCharacterMovedToDifferentSlot(slot, character):
 	if character == characterInSlot:
@@ -154,7 +161,7 @@ func _ready():
 
 	add_to_group("slots")
 	System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
-	for item in System.allSlots:
+	for item in get_tree().get_nodes_in_group("slots"):#System.allSlots:
 		#if any slot received a "CharacterMoved" signal, check if it moved to a different slot
 		item.connect("someoneEnteredSlot", self, "checkIfCharacterMovedToDifferentSlot")
 	if(adjacentSlots.size() > 0):
@@ -181,3 +188,10 @@ func _on_Slot_area_exited(area):
 	if(area.name == "Hand"):
 		handInZone = false
 
+func _on_Slot_mouse_entered():
+	handInZone = true
+	System.emit_signal("HoveringOverInteractibleZone")
+
+func _on_Slot_mouse_exited():
+	handInZone = false
+	System.emit_signal("StoppedHoveringOverInteractibleZone")

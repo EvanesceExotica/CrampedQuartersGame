@@ -551,6 +551,8 @@ func _on_Tween_tween_step(object, key, elapsed, value):
 
 func _on_Character_mouse_entered():
 	handInZone = true
+	System.emit_signal("HoveringOverInteractibleZone")
 
 func _on_Character_mouse_exited():
 	handInZone = false
+	System.emit_signal("StoppedHoveringOverInteractibleZone")

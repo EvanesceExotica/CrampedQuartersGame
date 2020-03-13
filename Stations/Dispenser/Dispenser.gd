@@ -104,6 +104,8 @@ func _on_Dispenser_area_exited(area):
 
 func _on_Dispenser_mouse_entered():
 	handInZone = true
+	System.emit_signal("HoveringOverInteractibleZone")
 
 func _on_Dispenser_mouse_exited():
 	handInZone = false
+	System.emit_signal("StoppedHoveringOverInteractibleZone")

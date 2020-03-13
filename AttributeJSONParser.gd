@@ -132,6 +132,7 @@ func fetchAndCreateAttribute(attributeName):
 	#attribute.DrainingDynamicStats = (thisAttributeDictionary["DrainingDynamicStats"])
 
 	attribute.duration = thisAttributeDictionary["duration"]
+	attribute.deathType = thisAttributeDictionary["deathType"]
 	#attribute.statSignalsToWatchFor = thisAttributeDictionary["statSignalsToWatchFor"]
 	#attribute.signalsThatWillRemoveAttribute = thisAttributeDictionary["signalsThatWillRemoveAttribute"]
 	#attribute.canCombineWith = thisAttributeDictionary["canCombineWith"]

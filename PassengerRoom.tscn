@@ -81,15 +81,17 @@ position = Vector2( 760, 180 )
 [node name="SlotManager" parent="." index="7" instance=ExtResource( 14 )]
 
 [node name="Slot-1" parent="SlotManager" index="0" instance=ExtResource( 15 )]
-position = Vector2( 210, 410 )
+position = Vector2( 221.4, 417.6 )
 
 [node name="Slot-3" parent="SlotManager" index="1" instance=ExtResource( 15 )]
 position = Vector2( 390, 400 )
 
 [node name="Slot-4" parent="SlotManager" index="2" instance=ExtResource( 15 )]
-position = Vector2( 650, 390 )
+position = Vector2( 669.95, 399.5 )
+scale = Vector2( -1, 1 )
 onLeftOfRoom = false
 
 [node name="Slot-6" parent="SlotManager" index="3" instance=ExtResource( 15 )]
-position = Vector2( 820, 430 )
+position = Vector2( 807.368, 437.368 )
+scale = Vector2( -1, 1 )
 onLeftOfRoom = false

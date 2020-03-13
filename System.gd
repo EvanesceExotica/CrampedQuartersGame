@@ -118,6 +118,9 @@ signal dispensedItemConsumed(dispenser, character)
 signal draggingCharacter(character)
 signal stoppedDraggingCharacter(character)
 
+signal HoveringOverInteractibleZone
+signal StoppedHoveringOverInteractibleZone
+
 signal draggingItem(item, tag)
 signal stoppedDraggingItem(item, tag)
 
@@ -237,7 +240,6 @@ func tweenMainCameraToNewRoom(destinationPosition):
 	pass
 
 func _ready():
-
 	SlotTypeOccupiedDictionary = {
 		slotTypes.mainRoom : false,
 		slotTypes.closet : false,

@@ -59,6 +59,11 @@
 				{
 					"typeStr": "2",
 					"name": "SpecialAttribute"
+				},
+				{
+					"typeStr": "5:none,bloodless,bloody,burning,freezing,airLock",
+					"name": "deathType",
+					"display": null
 				}
 			],
 			"lines": [
@@ -83,7 +88,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "mentallySound",
@@ -106,7 +112,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "frail",
@@ -129,7 +136,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "paranoid",
@@ -152,7 +160,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "strong",
@@ -166,7 +175,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "smallStomach",
@@ -189,7 +199,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "bigStomach",
@@ -212,7 +223,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "onFire",
@@ -235,7 +247,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 3
 				},
 				{
 					"id": "afraid",
@@ -255,7 +268,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "asphixiating",
@@ -275,7 +289,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 1
 				},
 				{
 					"id": "shaken",
@@ -295,7 +310,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "contaminated",
@@ -331,7 +347,8 @@
 						}
 					],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "diseased",
@@ -351,7 +368,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "Smelly",
@@ -370,7 +388,8 @@
 					],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "Nauseated",
@@ -390,7 +409,8 @@
 					"AuraAttributes": [],
 					"ResultingAttributes": [],
 					"temporary": false,
-					"SpecialAttribute": false
+					"SpecialAttribute": false,
+					"deathType": 0
 				},
 				{
 					"id": "NeedsSustenance",
@@ -410,7 +430,8 @@
 					"temporary": false,
 					"ResultingAttributes": [],
 					"index": 15,
-					"SpecialAttribute": true
+					"SpecialAttribute": true,
+					"deathType": 0
 				},
 				{
 					"id": "Irradiated",
@@ -435,7 +456,8 @@
 					"temporary": false,
 					"ResultingAttributes": [],
 					"SpecialAttribute": false,
-					"index": 16
+					"index": 16,
+					"deathType": 0
 				},
 				{
 					"id": "Overheating",
@@ -455,7 +477,8 @@
 					"temporary": false,
 					"ResultingAttributes": [],
 					"SpecialAttribute": false,
-					"index": 17
+					"index": 17,
+					"deathType": 1
 				},
 				{
 					"id": "Freezing",
@@ -481,7 +504,8 @@
 						}
 					],
 					"SpecialAttribute": false,
-					"index": 18
+					"index": 18,
+					"deathType": 4
 				},
 				{
 					"id": "Frozen",
@@ -495,7 +519,8 @@
 					"temporary": false,
 					"ResultingAttributes": [],
 					"SpecialAttribute": false,
-					"index": 19
+					"index": 19,
+					"deathType": 4
 				},
 				{
 					"id": "Starving",
@@ -515,7 +540,8 @@
 					"temporary": false,
 					"ResultingAttributes": [],
 					"SpecialAttribute": true,
-					"index": 20
+					"index": 20,
+					"deathType": 1
 				}
 			],
 			"separators": [],
