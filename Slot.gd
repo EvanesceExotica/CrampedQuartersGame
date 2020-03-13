@@ -47,6 +47,13 @@ enum slotSlotTypes{
 func applyNewAttributeToSlot(attribute):
 	#when a brand new attribute is applied, apply it to the character as well
 	slotAttributes.append(attribute)
+	if attribute.spreadChancePerHalfHour > 0:
+		#if this attribute can spread
+		var timer = Timer.new()
+		timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
+		timer.connect("timeout",self,"SpreadContagiousAttribute", [attribute]) 
+		add_child(timer) #to process
+		timer.start() #to sta
 	if(occupied):
 		characterInSlot.applyNewAttribute(attribute)
 	emit_signal("newAttributeAdded")
@@ -177,6 +184,22 @@ func _ready():
 			var attribute =	AttributeJSONParser.fetchAndCreateAttribute(attributeName)
 			applyNewAttributeToSlot(attribute)
 	System.SlotsByType[slotType].append(self)
+
+func SpreadContagiousAttribute(attribute):
+	var randomValue = randf()
+	if randomValue <= attribute.spreadChancePerHalfHour:
+		#if the chance is rolled, apply the attribute
+		print("Attribute has spread!" + attribute.attributeName)
+		get_parent().spreadToAdjacentSlots(self, attribute)
+	else:
+		#if not, restart the timer for each time it checks
+		print("Check again  for spread of " + attribute.attributeName)
+		var timer = Timer.new()
+		timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
+		timer.connect("timeout",self,"SpreadContagiousAttribute", [attribute]) 
+		add_child(timer) #to process
+		timer.start() #to sta
+
 
 
 func _on_Slot_area_entered(area):

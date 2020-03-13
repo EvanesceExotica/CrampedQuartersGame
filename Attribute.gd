@@ -64,6 +64,7 @@ var modifiedAttributes = {} #other attributes this one will modify?
 var characterEventTypeChance = { } #insanity events; drift events
 var externalCombinations = [] #alien:self
 var deathType
+var spreadChancePerHalfHour
 
 func CheckRemoveableCritera(signalCalled):
 	var numberOfTimesCalled = 0

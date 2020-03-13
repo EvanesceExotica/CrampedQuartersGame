@@ -36,7 +36,17 @@ func applyToAdjacentSlots(slot, attribute, howManyAdjacent):
             if originSlotIndex-i >= 0:
                 slotArrangement[originSlotIndex-i].applyNewAttributeToSlot(attribute)
 
-func spreadToAdjacentSlots(originSlot):
+func spreadToAdjacentSlots(originSlot, attribute):
+    var originSlotIndex = slotArrangement.find(originSlot)
+    if originSlotIndex+1 < slotArrangement.size():
+        #to make ssure this doesn't go over the ending index of the slotArray
+        slotArrangement[originSlotIndex+1].applyNewAttributeToSlot(attribute)
+        #apply spread to slot to right of this one
+    if originSlotIndex-1 >= 0:
+        #to make sure this doesn't go before the beginning index of the slotArray
+        slotArrangement[originSlotIndex-1].applyNewAttributeToSlot(attribute)
+        #apply spread to slot to left of this one
+
     pass
 
 func killAllInSlots():
