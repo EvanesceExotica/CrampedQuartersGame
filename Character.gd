@@ -54,11 +54,12 @@ signal healedOverMax(whichStat) #this one would apply to being overfed or being 
 func applyNewAttribute(newAttribute):	
 
 	var newTrait = newAttribute
-	for oldTrait in characterAttributes:
-		for possibleConflictingTrait in newTrait.ConflictingAttributes:
-			if oldTrait.attributeName == possibleConflictingTrait:
-				print("Conflicting trait existed")
-				return #this Return statement should pop the player out of this method
+	if(newTrait.ConflictingAttributes != null):
+		for oldTrait in characterAttributes:
+			for possibleConflictingTrait in newTrait.ConflictingAttributes:
+				if oldTrait.attributeName == possibleConflictingTrait:
+					print("Conflicting trait existed")
+					return #this Return statement should pop the player out of this method
 
 	if(newTrait.AuraAttributes != null && newTrait.AuraAttributes.size() > 0):
 		#if this trait is an aura, meaning it applies to other slots
@@ -69,12 +70,12 @@ func applyNewAttribute(newAttribute):
 
 	if(newTrait.ResultingAttributes != null && newTrait.ResultingAttributes.size() > 0):
 		for resultingAttribute in newTrait.ResultingAttributes:
-			var result = AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["AttributeName"])
-			#put this in the
-			#just start a timer here, it's simpler
-			var resultTimer = Timer.new()
-			timer.wait_time = 30 #TODO: calculate 30 seconds here
-			timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
+			var result = AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["attributeName"])
+			print("Trying for resulting attribute")
+			#start a timer, set it's wait time to thirty in game minutes, and connect it to a method that either activates the resulting method if it lands on the chance, or tries again
+			var timer = Timer.new()
+			timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
+			timer.connect("timeout",self,"ActivateResultingAttribute", [resultingAttribute]) 
 			add_child(timer) #to process
 			timer.start() #to start
 			# TODO: Put this back in VVV
@@ -147,13 +148,13 @@ func ActivateResultingAttribute(resultingAttribute):
 	if randomValue <= resultingAttribute["chancePerHalfHour"]:
 		#if the chance is rolled, apply the attribute
 		print("Resulting attribute has applied!" + resultingAttribute["attributeName"])
-		applyNewAttribute(resultingAttribute["attributeName"])
+		applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["attributeName"]))
 	else:
 		#if not, restart the timer for each time it checks
 		print("Check again  for " + resultingAttribute["attributeName"])
 		var timer = Timer.new()
-		timer.wait_time = resultingAttribute.duration
-		timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
+		timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
+		timer.connect("timeout",self,"ActivateResultingAttribute", [resultingAttribute]) 
 		add_child(timer) #to process
 		timer.start() #to sta
 
@@ -515,7 +516,8 @@ func _on_Button_pressed():
 	#get_tree().paused = true
 
 func _on_FasterHealthDrain_pressed():
-	changeStatValue(sustenance, null, -100, false)
+	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Contaminated"))
+	#changeStatValue(sustenance, null, -100, false)
 	# for item in characterAttributes:
 	# 	if(item.attributeName == "OnFire"):
 	# 		removeAttribute(item)
@@ -552,7 +554,15 @@ func _on_Tween_tween_step(object, key, elapsed, value):
 func _on_Character_mouse_entered():
 	handInZone = true
 	System.emit_signal("HoveringOverInteractibleZone")
+	if(!viewingCharacterDetail):
+			#if the character detail panel isn't already locked in
+			characterStats.showDisplay()
+
+
 
 func _on_Character_mouse_exited():
 	handInZone = false
 	System.emit_signal("StoppedHoveringOverInteractibleZone")
+	if(!viewingCharacterDetail):
+		#if the character viewing isn't locked in and the mouse is no longer hoevring over the character
+		characterStats.hideDisplay()
