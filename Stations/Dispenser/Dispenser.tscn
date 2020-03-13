@@ -37,6 +37,7 @@ shape = SubResource( 1 )
 margin_left = -50.9257
 margin_right = 159.074
 margin_bottom = 150.0
+mouse_filter = 2
 custom_fonts/normal_font = SubResource( 2 )
 text = "1/10"
 __meta__ = {

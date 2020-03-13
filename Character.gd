@@ -2,7 +2,8 @@ extends Node2D
 
 class_name Character
 
-onready var dragSprite = get_node("Naut")
+onready var sprite = get_node("Naut")
+onready var dragSprite = sprite.texture
 onready var deathHandler = get_node("DeathHandler")
 var handInZone = false
 var notDraggable = false
@@ -460,15 +461,6 @@ func processDroppedItem(dispenser):
 		changeStatValue(health, dispenser, dispenser.dispensedItemValue, false)
 	elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
 		changeStatValue(sustenance, dispenser, dispenser.foodValues.pop_back(), false)
-			#changeStatValue(sustenance, dispenser.dispensedItemValue, false)
-		System.emit_signal("dispensedItemConsumed", dispenser, self)
-
-func checkIfSomethingDropped(dispenser):
-	if(handInZone):
-		if(dispenser.dispensedItem == dispenser.ItemOptions.health):
-			changeStatValue(health, dispenser, dispenser.dispensedItemValue, false)
-		elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
-			changeStatValue(sustenance, dispenser, dispenser.foodValues.pop_back(), false)
 			#changeStatValue(sustenance, dispenser.dispensedItemValue, false)
 		System.emit_signal("dispensedItemConsumed", dispenser, self)
 

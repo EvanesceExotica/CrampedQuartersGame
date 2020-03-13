@@ -31,12 +31,12 @@ func onDraggingItem(item):
 	anim.play("Hold")
 	pass
 func onReleaseCharacter(character):
-	#dragSprite.visible = false
+	dragSprite.visible = false
 	anim.stop()
 	anim.play("Release")
 
 func onReleaseItem(item):
-#	dragSprite.visible = false
+	dragSprite.visible = false
 	anim.stop()
 	anim.play("Release")
 
@@ -46,6 +46,7 @@ func release():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	anim.play("Release")
 	System.connect("draggingCharacter", self, "onDraggingCharacter")
 	System.connect("draggingItem", self, "onDraggingItem")
 	#System.connect("HoveringOverInteractibleZone", self, "onHoverOverInteractable")
