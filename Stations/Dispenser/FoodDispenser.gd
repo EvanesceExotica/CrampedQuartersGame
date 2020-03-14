@@ -3,6 +3,9 @@ extends "res://Stations/Dispenser/Dispenser.gd"
 # var a = 2
 # var b = "text"
 var foodValues = [100]
+
+#this will apply attributes to the charcter when they eat the food. For when the garden is contaminated, or perhaps super-charged.
+var givenAttributes = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	._ready()
@@ -35,32 +38,12 @@ func hasRoom():
 	else:
 		return false
 
-# func onProductionTimerTimeout():
-# 	amountToDispense+=1
-# 	if(amountToDispense >= maxAmountHeld):
-# 		amountToDispense = maxAmountHeld
-
-func storeHarvest():
-	#for storing food to make later?
-	#not sure if this is necessary, or if the harvest should be ignored
-	pass
-
-func ReduceFoodValue(amount):
-	pass
-	#Have it calculate from the health of the plants when the item is produced 
-	#that might end up inconsistent though
-	#or not if healing plants up takes a while
-	#but if it's producing the food from the plants over time... 
-	#maybe there should be a 'harvest' time, and a production time? 
-
 func intervalReached(interval):
 	pass
 
-func slowProduction():
-	pass
-
 func contaminate(attributes):
-	
+	#might be a list?
+	givenAttributes.append(attributes)	
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

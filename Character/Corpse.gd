@@ -6,12 +6,14 @@ onready var corpseSprite = get_node("CorpseSprite")
 onready var dragSprite = corpseSprite.texture
 onready var dropType
 onready var draggableItem = get_node("DraggableItem")
+var notDraggable
 
 var handInZone = false
 var dragging = false
 var auraSlotRange = {}
 var shakenAttribute
 var diseasedAttribute
+
 
 func _ready():
 	shakenAttribute = AttributeJSONParser.fetchAndCreateAttribute("Shaken")

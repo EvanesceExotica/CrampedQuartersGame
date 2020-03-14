@@ -474,7 +474,11 @@ func processDroppedItem(dispenser):
 		changeStatValue(health, dispenser, dispenser.dispensedItemValue, false)
 	elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
 		changeStatValue(sustenance, dispenser, dispenser.foodValues.pop_back(), false)
-			#changeStatValue(sustenance, dispenser.dispensedItemValue, false)
+		if dispenser.givenAttributes.size() > 0:
+			var attributesToApply = dispenser.givenAttributes.pop_back()
+			for attribute in attributesToApply:
+				applyNewAttribute(attribute)
+
 	System.emit_signal("dispensedItemConsumed", dispenser, self)
 
 func _process(delta):
