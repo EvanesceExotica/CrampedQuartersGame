@@ -25,6 +25,8 @@ var previousSlot
 var characterAttributes = [ ]
 var auraSlotRange = {}
 
+var resultingAttributeTimers = {}
+
 var potentialResultingAttributes = {}
 onready var rightFacingPosition = get_node("RightPosition")
 onready var leftFacingPosition = get_node("LeftPosition")
@@ -84,9 +86,12 @@ func applyNewAttribute(newAttribute):
 			#start a timer, set it's wait time to thirty in game minutes, and connect it to a method that either activates the resulting method if it lands on the chance, or tries again
 			var timer = Timer.new()
 			timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
-			timer.connect("timeout",self,"ActivateResultingAttribute", [resultingAttribute]) 
+			#pass the resulting Attribute and the source attribute to the ActivateResultingAttribute class, and create a timer  
+			timer.connect("timeout",self,"ActivateResultingAttribute", [resultingAttribute, newTrait]) 
 			add_child(timer) #to process
 			timer.start() #to start
+			#create the timer and store it into a dictionary to keep track of it, and stop it if the resultingAttribute is never created
+			resultingAttributeTimers[newTrait] = timer
 			# TODO: Put this back in VVV
 			#potentialResultingAttributes[result] = { resultingAttribute["chancePerHalfHour"], resultTimer } 
 
@@ -133,6 +138,9 @@ func removeAttribute(attribute):
 
 	if(attribute.ResultingAttributes != null && attribute.ResultingAttributes.size() > 0):
 		for resultingAttribute in attribute.ResultingAttributes:
+			#this should stop the timers that are trying to spread the resulting attribute
+			StopResultingAttributeGeneration(resultingAttribute, attribute)
+
 			pass
 			#TODO: PUT THIS BACK IN 
 			# for item in potentialResultingAttributes[result]:
@@ -148,11 +156,13 @@ func removeAttribute(attribute):
 			# 	timer.start() #to start
 	emit_signal("attributeRemoved", attribute)
 
-func RemoveResultingAttribute(resultingAttribute):
-	pass
+func StopResultingAttributeGeneration(resultingAttribute, sourceAttribute):
+	#stop the timer that's held in this dictionary, so it will stop checking for
+	resultingAttributeTimers[sourceAttribute].stop()	
 
 
-func ActivateResultingAttribute(resultingAttribute):
+
+func ActivateResultingAttribute(resultingAttribute, sourceAttribute):
 	var randomValue = randf()
 	if randomValue <= resultingAttribute["chancePerHalfHour"]:
 		#if the chance is rolled, apply the attribute
@@ -163,9 +173,11 @@ func ActivateResultingAttribute(resultingAttribute):
 		print("Check again  for " + resultingAttribute["attributeName"])
 		var timer = Timer.new()
 		timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
-		timer.connect("timeout",self,"ActivateResultingAttribute", [resultingAttribute]) 
+		timer.connect("timeout",self,"ActivateResultingAttribute", [resultingAttribute, sourceAttribute]) 
+		#timer.connect("timeout",self,"ActivateResultingAttribute", [resultingAttribute]) 
 		add_child(timer) #to process
 		timer.start() #to sta
+		resultingAttributeTimers[sourceAttribute] = timer
 
 func _applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
@@ -458,11 +470,12 @@ func turnOnAuras():
 
 func processDroppedItem(dispenser):
 	if(dispenser.dispensedItem == dispenser.ItemOptions.health):
+		print("Given health")
 		changeStatValue(health, dispenser, dispenser.dispensedItemValue, false)
 	elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
 		changeStatValue(sustenance, dispenser, dispenser.foodValues.pop_back(), false)
 			#changeStatValue(sustenance, dispenser.dispensedItemValue, false)
-		System.emit_signal("dispensedItemConsumed", dispenser, self)
+	System.emit_signal("dispensedItemConsumed", dispenser, self)
 
 func _process(delta):
 

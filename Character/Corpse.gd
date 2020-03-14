@@ -3,6 +3,10 @@ extends Area2D
 var currentSlot
 var previousSlot
 onready var corpseSprite = get_node("CorpseSprite")
+onready var dragSprite = corpseSprite.texture
+onready var dropType
+onready var draggableItem = get_node("DraggableItem")
+
 var handInZone = false
 var dragging = false
 var auraSlotRange = {}
@@ -28,10 +32,12 @@ func _on_Corpse_area_exited(area):
 
 func _on_Corpse_mouse_entered():
 	handInZone = true
+	draggableItem.handInZone = true	
 	System.emit_signal("HoveringOverInteractibleZone")
 
 func _on_Corpse_mouse_exited():
 	handInZone = false
+	draggableItem.handInZone = false	
 	System.emit_signal("StoppedHoveringOverInteractibleZone")
 
 func SetSprite(texture):
@@ -60,19 +66,8 @@ func SetDiseased():
 	auraSlotRange[diseasedAttribute] = 3
 	turnOnAuras()
 
-func _process(delta):
 
-	if(handInZone && Input.is_action_pressed("left_click")):
-		if(!dragging):
-			System.emit_signal("draggingCharacter", self)
-			dragging = true
-
-	if(dragging && Input.is_action_pressed("left_click")):
-		pass
-	else:
-		if(dragging):
-			dragging = false
-			System.emit_signal("stoppedDraggingCharacter", self)
+	
 
 func Destroy():
 	#destroy this object

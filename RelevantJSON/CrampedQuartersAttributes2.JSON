@@ -68,6 +68,11 @@
 				{
 					"typeStr": "4",
 					"name": "spreadChancePerHalfHour"
+				},
+				{
+					"typeStr": "8",
+					"name": "spreadPerHalfHour",
+					"display": null
 				}
 			],
 			"lines": [
@@ -94,7 +99,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "mentallySound",
@@ -119,7 +125,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "frail",
@@ -144,7 +151,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "paranoid",
@@ -169,7 +177,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "strong",
@@ -185,7 +194,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "smallStomach",
@@ -210,7 +220,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "bigStomach",
@@ -235,7 +246,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "onFire",
@@ -260,7 +272,13 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 3,
-					"spreadChancePerHalfHour": 0.75
+					"spreadChancePerHalfHour": 0.75,
+					"spreadPerHalfHour": [
+						{
+							"spreadChancePerHalfHour": 0.75,
+							"spreadsThroughSlot": true
+						}
+					]
 				},
 				{
 					"id": "afraid",
@@ -282,7 +300,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "asphixiating",
@@ -304,7 +323,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 1,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "shaken",
@@ -326,7 +346,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "contaminated",
@@ -364,7 +385,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "Diseased",
@@ -386,7 +408,13 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": [
+						{
+							"spreadChancePerHalfHour": 0.5,
+							"spreadsThroughSlot": false
+						}
+					]
 				},
 				{
 					"id": "Smelly",
@@ -407,7 +435,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "Nauseated",
@@ -429,7 +458,8 @@
 					"temporary": false,
 					"SpecialAttribute": false,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "NeedsSustenance",
@@ -451,7 +481,8 @@
 					"index": 15,
 					"SpecialAttribute": true,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "Irradiated",
@@ -478,7 +509,8 @@
 					"SpecialAttribute": false,
 					"index": 16,
 					"deathType": 0,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "Overheating",
@@ -500,7 +532,8 @@
 					"SpecialAttribute": false,
 					"index": 17,
 					"deathType": 1,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "Freezing",
@@ -528,7 +561,8 @@
 					"SpecialAttribute": false,
 					"index": 18,
 					"deathType": 4,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "Frozen",
@@ -544,7 +578,8 @@
 					"SpecialAttribute": false,
 					"index": 19,
 					"deathType": 4,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				},
 				{
 					"id": "Starving",
@@ -566,7 +601,8 @@
 					"SpecialAttribute": true,
 					"index": 20,
 					"deathType": 1,
-					"spreadChancePerHalfHour": 0
+					"spreadChancePerHalfHour": 0,
+					"spreadPerHalfHour": []
 				}
 			],
 			"separators": [],
@@ -682,6 +718,26 @@
 				{
 					"typeStr": "4",
 					"name": "chancePerHalfHour",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Attributes@spreadPerHalfHour",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "4",
+					"name": "spreadChancePerHalfHour",
+					"display": null
+				},
+				{
+					"typeStr": "2",
+					"name": "spreadsThroughSlot",
 					"display": null
 				}
 			]

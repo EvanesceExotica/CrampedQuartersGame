@@ -8,6 +8,7 @@ extends "res://Stations/Dispenser/Dispenser.gd"
 func _ready():
 	._ready()
 	dispensedItem = ItemOptions.health
+	respawnItem()
 	pass # Replace with function body.
 
 

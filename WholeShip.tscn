@@ -48,7 +48,7 @@ current = true
 [node name="Tween" type="Tween" parent="Camera2D"]
 
 [node name="PassengerRoom" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1.05261, 0 )
+position = Vector2( -9.84302, -5.27426 )
 roomAbove = NodePath("../AirlockRoom")
 roomToRight = NodePath("../AquariumRoom")
 roomBelow = NodePath("../SupplyClosetRoom")

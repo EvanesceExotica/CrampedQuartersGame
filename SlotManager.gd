@@ -56,3 +56,10 @@ func killAllInSlots():
                 slot.characterInSlot.Die(5, false)
             elif slot.characterInSlot.has_method("Destroy"):
                 slot.characterInSlot.Destroy()
+
+func _input(event):
+    if event.is_action_pressed("ui_fire"):
+        StartAFire()
+
+func StartAFire():
+    slotArrangement[0].applyNewAttributeToSlot(AttributeJSONParser.fetchAndCreateAttribute("OnFire"))

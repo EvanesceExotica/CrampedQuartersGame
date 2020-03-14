@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://AstronautA.png" type="Texture" id=1]
 [ext_resource path="res://Character/Corpse.gd" type="Script" id=2]
 [ext_resource path="res://dead-head.png" type="Texture" id=3]
+[ext_resource path="res://Utility/DraggableItem.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 86.2526
@@ -27,6 +28,8 @@ scale = Vector2( 0.154778, 0.146179 )
 texture = ExtResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="DraggableItem" parent="." instance=ExtResource( 4 )]
 [connection signal="area_entered" from="." to="." method="_on_Corpse_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Corpse_area_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_Corpse_mouse_entered"]
