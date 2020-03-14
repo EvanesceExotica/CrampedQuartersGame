@@ -250,7 +250,7 @@
 					"spreadPerHalfHour": []
 				},
 				{
-					"id": "onFire",
+					"id": "OnFire",
 					"attributeName": "OnFire",
 					"description": "I'M ON FIRE (Current health drained 20 points per second)",
 					"index": 7,

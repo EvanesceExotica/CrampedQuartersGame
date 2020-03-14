@@ -112,6 +112,9 @@ func removeAttributeFromPanel(attribute):
 	attributeArray.erase(attribute)
 
 	#find the instance of the descriptor
+	for item in attributeHolder.get_children():
+		print(item.name)
+
 	var attributeDescriptorInstance = attributeHolder.get_node(attribute.attributeName)
 
 	#remove the descriptor object from the node tree in game
