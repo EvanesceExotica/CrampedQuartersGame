@@ -112,8 +112,8 @@ func removeAttributeFromPanel(attribute):
 	attributeArray.erase(attribute)
 
 	#find the instance of the descriptor
-	for item in attributeHolder.get_children():
-		print(item.name)
+	# for item in attributeHolder.get_children():
+	# 	print(item.name +  " vs " + attribute.attributeName)
 
 	var attributeDescriptorInstance = attributeHolder.get_node(attribute.attributeName)
 

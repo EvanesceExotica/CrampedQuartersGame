@@ -64,6 +64,7 @@ signal healedOverMax(whichStat) #this one would apply to being overfed or being 
 
 func applyNewAttribute(newAttribute):	
 
+	print("Applying new attribute " + newAttribute.attributeName)
 	var newTrait = newAttribute
 	if(newTrait.ConflictingAttributes != null):
 		for oldTrait in characterAttributes:
@@ -121,6 +122,7 @@ func applyNewAttribute(newAttribute):
 	
 
 func removeAttribute(attribute):
+	print("Removing attribute " + attribute.attributeName)
 	for stat in attribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
 		match stat["whichValue"]:	

@@ -40,11 +40,11 @@ texture = ExtResource( 4 )
 
 [node name="SlotManager" parent="." index="6" instance=ExtResource( 5 )]
 
-[node name="Slot" parent="SlotManager" index="0" instance=ExtResource( 6 )]
+[node name="Slot-Airlock1" parent="SlotManager" index="0" instance=ExtResource( 6 )]
 position = Vector2( 340, 500 )
 slotType = 3
 
-[node name="Slot2" parent="SlotManager" index="1" instance=ExtResource( 6 )]
+[node name="Slot-Airlock-2" parent="SlotManager" index="1" instance=ExtResource( 6 )]
 position = Vector2( 697.656, 500 )
 slotType = 3
 

@@ -22,7 +22,7 @@ export(Array) var adjacentSlots = []
 #Examples of non-inherent attributes would be "Poisoned" for tank
 
 
-export var slotAttributes = []
+var slotAttributes = []
 var inherentAttributes = []
 var temporaryOrRemoveableAttributes = []
 signal newAttributeAdded
@@ -48,7 +48,9 @@ enum slotSlotTypes{
 }
 func applyNewAttributeToSlot(attribute):
 	#when a brand new attribute is applied, apply it to the character as well
+	print(attribute.attributeName + " applied to slot " + self.name)
 	slotAttributes.append(attribute)
+	print("We have this many attributes " + str(slotAttributes.size()))
 	if attribute.spreadChancePerHalfHour > 0:
 		#if this attribute can spread
 		var timer = Timer.new()
@@ -76,9 +78,12 @@ func removeAttributeFromCharacter(attribute):
 
 func removeAllExitingAttributesFromCharacter():
 	#USED WHEN CHARACTER IS MOVED
+	var i = 0
 	if slotAttributes.size() > 0:
 		for attribute in slotAttributes:
+			print("Here are the slot Attributes of " + self.name + ": " + attribute.attributeName)
 			removeAttributeFromCharacter(attribute)
+			i+=1
 
 func applyNewAttributeToCharacter(attribute):
 	#used when a new attribute is added to the slot

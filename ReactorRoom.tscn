@@ -50,11 +50,11 @@ position = Vector2( 370, 370 )
 
 [node name="SlotManager" parent="." index="7" instance=ExtResource( 6 )]
 
-[node name="Slot" parent="SlotManager" index="0" instance=ExtResource( 7 )]
+[node name="Slot-Reactor-1" parent="SlotManager" index="0" instance=ExtResource( 7 )]
 position = Vector2( 310, 400 )
 slotType = 4
 
-[node name="Slot2" parent="SlotManager" index="1" instance=ExtResource( 7 )]
+[node name="Slot-Reactor-2" parent="SlotManager" index="1" instance=ExtResource( 7 )]
 position = Vector2( 789.003, 386.787 )
 slotType = 4
 
