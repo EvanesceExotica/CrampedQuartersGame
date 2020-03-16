@@ -101,17 +101,16 @@ func addAttributeToPanel(attribute):
 		#add to the stack, and show a multiplier on the attribute
 		stack.addToStack(attribute)
 	else:
-		print("We DON'T have node yet")
-	#instance the template, set name, add to holder which should align it
+		#instance the template, set name, add to holder which should align it
 		var attributeDescriptorInstance = attributeDescriptorTemplate.instance()
 		attributeDescriptorInstance.set_name(attribute.attributeName)
 		attributeHolder.add_child(attributeDescriptorInstance)
 
-	#add to the list of children of the panel
+		#add to the list of children of the panel
 		statUIChildren.append(attributeDescriptorInstance)
 #
-	#attach the UI signals for hovering mouse over elements
-	#attributeDescriptorInstance.connect("mouse_enter", self, "mouseOverPanel")
+		#attach the UI signals for hovering mouse over elements
+		#attributeDescriptorInstance.connect("mouse_enter", self, "mouseOverPanel")
 		attributeDescriptorInstance.addToStack(attribute)
 
 func removeAttributeFromPanel(attribute):

@@ -134,6 +134,7 @@ func fetchAndCreateAttribute(attributeName):
 	attribute.duration = thisAttributeDictionary["duration"]
 	attribute.deathType = thisAttributeDictionary["deathType"]
 	attribute.spreadChancePerHalfHour = thisAttributeDictionary["spreadChancePerHalfHour"]
+	attribute.stackable = thisAttributeDictionary["stackable"]
 	#attribute.statSignalsToWatchFor = thisAttributeDictionary["statSignalsToWatchFor"]
 	#attribute.signalsThatWillRemoveAttribute = thisAttributeDictionary["signalsThatWillRemoveAttribute"]
 	#attribute.canCombineWith = thisAttributeDictionary["canCombineWith"]

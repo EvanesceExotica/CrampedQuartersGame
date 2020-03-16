@@ -66,9 +66,13 @@ func applyNewAttribute(newAttribute):
 
 	print("Applying new attribute " + newAttribute.attributeName)
 	var newTrait = newAttribute
-	if(characterAttributes.has(newTrait)):
-		#if this trait already exists on the character
+	if(characterAttributes.has(newTrait) && !newTrait.stackable):
+		#if this trait already exists on the character && this trait's effects don't stack
 		print("Character already has trait " + newTrait.attributeName)
+		#add the trait, but don't do anything below the return statement
+		characterAttributes.append(newTrait)
+		emit_signal("newAttributeAdded", newAttribute)
+
 		return
 	if(newTrait.ConflictingAttributes != null):
 		for oldTrait in characterAttributes:
@@ -124,7 +128,18 @@ func applyNewAttribute(newAttribute):
 	
 
 func removeAttribute(attribute):
-	print("Removing attribute " + attribute.attributeName)
+
+	if characterAttributes.count(attribute) > 1 && !attribute.stackable:
+		#check if the attribute is in the array multiple times, and it wasn't an attribute with stackable effects
+		print("Attribute is in the array " + str(characterAttributes.count(attribute)) + " time(s)")
+		#erase the first occurance
+		characterAttributes.erase(attribute)
+		#emit the signal for the characterStats panel update
+		print("Now attribute is in the array " + str(characterAttributes.count(attribute)) + " time(s)")
+		#erase the first occurance
+		emit_signal("attributeRemoved", attribute)
+		return
+
 	for stat in attribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
 		match stat["whichValue"]:	

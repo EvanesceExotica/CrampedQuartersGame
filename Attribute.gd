@@ -38,6 +38,7 @@ var entitiesCanApplyTo = [] #determines whether this attribute only applies to c
 
 var contagious #determines whether this attribute can spread i.e., fire, disease
 var contagionChance #determines the chance of spreading over a certain amount of time
+#determines if the trait's effects stack or not
 var stackable = false #this determines if an attribute can be stacked with the same  condition twice -- probably not?
 var attributeName
 var typeOfAttribute
