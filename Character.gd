@@ -25,6 +25,7 @@ var previousSlot
 var characterAttributes = [ ]
 var auraSlotRange = {}
 
+var temporaryAttributes = {}
 var resultingAttributeTimers = {}
 
 var potentialResultingAttributes = {}
@@ -72,8 +73,8 @@ func applyNewAttribute(newAttribute):
 		#add the trait, but don't do anything below the return statement
 		characterAttributes.append(newTrait)
 		emit_signal("newAttributeAdded", newAttribute)
-
 		return
+
 	if(newTrait.ConflictingAttributes != null):
 		for oldTrait in characterAttributes:
 			for possibleConflictingTrait in newTrait.ConflictingAttributes:
@@ -102,6 +103,16 @@ func applyNewAttribute(newAttribute):
 			#create the timer and store it into a dictionary to keep track of it, and stop it if the resultingAttribute is never created
 			resultingAttributeTimers[newTrait] = timer
 
+	if(newTrait.spreadChancePerHalfHour > 0):
+		#if this attribute can spread
+
+		#start a timer that connects to a method that will try for the chance to spread, then start the timer over if it fails
+		var timer = Timer.new()
+		timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
+		timer.connect("timeout",self,"SpreadContagiousAttribute", [newTrait]) 
+		add_child(timer) #to process
+		timer.start() #t
+
 	for stat in newAttribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
 		match stat["whichValue"]:	
@@ -119,12 +130,14 @@ func applyNewAttribute(newAttribute):
 	characterAttributes.append(newAttribute)
 	emit_signal("newAttributeAdded", newAttribute)
 
-	if newAttribute["temporary"] == true:
+	if newAttribute.temporary == true:
 		var timer = Timer.new()
 		timer.wait_time = newAttribute.duration
 		timer.connect("timeout",self,"conditionTimedOut", [newAttribute]) 
 		add_child(timer) #to process
 		timer.start() #to start
+		#add this to a dictionary to keep track of it and its timer
+		temporaryAttributes[newAttribute] = timer
 	
 
 func removeAttribute(attribute):
@@ -159,6 +172,9 @@ func removeAttribute(attribute):
 		for resultingAttribute in attribute.ResultingAttributes:
 			#this should stop the timers that are trying to spread the resulting attribute
 			StopResultingAttributeGeneration(resultingAttribute, attribute)
+	if attribute.temporary:
+		#if the attribute was temporary and is getting removed, stop the timer that's looking to remove it at the end of its duration
+		temporaryAttributes[attribute].stop()
 
 	emit_signal("attributeRemoved", attribute)
 
@@ -184,6 +200,22 @@ func ActivateResultingAttribute(resultingAttribute, sourceAttribute):
 		add_child(timer) #to process
 		timer.start() #to sta
 		resultingAttributeTimers[sourceAttribute] = timer
+
+func SpreadContagiousAttribute(attribute):
+	var randomValue = randf()
+	if randomValue <= attribute.spreadChancePerHalfHour:
+		#if the chance is rolled, apply the attribute
+		print("Attribute has spread to another character!" + attribute.attributeName)
+		get_parent().spreadToAdjacentSlots(self, attribute)
+	else:
+		#if not, restart the timer for each time it checks
+		print("Check again  for spread of " + attribute.attributeName)
+		var timer = Timer.new()
+		timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
+		timer.connect("timeout",self,"SpreadContagiousAttribute", [attribute]) 
+		add_child(timer) #to process
+		timer.start() #to sta
+
 
 func _applyNewAttribute(newAttribute):
 	var newTrait = newAttribute

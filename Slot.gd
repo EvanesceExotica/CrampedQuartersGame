@@ -209,7 +209,8 @@ func SpreadContagiousAttribute(attribute):
 		add_child(timer) #to process
 		timer.start() #to sta
 
-
+func GetAdjacentCharacter():
+	pass
 
 func _on_Slot_area_entered(area):
 	if(area.name == "Hand"):
