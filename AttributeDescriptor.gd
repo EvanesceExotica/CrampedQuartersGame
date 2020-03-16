@@ -3,10 +3,28 @@ extends Control
 ### GUI ELEMENT###
 onready var tooltipNode = get_node("Tooltip")
 onready var attributeText = get_node("Label")
+var stackValue = 1
+var stack = []
 
 func setAttribute(attribute):
-  attributeText.text = attribute.attributeName
+  if(stack.size() > 1):
+    attributeText.text = attribute.attributeName + "x" + str(stack.size())
+  elif(stack.size() == 1):
+    attributeText.text = attribute.attributeName
+  else:
+    attributeText.text = attribute.attributeName
   tooltipNode.setTooltipText(attribute.description)
+
+func addToStack(attribute):
+  print("adding to stack")
+  stack.append(attribute.attributeName)
+  setAttribute(attribute)
+
+func removeFromStack(attribute):
+  print("removing from stack")
+  stack.remove(attribute.attributeName)
+  setAttribute(attribute)
+
 
 func _ready():
   pass

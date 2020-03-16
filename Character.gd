@@ -66,6 +66,10 @@ func applyNewAttribute(newAttribute):
 
 	print("Applying new attribute " + newAttribute.attributeName)
 	var newTrait = newAttribute
+	if(characterAttributes.has(newTrait)):
+		#if this trait already exists on the character
+		print("Character already has trait " + newTrait.attributeName)
+		return
 	if(newTrait.ConflictingAttributes != null):
 		for oldTrait in characterAttributes:
 			for possibleConflictingTrait in newTrait.ConflictingAttributes:
@@ -93,8 +97,6 @@ func applyNewAttribute(newAttribute):
 			timer.start() #to start
 			#create the timer and store it into a dictionary to keep track of it, and stop it if the resultingAttribute is never created
 			resultingAttributeTimers[newTrait] = timer
-			# TODO: Put this back in VVV
-			#potentialResultingAttributes[result] = { resultingAttribute["chancePerHalfHour"], resultTimer } 
 
 	for stat in newAttribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
@@ -143,19 +145,6 @@ func removeAttribute(attribute):
 			#this should stop the timers that are trying to spread the resulting attribute
 			StopResultingAttributeGeneration(resultingAttribute, attribute)
 
-			pass
-			#TODO: PUT THIS BACK IN 
-			# for item in potentialResultingAttributes[result]:
-				
-			# 	var result = AttributeJSONParser.fetchAndCreateAttribute(resultingAttribute["AttributeName"])
-			# 	#put this in the
-			# 	potentialResultingAttributes[result] = resultingAttribute["chancePerHalfHour"]
-			# 	#just start a timer here, it's simpler
-			# 	var resultTimer = Timer.new()
-			# 	timer.wait_time = 30 #TODO: calculate 30 seconds here
-			# 	timer.connect("timeout",self,"ActivateResultingAttribute", resultingAttribute) 
-			# 	add_child(timer) #to process
-			# 	timer.start() #to start
 	emit_signal("attributeRemoved", attribute)
 
 func StopResultingAttributeGeneration(resultingAttribute, sourceAttribute):
@@ -261,6 +250,7 @@ func removeAttributeByName(removeableAttributeName):
 	for attribute in characterAttributes:
 		if attribute.attributeName == removeableAttributeName:
 			removeAttribute(attribute)
+			break
 
 
 func calculateDrainRate(affectedStat, pointsDrainedPerSecond):
@@ -295,10 +285,6 @@ func addNewDrainSource(affectedStat, drainSource, newDrainPerSecond):
 
 	#RATES -- determining the drain rate (how many points are being drained per second) and adding to it
 
-	if(affectedStat.drainRate >= 20):
-		affectedStat.drainRate = 20
-
-#	drainValueOverTime(affectedStat, drainSource, calculateDrainRate(affectedStat, affectedStat.drainRate))
 		#the actualy drain speed is already being calculated in the "Drain value over time" method I think?
 	drainValueOverTime(affectedStat, drainSource, affectedStat.drainRate)
 
@@ -316,6 +302,7 @@ func RemoveNewDrainSource(affectedStat, drainSource, sourceDrainPerSecond):
 
 		if(affectedStat.drainSources.has(drainSource)):
 			affectedStat.drainSources.erase(drainSource)
+			print(affectedStat.drainSources.size())
 
 			affectedStat.drainRate -= sourceDrainPerSecond
 			if(affectedStat.drainRate <= 0):
@@ -326,7 +313,7 @@ func RemoveNewDrainSource(affectedStat, drainSource, sourceDrainPerSecond):
 		affectedStat.drainState = false
 		stopAllDrains(affectedStat) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	else:
-		drainValueOverTime(affectedStat, null, sourceDrainPerSecond)
+		drainValueOverTime(affectedStat, null, affectedStat.drainRate)
 		#restartInterruptedDrain(affectedStat)
 
 func restartInterruptedDrain(affectedStat):
@@ -541,32 +528,17 @@ func _input(event):
 func _on_Button_pressed():
 	#applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
 	Die(null, false)
-	#get_tree().paused = true
 
 func _on_FasterHealthDrain_pressed():
 	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Contaminated"))
-	# for item in characterAttributes:
-	# 	if(item.attributeName == "OnFire"):
-	# 		removeAttribute(item)
-	#removeAttribute("OnFire")
-	#addNewDrainSource(DynamicStats.sanity, null, 2)
-	#addHealthDrainSource("test2", 3.0)
-
-	pass # Replace with function body.
 
 
 func _on_Attack_pressed():
-	changeStatValue(sustenance, null, -100, false)
-	# var attribute = Attribute.new("Underwater")
-	# attribute.ConflictingAttributes.append("OnFire")
-	# attribute.description = "I'm underwater"
-	# attribute.ResultingAttributes = ["Wet"]
-	# attribute.DrainingDynamicStats = {System.DynamicStats.health : 10}
-	# attribute.typeOfAttribute = System.attributeType.auraCondition
-	# applyNewAttribute(attribute)
-	#print("Attack pressed")
-	#changeStatValue(DynamicStats.sanity, -30, false)
-	pass # Replace with function body.
+	removeAttributeByName("Contaminated")
+	#changeStatValue(sustenance, null, -100, false)
+
+func _on_Tween_tween_completed(object, key):
+	print(str(object) + " Tween completed")
 
 func _on_Tween_tween_step(object, key, elapsed, value):
 	if object.currentValue <= 0:

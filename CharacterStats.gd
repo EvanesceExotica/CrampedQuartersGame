@@ -94,17 +94,25 @@ func addAttributeToPanel(attribute):
 		return
 	attributeArray.append(attribute)
 
+	if attributeHolder.has_node(attribute.attributeName):
+		print("We have node")
+		#if this node is already on the characterStats screen
+		var stack = attributeHolder.get_node(attribute.attributeName)
+		#add to the stack, and show a multiplier on the attribute
+		stack.addToStack(attribute)
+	else:
+		print("We DON'T have node yet")
 	#instance the template, set name, add to holder which should align it
-	var attributeDescriptorInstance = attributeDescriptorTemplate.instance()
-	attributeDescriptorInstance.set_name(attribute.attributeName)
-	attributeHolder.add_child(attributeDescriptorInstance)
+		var attributeDescriptorInstance = attributeDescriptorTemplate.instance()
+		attributeDescriptorInstance.set_name(attribute.attributeName)
+		attributeHolder.add_child(attributeDescriptorInstance)
 
 	#add to the list of children of the panel
-	statUIChildren.append(attributeDescriptorInstance)
+		statUIChildren.append(attributeDescriptorInstance)
 #
 	#attach the UI signals for hovering mouse over elements
 	#attributeDescriptorInstance.connect("mouse_enter", self, "mouseOverPanel")
-	attributeDescriptorInstance.setAttribute(attribute)
+		attributeDescriptorInstance.addToStack(attribute)
 
 func removeAttributeFromPanel(attribute):
 
@@ -112,16 +120,22 @@ func removeAttributeFromPanel(attribute):
 	attributeArray.erase(attribute)
 
 	#find the instance of the descriptor
-	# for item in attributeHolder.get_children():
-	# 	print(item.name +  " vs " + attribute.attributeName)
+	for item in attributeHolder.get_children():
+		print(item.name +  " vs " + attribute.attributeName)
 
-	var attributeDescriptorInstance = attributeHolder.get_node(attribute.attributeName)
-
-	#remove the descriptor object from the node tree in game
-	attributeHolder.remove_child(attributeDescriptorInstance)
-
-	#erase from the statUiChildren array, which is the list of cihldren in the panel
-	statUIChildren.erase(attributeDescriptorInstance)
+	if attributeHolder.has_node(attribute.attributeName):
+		#if this node exists and we have the attribute displayed on our panel
+		var stack = attributeHolder.get_node(attribute.attributeName)
+		#find the node where its being held in the attributeHolder
+		stack.removeFromStack(attribute)
+		#remove an instance of this node from the stack
+		if(stack.stack.size() == 0):
+			#if there are no instances left
+			var attributeDescriptorInstance = attributeHolder.get_node(attribute.attributeName)
+		#remove the descriptor object from the node tree in game
+			attributeHolder.remove_child(attributeDescriptorInstance)
+		#erase from the statUiChildren array, which is the list of cihldren in the panel
+			statUIChildren.erase(attributeDescriptorInstance)
 
 func hideDisplay():
 	$Tween.stop_all()

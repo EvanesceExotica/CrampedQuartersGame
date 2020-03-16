@@ -48,9 +48,7 @@ enum slotSlotTypes{
 }
 func applyNewAttributeToSlot(attribute):
 	#when a brand new attribute is applied, apply it to the character as well
-	print(attribute.attributeName + " applied to slot " + self.name)
 	slotAttributes.append(attribute)
-	print("We have this many attributes " + str(slotAttributes.size()))
 	if attribute.spreadChancePerHalfHour > 0:
 		#if this attribute can spread
 		var timer = Timer.new()
@@ -81,7 +79,6 @@ func removeAllExitingAttributesFromCharacter():
 	var i = 0
 	if slotAttributes.size() > 0:
 		for attribute in slotAttributes:
-			print("Here are the slot Attributes of " + self.name + ": " + attribute.attributeName)
 			removeAttributeFromCharacter(attribute)
 			i+=1
 
@@ -138,7 +135,6 @@ func addCharacterToSlot(character):
 	print(character.name + " current slot is " + self.name)
 
 func removeCharacterFromSlot(character):
-	print("Character removed from slot")
 	removeAllExitingAttributesFromCharacter()
 	characterInSlot = null
 	emit_signal("someoneVacatedSlot", self, character)
