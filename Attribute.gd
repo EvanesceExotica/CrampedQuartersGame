@@ -66,6 +66,8 @@ var characterEventTypeChance = { } #insanity events; drift events
 var externalCombinations = [] #alien:self
 var deathType
 var spreadChancePerHalfHour
+var spreadVariables
+var spreadRange = 0
 
 func CheckRemoveableCritera(signalCalled):
 	var numberOfTimesCalled = 0

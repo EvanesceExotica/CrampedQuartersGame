@@ -209,7 +209,9 @@ func SpreadContagiousAttribute(attribute):
 		add_child(timer) #to process
 		timer.start() #to sta
 
-func GetAdjacentCharacter():
+func SpreadFromCharacter(attribute):
+	#get_parent().SpreadToCharacterInAdjacentSlot(self, attribute, attribute.spreadVariables["range"])
+	get_parent().SpreadToCharacterInAdjacentSlot(self, attribute, attribute.spreadRange)
 	pass
 
 func _on_Slot_area_entered(area):

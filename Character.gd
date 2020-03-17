@@ -27,7 +27,7 @@ var auraSlotRange = {}
 
 var temporaryAttributes = {}
 var resultingAttributeTimers = {}
-
+var spreadTimers = {}
 var potentialResultingAttributes = {}
 onready var rightFacingPosition = get_node("RightPosition")
 onready var leftFacingPosition = get_node("LeftPosition")
@@ -103,15 +103,27 @@ func applyNewAttribute(newAttribute):
 			#create the timer and store it into a dictionary to keep track of it, and stop it if the resultingAttribute is never created
 			resultingAttributeTimers[newTrait] = timer
 
-	if(newTrait.spreadChancePerHalfHour > 0):
+	if newTrait.spreadChancePerHalfHour > 0:
+		print("Beginning to spread contagious attribute " + newTrait.attributeName)
 		#if this attribute can spread
-
 		#start a timer that connects to a method that will try for the chance to spread, then start the timer over if it fails
 		var timer = Timer.new()
 		timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
 		timer.connect("timeout",self,"SpreadContagiousAttribute", [newTrait]) 
 		add_child(timer) #to process
 		timer.start() #t
+		spreadTimers[newTrait] = timer
+
+	# if newTrait.spreadVariables != null && newTrait.spreadVariables.size() > 0:
+	# 	if newTrait.spreadVariables["spreadChancePerHalfHour"] > 0:
+	# 		print("Beginning to spread contagious attribute " + newTrait.attributeName)
+	# 		#if this attribute can spread
+	# 		#start a timer that connects to a method that will try for the chance to spread, then start the timer over if it fails
+	# 		var timer = Timer.new()
+	# 		timer.wait_time = TimeConverter.GameMinutesToSeconds(30)
+	# 		timer.connect("timeout",self,"SpreadContagiousAttribute", [newTrait]) 
+	# 		add_child(timer) #to process
+	# 		timer.start() #t
 
 	for stat in newAttribute["AffectedStats"]:
 		var affectedStat = determineStat(stat["statName"])
@@ -203,10 +215,10 @@ func ActivateResultingAttribute(resultingAttribute, sourceAttribute):
 
 func SpreadContagiousAttribute(attribute):
 	var randomValue = randf()
-	if randomValue <= attribute.spreadChancePerHalfHour:
+	if randomValue <= attribute.spreadChancePerHalfHour: #spreadChancePerHalfHour:
 		#if the chance is rolled, apply the attribute
 		print("Attribute has spread to another character!" + attribute.attributeName)
-		get_parent().spreadToAdjacentSlots(self, attribute)
+		currentSlot.SpreadFromCharacter(attribute)
 	else:
 		#if not, restart the timer for each time it checks
 		print("Check again  for spread of " + attribute.attributeName)
@@ -215,6 +227,10 @@ func SpreadContagiousAttribute(attribute):
 		timer.connect("timeout",self,"SpreadContagiousAttribute", [attribute]) 
 		add_child(timer) #to process
 		timer.start() #to sta
+
+func StopSpreadAttempts(attribute):
+	#stop the timer that's held in this dictionary, so it will stop checking for
+	spreadTimers[attribute].stop()	
 
 
 func _applyNewAttribute(newAttribute):
@@ -577,11 +593,11 @@ func _on_Button_pressed():
 	Die(null, false)
 
 func _on_FasterHealthDrain_pressed():
-	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Contaminated"))
+	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Diseased"))
 
 
 func _on_Attack_pressed():
-	removeAttributeByName("Contaminated")
+	removeAttributeByName("Diseased")
 	#changeStatValue(sustenance, null, -100, false)
 
 func _on_Tween_tween_completed(object, key):
