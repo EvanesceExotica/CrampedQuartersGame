@@ -4,7 +4,12 @@ extends Node2D
 var eventData
 var eventArray = []
 
-
+enum scope{
+	ship,
+	character,
+	station,
+	slot
+}
 #put events that have already been triggered here
 var alreadyTriggeredEvents = []
 func _ready():
@@ -13,6 +18,12 @@ func _ready():
 	generateAllEvents()
 
 func load_json():
+	var file = File.new()
+	file.open("res://RelevantJSON/GameEvents.JSON", file.READ)
+	var entireFile = parse_json(file.get_as_text())
+	eventData = entireFile["sheets"][0]["lines"]
+
+func _load_json():
 	var file = File.new()
 	#assert file.file_exists( "res://Events/Events.json")
 	file.open("res://Events/Events.json", file.READ)
@@ -25,7 +36,7 @@ func generateAllEvents():
 func chooseRandomEvent():
 	#add some sort of queue so that the events don't override each other
 	#change to non-random later
-	eventArray = eventData["events"]
+	eventArray = eventData #["events"]
 	#createEvent(eventArray[randomNumber])
 	var validEvents = []
 	for event in eventArray:
@@ -49,7 +60,7 @@ func chooseRandomEvent():
 
 
 func chooseSpecificEvent(id):
-	eventArray = eventData["events"]
+	eventArray = eventData#["events"]
 	createEvent(eventArray[id])
 	#might need to change event array to a dictionary if that would make this more efficient (using the key instead of a for loop)
 	# for event in eventArray:
@@ -165,7 +176,8 @@ func affectObjects(scope, result, affectedObjects):
 func showResult(chosenResultSet):
 	#if this will update to another event, check (if the 'linked event' value is greater than zero, it will)
 	#else, just show the results of the current event
-	if chosenResultSet["linkedEvent"] > 0:
+	#if chosenResultSet["linkedEvent"] > 0:
+	if chosenResultSet["linkedEvent"] != "empty":
 		#if the ID for this is greater than zero, which is the 'blank' event
 		chooseSpecificEvent(chosenResultSet["linkedEvent"])
 	else:

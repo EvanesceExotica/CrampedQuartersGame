@@ -45,10 +45,10 @@
 			],
 			"lines": [
 				{
-					"title": "",
-					"id": "",
+					"title": "empty",
+					"id": "empty",
 					"weight": 0,
-					"description": "",
+					"description": "You've arrived at your destination.",
 					"image": "",
 					"requirements": [],
 					"options": [
@@ -66,6 +66,63 @@
 							]
 						}
 					]
+				},
+				{
+					"title": "Character on Asteroid",
+					"id": "charOnAsteroid",
+					"weight": 0,
+					"description": "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures on the asteroid. What do you do?",
+					"image": "",
+					"requirements": [],
+					"options": [
+						{
+							"text": "Bring them on board.",
+							"applyResultsToObject": false,
+							"requirements": [],
+							"resultSets": [
+								{
+									"description": "The shadowy figures were new characters! You've gained a new crewmember.",
+									"weight": 0.5,
+									"linkedEvent": "",
+									"results": [
+										{
+											"actions": {
+												"GenerateNewCharacter": []
+											}
+										}
+									]
+								},
+								{
+									"description": "The shadowy figures were demons! They attacked. Your ship took 5 damage.",
+									"weight": 0.5,
+									"linkedEvent": "",
+									"results": []
+								}
+							]
+						},
+						{
+							"text": "Leave them stranded.",
+							"applyResultsToObject": false,
+							"requirements": [],
+							"resultSets": [
+								{
+									"description": "You take off and leave them behind. Oh well. Maybe you should've helped.",
+									"weight": 1,
+									"linkedEvent": "",
+									"results": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"title": "",
+					"id": "",
+					"weight": 0,
+					"description": "",
+					"image": "",
+					"requirements": [],
+					"options": []
 				}
 			],
 			"separators": [],
