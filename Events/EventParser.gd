@@ -179,7 +179,7 @@ func showResult(chosenResultSet):
 	#if chosenResultSet["linkedEvent"] > 0:
 	if chosenResultSet["linkedEvent"] != "empty":
 		#if the ID for this is greater than zero, which is the 'blank' event
-		chooseSpecificEvent(chosenResultSet["linkedEvent"])
+		chooseSpecificEvent(chosenResultSet["index"])
 	else:
 		SignalManager.emit_signal("UpdateEvent", chosenResultSet)		
 
@@ -206,12 +206,18 @@ func calculateResultSet(resultSets, affectedObjects):
 
 	#update the event with this result
 	for result in chosenResultSet["results"]:
-		if result["scope"] == "":
+		if !result.has("scope"):
 			#if there is no particular scope
 			checkActions(result["actions"])
 		else:
-			affectObjects(result["scope"], result, affectedObjects)
-			
 			#if there is a scope, like a specific character
-			pass
+			affectObjects(result["scope"], result, affectedObjects)
+		# if result["scope"] == "":
+		# 	#if there is no particular scope
+		# 	checkActions(result["actions"])
+		# else:
+		# 	affectObjects(result["scope"], result, affectedObjects)
+			
+		# 	#if there is a scope, like a specific character
+		# 	pass
 

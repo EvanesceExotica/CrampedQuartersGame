@@ -19,6 +19,10 @@
 				},
 				{
 					"typeStr": "1",
+					"name": "_description"
+				},
+				{
+					"typeStr": "16",
 					"name": "description",
 					"display": null
 				},
@@ -48,7 +52,6 @@
 					"title": "empty",
 					"id": "empty",
 					"weight": 0,
-					"description": "You've arrived at your destination.",
 					"image": "",
 					"requirements": [],
 					"options": [
@@ -60,18 +63,22 @@
 								{
 									"description": "",
 									"weight": 0,
-									"linkedEvent": "",
-									"results": []
+									"results": [],
+									"linkedEvent": "empty"
 								}
 							]
 						}
-					]
+					],
+					"_description": "You've arrived at your destination.",
+					"description": [
+						"You've arrived at your destination."
+					],
+					"index": 0
 				},
 				{
 					"title": "Character on Asteroid",
 					"id": "charOnAsteroid",
 					"weight": 0,
-					"description": "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures on the asteroid. What do you do?",
 					"image": "",
 					"requirements": [],
 					"options": [
@@ -83,20 +90,20 @@
 								{
 									"description": "The shadowy figures were new characters! You've gained a new crewmember.",
 									"weight": 0.5,
-									"linkedEvent": "",
 									"results": [
 										{
 											"actions": {
 												"GenerateNewCharacter": []
 											}
 										}
-									]
+									],
+									"linkedEvent": "empty"
 								},
 								{
 									"description": "The shadowy figures were demons! They attacked. Your ship took 5 damage.",
 									"weight": 0.5,
-									"linkedEvent": "",
-									"results": []
+									"results": [],
+									"linkedEvent": "empty"
 								}
 							]
 						},
@@ -108,25 +115,23 @@
 								{
 									"description": "You take off and leave them behind. Oh well. Maybe you should've helped.",
 									"weight": 1,
-									"linkedEvent": "",
-									"results": []
+									"results": [],
+									"linkedEvent": "empty"
 								}
 							]
 						}
-					]
-				},
-				{
-					"title": "",
-					"id": "",
-					"weight": 0,
-					"description": "",
-					"image": "",
-					"requirements": [],
-					"options": []
+					],
+					"_description": "You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures on the asteroid. What do you do?",
+					"description": [
+						"You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures on the asteroid. What do you do?"
+					],
+					"index": 1
 				}
 			],
 			"separators": [],
-			"props": {}
+			"props": {
+				"hasIndex": true
+			}
 		},
 		{
 			"name": "Events@requirements",
@@ -251,7 +256,7 @@
 					"name": "weight"
 				},
 				{
-					"typeStr": "0",
+					"typeStr": "6:Events",
 					"name": "linkedEvent",
 					"display": null
 				},
@@ -293,6 +298,70 @@
 			]
 		}
 	],
-	"customTypes": [],
+	"customTypes": [
+		{
+			"name": "FloatCustom",
+			"cases": [
+				{
+					"name": "Float",
+					"args": []
+				},
+				{
+					"name": "random",
+					"args": [
+						{
+							"name": "min",
+							"typeStr": "4"
+						},
+						{
+							"name": "max",
+							"typeStr": "4"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "MyCustomType",
+			"cases": [
+				{
+					"name": "Fixed",
+					"args": []
+				},
+				{
+					"name": "Random",
+					"args": [
+						{
+							"name": "v",
+							"typeStr": "4"
+						}
+					]
+				},
+				{
+					"name": "Event",
+					"args": [
+						{
+							"name": "e",
+							"typeStr": "6:Events",
+							"opt": true
+						}
+					]
+				},
+				{
+					"name": "Or",
+					"args": [
+						{
+							"name": "a",
+							"typeStr": "9:MyCustomType"
+						},
+						{
+							"name": "b",
+							"typeStr": "9:MyCustomType"
+						}
+					]
+				}
+			]
+		}
+	],
 	"compress": false
 }
