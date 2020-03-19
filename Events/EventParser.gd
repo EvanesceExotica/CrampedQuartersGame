@@ -26,6 +26,10 @@ const CHARACTER = 2
 const STATION = 4
 const SLOT = 8
 
+var distressSignalEvents = []
+var onArrivalEvents = []
+var randomEvents = [] #the 'travelling, not travelling' can be handled by the events requirements
+
 #put events that have already been triggered here
 var alreadyTriggeredEvents = []
 func _ready():
@@ -60,15 +64,19 @@ func checkScope(flagValue):
 	if scopeFlag.check(scopeFlag.slot):
 		pass
 
-func checkEventType(flagValue):
+func checkEventType(event):
 	#set the flag to the value of the flag from castleDB
-	eventTypeFlag.set_flags(flagValue)
+	eventTypeFlag.set_flags(event["eventType"])
+
 	if eventTypeFlag.check(eventTypeFlag.onArrival):
-		pass
+		#check if this bit in the flag is true
+		onArrivalEvents.append(event)
+
 	if eventTypeFlag.check(eventTypeFlag.random):
-		pass
-	#if flag 
-	pass
+		randomEvents.append(event)
+
+	if eventTypeFlag.check(eventTypeFlag.distress):
+		distressSignalEvents.append(event)
 
 func chooseRandomEvent():
 	#add some sort of queue so that the events don't override each other

@@ -2,6 +2,11 @@ extends Node2D
 
 
 
+var distressSignalEvents = []
+var onArrivalEvents = []
+var randomEvents = [] #the 'travelling, not travelling' can be handled by the events requirements
+
+
 export(Array) var eventArray = []
 
 onready var eventContainer = get_parent().get_node("CanvasLayer").get_node("EventContainer")

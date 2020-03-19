@@ -46,7 +46,7 @@
 					"display": null
 				},
 				{
-					"typeStr": "10:onArrival,random",
+					"typeStr": "10:onArrival,random,distress",
 					"name": "eventType"
 				},
 				{
