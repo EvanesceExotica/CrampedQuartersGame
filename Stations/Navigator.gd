@@ -41,6 +41,14 @@ onready var travelTimeLabel = get_node("TravelTimeLabel")
 
 var connectionsMade = {}
 
+func generateEvents():
+	pass
+	for location in generatedLocations.keys():
+		if location.isDistressLocation:
+			#put events from distress event array
+			#location.arrivalEventID = 
+			continue
+		#location.arrivalEventID = 
 
 func spawnInArea():
 	var centerpos = colshape2d.position + area2d.position

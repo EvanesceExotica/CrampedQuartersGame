@@ -138,6 +138,36 @@
 					"index": 1,
 					"eventType": 1,
 					"_scope": 3
+				},
+				{
+					"title": "Abandoned Ship",
+					"id": "abandonedShip",
+					"weight": 0,
+					"_description": "You see the remains of a derelict ship floating in the void. The distress signal is coming from inside. ",
+					"image": "",
+					"requirements": [],
+					"options": [],
+					"eventType": 4,
+					"_scope": 0,
+					"index": 2,
+					"description": [
+						"You see the remains of a derelict ship floating in the void. The distress signal is coming from inside. "
+					]
+				},
+				{
+					"title": "Space Debris Hit",
+					"id": "spaceDebris",
+					"weight": 0,
+					"_description": "",
+					"image": "",
+					"requirements": [],
+					"options": [],
+					"eventType": 2,
+					"_scope": 0,
+					"index": 3,
+					"description": [
+						"Space debris has struck vital components, starting a fire!"
+					]
 				}
 			],
 			"separators": [],

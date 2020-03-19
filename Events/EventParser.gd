@@ -13,6 +13,7 @@ const RANDOM = 2
 enum eventType{
 	onArrival,
 	random,
+	distress
 
 }
 enum scope{
@@ -26,9 +27,9 @@ const CHARACTER = 2
 const STATION = 4
 const SLOT = 8
 
-var distressSignalEvents = []
-var onArrivalEvents = []
-var randomEvents = [] #the 'travelling, not travelling' can be handled by the events requirements
+var distressSignalEvents = {}
+var onArrivalEvents = {}
+var randomEvents = {} #the 'travelling, not travelling' can be handled by the events requirements
 
 #put events that have already been triggered here
 var alreadyTriggeredEvents = []
@@ -52,6 +53,8 @@ func _load_json():
    
 func generateAllEvents():
 	load_json()
+	for event in eventData:
+		checkEventType(event)
 
 func checkScope(flagValue):
 	scopeFlag.set_flags(flagValue)
@@ -66,17 +69,49 @@ func checkScope(flagValue):
 
 func checkEventType(event):
 	#set the flag to the value of the flag from castleDB
-	eventTypeFlag.set_flags(event["eventType"])
+	var type = int(event["eventType"])
+	eventTypeFlag.set_flags(type)
 
 	if eventTypeFlag.check(eventTypeFlag.onArrival):
 		#check if this bit in the flag is true
-		onArrivalEvents.append(event)
+		onArrivalEvents[event["id"]] = event
+		#onArrivalEvents.append(event)
+		print(event["title"] + " is arrival event")
+		print("Arrival event size " + str(onArrivalEvents.size()))
 
 	if eventTypeFlag.check(eventTypeFlag.random):
-		randomEvents.append(event)
+		#randomEvents.append(event)
+		randomEvents[event["id"]] = event
+		print(event["title"] + " is random event")
+		print("Random event size " + str(randomEvents.size()))
 
 	if eventTypeFlag.check(eventTypeFlag.distress):
-		distressSignalEvents.append(event)
+		#distressSignalEvents.append(event)
+		distressSignalEvents[event["id"]] = event
+		print(event["title"] + " is distress event")
+		print("Distress signal event size " + str(distressSignalEvents.size()))
+
+func _chooseRandomEvent():
+	var validEvents = []
+	for event in randomEvents:
+		if event["id"] == "empty":
+			continue
+		if validateRequirements(event["requirements"], false):
+			validEvents.append(event)
+
+	#choose a random number that fits within the size of the valid events array
+	var randomNumber = randi()%validEvents.size()
+
+	if validEvents.size() > 1:
+		#if the array has more than one event in it, choose a random one
+		createEvent(validEvents[randomNumber])
+	elif validEvents.size() == 1:
+		#if there's only one event that fits
+		createEvent(validEvents[0])
+	elif validEvents.size() == 0:
+		print("No valid random events")
+
+
 
 func chooseRandomEvent():
 	#add some sort of queue so that the events don't override each other
@@ -104,16 +139,23 @@ func chooseRandomEvent():
 		createEvent(validEvents[0])
 
 
-func chooseSpecificEvent(id):
+func chooseSpecificEvent(id, typeOfEvent):
 	eventArray = eventData#["events"]
 	createEvent(eventArray[id])
+	if typeOfEvent == eventType.OnArrival:
+		createEvent(onArrivalEvents
+		pass
+	elif typeOfEvent == eventType.distress:
+		pass
 	#might need to change event array to a dictionary if that would make this more efficient (using the key instead of a for loop)
 	# for event in eventArray:
 	# 	if event["id"] == id:
 	# 		createEvent(event)
 			
-
-
+func chooseArrivalEvent(id):
+	pass
+func _chooseSpecificEvent(id):
+	pass
 
 func validateRequirements(requirements, returnObject):
 

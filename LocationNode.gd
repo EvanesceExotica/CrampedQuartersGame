@@ -15,14 +15,20 @@ onready var tween = get_node("Tween")
 onready var dottedCircle = get_node("DottedCircle")
 onready var pointer = get_node("Pointer")
 
+var isDistressLocation = false
+
 var arrivalEventID = 1 
 var selected = false
+
+
+var isCurrentLocation = false
+#maybe keep location info on this node too? But h ave it be a separate node or resource attached
 
 func setAsDistressSignal():
 	print("Playing signal animation ")
 	anim.play("DistressPulse")
-var isCurrentLocation = false
-#maybe keep location info on this node too? But h ave it be a separate node or resource attached
+	isDistressLocation = true
+
 func setPickable():
 	area2D.input_pickable = true
 	sprite.modulate = Color.green

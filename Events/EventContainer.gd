@@ -106,13 +106,17 @@ func showEvent(eventParameters):
 	self.show()
 	resetOptions()
 	eventText.text = chooseRandomDescription(eventParameters["description"])
-	for option in eventParameters["options"]:
+	if eventParameters["options"].size() > 0:
+		for option in eventParameters["options"]:
 		#array of options
-		checkOptionRequirements(option)
+			checkOptionRequirements(option)
 		# var newChoice = eventChoice.instance()
 		# newChoice.text = option["text"]
 		# newChoice.resultSets = option["resultSets"]
 		# choiceContainer.add_child(newChoice)
+	else:
+		#if there are no options listed
+		setContinueOption()
 
 func initializeEvent():
 	#change this so that each event has multiple branches of text?
