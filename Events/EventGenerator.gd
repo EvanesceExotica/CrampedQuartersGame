@@ -66,6 +66,19 @@ func ChooseDayEvent():
 	#print("Choosing day event which will happen at " + str(dayEventDelay))
 
 func _ready():
+	#EventParser.scopeFlag.ship = true
+	#EventParser.scopeFlag.character = true
+	#EventParser.scopeFlag.station = true
+	#EventParser.scopeFlag.slot = true
+	EventParser.scopeFlag.set_flags(3)
+	print("Ship is " + str(EventParser.scopeFlag.check(EventParser.scopeFlag.ship)))
+	print("Character is " + str(EventParser.scopeFlag.check(EventParser.scopeFlag.character)))
+	print("Station is " + str(EventParser.scopeFlag.check(EventParser.scopeFlag.station)))
+	#print("Station is " + str(EventParser.scopeFlag.station))
+	print("Scope flag is " + str(EventParser.scopeFlag.get_flags()))
+	print("Constant test " + str(EventParser.SHIP | EventParser.CHARACTER))
+	print("Enum test " + str(EventParser.scope.ship | EventParser.scope.character))
+	
 	SignalManager.connect("OnArrival", self, "StartArrivalEvent")
 	#TODO: #Put this back in
 	SignalManager.connect("DayPassed", self, "ChooseDayEventDelay")

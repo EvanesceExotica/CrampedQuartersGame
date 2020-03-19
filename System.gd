@@ -11,6 +11,11 @@ var draggedItem
 var bf 
 var entitiesFlag
 
+var fields = {
+	"isTraveling" : false,
+
+
+}
 
 var SlotsByType = {
 

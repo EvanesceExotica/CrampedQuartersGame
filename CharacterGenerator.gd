@@ -173,7 +173,8 @@ func generateNewAttribute(generalList, nameList):
 	#grab a random attribute using this index from the possible ones
 	var newAttribute = generalList[randomInherentAttributeNumber]
 	var newAttributeName = nameList[randomInherentAttributeNumber]
-	for possibleConflict in newAttribute["ConflictingAttributes"]:
+	if newAttribute.has("ConflictingAttributes"):
+		for possibleConflict in newAttribute["ConflictingAttributes"]:
 		#remove attributes that conflict from the total list
 			if nameList.has(possibleConflict):
 				#if this conflict exists, remove from both lists

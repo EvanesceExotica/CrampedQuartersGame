@@ -33,8 +33,7 @@
 				},
 				{
 					"typeStr": "16",
-					"name": "scope",
-					"display": null
+					"name": "scope"
 				},
 				{
 					"typeStr": "8",
@@ -44,6 +43,15 @@
 				{
 					"typeStr": "8",
 					"name": "options",
+					"display": null
+				},
+				{
+					"typeStr": "10:onArrival,random",
+					"name": "eventType"
+				},
+				{
+					"typeStr": "10:ship,character,station,slot",
+					"name": "_scope",
 					"display": null
 				}
 			],
@@ -73,7 +81,9 @@
 					"description": [
 						"You've arrived at your destination."
 					],
-					"index": 0
+					"index": 0,
+					"eventType": 1,
+					"_scope": 15
 				},
 				{
 					"title": "Character on Asteroid",
@@ -125,7 +135,9 @@
 					"description": [
 						"You have come across a small asteroid, following an emergency beacon. You see a few strange, shadowy figures on the asteroid. What do you do?"
 					],
-					"index": 1
+					"index": 1,
+					"eventType": 1,
+					"_scope": 3
 				}
 			],
 			"separators": [],

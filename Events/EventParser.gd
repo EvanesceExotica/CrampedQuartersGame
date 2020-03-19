@@ -4,12 +4,28 @@ extends Node2D
 var eventData
 var eventArray = []
 
+onready var scopeFlag = BitFlag.new(scope, true)
+onready var eventTypeFlag = BitFlag.new(eventType, true)
+
+const ON_ARRIVAL = 1
+const RANDOM = 2
+
+enum eventType{
+	onArrival,
+	random,
+
+}
 enum scope{
 	ship,
 	character,
 	station,
 	slot
 }
+const SHIP = 1
+const CHARACTER = 2
+const STATION = 4
+const SLOT = 8
+
 #put events that have already been triggered here
 var alreadyTriggeredEvents = []
 func _ready():
@@ -32,6 +48,27 @@ func _load_json():
    
 func generateAllEvents():
 	load_json()
+
+func checkScope(flagValue):
+	scopeFlag.set_flags(flagValue)
+	if scopeFlag.check(scopeFlag.ship):
+		pass
+	if scopeFlag.check(scopeFlag.character):
+		pass
+	if scopeFlag.check(scopeFlag.station):
+		pass
+	if scopeFlag.check(scopeFlag.slot):
+		pass
+
+func checkEventType(flagValue):
+	#set the flag to the value of the flag from castleDB
+	eventTypeFlag.set_flags(flagValue)
+	if eventTypeFlag.check(eventTypeFlag.onArrival):
+		pass
+	if eventTypeFlag.check(eventTypeFlag.random):
+		pass
+	#if flag 
+	pass
 
 func chooseRandomEvent():
 	#add some sort of queue so that the events don't override each other
