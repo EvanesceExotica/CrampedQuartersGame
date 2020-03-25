@@ -41,7 +41,8 @@ func AddEntry(event):
 	
 func StartArrivalEvent(locationNode):
 	print("We've arrived at a location and are triggering an event")
-	TriggerSpecificEvent(locationNode.arrivalEventID)
+	#TriggerSpecificEvent(locationNode.arrivalEventID)
+	TriggerSpecificEvent(locationNode.arrivalEvent)
 	#eventContainer.event = locationNode.event
 	#eventContainer.initializeEvent()
 

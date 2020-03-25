@@ -44,11 +44,12 @@ var connectionsMade = {}
 func generateEvents():
 	pass
 	for location in generatedLocations.keys():
-		if location.isDistressLocation:
-			#put events from distress event array
-			#location.arrivalEventID = 
-			continue
-		#location.arrivalEventID = 
+		location.setRandomArrivalEvent()
+		# if location.isDistressLocation:
+		# 	#put events from distress event array
+		# 	#location.arrivalEventID = 
+		# 	continue
+		# #location.arrivalEventID = 
 
 func spawnInArea():
 	var centerpos = colshape2d.position + area2d.position
@@ -210,6 +211,7 @@ func InitalizeNodes():
 	#startingLocation.modulate = Color.cornflower
 	distressSignalLocation = FindFarthestLocation(startingLocation)
 	distressSignalLocation.setAsDistressSignal()
+	generateEvents()
 	#setting the current location to the starting location
 	currentLocation = startingLocation
 	previousLocation = null

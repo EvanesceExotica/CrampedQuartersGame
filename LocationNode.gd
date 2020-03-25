@@ -19,7 +19,7 @@ var isDistressLocation = false
 
 var arrivalEventID = 1 
 var selected = false
-
+var arrivalEvent
 
 var isCurrentLocation = false
 #maybe keep location info on this node too? But h ave it be a separate node or resource attached
@@ -52,7 +52,12 @@ func CheckIfCurrentLocation(node):
 		#if this node is us 
 		removeCurrentLocationDressing()
 
-		
+func setRandomArrivalEvent():
+	if isDistressLocation:
+		#if this is our distress beacon location
+		arrivalEvent = EventParser.returnRandomEventByType(EventParser.eventType.distress)
+	else:
+		arrivalEvent = EventParser.returnRandomEventByType(EventParser.eventType.onArrival)
 
 
 func setCurrentLocationDressing():

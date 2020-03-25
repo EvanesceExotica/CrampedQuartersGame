@@ -62,21 +62,7 @@
 					"weight": 0,
 					"image": "",
 					"requirements": [],
-					"options": [
-						{
-							"text": "",
-							"applyResultsToObject": false,
-							"requirements": [],
-							"resultSets": [
-								{
-									"description": "",
-									"weight": 0,
-									"results": [],
-									"linkedEvent": "empty"
-								}
-							]
-						}
-					],
+					"options": [],
 					"_description": "You've arrived at your destination.",
 					"description": [
 						"You've arrived at your destination."

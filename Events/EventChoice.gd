@@ -24,5 +24,5 @@ func _on_EventChoice_pressed():
 	else:
 		#this method applies the results
 		SignalManager.emit_signal("EventChoiceClicked", resultSets, affectedObjectDictionary)
-		get_tree().paused = false
+	get_tree().paused = false
 	#SignalManager.emit_signal(calledSignal.calledSignalName, calledSignal.signalParameters)

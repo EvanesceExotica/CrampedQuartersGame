@@ -1,4 +1,4 @@
-extends Object
+extends Node
 
 func ChooseRandomFromList(list):
     #will choose a random value from a list, no matter if it only has two values

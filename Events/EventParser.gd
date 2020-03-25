@@ -3,6 +3,7 @@ extends Node2D
 
 var eventData
 var eventArray = []
+var eventDictionary = {}
 
 onready var scopeFlag = BitFlag.new(scope, true)
 onready var eventTypeFlag = BitFlag.new(eventType, true)
@@ -69,6 +70,7 @@ func checkScope(flagValue):
 
 func checkEventType(event):
 	#set the flag to the value of the flag from castleDB
+	eventDictionary[event["id"]] = event
 	var type = int(event["eventType"])
 	eventTypeFlag.set_flags(type)
 
@@ -93,7 +95,7 @@ func checkEventType(event):
 
 func _chooseRandomEvent():
 	var validEvents = []
-	for event in randomEvents:
+	for event in randomEvents.keys():
 		if event["id"] == "empty":
 			continue
 		if validateRequirements(event["requirements"], false):
@@ -139,19 +141,38 @@ func chooseRandomEvent():
 		createEvent(validEvents[0])
 
 
-func chooseSpecificEvent(id, typeOfEvent):
-	eventArray = eventData#["events"]
-	createEvent(eventArray[id])
-	if typeOfEvent == eventType.OnArrival:
-		createEvent(onArrivalEvents
-		pass
-	elif typeOfEvent == eventType.distress:
-		pass
+func chooseSpecificEvent(id):
+	#have locationNodes call for the number of a randomEvent, then return it.
+	#eventArray = eventData#["events"]
+	createEvent(eventDictionary[id])
+	# if typeOfEvent == eventType.OnArrival:
+	# 	createEvent(onArrivalEvents[id])
+	# #	createEvent(onArrivalEvents
+	# 	pass
+	# elif typeOfEvent == eventType.distress:
+	# 	createEvent(distressSignalEvents[id])
+	# 	pass
 	#might need to change event array to a dictionary if that would make this more efficient (using the key instead of a for loop)
 	# for event in eventArray:
 	# 	if event["id"] == id:
 	# 		createEvent(event)
-			
+func returnRandomEventByType(typeOfEvent):
+	var randomEventID
+	var list
+	if typeOfEvent == eventType.onArrival:
+		list = onArrivalEvents.keys()
+	elif typeOfEvent == eventType.distress:
+		list = distressSignalEvents.keys()
+	elif typeOfEvent == eventType.random:
+		list = randomEvents.keys()
+	if list.size() > 0:
+		randomEventID = ChooseRandom.ChooseRandomFromList(list)
+	else:
+		#throw some sort of exception here
+		pass
+	return randomEventID
+
+
 func chooseArrivalEvent(id):
 	pass
 func _chooseSpecificEvent(id):
