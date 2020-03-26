@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/fine-smoke-7.png-25ae9f11f10375f9f3fc011322932b13.s3tc.stex"
-path.etc2="res://.import/fine-smoke-7.png-25ae9f11f10375f9f3fc011322932b13.etc2.stex"
+path.s3tc="res://.import/StarCluster2.png-c7842eced186abc0dbded0514af21bfc.s3tc.stex"
+path.etc2="res://.import/StarCluster2.png-c7842eced186abc0dbded0514af21bfc.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://ParticleTextures2/Static/Smoke/fine-smoke-7.png"
-dest_files=[ "res://.import/fine-smoke-7.png-25ae9f11f10375f9f3fc011322932b13.s3tc.stex", "res://.import/fine-smoke-7.png-25ae9f11f10375f9f3fc011322932b13.etc2.stex" ]
+source_file="res://ParticleTextures2/StarClusters/StarCluster2.png"
+dest_files=[ "res://.import/StarCluster2.png-c7842eced186abc0dbded0514af21bfc.s3tc.stex", "res://.import/StarCluster2.png-c7842eced186abc0dbded0514af21bfc.etc2.stex" ]
 
 [params]
 
