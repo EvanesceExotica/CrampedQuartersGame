@@ -22,6 +22,7 @@ font_data = ExtResource( 5 )
 
 [node name="Navigator" type="Node2D"]
 position = Vector2( 32.1603, 0 )
+z_index = 10
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [ 936.811, 32.1603 ]

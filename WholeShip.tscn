@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Stations/AtmosphereStation.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Utility/RoomSwitchController.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Stations/EngineStation.tscn" type="PackedScene" id=16]
+[ext_resource path="res://ParticleEffects/Stars.tscn" type="PackedScene" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 121, 98.7022 )
@@ -139,6 +140,10 @@ mouse_filter = 0
 [node name="EngineStation" parent="." instance=ExtResource( 16 )]
 position = Vector2( -992.8, 87.9827 )
 scale = Vector2( 0.439998, 0.32 )
+
+[node name="Stars" parent="." instance=ExtResource( 17 )]
+position = Vector2( -1090.59, 243.111 )
+scale = Vector2( 0.5, 0.5 )
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]
 
 [editable path="PowerStaton"]

@@ -195,6 +195,7 @@ func InitiateTravel():
 	travelTimer.start()
 	currentlyTravelling = true
 	travelTimeLabel.show()
+	SignalManager.emit_signal("OnDeparture")
 
 func TravelTimeOver():
 	setNewLocation(selectedNextLocation)

@@ -15,6 +15,7 @@ signal DeselectedLocationNode(node)
 signal LocationNodesGenerated(locationNodes)
 
 signal OnArrival(destinationType) #Planet/Derelict Ship/Asteroid/Stranded Vessel/BEacon Vessel/Space Station/DerelictSpaceStation
+signal OnDeparture
 
 #have different lists of events that depend on this
 signal HourPassed(hour)

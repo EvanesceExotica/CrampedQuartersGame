@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://furniture_door_spaceship_door.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Stations/TemperatureStation.tscn" type="PackedScene" id=7]
 [ext_resource path="res://MurderButton.gd" type="Script" id=8]
 [ext_resource path="res://AirlockRoom.gd" type="Script" id=9]
+[ext_resource path="res://ParticleEffects/Stars.tscn" type="PackedScene" id=10]
 
 [node name="AirlockRoom" instance=ExtResource( 1 )]
 script = ExtResource( 9 )
@@ -61,4 +62,8 @@ script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Stars" parent="." index="9" instance=ExtResource( 10 )]
+position = Vector2( 323.489, 149.438 )
+scale = Vector2( 0.4, 0.4 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
