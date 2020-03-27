@@ -81,6 +81,11 @@
 					"typeStr": "3",
 					"name": "spreadRange",
 					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "effect",
+					"display": null
 				}
 			],
 			"lines": [
@@ -110,7 +115,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "mentallySound",
@@ -138,7 +144,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "frail",
@@ -166,7 +173,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "paranoid",
@@ -194,7 +202,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "strong",
@@ -213,7 +222,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "smallStomach",
@@ -241,7 +251,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "bigStomach",
@@ -269,7 +280,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "OnFire",
@@ -303,7 +315,8 @@
 							"range": 0
 						}
 					],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": "fire"
 				},
 				{
 					"id": "afraid",
@@ -328,7 +341,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "asphixiating",
@@ -353,7 +367,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "shaken",
@@ -378,7 +393,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "contaminated",
@@ -419,7 +435,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": "contamination"
 				},
 				{
 					"id": "Diseased",
@@ -450,7 +467,8 @@
 							"range": 3
 						}
 					],
-					"spreadRange": 2
+					"spreadRange": 2,
+					"effect": "contamination"
 				},
 				{
 					"id": "Smelly",
@@ -474,7 +492,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": "stink"
 				},
 				{
 					"id": "Nauseated",
@@ -499,7 +518,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "NeedsSustenance",
@@ -524,7 +544,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "Irradiated",
@@ -554,7 +575,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "Overheating",
@@ -579,7 +601,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				},
 				{
 					"id": "Freezing",
@@ -610,7 +633,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": "ice"
 				},
 				{
 					"id": "Frozen",
@@ -629,7 +653,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": "ice"
 				},
 				{
 					"id": "Starving",
@@ -654,7 +679,8 @@
 					"spreadChancePerHalfHour": 0,
 					"stackable": false,
 					"spreadVariables": [],
-					"spreadRange": 0
+					"spreadRange": 0,
+					"effect": ""
 				}
 			],
 			"separators": [],

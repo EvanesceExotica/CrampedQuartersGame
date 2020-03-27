@@ -147,7 +147,7 @@ func fetchAndCreateAttribute(attributeName):
 	#attribute.modifiedAttributes = thisAttributeDictionary["modifiedAttributes"]
 	#attribute.characterEventTypeChance = thisAttributeDictionary["characterEventTypeChance"]
 	#attribute.externalCombinations = thisAttributeDictionary["externalCombinations"]
-
+	attribute.effect = thisAttributeDictionary["effect"]
 	createdAttributes.append(attribute)
 
 	return attribute

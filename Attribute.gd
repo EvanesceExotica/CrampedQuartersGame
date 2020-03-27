@@ -68,6 +68,7 @@ var deathType
 var spreadChancePerHalfHour
 var spreadVariables
 var spreadRange = 0
+var effect = ""
 
 func CheckRemoveableCritera(signalCalled):
 	var numberOfTimesCalled = 0

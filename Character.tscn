@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Character.gd" type="Script" id=1]
 [ext_resource path="res://AstronautA.png" type="Texture" id=2]
@@ -9,6 +9,11 @@
 [ext_resource path="res://Utility/DroppableZone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Utility/DraggableItem.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Stations/Dispenser/Dispenser.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ParticleEffects/Fire.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ParticleEffects/Ice.tscn" type="PackedScene" id=11]
+[ext_resource path="res://ParticleEffects/Contamination.tscn" type="PackedScene" id=12]
+[ext_resource path="res://ParticleEffects/EffectLibrary.tscn" type="PackedScene" id=13]
+[ext_resource path="res://ParticleEffects/Stink.tscn" type="PackedScene" id=14]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 86.2526
@@ -75,6 +80,14 @@ rect_scale = Vector2( 0.5, 0.5 )
 [node name="DroppableZone" parent="." instance=ExtResource( 7 )]
 acceptedDrops = [ ExtResource( 9 ) ]
 acceptedDropType = 1
+
+[node name="EffectLibrary" parent="." instance=ExtResource( 13 )]
+effectLibary = {
+"contamination": ExtResource( 12 ),
+"fire": ExtResource( 10 ),
+"ice": ExtResource( 11 ),
+"stink": ExtResource( 14 )
+}
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]

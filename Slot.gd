@@ -58,7 +58,7 @@ func applyNewAttributeToSlot(attribute):
 		timer.start() #to sta
 	if(occupied):
 		characterInSlot.applyNewAttribute(attribute)
-	emit_signal("newAttributeAdded")
+	emit_signal("newAttributeAdded", attribute)
 
 	pass
 func removeAttributeFromSlot(attribute):
@@ -68,7 +68,7 @@ func removeAttributeFromSlot(attribute):
 		#if there is a character in this slot, remove the attribute from the character as well
 		print("Removing attribute from slot and character: " + attribute.attributeName)
 		removeAttributeFromCharacter(attribute)
-	emit_signal("attributeRemoved")
+	emit_signal("attributeRemoved", attribute)
 
 func removeAttributeFromCharacter(attribute):
 	#used when an attribute is timed out or removed from the slot

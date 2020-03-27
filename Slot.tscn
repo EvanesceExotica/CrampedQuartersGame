@@ -1,10 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Slot.gd" type="Script" id=1]
 [ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=2]
 [ext_resource path="res://ChairLightCookie.png" type="Texture" id=3]
 [ext_resource path="res://Utility/DroppableZone.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Character.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ParticleEffects/Fire.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ParticleEffects/Ice.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ParticleEffects/Contamination.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ParticleEffects/EffectLibrary.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ParticleEffects/Stink.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 90 )
@@ -29,6 +34,14 @@ texture_scale = 0.8
 
 [node name="DroppableZone" parent="." instance=ExtResource( 4 )]
 acceptedDrops = [ ExtResource( 5 ) ]
+
+[node name="EffectLibrary" parent="." instance=ExtResource( 9 )]
+effectLibary = {
+"contamination": ExtResource( 8 ),
+"fire": ExtResource( 6 ),
+"ice": ExtResource( 7 ),
+"stink": ExtResource( 10 )
+}
 [connection signal="area_entered" from="." to="." method="_on_Slot_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Slot_area_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_Slot_mouse_entered"]
