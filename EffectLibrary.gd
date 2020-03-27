@@ -20,8 +20,8 @@ func InitializeEffect(attribute):
 	if !currentEffects.has(attribute.effect):
 		#if this effect hasn't already been instantiated on the character before
 		effect = effectLibary[attribute.effect].instance() #.emitting = true
-		effect.global_position = get_parent().global_position
 		add_child(effect)
+		effect.global_position = get_parent().global_position
 		currentEffects[attribute.effect] = effect
 	else:
 		#if this effect has already been used before, set it to this variable
