@@ -20,6 +20,7 @@ func InitializeEffect(attribute):
 	if !currentEffects.has(attribute.effect):
 		#if this effect hasn't already been instantiated on the character before
 		effect = effectLibary[attribute.effect].instance() #.emitting = true
+		#global position is set after you add the child
 		add_child(effect)
 		effect.global_position = get_parent().global_position
 		currentEffects[attribute.effect] = effect
