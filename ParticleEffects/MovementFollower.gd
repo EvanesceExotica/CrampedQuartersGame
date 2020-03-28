@@ -65,16 +65,24 @@ func translateGroups():
 		#shiftingElements[i].translate(Vector3(-0.01, 0, 0))
 		shiftingElements[i].translate(Vector3(currentSpeedVector, 0, 0))
 
-	if shiftingElements[0].translation.x <= -40:
+	if shiftingElements[0].translation.x <= -30:
 		#when it's about halfway away, reset it to the end
-		print(shiftingElements[0].name + "reached end point at " + str(OS.get_time().second))
-		shiftingElements[0].translation = Vector3(40, 0, 0)
+		#print(shiftingElements[0].name + "reached end point at " + str(OS.get_time().second))
+		for i in range (shiftingElements.size()):
+			var item = shiftingElements[i]
+			print("At End reached " +  item.name + " is at " + str(item.translation.x))
+		var lastPosition = shiftingElements[shiftingElements.size()-1]
+		#print("First position at end ," + lastPosition.name + " is at point " + str(lastPosition.translation.x))
+
+		shiftingElements[0].translation = Vector3(30, 0, 0)
 		var movingElement = shiftingElements.pop_front()
 		shiftingElements.push_back(movingElement)
 		var string = ""
 		for i in range (shiftingElements.size()):
-			string+= " " + str(shiftingElements[i].name)
-		print("Now in this order: " + string)
+			var item = shiftingElements[i]
+			print("Now positions are " +  item.name + " is at " + str(item.translation.x))
+			#string+= " " + str(shiftingElements[i].name)
+	#	print("Now in this order: " + string)
 
 func translateParticleSystems():
 	startingGroup.translate(Vector3(-0.01, 0, 0))
