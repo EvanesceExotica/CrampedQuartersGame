@@ -9,7 +9,7 @@ func _process(delta):
 	if (!dragging && mouse_in && Input.is_action_pressed("left_click")):
 		addingForce = true
 		dragging = true
-		self.add_force(Vector2(), Vector2(0, 100))
+		self.add_force(Vector2(), Vector2(0, 10))
 		self.mass *= 2
 		print(self.mass)
 
@@ -28,3 +28,4 @@ func _on_Lever2_mouse_entered():
 
 func _on_Lever2_mouse_exited():
 	mouse_in = false
+	print("Mouse out")

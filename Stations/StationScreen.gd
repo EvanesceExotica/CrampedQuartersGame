@@ -18,6 +18,7 @@ func openScreen():
 
 func closeScreen():
 	self.hide()
+	self.set_process_input(false)
 	#get_parent().remove_child(self)
 	pass
 	#close screen/have camera return to main room camera
