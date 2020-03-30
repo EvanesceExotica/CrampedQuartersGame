@@ -53,7 +53,7 @@ func interactWith():
 	#different ways to interact with
 	pass
 # Called when the node enters the scene tree for the first time.
-func loadMinigameScene(repair):
+func loadMinigameScene(isRepairing):
 
 	#stop warning timer
 	warningTimer.stop()
@@ -65,7 +65,7 @@ func loadMinigameScene(repair):
 		get_parent().add_child(screenInstance)
 
 		#the game was a success, reset the maintenance timer
-	if !repair:
+	if !isRepairing:
 		#if you're doing maintenance, and not repairing, have a success reset the maintenace timer, and a gameOver disable the station
 		screenInstance.connect("success", self, "resetMaintenanceTimer")
 		screenInstance.connect("gameOver", self, "disableStation")
@@ -74,6 +74,11 @@ func loadMinigameScene(repair):
 		screenInstance.connect("success", self, "enableStation")
 		screenInstance.connect("success", self, "resetMaintenanceTimer")
 	screenInstance.initializeGame()
+
+func _loadMinigameScene(isReparing):
+	if screenInstance == null:
+		pass
+	pass
 
 func addDamageTag(tag):
 	#damage makes games harder

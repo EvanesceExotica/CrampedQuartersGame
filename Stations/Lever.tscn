@@ -30,8 +30,7 @@ scale = Vector2( 0.57316, 0.331927 )
 texture = ExtResource( 2 )
 
 [node name="Handle" type="RigidBody2D" parent="."]
-position = Vector2( 480, 50 )
-scale = Vector2( 0.533727, 0.863636 )
+position = Vector2( 480, 67.4534 )
 input_pickable = true
 gravity_scale = -1.0
 

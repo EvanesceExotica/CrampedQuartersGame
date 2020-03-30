@@ -367,7 +367,7 @@ func _on_SpacetimeJump_pressed():
 	#SignalManager.emit_signal("OnSpacetimeJumpArrival")
 
 func _input(event):
-	if event.is_action_pressed("ui_interact"):
+	if event.is_action_pressed("ui_interact") && selectedNextLocation != null:
 		InitiateTravel()
 		#setNewLocation(selectedNextLocation)
 

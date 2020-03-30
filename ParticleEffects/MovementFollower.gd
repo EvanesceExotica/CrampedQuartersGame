@@ -8,7 +8,7 @@ onready var waitingGroup2 = particleHolder.get_node("WaitingGroup2")
 #onready var waitingGroup3 = particleHolder.get_node("WaitingGroup2")
 
 var direction
-var moving = true
+var moving = false
 
 var accelerating = false
 
@@ -36,10 +36,11 @@ func setMoving():
 	startMovingTween()
 
 func setStopped(nothing):
-	background.get_surface_material(0).set_shader_param("speed_scale", 0.00)
+	print("We should be stopping now")
 	startSlowingTween()
 
 func startSlowingTween():
+	print("We're slowing down now!")
 	slowing = true
 	$Tween.interpolate_property(self,"currentSpeedVector", -0.1, 0, 4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
@@ -70,7 +71,7 @@ func translateGroups():
 		#print(shiftingElements[0].name + "reached end point at " + str(OS.get_time().second))
 		for i in range (shiftingElements.size()):
 			var item = shiftingElements[i]
-			print("At End reached " +  item.name + " is at " + str(item.translation.x))
+			#print("At End reached " +  item.name + " is at " + str(item.translation.x))
 		var lastPosition = shiftingElements[shiftingElements.size()-1]
 		#print("First position at end ," + lastPosition.name + " is at point " + str(lastPosition.translation.x))
 
@@ -80,7 +81,7 @@ func translateGroups():
 		var string = ""
 		for i in range (shiftingElements.size()):
 			var item = shiftingElements[i]
-			print("Now positions are " +  item.name + " is at " + str(item.translation.x))
+			#print("Now positions are " +  item.name + " is at " + str(item.translation.x))
 			#string+= " " + str(shiftingElements[i].name)
 	#	print("Now in this order: " + string)
 
@@ -106,6 +107,7 @@ func _on_Tween_tween_completed(object, key):
 		# if we're slowing down to stop, this is the end of the tween and we've stopped, so set moving to false
 		slowing = false
 		moving = false
+		background.get_surface_material(0).set_shader_param("speed_scale", 0.00)
 		#we've come to a stop
 	if(accelerating):
 		#if we're accelerating from a stop but reached our top speed, turn accelerating off

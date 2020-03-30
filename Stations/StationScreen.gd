@@ -17,7 +17,8 @@ func openScreen():
 	#activate screen/have camera look at screen
 
 func closeScreen():
-	get_parent().remove_child(self)
+	self.hide()
+	#get_parent().remove_child(self)
 	pass
 	#close screen/have camera return to main room camera
 # Called when the node enters the scene tree for the first time.

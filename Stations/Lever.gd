@@ -26,12 +26,15 @@ func _physics_process(delta):
     #print(str(handle.position.distance_to(topNode.position)))
     #move_and_collide(Vector2(0, 3))
     if(!dragging && addingForce):
-        handle.add_force(Vector2(), Vector2(0, -200))
+        handle.apply_impulse(Vector2(), Vector2(0, -150))
         handle.gravity_scale = defaultGravity
         addingForce = false
     elif dragging:# && handle.position.distance_to(topNode.position) > 100:
         if(handle.gravity_scale > gravityScaleMax):
             handle.gravity_scale-=0.01 
+    else:
+        handle.gravity_scale = -9.8;
+
 
 func _on_Handle_mouse_entered():
     print("Mouse entered handle")
