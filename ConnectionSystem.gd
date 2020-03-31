@@ -5,6 +5,10 @@ var lastConnected
 var previousLastConnected
 onready var lineConnection = get_node("LineConnection")
 var connections = {}
+onready var energyNode = get_node("EnergyNode")
+
+func _ready():
+	energyNode.moveNode(get_node("ConnectionNode"), get_node("ConnectionNode"))
 
 func changeLastConnected(newNode):
 	previousLastConnected = lastConnected

@@ -3,7 +3,7 @@ extends Area2D
 
 onready var parent = get_parent()
 var nodeConnectedTo = null
-
+var nodesConnectedTo = []
 var colors = [Color.red, Color.blue, Color.green, Color.yellow]
 var ourColor
 
@@ -12,6 +12,9 @@ func _ready():
 	resetTimer()
 
 func _on_ConnectNode_mouse_entered():
+	# if parent.connecting && parent.lastConnected != self && nodesConnectedTo.size() <= 2:
+	# 	if parent.lastConnected.ourColor == ourColor:
+	# 		parent.createConnection(self)
 	if parent.connecting && parent.lastConnected != self && nodeConnectedTo == null:
 		if parent.lastConnected.ourColor == ourColor:
 			parent.createConnection(self)
@@ -21,6 +24,11 @@ func _on_ConnectNode_mouse_entered():
 		#parent.lastConnected.nodeConnectedTo = self
 
 func _on_ConnectNode_mouse_exited():
+	# if nodesConnectedTo.size() <= 2:
+	# 	parent.lastConnected = self
+	# 	parent.connecting = true
+	# 	parent.lineConnection.default_color = ourColor
+
 	if nodeConnectedTo == null:
 		parent.lastConnected = self
 		parent.connecting = true
@@ -38,7 +46,7 @@ func resetTimer():
 	$Timer.start()
 
 func _on_Timer_timeout():
-	if parent.lastConnected != self  && nodeConnectedTo == null:
+	if parent.lastConnected != self  &&  nodeConnectedTo == null:
 		switchColor()
 		resetTimer()
 	pass # Replace with function body.
