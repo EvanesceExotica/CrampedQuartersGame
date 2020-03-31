@@ -1,7 +1,7 @@
 extends Area2D
 
 
-onready var parent = get_parent()
+onready var parent = get_parent().get_parent()
 var nodeConnectedTo = null
 var nodesConnectedTo = []
 var colors = [Color.red, Color.blue, Color.green, Color.yellow]
