@@ -27,8 +27,10 @@ func _on_ConnectNode_mouse_exited():
 		parent.lineConnection.default_color = ourColor
 
 func switchColor():
-	var randomIndex = randi()%colors.size()
-	ourColor = colors[randomIndex]
+	var remainingColors = [] + colors
+	remainingColors.erase(ourColor)
+	var randomIndex = randi()%remainingColors.size()
+	ourColor = remainingColors[randomIndex]
 	self.modulate = ourColor
 
 func resetTimer():
@@ -36,7 +38,7 @@ func resetTimer():
 	$Timer.start()
 
 func _on_Timer_timeout():
-	if parent.lastConnected != self && nodeConnectedTo == null:
+	if parent.lastConnected != self  && nodeConnectedTo == null:
 		switchColor()
 		resetTimer()
 	pass # Replace with function body.
