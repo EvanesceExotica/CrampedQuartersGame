@@ -10,9 +10,17 @@ var connectNodeScene = preload("res://Stations/TimerClickMinigame/ConnectNode.ts
 onready var leftSide = get_node("LeftSide")
 onready var rightSide = get_node("RightSide")
 
+var leftNodes = []
+var rightNodes = []
+
 func _ready():
-	#energyNode.moveNode(get_node("ConnectionNode"), get_node("ConnectionNode"))
+	energyNode.connect("canMoveAgain", self, "moveEnergyNode")
+	
 	disperseNodes()
+	leftNodes = leftSide.get_children()
+	rightNodes = rightSide.get_children()
+	energyNode.moveNode(leftNodes[0], leftNodes[1])
+	energyNode.currentIndex = 0
 
 func disperseNodes():
 	var spacingInterval = 50
@@ -26,6 +34,19 @@ func disperseNodes():
 		spacingInterval += 50
 
 
+func moveEnergyNode():
+	print("This is being called")
+	if energyNode.currentIndex < leftNodes.size():
+		energyNode.currentIndex += 1
+		energyNode.moveNode(leftNodes[energyNode.currentIndex], leftNodes[energyNode.currentIndex+1])
+	#make it so that if there's a connection it moves across it
+		if leftNodes[energyNode.currentIndex].nodeConnectedTo == null:
+			print("Moving again!")
+			energyNode.currentIndex += 1
+			energyNode.moveNode(leftNodes[energyNode.currentIndex], leftNodes[energyNode.currentIndex+1])
+		else:
+		#need to think of a way to pass from left to right
+			pass
 
 func changeLastConnected(newNode):
 	previousLastConnected = lastConnected

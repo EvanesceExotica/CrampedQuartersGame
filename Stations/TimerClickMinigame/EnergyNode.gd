@@ -1,6 +1,9 @@
 extends Node2D
 
 var moving = false
+var parent = get_parent()
+var currentIndex
+signal canMoveAgain
 
 func _ready():
     pass
@@ -11,8 +14,9 @@ func moveNode(startNode, destinationNode):
     $Tween.interpolate_property(self, "position", startNode.global_position, destinationNode.global_position, 2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
     $Tween.start()
 
-func _on_Tween_tween_completed():
-    resetTimer()
+func _on_Tween_tween_completed(object, key):
+    emit_signal("canMoveAgain")
+    #resetTimer()
     pass
 
 func resetTimer():
