@@ -105,7 +105,7 @@ size = Vector2( 0.1, 0.1 )
 [node name="Particles" type="Particles" parent="."]
 amount = 1000
 lifetime = 20.0
-preprocess = 2.05
+preprocess = 18.43
 visibility_aabb = AABB( -10.3783, -10.382, -5.38947, 20.7738, 20.7777, 10.786 )
 process_material = SubResource( 3 )
 draw_pass_1 = SubResource( 6 )
@@ -113,6 +113,7 @@ draw_pass_1 = SubResource( 6 )
 [node name="Particles2" type="Particles" parent="."]
 amount = 1000
 lifetime = 20.0
+preprocess = 18.43
 visibility_aabb = AABB( -10.0948, -10.0976, -5.08978, 20.1942, 20.1957, 10.1826 )
 process_material = SubResource( 3 )
 draw_pass_1 = SubResource( 9 )
@@ -120,6 +121,7 @@ draw_pass_1 = SubResource( 9 )
 [node name="Particles3" type="Particles" parent="."]
 amount = 1000
 lifetime = 20.0
+preprocess = 18.43
 visibility_aabb = AABB( -10.0994, -10.0817, -5.09924, 20.1838, 20.168, 10.1966 )
 process_material = SubResource( 11 )
 draw_pass_1 = SubResource( 13 )
@@ -128,6 +130,7 @@ draw_pass_1 = SubResource( 13 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.07567 )
 amount = 10
 lifetime = 20.0
+preprocess = 18.43
 visibility_aabb = AABB( -7.43761, -9.48324, -2.69853, 17.0652, 18.812, 4.92914 )
 process_material = SubResource( 14 )
 draw_pass_1 = SubResource( 16 )

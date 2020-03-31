@@ -14,23 +14,23 @@ radius = 27.6605
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Node2D" type="StaticBody2D" parent="."]
+[node name="TopNode" type="StaticBody2D" parent="."]
 position = Vector2( 201.775, 17.9621 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopNode"]
 shape = SubResource( 1 )
 
-[node name="Node2D2" type="StaticBody2D" parent="."]
-position = Vector2( 202.59, 178.42 )
+[node name="BottomNode" type="StaticBody2D" parent="."]
+position = Vector2( 202.59, 151.541 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomNode"]
 shape = SubResource( 1 )
 
 [node name="Lever2" type="RigidBody2D" parent="."]
 position = Vector2( 201.176, 44.3066 )
 input_pickable = true
 mode = 2
-mass = 10.0
+gravity_scale = 0.0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="Lever2"]

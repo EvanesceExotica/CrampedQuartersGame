@@ -367,12 +367,13 @@ func _on_SpacetimeJump_pressed():
 	#SignalManager.emit_signal("OnSpacetimeJumpArrival")
 
 func _input(event):
-	if event.is_action_pressed("ui_interact") && selectedNextLocation != null:
+	if event.is_action_pressed("ui_interact") && selectedNextLocation != null && !currentlyTravelling:
 		InitiateTravel()
 		#setNewLocation(selectedNextLocation)
 
 func _on_JumpButton_pressed():
-	InitiateTravel()
+	if selectedNextLocation != null && !currentlyTravelling:
+		InitiateTravel()
 	#setNewLocation(selectedNextLocation)
 	print("Jumped to new location")
 	#ArrivedAtNewLocation()
@@ -381,3 +382,4 @@ func _process(delta):
 	if(currentlyTravelling):
 		#travelTimeLabel.text = "TRAVEL TIME LEFT: " + str(TimeConverter.round_to_dec(travelTimer.time_left, 1)).pad_decimals(1)
 		travelTimeLabel.text = "TRAVEL TIME LEFT: " + str(TimeConverter.SecondsToGameMinutes(travelTimer.time_left)).pad_decimals(1) + " Minutes"
+		print("Time left " + str(travelTimer.time_left))
