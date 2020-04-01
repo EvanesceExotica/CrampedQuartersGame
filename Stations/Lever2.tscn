@@ -1,8 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://HealthBar.png" type="Texture" id=1]
 [ext_resource path="res://Stations/Lever2.gd" type="Script" id=2]
 [ext_resource path="res://furniture_armchair_blue_modern_box_chair.png" type="Texture" id=3]
+[ext_resource path="res://Stations/TimerClickMinigame/Assets/LittleHex.png" type="Texture" id=4]
+[ext_resource path="res://Stations/LiquidPNGs/Sewage.png" type="Texture" id=5]
+[ext_resource path="res://Stations/LiquidPNGs/Base.png" type="Texture" id=6]
+[ext_resource path="res://Stations/LiquidPNGs/TopGlass.png" type="Texture" id=7]
+[ext_resource path="res://Stations/LiquidPNGs/Background.png" type="Texture" id=8]
+[ext_resource path="res://Stations/FlushPipes.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -12,7 +18,8 @@ extents = Vector2( 152.638, 15.9982 )
 [sub_resource type="CircleShape2D" id=3]
 radius = 27.6605
 
-[node name="Node2D" type="Node2D"]
+[node name="FlushPipes" type="Node2D"]
+script = ExtResource( 9 )
 
 [node name="TopNode" type="StaticBody2D" parent="."]
 position = Vector2( 201.775, 17.9621 )
@@ -21,7 +28,7 @@ position = Vector2( 201.775, 17.9621 )
 shape = SubResource( 1 )
 
 [node name="BottomNode" type="StaticBody2D" parent="."]
-position = Vector2( 202.59, 151.541 )
+position = Vector2( 202.59, 237.991 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomNode"]
 shape = SubResource( 1 )
@@ -65,5 +72,77 @@ texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3"]
 shape = SubResource( 3 )
+
+[node name="PipeHolder" type="Node2D" parent="."]
+
+[node name="Sewage" type="TextureProgress" parent="PipeHolder"]
+modulate = Color( 1, 1, 1, 0.407843 )
+margin_left = 492.386
+margin_top = 16.8006
+margin_right = 543.386
+margin_bottom = 437.801
+value = 100.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cleaner" type="TextureProgress" parent="PipeHolder"]
+margin_left = 492.386
+margin_top = 16.8006
+margin_right = 543.386
+margin_bottom = 437.801
+value = 50.0
+texture_over = ExtResource( 7 )
+texture_progress = ExtResource( 6 )
+fill_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LittleHex" type="Sprite" parent="PipeHolder"]
+modulate = Color( 0.180392, 0.2, 0.286275, 1 )
+position = Vector2( 516.767, 219.329 )
+scale = Vector2( 1.23003, 1.23003 )
+texture = ExtResource( 4 )
+
+[node name="LittleHex2" type="Sprite" parent="PipeHolder/LittleHex"]
+modulate = Color( 0.545098, 0.592157, 0.776471, 1 )
+position = Vector2( -0.844421, 0.413239 )
+scale = Vector2( 0.790387, 0.790387 )
+texture = ExtResource( 4 )
+
+[node name="PipeHolder2" type="Node2D" parent="."]
+position = Vector2( 201.176, 0 )
+
+[node name="Sewage" type="TextureProgress" parent="PipeHolder2"]
+margin_left = 493.439
+margin_top = 16.8006
+margin_right = 544.439
+margin_bottom = 437.801
+value = 50.0
+texture_under = ExtResource( 8 )
+texture_over = ExtResource( 7 )
+texture_progress = ExtResource( 5 )
+fill_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LittleHex" type="Sprite" parent="PipeHolder2"]
+modulate = Color( 0.180392, 0.2, 0.286275, 1 )
+position = Vector2( 516.767, 219.329 )
+scale = Vector2( 1.23003, 1.23003 )
+texture = ExtResource( 4 )
+
+[node name="LittleHex2" type="Sprite" parent="PipeHolder2/LittleHex"]
+modulate = Color( 0.545098, 0.592157, 0.776471, 1 )
+position = Vector2( -0.844421, 0.413239 )
+scale = Vector2( 0.790387, 0.790387 )
+texture = ExtResource( 4 )
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="mouse_entered" from="Lever2" to="Lever2" method="_on_Lever2_mouse_entered"]
 [connection signal="mouse_exited" from="Lever2" to="Lever2" method="_on_Lever2_mouse_exited"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

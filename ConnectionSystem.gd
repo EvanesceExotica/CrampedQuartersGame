@@ -12,6 +12,7 @@ onready var rightSide = get_node("RightSide")
 
 var leftNodes = []
 var rightNodes = []
+var allNodes = []
 
 func _ready():
 	energyNode.connect("canMoveAgain", self, "moveEnergyNode")
@@ -19,8 +20,10 @@ func _ready():
 	disperseNodes()
 	leftNodes = leftSide.get_children()
 	rightNodes = rightSide.get_children()
-	energyNode.moveNode(leftNodes[0], leftNodes[1])
 	energyNode.currentIndex = 0
+	moveEnergyNode()
+	#energyNode.moveNode(leftNodes[0], leftNodes[1])
+	#energyNode.currentIndex = 0
 
 func disperseNodes():
 	var spacingInterval = 50
@@ -31,22 +34,47 @@ func disperseNodes():
 		rightSide.add_child(newConnectNodeRight)
 		newConnectNodeLeft.global_position = Vector2(leftSide.global_position.x, leftSide.global_position.y + spacingInterval)
 		newConnectNodeRight.global_position = Vector2(rightSide.global_position.x, rightSide.global_position.y + spacingInterval)
+		allNodes = [] + leftSide.get_children()
+		allNodes = allNodes + rightSide.get_children()
 		spacingInterval += 50
 
-
-func moveEnergyNode():
+func _moveEnergyNode():
 	print("This is being called")
-	if energyNode.currentIndex < leftNodes.size():
-		energyNode.currentIndex += 1
-		energyNode.moveNode(leftNodes[energyNode.currentIndex], leftNodes[energyNode.currentIndex+1])
+	if energyNode.currentIndex < leftNodes.size() - 1:
+		#energyNode.currentIndex += 1
+		print("Current Index is " + str(energyNode.currentIndex))
+		print("Moving from " + leftNodes[energyNode.currentIndex].name + " to " + leftNodes[energyNode.currentIndex+1].name)
+		#energyNode.moveNode(leftNodes[energyNode.currentIndex], leftNodes[energyNode.currentIndex+1])
 	#make it so that if there's a connection it moves across it
 		if leftNodes[energyNode.currentIndex].nodeConnectedTo == null:
 			print("Moving again!")
 			energyNode.currentIndex += 1
 			energyNode.moveNode(leftNodes[energyNode.currentIndex], leftNodes[energyNode.currentIndex+1])
 		else:
-		#need to think of a way to pass from left to right
 			pass
+
+
+		#need to think of a way to pass from left to right
+		pass
+
+func moveEnergyNode():
+	var connectedNode = allNodes[energyNode.currentIndex].nodeConnectedTo
+	if connectedNode == null || connectedNode == energyNode.previousNode:
+		#if there's no connect, or the connection is one we just travelled across/from (don't want to keep going back and forth, as the current node is still connected to the old node)
+		#move the node to the next one in the list
+		var nextIndex 
+		if allNodes[energyNode.currentIndex] == leftNodes.back()  || allNodes[energyNode.currentIndex] == rightNodes.back():
+			pass
+		else:
+		#if energyNode.currentIndex+1 < allNodes.size():
+			#if the next index is beyond the array size
+			energyNode.moveNode(allNodes[energyNode.currentIndex], allNodes[energyNode.currentIndex+1])
+	else:
+		#if there is a connection and it's not the same one, move along it
+		var connection = allNodes[energyNode.currentIndex].nodeConnectedTo
+		energyNode.moveNode(allNodes[energyNode.currentIndex], connection)
+		#energyNode.currentIndex = allNodes.find(connection)
+
 
 func changeLastConnected(newNode):
 	previousLastConnected = lastConnected
