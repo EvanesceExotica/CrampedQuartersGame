@@ -10,6 +10,7 @@ var maxForceAmount = Vector2(0, 10)
 onready var topNode = get_parent().get_node("TopNode")
 var mouseMovingDown = true
 var downwardMovement 
+var flushed = false
 
 func _ready():
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -19,6 +20,11 @@ func _process(delta):
 	var distanceToBottom = self.global_position.distance_to(get_parent().get_node("BottomNode").global_position)
 
 	var clickingLeft = Input.is_action_pressed("left_click")
+	if distanceToBottom < 100 && !flushed:
+		#FLUSH PIPES HERE
+		get_parent().flushPipes()
+		flushed = true
+		pass
 	if (!dragging && mouse_in && Input.is_action_pressed("left_click") && mouseMovingDown):
 		addingForce = true
 		dragging = true

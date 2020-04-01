@@ -4,7 +4,8 @@ onready var cleaner = get_node("PipeHolder/Cleaner")
 onready var sewage = get_node("PipeHolder2/Sewage")
 
 func _ready():
-    flushPipes()
+    pass
+   # flushPipes()
 
 func flushPipes():
     cleaner.value = 0
