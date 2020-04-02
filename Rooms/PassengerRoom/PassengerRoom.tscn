@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Rooms/Room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Rooms/PassengerRoom/PassengerRoomBackground.png" type="Texture" id=2]
+[ext_resource path="res://Rooms/Clock.gd" type="Script" id=5]
+[ext_resource path="res://RandomSprites/bag_furniture_sdb_sci-fi_monitor_storage_display_box.png" type="Texture" id=6]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Rooms/Lights/Light.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Rooms/Slots/SlotManager.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Rooms/Slots/Slot.tscn" type="PackedScene" id=15]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = ExtResource( 8 )
+
+[node name="PassengerRoom" instance=ExtResource( 1 )]
+modulate = Color( 0.345098, 0.305882, 0.564706, 1 )
+
+[node name="02-25-20_9-26-59 PM" type="Sprite" parent="." index="0"]
+position = Vector2( 520, 310 )
+scale = Vector2( 0.56432, 0.56432 )
+texture = ExtResource( 2 )
+
+[node name="sci_fi_bg1" parent="." index="1"]
+visible = false
+
+[node name="Objects" type="Node2D" parent="." index="4"]
+
+[node name="Clock" type="Node2D" parent="Objects" index="0"]
+position = Vector2( 504.213, 79.6425 )
+scale = Vector2( 0.371125, 0.371125 )
+script = ExtResource( 5 )
+
+[node name="Monitor" type="Sprite" parent="Objects/Clock" index="0"]
+visible = false
+modulate = Color( 0.113725, 0.133333, 0.145098, 1 )
+texture = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Objects/Clock" index="1"]
+margin_left = -140.0
+margin_top = -95.0
+margin_right = 133.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 1 )
+text = "TIME: "
+
+[node name="RealTimeLabel" type="Label" parent="Objects/Clock" index="2"]
+margin_left = -149.428
+margin_top = -160.998
+margin_right = 174.572
+margin_bottom = -35.9977
+custom_fonts/font = SubResource( 1 )
+text = "REAL TIME: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Objects/Clock" index="3"]
+visible = false
+margin_left = -121.037
+margin_top = 15.8518
+margin_right = -24.0374
+margin_bottom = 84.8518
+custom_fonts/font = SubResource( 2 )
+text = "DAY"
+
+[node name="CameraPosition" type="Position2D" parent="Objects" index="1"]
+position = Vector2( 560, 291.866 )
+
+[node name="Light" parent="." index="5" instance=ExtResource( 13 )]
+position = Vector2( 130, 150 )
+
+[node name="Light2" parent="." index="6" instance=ExtResource( 13 )]
+position = Vector2( 760, 180 )
+
+[node name="SlotManager" parent="." index="7" instance=ExtResource( 14 )]
+
+[node name="Slot-Passenger1" parent="SlotManager" index="0" instance=ExtResource( 15 )]
+position = Vector2( 221.4, 417.6 )
+
+[node name="Slot-Passenger2" parent="SlotManager" index="1" instance=ExtResource( 15 )]
+position = Vector2( 390, 400 )
+
+[node name="Slot-Passenger-3" parent="SlotManager" index="2" instance=ExtResource( 15 )]
+position = Vector2( 669.95, 399.5 )
+scale = Vector2( -1, 1 )
+onLeftOfRoom = false
+
+[node name="Slot-Passenger-4" parent="SlotManager" index="3" instance=ExtResource( 15 )]
+position = Vector2( 807.368, 437.368 )
+scale = Vector2( -1, 1 )
+onLeftOfRoom = false

@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://EffectLibrary/ParticleTextures2/Beams/BeamCapsule.png" type="Texture" id=1]
+
+
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_align_y = true
+flag_rotate_y = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+angular_velocity = 8.0
+radial_accel = -1.05
+angle = 720.0
+scale = 2.0
+scale_random = 0.5
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_diffuse_mode = 1
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="QuadMesh" id=3]
+material = SubResource( 2 )
+
+[sub_resource type="Environment" id=4]
+glow_enabled = true
+glow_strength = 1.4
+glow_bloom = 0.28
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Particles" type="Particles" parent="."]
+amount = 500
+lifetime = 20.0
+speed_scale = 5.22
+randomness = 0.09
+draw_order = 2
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 3 )
+
+[node name="Camera" type="Camera" parent="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.42909, 17.0225 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 4 )
+

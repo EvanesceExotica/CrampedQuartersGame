@@ -1,0 +1,163 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Rooms/Room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Rooms/AquariumRoom/GardenRoomBackground.png" type="Texture" id=2]
+[ext_resource path="res://RandomSprites/sci_fi_bg1.jpg" type="Texture" id=3]
+[ext_resource path="res://RandomSprites/Water.png" type="Texture" id=4]
+[ext_resource path="res://RandomSprites/furniture_ceilingdeco_hanging_uralia_vines.png" type="Texture" id=5]
+[ext_resource path="res://RandomSprites/furniture_walldeco_moss_walldeco.png" type="Texture" id=6]
+[ext_resource path="res://RandomSprites/Aquarium.png" type="Texture" id=7]
+[ext_resource path="res://RandomSprites/furniture_ceilingdeco_pepper_hanging_decor.png" type="Texture" id=8]
+[ext_resource path="res://RandomSprites/furniture_ceilinglamp_firefly_jar_ceiling_lamp.png" type="Texture" id=9]
+[ext_resource path="res://RandomSprites/furniture_walldeco_walldeco_moss_flower.png" type="Texture" id=10]
+[ext_resource path="res://Rooms/Lights/Light.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Rooms/Slots/SlotManager.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Rooms/Slots/Slot.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Stations/WaterTreatmentStation/WaterStation.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Stations/PlantHandler/PlantHandler.tscn" type="PackedScene" id=15]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 31, 150 )
+
+[node name="AquariumRoom" instance=ExtResource( 1 )]
+modulate = Color( 0.0392157, 0.333333, 0.568627, 1 )
+
+[node name="sci_fi_bg1" parent="." index="0"]
+visible = false
+
+[node name="02-26-20_10-18-16 PM" type="Sprite" parent="." index="1"]
+modulate = Color( 0.0941176, 1, 0.596078, 1 )
+position = Vector2( 505, 301.921 )
+scale = Vector2( 0.588542, 0.593748 )
+texture = ExtResource( 2 )
+
+[node name="Objects" type="Node2D" parent="." index="2"]
+visible = false
+scale = Vector2( 0.5, 0.5 )
+
+[node name="sci_fi_bg1" type="Sprite" parent="Objects" index="0"]
+modulate = Color( 0.0980392, 0.137255, 0.231373, 1 )
+position = Vector2( 1020, 610 )
+scale = Vector2( 1.0625, 1.12963 )
+texture = ExtResource( 3 )
+
+[node name="CameraPosition" type="Position2D" parent="Objects" index="1"]
+position = Vector2( 510, 290 )
+
+[node name="Water" type="Sprite" parent="Objects" index="2"]
+visible = false
+modulate = Color( 0.145098, 0.145098, 0.388235, 0.807843 )
+position = Vector2( 510, 320 )
+scale = Vector2( 1.20283, 1.12 )
+texture = ExtResource( 4 )
+
+[node name="Background" type="Node2D" parent="Objects" index="3"]
+modulate = Color( 0.0980392, 0.101961, 0.376471, 1 )
+position = Vector2( 0, 16.5396 )
+scale = Vector2( 1.88, 3.08 )
+
+[node name="furniture_ceilingdeco_hanging_uralia_vines" type="Sprite" parent="Objects/Background" index="0"]
+position = Vector2( 120, 120 )
+scale = Vector2( 0.09, 0.09 )
+texture = ExtResource( 5 )
+
+[node name="furniture_ceilingdeco_hanging_uralia_vines2" type="Sprite" parent="Objects/Background" index="1"]
+position = Vector2( 199.737, 161.342 )
+scale = Vector2( 0.0994737, 0.121717 )
+texture = ExtResource( 5 )
+
+[node name="furniture_walldeco_moss_walldeco" type="Sprite" parent="Objects/Background" index="2"]
+position = Vector2( 885.639, 188.312 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 6 )
+
+[node name="furniture_walldeco_moss_walldeco2" type="Sprite" parent="Objects/Background" index="3"]
+position = Vector2( 255.319, 129.87 )
+scale = Vector2( 0.4525, 0.424491 )
+texture = ExtResource( 6 )
+
+[node name="Aquarium" type="Sprite" parent="Objects" index="4"]
+modulate = Color( 0.0941176, 0.0980392, 0.152941, 1 )
+position = Vector2( 1020, 674.438 )
+scale = Vector2( 1.14977, 1.12603 )
+texture = ExtResource( 7 )
+
+[node name="Foreground" type="Node2D" parent="Objects" index="5"]
+modulate = Color( 0.113725, 0.113725, 0.168627, 1 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="furniture_ceilingdeco_pepper_hanging_decor" type="Sprite" parent="Objects/Foreground" index="0"]
+position = Vector2( 2190.53, 210 )
+scale = Vector2( 1.69895, 1.42105 )
+texture = ExtResource( 8 )
+
+[node name="furniture_ceilinglamp_firefly_jar_ceiling_lamp" type="Sprite" parent="Objects/Foreground" index="1"]
+position = Vector2( 3530.43, 480 )
+scale = Vector2( 0.4225, 0.441831 )
+texture = ExtResource( 9 )
+
+[node name="furniture_walldeco_walldeco_moss_flower" type="Sprite" parent="Objects/Foreground" index="2"]
+position = Vector2( 880, 1120 )
+texture = ExtResource( 10 )
+
+[node name="furniture_ceilingdeco_hanging_uralia_vines" type="Sprite" parent="Objects/Foreground" index="3"]
+position = Vector2( 2960, 880 )
+scale = Vector2( 0.74, 0.676448 )
+texture = ExtResource( 5 )
+
+[node name="furniture_ceilingdeco_hanging_uralia_vines2" type="Sprite" parent="Objects/Foreground" index="4"]
+position = Vector2( 3360, 2880 )
+scale = Vector2( 0.74, 0.676448 )
+texture = ExtResource( 5 )
+
+[node name="furniture_ceilingdeco_hanging_uralia_vines3" type="Sprite" parent="Objects/Foreground" index="5"]
+position = Vector2( 380, 2920 )
+scale = Vector2( 0.74, 0.676448 )
+texture = ExtResource( 5 )
+
+[node name="furniture_ceilingdeco_hanging_uralia_vines4" type="Sprite" parent="Objects/Foreground" index="6"]
+position = Vector2( 3840, 2720 )
+scale = Vector2( 0.74, 0.676448 )
+texture = ExtResource( 5 )
+
+[node name="furniture_ceilingdeco_hanging_uralia_vines5" type="Sprite" parent="Objects/Foreground" index="7"]
+position = Vector2( 1000, 2840 )
+scale = Vector2( 0.74, 0.676448 )
+texture = ExtResource( 5 )
+
+[node name="furniture_ceilingdeco_hanging_uralia_vines6" type="Sprite" parent="Objects/Foreground" index="8"]
+position = Vector2( 4400, 2360 )
+rotation = -0.785397
+scale = Vector2( 0.74, 0.676448 )
+texture = ExtResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="Objects" index="6"]
+position = Vector2( 1020, 600 )
+
+[node name="Light" parent="Objects" index="7" instance=ExtResource( 11 )]
+position = Vector2( 360, 340 )
+
+[node name="Light2" parent="Objects" index="8" instance=ExtResource( 11 )]
+position = Vector2( 1560, 320 )
+
+[node name="Light3" parent="Objects" index="9" instance=ExtResource( 11 )]
+position = Vector2( 1020, 655.592 )
+
+[node name="SlotManager" parent="." index="3" instance=ExtResource( 12 )]
+
+[node name="Slot-Garden-1" parent="SlotManager" index="0" instance=ExtResource( 13 )]
+position = Vector2( 590, 337.796 )
+slotType = 2
+
+[node name="Light" parent="." index="6" instance=ExtResource( 11 )]
+position = Vector2( 510, 230 )
+
+[node name="WaterStation" parent="." index="7" instance=ExtResource( 14 )]
+position = Vector2( 270, 90 )
+
+[node name="CollisionShape2D" parent="WaterStation/InteractionSpace" index="0"]
+shape = SubResource( 1 )
+
+[node name="PlantHandler" parent="." index="8" instance=ExtResource( 15 )]
+
+[editable path="WaterStation"]

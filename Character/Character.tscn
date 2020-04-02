@@ -1,0 +1,103 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://EffectLibrary/ParticleEffects/Stink.tscn" type="PackedScene" id=1]
+[ext_resource path="res://EffectLibrary/ParticleEffects/Contamination.tscn" type="PackedScene" id=2]
+[ext_resource path="res://EffectLibrary/ParticleEffects/EffectLibrary.tscn" type="PackedScene" id=3]
+[ext_resource path="res://EffectLibrary/ParticleEffects/Ice.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Utility/TraitChecker.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Character/DeathHandler.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Character/Stats/CharacterStats.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Stations/Dispenser/Dispenser.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Utility/DroppableZone.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Utility/DraggableItem.tscn" type="PackedScene" id=10]
+[ext_resource path="res://EffectLibrary/ParticleEffects/Fire.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Character/Character.gd" type="Script" id=12]
+[ext_resource path="res://Character/Sprites/AstronautA.png" type="Texture" id=13]
+[ext_resource path="res://Character/Stats/Relationship/RelationshipModule.gd" type="Script" id=14]
+
+
+
+
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 86.2526
+height = 184.282
+
+[node name="Character" type="Area2D"]
+scale = Vector2( 0.72, 0.68 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -94.1474 ]
+}
+
+[node name="Naut" type="Sprite" parent="."]
+position = Vector2( 4.26169, -12.1247 )
+scale = Vector2( 0.347362, 0.347362 )
+texture = ExtResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+margin_right = 67.0
+margin_bottom = 20.0
+text = "SetOnFire"
+
+[node name="Attack" type="Button" parent="."]
+margin_left = 0.459656
+margin_top = 49.3162
+margin_right = 52.4597
+margin_bottom = 69.3162
+text = "Attack"
+
+[node name="FasterHealthDrain" type="Button" parent="."]
+margin_left = 1.0
+margin_top = 25.0
+margin_right = 66.0
+margin_bottom = 45.0
+text = "Remove Fire"
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="RelationshipModule" type="Node2D" parent="."]
+script = ExtResource( 14 )
+
+[node name="TraitChecker" parent="." instance=ExtResource( 5 )]
+
+[node name="RightPosition" type="Position2D" parent="."]
+position = Vector2( -194.444, -352.941 )
+
+[node name="LeftPosition" type="Position2D" parent="."]
+position = Vector2( -194.444, -352.941 )
+
+[node name="CharacterStats" parent="." instance=ExtResource( 7 )]
+margin_left = -216.111
+margin_top = -411.765
+margin_right = -216.111
+margin_bottom = -411.765
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="DeathHandler" parent="." instance=ExtResource( 6 )]
+
+[node name="DraggableItem" parent="." instance=ExtResource( 10 )]
+
+[node name="DroppableZone" parent="." instance=ExtResource( 9 )]
+acceptedDrops = [ ExtResource( 8 ) ]
+acceptedDropType = 1
+
+[node name="EffectLibrary" parent="." instance=ExtResource( 3 )]
+effectLibary = {
+"contamination": ExtResource( 2 ),
+"fire": ExtResource( 11 ),
+"ice": ExtResource( 4 ),
+"stink": ExtResource( 1 )
+}
+[connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Character_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Attack" to="." method="_on_Attack_pressed"]
+[connection signal="pressed" from="FasterHealthDrain" to="." method="_on_FasterHealthDrain_pressed"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+[connection signal="tween_step" from="Tween" to="." method="_on_Tween_tween_step"]

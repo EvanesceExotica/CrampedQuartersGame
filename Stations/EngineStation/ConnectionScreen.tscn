@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Stations/StationScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Stations/PowerStation/ConnectionSystem.gd" type="Script" id=3]
+[ext_resource path="res://Stations/PowerStation/EnergyNode.tscn" type="PackedScene" id=4]
+
+
+
+[node name="ConnectionScreen" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="NodeHolder" type="Node2D" parent="." index="1"]
+position = Vector2( 186.318, 106.426 )
+scale = Vector2( 0.559622, 0.588235 )
+
+[node name="LineConnection" type="Line2D" parent="." index="2"]
+points = PoolVector2Array( 0, 0, 0, 0 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="EnergyNode" parent="." index="3" instance=ExtResource( 4 )]
+
+[node name="LeftSide" type="Node2D" parent="." index="4"]
+position = Vector2( 182.468, 168.187 )
+
+[node name="RightSide" type="Node2D" parent="." index="5"]
+position = Vector2( 761.604, 168.187 )

@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://TraitChecker.gd" type="Script" id=1]
+[ext_resource path="res://Attributes/TraitChecker.gd" type="Script" id=1]
+
 
 [node name="TraitChecker" type="Node2D"]
 script = ExtResource( 1 )

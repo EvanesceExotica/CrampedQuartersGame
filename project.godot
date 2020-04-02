@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Object",
 "class": "Attribute",
 "language": "GDScript",
-"path": "res://Attribute.gd"
+"path": "res://Attributes/Attribute.gd"
 }, {
 "base": "Resource",
 "class": "Behavior",
@@ -52,7 +52,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Character",
 "language": "GDScript",
-"path": "res://Character.gd"
+"path": "res://Character/Character.gd"
 }, {
 "base": "Reference",
 "class": "ClassType",
@@ -72,7 +72,7 @@ _global_script_classes=[ {
 "base": "Object",
 "class": "DrainSource",
 "language": "GDScript",
-"path": "res://DrainSource.gd"
+"path": "res://Attributes/DrainSource.gd"
 }, {
 "base": "Reference",
 "class": "EditorTools",
@@ -82,7 +82,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Event",
 "language": "GDScript",
-"path": "res://Event.gd"
+"path": "res://Events/Event.gd"
 }, {
 "base": "Reference",
 "class": "FileSearch",
@@ -132,7 +132,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "MinigameNode",
 "language": "GDScript",
-"path": "res://MinigameNode.gd"
+"path": "res://Stations/Uncategorized/MinigameBits/MinigameNode.gd"
 }, {
 "base": "Reference",
 "class": "ProjectTools",
@@ -167,12 +167,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Species",
 "language": "GDScript",
-"path": "res://Species.gd"
+"path": "res://Attributes/Species.gd"
 }, {
 "base": "Object",
 "class": "Stat",
 "language": "GDScript",
-"path": "res://Stat.gd"
+"path": "res://Character/Stats/Stat.gd"
 }, {
 "base": "Line2D",
 "class": "Trail2D",
@@ -187,7 +187,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Trait",
 "language": "GDScript",
-"path": "res://CharacterAttributes.gd"
+"path": "res://Character/CharacterAttributes.gd"
 }, {
 "base": "VBoxContainer",
 "class": "VBoxItemList",
@@ -249,20 +249,20 @@ _global_script_class_icons={
 [application]
 
 config/name="CrampedQuarters"
-run/main_scene="res://WholeShip.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Rooms/WholeShip.tscn"
+config/icon="res://RandomSprites/icon.png"
 
 [autoload]
 
-System="*res://System.tscn"
-CharacterAttributes="*res://CharacterAttributes.gd"
-AttributeJSONParser="*res://AttributeJSONParser.gd"
-SignalManager="*res://SignalManager.gd"
+System="*res://Utility/Autoload/System.tscn"
+CharacterAttributes="*res://Character/CharacterAttributes.gd"
+AttributeJSONParser="*res://Attributes/AttributeJSONParser.gd"
+SignalManager="*res://Utility/Autoload/SignalManager.gd"
 EventParser="*res://Events/EventParser.gd"
 CharacterTracker="*res://Character/CharacterTracker.gd"
 NameGenerator="*res://Character/NameGenerator.gd"
-TimeConverter="*res://Helper/TimeConverter.gd"
-ChooseRandom="*res://UtiliytScripts/ChooseRandom.gd"
+TimeConverter="*res://Utility/Helper/TimeConverter.gd"
+ChooseRandom="*res://Utility/UtilityScripts/ChooseRandom.gd"
 
 [debug]
 
@@ -331,4 +331,4 @@ ui_fire={
 [rendering]
 
 environment/default_clear_color=Color( 0.0588235, 0.054902, 0.105882, 1 )
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://BackgroundEffects/default_env.tres"

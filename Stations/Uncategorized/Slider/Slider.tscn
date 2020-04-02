@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Stations/VSlider.gd" type="Script" id=1]
+[ext_resource path="res://Stations/Uncategorized/Assets/LittleHex.png" type="Texture" id=2]
+
+
+[node name="HardSlider" type="VSlider"]
+margin_right = 16.0
+margin_bottom = 170.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+value = 5.0
+ticks_on_borders = true
+script = ExtResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="OkayButton" type="Sprite" parent="."]
+position = Vector2( 7.60504, -17.0063 )
+scale = Vector2( 0.256098, 0.256098 )
+texture = ExtResource( 2 )
+
+[connection signal="gui_input" from="." to="." method="_on_HardSlider_gui_input"]

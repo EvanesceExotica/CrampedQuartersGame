@@ -2,8 +2,10 @@
 
 [ext_resource path="res://Stations/Dispenser/Dispenser.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Stations/Dispenser/FoodDispenser.gd" type="Script" id=2]
-[ext_resource path="res://UtiliytScripts/HourCounter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Utility/UtilityScripts/HourCounter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Stations/Dispenser/yummy_gruel_unstacked.png" type="Texture" id=4]
+
+
 
 [node name="FoodDispenser" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
