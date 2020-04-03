@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var lineConnection = get_node("LineConnection")
+var outOfBounds = false
 
 func addPoint(node):
 	#connect to the last dot and then add the mouse position to continue trace
@@ -10,4 +11,5 @@ func addPoint(node):
 
 func _process(delta):    
 	var mousePosition = get_global_mouse_position()
-	lineConnection.points[lineConnection.points.size()-1] = mousePosition
+	if !outOfBounds:
+		lineConnection.points[lineConnection.points.size()-1] = mousePosition
