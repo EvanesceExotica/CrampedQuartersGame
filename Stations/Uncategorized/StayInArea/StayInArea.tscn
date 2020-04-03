@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Stations/Uncategorized/StayInArea/BoundsArea.gd" type="Script" id=1]
+[ext_resource path="res://Stations/Uncategorized/StayInArea/StayInArea.gd" type="Script" id=2]
+[ext_resource path="res://Stations/Uncategorized/MinigameBits/Meter.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 138.717
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 469.177, 256.909 )
+
+[node name="StayInArea" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="BoundsArea" type="Area2D" parent="."]
+position = Vector2( 496.044, 257.208 )
+script = ExtResource( 1 )
+
+[node name="Coll" type="CollisionShape2D" parent="BoundsArea"]
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="MovementArea" type="Area2D" parent="."]
+position = Vector2( 491.034, 255.538 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementArea"]
+position = Vector2( 27.3982, 41.0974 )
+shape = SubResource( 2 )
+
+[node name="Meter" parent="." instance=ExtResource( 3 )]
+[connection signal="mouse_entered" from="BoundsArea" to="BoundsArea" method="_on_BoundsArea_mouse_entered"]
+[connection signal="mouse_exited" from="BoundsArea" to="BoundsArea" method="_on_BoundsArea_mouse_exited"]
+[connection signal="tween_completed" from="Tween" to="BoundsArea" method="_on_Tween_tween_completed"]
+[connection signal="tween_step" from="Tween" to="BoundsArea" method="_on_Tween_tween_step"]

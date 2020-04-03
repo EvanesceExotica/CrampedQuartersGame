@@ -2,8 +2,10 @@ extends Node2D
 
 onready var cleaner = get_node("PipeHolder/Cleaner")
 onready var sewage = get_node("PipeHolder2/Sewage")
+onready var lever = get_node("Lever2")
 
 func _ready():
+    lever.connect("justFlushed", self, "flushPipes")
     pass
    # flushPipes()
 

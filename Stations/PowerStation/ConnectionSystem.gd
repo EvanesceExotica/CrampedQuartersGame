@@ -6,7 +6,7 @@ var previousLastConnected
 onready var lineConnection = get_node("LineConnection")
 var connections = {}
 onready var energyNode = get_node("EnergyNode")
-var connectNodeScene = preload("res://Stations/TimerClickMinigame/ConnectNode.tscn")
+var connectNodeScene = preload("res://Stations/PowerStation/ConnectNode.tscn")#res://Stations/TimerClickMinigame/ConnectNode.tscn")
 onready var leftSide = get_node("LeftSide")
 onready var rightSide = get_node("RightSide")
 

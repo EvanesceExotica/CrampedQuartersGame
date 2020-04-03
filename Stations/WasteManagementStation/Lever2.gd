@@ -12,6 +12,9 @@ var mouseMovingDown = true
 var downwardMovement 
 var flushed = false
 
+signal justFlushed
+signal flushReleased
+
 func _ready():
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	pass
@@ -22,7 +25,8 @@ func _process(delta):
 	var clickingLeft = Input.is_action_pressed("left_click")
 	if distanceToBottom < 100 && !flushed:
 		#FLUSH PIPES HERE
-		get_parent().flushPipes()
+		emit_signal("justFlushed")
+		#get_parent().flushPipes()
 		flushed = true
 		pass
 	if (!dragging && mouse_in && Input.is_action_pressed("left_click") && mouseMovingDown):
@@ -42,6 +46,7 @@ func _process(delta):
 #				self.applied_force = Vector2(0, 0)
 				#self.apply_impulse(Vector2(0, 0), Vector2(0, -400))
 				dragging = false
+				emit_signal("flushReleased")
 
 func process(delta):
 
