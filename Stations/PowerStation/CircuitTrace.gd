@@ -11,7 +11,8 @@ enum directions{
 }
 func _ready():
 	lastNodeTouched = get_node("CircuitNode")
-	Input.warp_mouse_position(lastNodeTouched.global_position)
+	get_viewport().warp_mouse(lastNodeTouched.global_position)
+	#Input.warp_mouse_position(lastNodeTouched.global_position)
 	mouseFollow.global_position = get_global_mouse_position()
 
 func addPoint(node):

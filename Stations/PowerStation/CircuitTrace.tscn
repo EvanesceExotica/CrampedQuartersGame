@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Stations/PowerStation/CircuitNode.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Stations/PowerStation/CircuitTrace.gd" type="Script" id=2]
+[ext_resource path="res://Stations/PowerStation/Surge.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 30.0
+radius = 14.1421
 
 [node name="CircuitTrace" type="Node2D"]
 script = ExtResource( 2 )
@@ -33,3 +34,30 @@ points = PoolVector2Array( 0, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseFollow"]
 shape = SubResource( 1 )
+
+[node name="Surge" parent="." instance=ExtResource( 3 )]
+position = Vector2( 360, 0 )
+
+[node name="Surge3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 0 )
+
+[node name="Surge4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 0 )
+
+[node name="Surge9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 160 )
+
+[node name="Surge8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 220 )
+
+[node name="Surge7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 270 )
+
+[node name="Surge2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 600, 0 )
+
+[node name="Surge5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 640, 0 )
+
+[node name="Surge6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 0 )
