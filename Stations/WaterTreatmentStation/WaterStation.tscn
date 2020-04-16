@@ -7,7 +7,7 @@
 script = ExtResource( 2 )
 minigameScreen = null
 
-[node name="Button" parent="." index="6"]
+[node name="Button" parent="." index="7"]
 margin_left = 284.94
 margin_top = 8.59189
 margin_right = 514.94

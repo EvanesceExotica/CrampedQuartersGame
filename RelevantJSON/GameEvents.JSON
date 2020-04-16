@@ -59,7 +59,7 @@
 				{
 					"title": "empty",
 					"id": "empty",
-					"weight": 0,
+					"weight": 0.6,
 					"image": "",
 					"requirements": [],
 					"options": [],
@@ -74,7 +74,7 @@
 				{
 					"title": "Character on Asteroid",
 					"id": "charOnAsteroid",
-					"weight": 0,
+					"weight": 0.4,
 					"image": "",
 					"requirements": [],
 					"options": [
@@ -132,7 +132,34 @@
 					"_description": "You see the remains of a derelict ship floating in the void. The distress signal is coming from inside. ",
 					"image": "",
 					"requirements": [],
-					"options": [],
+					"options": [
+						{
+							"text": "Search the ship.",
+							"applyResultsToObject": false,
+							"requirements": [],
+							"resultSets": [
+								{
+									"description": "You scan the ship for survivors. Inside one room you see the glow of heat signatures.",
+									"weight": 1,
+									"linkedEvent": "abandonedShipB",
+									"results": []
+								}
+							]
+						},
+						{
+							"text": "Ignore the ship.",
+							"applyResultsToObject": false,
+							"requirements": [],
+							"resultSets": [
+								{
+									"description": "You left behind some good people.",
+									"weight": 0,
+									"linkedEvent": "empty",
+									"results": []
+								}
+							]
+						}
+					],
 					"eventType": 4,
 					"_scope": 0,
 					"index": 2,
@@ -153,6 +180,41 @@
 					"index": 3,
 					"description": [
 						"Space debris has struck vital components, starting a fire!"
+					]
+				},
+				{
+					"title": "Abandoned ShipB",
+					"id": "abandonedShipB",
+					"weight": 0,
+					"_description": "You see the faint glow of heat signatures.",
+					"image": "",
+					"requirements": [],
+					"options": [
+						{
+							"text": "Open the door.",
+							"applyResultsToObject": false,
+							"requirements": [],
+							"resultSets": [
+								{
+									"description": "You've found new people!",
+									"weight": 0,
+									"linkedEvent": "empty",
+									"results": [
+										{
+											"actions": {
+												"GenerateNewCharacter": []
+											}
+										}
+									]
+								}
+							]
+						}
+					],
+					"eventType": 0,
+					"_scope": 0,
+					"index": 4,
+					"description": [
+						"You see the faint glow of heat signatures."
 					]
 				}
 			],

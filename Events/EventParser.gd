@@ -28,6 +28,10 @@ const CHARACTER = 2
 const STATION = 4
 const SLOT = 8
 
+var arrivalEventsWeighted = WeightedObject.new()
+var distressEventsWeighted = WeightedObject.new()
+var randomEventsWeighted = WeightedObject.new()
+
 var distressSignalEvents = {}
 var onArrivalEvents = {}
 var randomEvents = {} #the 'travelling, not travelling' can be handled by the events requirements
@@ -287,7 +291,7 @@ func showResult(chosenResultSet):
 	#if chosenResultSet["linkedEvent"] > 0:
 	if chosenResultSet["linkedEvent"] != "empty":
 		#if the ID for this is greater than zero, which is the 'blank' event
-		chooseSpecificEvent(chosenResultSet["index"])
+		chooseSpecificEvent(chosenResultSet["linkedEvent"])
 	else:
 		SignalManager.emit_signal("UpdateEvent", chosenResultSet)		
 

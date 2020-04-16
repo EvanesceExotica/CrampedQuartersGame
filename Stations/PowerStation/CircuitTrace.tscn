@@ -46,12 +46,27 @@ position = Vector2( 400, 0 )
 
 [node name="Surge9" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 160 )
+direction = 1
 
 [node name="Surge8" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 220 )
+direction = 1
 
 [node name="Surge7" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 270 )
+direction = 1
+
+[node name="Surge12" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 390 )
+direction = 1
+
+[node name="Surge11" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 450 )
+direction = 1
+
+[node name="Surge10" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 500 )
+direction = 1
 
 [node name="Surge2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 600, 0 )

@@ -4,8 +4,6 @@
 [ext_resource path="res://Stations/AtmosphereStation/AtmosphereStation.gd" type="Script" id=2]
 [ext_resource path="res://RandomSprites/furniture_walldeco_8bit_cloud.png" type="Texture" id=3]
 
-
-
 [node name="AtmosphereStation" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
