@@ -6,6 +6,8 @@ class_name Attribute
 #condition that can be removed if a critera is met (such as injured -- removed if get enough health packs)
 #something the character inherintly has that can only be removed by events -- can also be applied by events
 var characterAttachedTo
+
+var Self = load("res://Attributes/Attribute.gd")
 class externalCombination:
 
 	#make this an enum
@@ -70,6 +72,42 @@ var spreadVariables
 var spreadRange = 0
 var effect = ""
 
+func Copy():
+	var attribute = Self.new("attributeName" + str(2))
+
+	attribute.entitiesCanApplyTo = [] + entitiesCanApplyTo
+	attribute.contagious = contagious
+	attribute.contagionChance = contagionChance #determines the chance of spreading over a certain amount of time
+	attribute.stackable = stackable #this determines if an attribute can be stacked with the same  condition twice -- probably not?
+	attribute.attributeName = attributeName
+	attribute.typeOfAttribute = typeOfAttribute
+	attribute.attributeTypes =  [] + attributeTypes #what type(s) of attribute this is
+	attribute.description = description
+	attribute.temporary = temporary
+	attribute.specialAttribute = specialAttribute
+	attribute.ConflictingAttributes =  [] + ConflictingAttributes 
+	attribute.PreRequisiteAttributes = [] + PreRequisiteAttributes #Attributes that cause this one
+	attribute.ResultingAttributes =  [] + ResultingAttributes
+	attribute.AuraAttributes = AuraAttributes.duplicate()
+	attribute.AffectedStats = AffectedStats.duplicate()
+	attribute.AffectedDynamicStatsCurrent = AffectedDynamicStatsCurrent.duplicate() #if one of the dynamic stats will take an immediate 'chunk' hit
+	attribute.AffectedDynamicStatsMax = AffectedDynamicStatsMax.duplicate()#if this will lower one of the maximum stats
+	attribute.AffectedStaticStats = AffectedStaticStats.duplicate() 
+	attribute.DrainingDynamicStats = DrainingDynamicStats.duplicate()
+	attribute.duration = duration #for temp conditions
+	attribute.statSignalsToWatchFor = statSignalsToWatchFor.duplicate() #this dictionary is
+	attribute.signalsThatWillRemoveAttribute = signalsThatWillRemoveAttribute.duplicate()
+	attribute.canCombineWith = canCombineWith.duplicate() #can comebine with key to cause value; i.e:, if Aquatic -- {"InAir": "Ashixipating"}
+	attribute.modifiedAttributes = modifiedAttributes.duplicate() #other attributes this one will modify?
+	attribute.characterEventTypeChance = characterEventTypeChance.duplicate() #insanity events; drift events
+	attribute.externalCombinations = [] + externalCombinations
+	attribute.deathType = deathType
+	attribute.spreadChancePerHalfHour = spreadChancePerHalfHour
+	attribute.spreadVariables = spreadVariables
+	attribute.spreadRange = spreadRange
+	attribute.effect = effect
+
+	return attribute
 func CheckRemoveableCritera(signalCalled):
 	var numberOfTimesCalled = 0
 	numberOfTimesCalled+= 1

@@ -12,6 +12,9 @@ func AddEntry(entry, weight):
 	accumulatedChance += weight
 	randomChanceDictionary[entry] = accumulatedChance
 
+func Size():
+	return randomChanceDictionary.size()
+
 func AddEntryToDictionary(entry):
 	#change this to take into account the chanceOfOccuring being applied by the theme rather than individual objects
 	#each entry will add up the chance of occuring

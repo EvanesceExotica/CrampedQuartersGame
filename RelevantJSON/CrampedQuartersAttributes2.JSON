@@ -681,6 +681,32 @@
 					"spreadVariables": [],
 					"spreadRange": 0,
 					"effect": ""
+				},
+				{
+					"id": "BeholdingTheTruth",
+					"attributeName": "BeholdingTheTruth",
+					"description": "I can see into the universe.",
+					"AffectedStats": [
+						{
+							"statName": "sanity",
+							"whichValue": "drain",
+							"amount": 100
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": false,
+					"deathType": 0,
+					"spreadChancePerHalfHour": 0,
+					"spreadVariables": [],
+					"stackable": false,
+					"spreadRange": 0,
+					"effect": "",
+					"index": 21
 				}
 			],
 			"separators": [],

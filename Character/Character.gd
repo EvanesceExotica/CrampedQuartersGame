@@ -322,6 +322,9 @@ func calculateDrainRate(affectedStat, pointsDrainedPerSecond):
 	#current health = points to drain divided by points per second drained = how many seconds it should take
 	var currentValue = affectedStat.currentValue
 
+	# TODO:Try to figure out how to better handle this division by zero problem
+	if pointsDrainedPerSecond == 0:
+		pointsDrainedPerSecond = 1
 	var rate = currentValue/pointsDrainedPerSecond
 
 
@@ -413,6 +416,16 @@ func drainValueOverTime(affectedStat, drainSource, rate):
 	#characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
 
 
+func travelToFuture(defaultAttribute):
+	print("Traveling to future!!!")
+	#Here we will divide the rate of insanity drain by the current value of the relationship
+	var moddedAttribute = defaultAttribute.Copy()
+	var defaultDrainValue = 100	
+
+	#take the copy of the default attribute, modify it's value to be less
+	moddedAttribute.AffectedStats[0]["amount"] = moddedAttribute.AffectedStats[0]["amount"] - relationship.currentValue
+	applyNewAttribute(moddedAttribute)
+	pass
 
 
 #this is for if anything doubles or reduces damage taken
@@ -501,6 +514,7 @@ func _ready():
 	sanity = Stat.new()
 	sustenance = Stat.new()
 	relationship = Stat.new()
+	relationship.currentValue  = 0
 
 	#System.connect("stoppedDraggingItem", self, "checkIfSomethingDropped")
 	SignalManager.connect("AddTrait", self, "ApplyNewAttribute")

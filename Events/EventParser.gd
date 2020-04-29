@@ -82,20 +82,17 @@ func checkEventType(event):
 		#check if this bit in the flag is true
 		onArrivalEvents[event["id"]] = event
 		#onArrivalEvents.append(event)
-		print(event["title"] + " is arrival event")
-		print("Arrival event size " + str(onArrivalEvents.size()))
+		arrivalEventsWeighted.AddEntry(event["id"], event["weight"])
 
 	if eventTypeFlag.check(eventTypeFlag.random):
 		#randomEvents.append(event)
 		randomEvents[event["id"]] = event
-		print(event["title"] + " is random event")
-		print("Random event size " + str(randomEvents.size()))
+		randomEventsWeighted.AddEntry(event["id"], event["weight"])
 
 	if eventTypeFlag.check(eventTypeFlag.distress):
 		#distressSignalEvents.append(event)
 		distressSignalEvents[event["id"]] = event
-		print(event["title"] + " is distress event")
-		print("Distress signal event size " + str(distressSignalEvents.size()))
+		distressEventsWeighted.AddEntry(event["id"], event["weight"])
 
 func _chooseRandomEvent():
 	var validEvents = []
@@ -161,6 +158,21 @@ func chooseSpecificEvent(id):
 	# 	if event["id"] == id:
 	# 		createEvent(event)
 func returnRandomEventByType(typeOfEvent):
+	var randomEventID
+	var list
+	if typeOfEvent == eventType.onArrival:
+		list = arrivalEventsWeighted
+	elif typeOfEvent == eventType.distress:
+		list = distressEventsWeighted
+	elif typeOfEvent == eventType.random:
+		list = randomEventsWeighted
+
+	if list.Size() > 0:
+		randomEventID = list.ChooseRandomFromDictionary()
+#		randomEventID = ChooseRandom.ChooseRandomFromList(list)
+	return randomEventID
+
+func _returnRandomEventByType(typeOfEvent):
 	var randomEventID
 	var list
 	if typeOfEvent == eventType.onArrival:
