@@ -19,7 +19,6 @@
 [ext_resource path="res://Character/Stats/CharacterStats.gd" type="Script" id=17]
 [ext_resource path="res://Character/Stats/StatPanel.gd" type="Script" id=18]
 
-
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 14 )
 region_rect = Rect2( 0, 0, 794, 461 )

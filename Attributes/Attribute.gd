@@ -73,8 +73,9 @@ var spreadRange = 0
 var effect = ""
 
 func Copy():
-	var attribute = Self.new("attributeName" + str(2))
-
+	var attribute = Self.new(attributeName)
+	#var attribute = get_script().new()
+	print("Is this a new attribute? : " + str(attribute))
 	attribute.entitiesCanApplyTo = [] + entitiesCanApplyTo
 	attribute.contagious = contagious
 	attribute.contagionChance = contagionChance #determines the chance of spreading over a certain amount of time
@@ -88,18 +89,18 @@ func Copy():
 	attribute.ConflictingAttributes =  [] + ConflictingAttributes 
 	attribute.PreRequisiteAttributes = [] + PreRequisiteAttributes #Attributes that cause this one
 	attribute.ResultingAttributes =  [] + ResultingAttributes
-	attribute.AuraAttributes = AuraAttributes.duplicate()
-	attribute.AffectedStats = AffectedStats.duplicate()
-	attribute.AffectedDynamicStatsCurrent = AffectedDynamicStatsCurrent.duplicate() #if one of the dynamic stats will take an immediate 'chunk' hit
-	attribute.AffectedDynamicStatsMax = AffectedDynamicStatsMax.duplicate()#if this will lower one of the maximum stats
-	attribute.AffectedStaticStats = AffectedStaticStats.duplicate() 
-	attribute.DrainingDynamicStats = DrainingDynamicStats.duplicate()
+	attribute.AuraAttributes = AuraAttributes.duplicate(true)
+	attribute.AffectedStats = AffectedStats.duplicate(true)
+	attribute.AffectedDynamicStatsCurrent = AffectedDynamicStatsCurrent.duplicate(true) #if one of the dynamic stats will take an immediate 'chunk' hit
+	attribute.AffectedDynamicStatsMax = AffectedDynamicStatsMax.duplicate(true)#if this will lower one of the maximum stats
+	attribute.AffectedStaticStats = AffectedStaticStats.duplicate(true) 
+	attribute.DrainingDynamicStats = DrainingDynamicStats.duplicate(true)
 	attribute.duration = duration #for temp conditions
-	attribute.statSignalsToWatchFor = statSignalsToWatchFor.duplicate() #this dictionary is
-	attribute.signalsThatWillRemoveAttribute = signalsThatWillRemoveAttribute.duplicate()
-	attribute.canCombineWith = canCombineWith.duplicate() #can comebine with key to cause value; i.e:, if Aquatic -- {"InAir": "Ashixipating"}
-	attribute.modifiedAttributes = modifiedAttributes.duplicate() #other attributes this one will modify?
-	attribute.characterEventTypeChance = characterEventTypeChance.duplicate() #insanity events; drift events
+	attribute.statSignalsToWatchFor = statSignalsToWatchFor.duplicate(true) #this dictionary is
+	attribute.signalsThatWillRemoveAttribute = signalsThatWillRemoveAttribute.duplicate(true)
+	attribute.canCombineWith = canCombineWith.duplicate(true) #can comebine with key to cause value; i.e:, if Aquatic -- {"InAir": "Ashixipating"}
+	attribute.modifiedAttributes = modifiedAttributes.duplicate(true) #other attributes this one will modify?
+	attribute.characterEventTypeChance = characterEventTypeChance.duplicate(true) #insanity events; drift events
 	attribute.externalCombinations = [] + externalCombinations
 	attribute.deathType = deathType
 	attribute.spreadChancePerHalfHour = spreadChancePerHalfHour

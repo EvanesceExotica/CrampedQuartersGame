@@ -416,17 +416,36 @@ func drainValueOverTime(affectedStat, drainSource, rate):
 	#characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
 
 
-func travelToFuture(defaultAttribute):
+func travelToFuture(defaultAttributeName):
 	print("Traveling to future!!!")
 	#Here we will divide the rate of insanity drain by the current value of the relationship
+	#print("Object we're copying" + str(defaultAttribute))
+	
+	
+	var defaultAttribute = AttributeJSONParser.fetchAndCreateAttribute(defaultAttributeName)#.Copy(self.characterName)
 	var moddedAttribute = defaultAttribute.Copy()
-	var defaultDrainValue = 100	
-
+	var scaleValue = scaleValueToNewRange()
 	#take the copy of the default attribute, modify it's value to be less
-	moddedAttribute.AffectedStats[0]["amount"] = moddedAttribute.AffectedStats[0]["amount"] - relationship.currentValue
+	print("Scale value is " + str(scaleValue))
+	print("Relationship value is " + str(relationship.currentValue))
+	print("Modded value BEFORE is " + str(moddedAttribute.AffectedStats[0]["amount"] ))
+	if moddedAttribute.AffectedStats[0]["amount"] > sanity.maxValue:
+		moddedAttribute.AffectedStats[0]["amount"] = sanity.maxValue
+	moddedAttribute.AffectedStats[0]["amount"] = moddedAttribute.AffectedStats[0]["amount"] - scaleValue
+	print("Modded value AFTER is " + str(moddedAttribute.AffectedStats[0]["amount"] ))
 	applyNewAttribute(moddedAttribute)
 	pass
 
+func scaleValueToNewRange():
+	# OldRange = (OldMax - OldMin)  
+	# NewRange = (NewMax - NewMin)  
+	# NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
+	var relationshipRange = relationship.maxValue - 0
+	var sanityRange = sanity.maxValue - 0
+	var scaledBuffer = ((relationship.currentValue - 0) * sanityRange/relationshipRange) + 0
+	return scaledBuffer
+#func normalize(value):
+#	var normalizedValue = (sanity.maxValue - 0)((value - min)/(max(x)-min(x)))+0
 
 #this is for if anything doubles or reduces damage taken
 var damageModifiers = []
@@ -514,7 +533,7 @@ func _ready():
 	sanity = Stat.new()
 	sustenance = Stat.new()
 	relationship = Stat.new()
-	relationship.currentValue  = 0
+	relationship.currentValue  = 49
 
 	#System.connect("stoppedDraggingItem", self, "checkIfSomethingDropped")
 	SignalManager.connect("AddTrait", self, "ApplyNewAttribute")

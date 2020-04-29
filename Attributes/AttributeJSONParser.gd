@@ -83,16 +83,17 @@ func convertDictionaryStringsToEnum(dict):
 func fetchAndCreateAttribute(attributeName):
 	var thisAttributeDictionary  = {}
 	#dictionary for a single attribute
-	for stat in createdAttributes:
-	#if this attribute has already been created once,
-	# use the version already created
-		if stat.attributeName == attributeName:
-			return stat
+	# for stat in createdAttributes:
+	# #if this attribute has already been created once,
+	# # use the version already created
+	# 	if stat.attributeName == attributeName:
+	# 		return stat
 
 	for item in attributeData:
 		#for every attribute copied to attributeData from the 'lines' array
 		if item["attributeName"] == attributeName:
-			thisAttributeDictionary = item.duplicate()
+			#duplicate this attribute from the odictionary
+			thisAttributeDictionary = item.duplicate(true)
 
 	#thisAttributeDictionary = attributeData[attributeName]
 	var attribute = System.attributeScript.new(attributeName)
