@@ -423,10 +423,7 @@ func IsSane():
 
 
 func travelToFuture(defaultAttributeName):
-	print("Traveling to future!!!")
-	#Here we will divide the rate of insanity drain by the current value of the relationship
-	#print("Object we're copying" + str(defaultAttribute))
-	
+	#characters travelling back to the EndOfTime
 	
 	var defaultAttribute = AttributeJSONParser.fetchAndCreateAttribute(defaultAttributeName)#.Copy(self.characterName)
 	var moddedAttribute = defaultAttribute.Copy()

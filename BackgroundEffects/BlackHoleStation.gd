@@ -1,7 +1,9 @@
 extends Node2D
 
+onready var interactableObject = get_node("InteractableObject")
 var allSanePassengers = []
 
+var disembarkPosition = get_node("DisembarkPosition")
 
 
 func _on_Area2D_mouse_entered():
@@ -12,5 +14,11 @@ func _on_Area2D_mouse_exited():
 
 func DropOffPassengers():
     pass
-    for member in get_tree().get_nodes_in_group("Characters"):
-        if member.IsSane():
+    for character in get_tree().get_nodes_in_group("Characters"):
+        if character.IsSane():
+            #take the character off of the ship
+            allSanePassengers.append(character) #list for characters who made it to the end
+            character.global_position = disembarkPosition.global_position
+            character.deathHandler.disembarkCharacter()
+
+func processInteraction():

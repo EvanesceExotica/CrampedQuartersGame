@@ -89,6 +89,10 @@ func removeCharacter(character):
 	character.remove_from_group("Characters")
 	character.queue_free()
 
+func disembarkCharacter(character):
+	character.remove_from_group("Characters")
+	character.queue_free()
+
 func determineCorpseType(typeOfDeath):
 	#not implementing this now, but later
 	#corpseSprite.texture = corpseDictionary[typeOfDeath]
