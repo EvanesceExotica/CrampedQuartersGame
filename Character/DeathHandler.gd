@@ -86,6 +86,7 @@ func handleDeath(character, source, deathCausedByDrain):
 func removeCharacter(character):
 	#this literally just deletes the character
 	#maybe put something somewhere where the death type is tracked
+	character.remove_from_group("Characters")
 	character.queue_free()
 
 func determineCorpseType(typeOfDeath):

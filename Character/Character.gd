@@ -415,6 +415,12 @@ func drainValueOverTime(affectedStat, drainSource, rate):
 	characterStats.animateBar(affectedStat, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
 	#characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
 
+func IsSane():
+	if sanity > 0:
+		return true
+	else:
+		return false
+
 
 func travelToFuture(defaultAttributeName):
 	print("Traveling to future!!!")
