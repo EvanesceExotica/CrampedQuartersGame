@@ -25,6 +25,10 @@ func ReturnToFuture():
 #         print("Should be returning to future")
 #         ReturnToFuture()
 
+func SetFutureJumpTimer():
+    $Timer.wait_time = 10
+    $Timer.start()
+
 func _input(event):
     if event.is_action_pressed("ui_interact"):
         print("Should be returning to future")

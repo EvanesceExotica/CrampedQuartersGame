@@ -7,8 +7,6 @@
 [ext_resource path="res://Stations/WarningFlash.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Stations/ShowName.tscn" type="PackedScene" id=6]
 
-
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 121, 150 )
 

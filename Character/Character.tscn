@@ -15,10 +15,6 @@
 [ext_resource path="res://Character/Sprites/AstronautA.png" type="Texture" id=13]
 [ext_resource path="res://Character/Stats/Relationship/RelationshipModule.gd" type="Script" id=14]
 
-
-
-
-
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 86.2526
 height = 184.282
