@@ -91,7 +91,8 @@ func removeCharacter(character):
 
 func disembarkCharacter(character):
 	character.remove_from_group("Characters")
-	character.queue_free()
+	character.currentSlot.removeCharacterFromSlot(character)
+	#character.queue_free()
 
 func determineCorpseType(typeOfDeath):
 	#not implementing this now, but later

@@ -11,12 +11,12 @@
 [ext_resource path="res://BackgroundEffects/space-4222291_1280.jpg" type="Texture" id=9]
 [ext_resource path="res://Utility/InteractableObject.tscn" type="PackedScene" id=10]
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.00632911, 0.525316, 0.995781 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.427451, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
 [sub_resource type="ParticlesMaterial" id=3]
 flag_disable_z = true
@@ -25,21 +25,21 @@ angular_velocity = 30.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 4.0
-color_ramp = SubResource( 6 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=4]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 angular_velocity = 20.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 3.0
-color_ramp = SubResource( 6 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="CircleShape2D" id=9]
+[sub_resource type="CircleShape2D" id=5]
 radius = 139.256
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 107.5
 flag_disable_z = true
@@ -50,7 +50,7 @@ orbit_velocity = 0.3
 orbit_velocity_random = 0.0
 scale = 0.1
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
 
 uniform float strength = 0.01;
@@ -77,17 +77,17 @@ void fragment() {
     COLOR.rgb = mix(col, vec3(0,0,0), smoothstep(black_radius-0.01, black_radius+0.01, f));
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
 shader_param/strength = 0.01
 shader_param/black_radius = 0.65
 
-[sub_resource type="Environment" id=8]
+[sub_resource type="Environment" id=9]
 glow_enabled = true
 
 [sub_resource type="ShaderMaterial" id=10]
 
-[node name="Background" type="TextureRect"]
+[node name="BlackHole" type="TextureRect"]
 margin_left = -308.104
 margin_top = -171.145
 margin_right = 1611.9
@@ -125,7 +125,7 @@ texture = ExtResource( 5 )
 position = Vector2( 875.281, 505.96 )
 scale = Vector2( 1.20792, 1.22921 )
 amount = 5
-process_material = SubResource( 7 )
+process_material = SubResource( 4 )
 texture = ExtResource( 6 )
 
 [node name="Cosmic_23" type="Sprite" parent="Particles2D3"]
@@ -148,7 +148,7 @@ scale = Vector2( 1.20792, 1.22921 )
 texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlackHoleStation"]
-shape = SubResource( 9 )
+shape = SubResource( 5 )
 
 [node name="Particles2D2" type="Particles2D" parent="."]
 visible = false
@@ -156,7 +156,7 @@ modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 870.263, 538.329 )
 amount = 800
 lifetime = 10.0
-process_material = SubResource( 4 )
+process_material = SubResource( 6 )
 texture = ExtResource( 2 )
 
 [node name="haloflare" type="Sprite" parent="."]
@@ -167,7 +167,7 @@ scale = Vector2( 2.16159, 2.27086 )
 texture = ExtResource( 4 )
 
 [node name="Blackhole" type="ColorRect" parent="."]
-material = SubResource( 2 )
+material = SubResource( 8 )
 margin_left = 645.208
 margin_top = 277.117
 margin_right = 1104.21
@@ -178,14 +178,35 @@ __meta__ = {
 }
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 8 )
+environment = SubResource( 9 )
 
 [node name="DisembarkBackground" type="Sprite" parent="."]
 modulate = Color( 0.443137, 0.423529, 0.560784, 1 )
 material = SubResource( 10 )
 position = Vector2( 825.962, 1089.33 )
 scale = Vector2( 0.795437, 0.826072 )
+z_index = -10
 texture = ExtResource( 9 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 1020.51
+margin_top = 839.5
+margin_right = 1254.51
+margin_bottom = 899.5
+text = "Disembark"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReturnToShip" type="Button" parent="."]
+margin_left = 1019.15
+margin_top = 932.006
+margin_right = 1253.15
+margin_bottom = 992.006
+text = "Disembark"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="DisembarkPosition" type="Position2D" parent="."]
 position = Vector2( 817.514, 1086.5 )
@@ -199,3 +220,5 @@ position = Vector2( 817.514, 1086.5 )
 [node name="InteractableObject" parent="." instance=ExtResource( 10 )]
 [connection signal="mouse_entered" from="BlackHoleStation" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="BlackHoleStation" to="." method="_on_Area2D_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="ReturnToShip" to="." method="_on_Button_pressed"]

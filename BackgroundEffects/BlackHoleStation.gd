@@ -10,6 +10,11 @@ onready var insideCamera = get_node("InsideCamera")
 signal EnteredBlackHoleStation
 
 func _ready():
+	pass
+	#outsideCamera.current = true
+
+func setCurrentCamera():
+	print("THIS IS TRIGGERING AGAIN")
 	outsideCamera.current = true
 
 func _on_Area2D_mouse_entered():
@@ -28,13 +33,19 @@ func DropOffPassengers():
 		if character.IsSane():
 			#take the character off of the ship
 			allSanePassengers.append(character) #list for characters who made it to the end
+			print("Character IS DISEMBARKING. WAS POSITION " + str(character.global_position))
 			character.global_position = disembarkPosition.global_position
-			character.deathHandler.disembarkCharacter()
+			character.position = disembarkPosition.global_position
+			character.global_position = disembarkPosition.position
+			print("NOW POSITION " + str(character.global_position))
+			#character.global_position = disembarkPosition.position
+			character.deathHandler.disembarkCharacter(character)
 
 
 func processInteraction():
 	emit_signal("EnteredBlackHoleStation")
 	insideCamera.current = true
 	
-
+func _on_Button_pressed():
+	DropOffPassengers()
 

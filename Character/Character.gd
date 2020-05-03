@@ -416,7 +416,7 @@ func drainValueOverTime(affectedStat, drainSource, rate):
 	#characterStats.animateBar(whichTween, whichBar, currentValue, 0, calculateDrainRate(affectedStat, affectedStat.drainRate))
 
 func IsSane():
-	if sanity > 0:
+	if sanity.currentValue > 0:
 		return true
 	else:
 		return false
@@ -429,15 +429,16 @@ func travelToFuture(defaultAttributeName):
 	var moddedAttribute = defaultAttribute.Copy()
 	var scaleValue = scaleValueToNewRange()
 	#take the copy of the default attribute, modify it's value to be less
-	print("Scale value is " + str(scaleValue))
-	print("Relationship value is " + str(relationship.currentValue))
-	print("Modded value BEFORE is " + str(moddedAttribute.AffectedStats[0]["amount"] ))
 	if moddedAttribute.AffectedStats[0]["amount"] > sanity.maxValue:
 		moddedAttribute.AffectedStats[0]["amount"] = sanity.maxValue
+
 	moddedAttribute.AffectedStats[0]["amount"] = moddedAttribute.AffectedStats[0]["amount"] - scaleValue
-	print("Modded value AFTER is " + str(moddedAttribute.AffectedStats[0]["amount"] ))
 	applyNewAttribute(moddedAttribute)
 	pass
+
+func arrivedAtFuture(defaultAttributeName):
+	#remove the 'beholding the truth'. Anyone with no relationship stat should be insane at this point.
+	removeAttributeByName(defaultAttributeName)
 
 func scaleValueToNewRange():
 	# OldRange = (OldMax - OldMin)  
