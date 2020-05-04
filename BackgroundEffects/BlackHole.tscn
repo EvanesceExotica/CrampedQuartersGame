@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://BackgroundEffects/StarsBackground.png" type="Texture" id=1]
 [ext_resource path="res://EffectLibrary/ParticleTextures2/Static/Flames/FlameStill1.png" type="Texture" id=2]
@@ -10,31 +10,7 @@
 [ext_resource path="res://BackgroundEffects/BlackHoleStation.gd" type="Script" id=8]
 [ext_resource path="res://BackgroundEffects/space-4222291_1280.jpg" type="Texture" id=9]
 [ext_resource path="res://Utility/InteractableObject.tscn" type="PackedScene" id=10]
-
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0.00632911, 0.525316, 0.995781 )
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.427451, 1, 1, 1, 0 )
-
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
-
-[sub_resource type="ParticlesMaterial" id=3]
-flag_disable_z = true
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 30.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 4.0
-color_ramp = SubResource( 2 )
-
-[sub_resource type="ParticlesMaterial" id=4]
-flag_disable_z = true
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 20.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 3.0
-color_ramp = SubResource( 2 )
+[ext_resource path="res://BlackHoleStation/BlackHolePortal.png" type="Texture" id=11]
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 139.256
@@ -49,6 +25,31 @@ angular_velocity = 100.0
 orbit_velocity = 0.3
 orbit_velocity_random = 0.0
 scale = 0.1
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.00632911, 0.525316, 0.995781 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.427451, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 20.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+color_ramp = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 30.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 4.0
+color_ramp = SubResource( 2 )
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -87,61 +88,12 @@ glow_enabled = true
 
 [sub_resource type="ShaderMaterial" id=10]
 
-[node name="BlackHole" type="TextureRect"]
-margin_left = -308.104
-margin_top = -171.145
-margin_right = 1611.9
-margin_bottom = 908.855
-mouse_filter = 2
-size_flags_horizontal = 15
-size_flags_vertical = 15
+[node name="BlackHole" type="Sprite"]
 texture = ExtResource( 1 )
-stretch_mode = 1
 script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Particles2D" type="Particles2D" parent="."]
-position = Vector2( 875.281, 505.96 )
-scale = Vector2( 1.20792, 1.22921 )
-amount = 5
-process_material = SubResource( 3 )
-texture = ExtResource( 3 )
-
-[node name="Cosmic_23" type="Sprite" parent="Particles2D"]
-visible = false
-position = Vector2( -5.5994, -17.9237 )
-scale = Vector2( 2.52456, 2.24688 )
-texture = ExtResource( 3 )
-
-[node name="Flare4" type="Sprite" parent="Particles2D"]
-modulate = Color( 0.372549, 0.396078, 1, 1 )
-position = Vector2( -1.93311, 1.04276 )
-scale = Vector2( 1.4, 1.41543 )
-texture = ExtResource( 5 )
-
-[node name="Particles2D3" type="Particles2D" parent="."]
-position = Vector2( 875.281, 505.96 )
-scale = Vector2( 1.20792, 1.22921 )
-amount = 5
-process_material = SubResource( 4 )
-texture = ExtResource( 6 )
-
-[node name="Cosmic_23" type="Sprite" parent="Particles2D3"]
-visible = false
-position = Vector2( -5.5994, -17.9237 )
-scale = Vector2( 2.52456, 2.24688 )
-texture = ExtResource( 3 )
-
-[node name="Flare4" type="Sprite" parent="Particles2D3"]
-modulate = Color( 0.372549, 0.396078, 1, 1 )
-position = Vector2( -1.93311, 1.04276 )
-scale = Vector2( 1.4, 1.41543 )
-texture = ExtResource( 5 )
 
 [node name="BlackHoleStation" type="Area2D" parent="."]
-position = Vector2( 874.84, 505.949 )
+position = Vector2( -5.94513, -7.4736 )
 scale = Vector2( 1.20792, 1.22921 )
 
 [node name="circlesymbol1" type="Sprite" parent="BlackHoleStation"]
@@ -150,14 +102,63 @@ texture = ExtResource( 7 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlackHoleStation"]
 shape = SubResource( 5 )
 
-[node name="Particles2D2" type="Particles2D" parent="."]
+[node name="Particles2D2" type="Particles2D" parent="BlackHoleStation"]
 visible = false
 modulate = Color( 1, 1, 1, 0.0980392 )
-position = Vector2( 870.263, 538.329 )
+position = Vector2( -3.78918, 26.3421 )
+scale = Vector2( 0.827869, 0.813531 )
 amount = 800
 lifetime = 10.0
 process_material = SubResource( 6 )
 texture = ExtResource( 2 )
+
+[node name="Particles2D3" type="Particles2D" parent="BlackHoleStation"]
+amount = 5
+process_material = SubResource( 4 )
+texture = ExtResource( 6 )
+
+[node name="Cosmic_23" type="Sprite" parent="BlackHoleStation/Particles2D3"]
+visible = false
+position = Vector2( -5.5994, -17.9237 )
+scale = Vector2( 2.52456, 2.24688 )
+texture = ExtResource( 3 )
+
+[node name="Flare4" type="Sprite" parent="BlackHoleStation/Particles2D3"]
+modulate = Color( 0.372549, 0.396078, 1, 1 )
+position = Vector2( -1.93311, 1.04276 )
+scale = Vector2( 1.4, 1.41543 )
+texture = ExtResource( 5 )
+
+[node name="Particles2D" type="Particles2D" parent="BlackHoleStation"]
+amount = 5
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
+
+[node name="Cosmic_23" type="Sprite" parent="BlackHoleStation/Particles2D"]
+visible = false
+position = Vector2( -5.5994, -17.9237 )
+scale = Vector2( 2.52456, 2.24688 )
+texture = ExtResource( 3 )
+
+[node name="Flare4" type="Sprite" parent="BlackHoleStation/Particles2D"]
+modulate = Color( 0.372549, 0.396078, 1, 1 )
+position = Vector2( -1.93311, 1.04276 )
+scale = Vector2( 1.4, 1.41543 )
+texture = ExtResource( 5 )
+
+[node name="Blackhole" type="ColorRect" parent="BlackHoleStation"]
+material = SubResource( 8 )
+margin_left = -230.092
+margin_top = -229.296
+margin_right = 228.909
+margin_bottom = 228.704
+rect_pivot_offset = Vector2( 232.99, 233.215 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="haloflare" type="Sprite" parent="."]
 visible = false
@@ -165,17 +166,6 @@ modulate = Color( 0.364706, 0.419608, 1, 1 )
 position = Vector2( 873.873, 502.538 )
 scale = Vector2( 2.16159, 2.27086 )
 texture = ExtResource( 4 )
-
-[node name="Blackhole" type="ColorRect" parent="."]
-material = SubResource( 8 )
-margin_left = 645.208
-margin_top = 277.117
-margin_right = 1104.21
-margin_bottom = 735.117
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 9 )
@@ -199,11 +189,11 @@ __meta__ = {
 }
 
 [node name="ReturnToShip" type="Button" parent="."]
-margin_left = 1019.15
-margin_top = 932.006
-margin_right = 1253.15
-margin_bottom = 992.006
-text = "Disembark"
+margin_left = 1015.55
+margin_top = 935.611
+margin_right = 1249.55
+margin_bottom = 995.611
+text = "Return To Ship"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -212,13 +202,18 @@ __meta__ = {
 position = Vector2( 817.514, 1086.5 )
 
 [node name="OutsideCamera" type="Camera2D" parent="."]
-position = Vector2( 822.789, 464.137 )
+position = Vector2( -46.0281, 31.5309 )
 
 [node name="InsideCamera" type="Camera2D" parent="."]
 position = Vector2( 817.514, 1086.5 )
 
 [node name="InteractableObject" parent="." instance=ExtResource( 10 )]
+
+[node name="BlackHolePortal" type="Sprite" parent="."]
+position = Vector2( -2.85611, -4.98085 )
+scale = Vector2( 0.217374, 0.217374 )
+texture = ExtResource( 11 )
 [connection signal="mouse_entered" from="BlackHoleStation" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="BlackHoleStation" to="." method="_on_Area2D_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="ReturnToShip" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="ReturnToShip" to="." method="_on_ReturnToShip_pressed"]

@@ -1,4 +1,4 @@
-extends TextureRect
+extends Sprite
 
 onready var interactableObject = get_node("InteractableObject")
 var allSanePassengers = []
@@ -14,17 +14,14 @@ func _ready():
 	#outsideCamera.current = true
 
 func setCurrentCamera():
-	print("THIS IS TRIGGERING AGAIN")
 	outsideCamera.current = true
 
 func _on_Area2D_mouse_entered():
 	interactableObject.handInZone = true
-	print("Mouse entered area")
 	pass
 
 func _on_Area2D_mouse_exited():
 	interactableObject.handInZone = false
-	print("Mouse exited area")
 	pass
 
 func DropOffPassengers():
@@ -33,12 +30,7 @@ func DropOffPassengers():
 		if character.IsSane():
 			#take the character off of the ship
 			allSanePassengers.append(character) #list for characters who made it to the end
-			print("Character IS DISEMBARKING. WAS POSITION " + str(character.global_position))
 			character.global_position = disembarkPosition.global_position
-			character.position = disembarkPosition.global_position
-			character.global_position = disembarkPosition.position
-			print("NOW POSITION " + str(character.global_position))
-			#character.global_position = disembarkPosition.position
 			character.deathHandler.disembarkCharacter(character)
 
 
@@ -49,3 +41,7 @@ func processInteraction():
 func _on_Button_pressed():
 	DropOffPassengers()
 
+
+func _on_ReturnToShip_pressed():
+	SignalManager.emit_signal("ViewInsideShip")
+	pass # Replace with function body.

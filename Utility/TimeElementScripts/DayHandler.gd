@@ -30,6 +30,7 @@ func ReturnToFuture():
 func ArrivedAtFuture():
 	get_tree().call_group("Characters","arrivedAtFuture", beholdingTheTruth)#AttributeJSONParser.fetchAndCreateAttribute(beholdingTheTruth))
 	blackHole.setCurrentCamera()
+	SignalManager.emit_signal("ArrivedAtBlackHole")
 	atFuture = true
 	#print("ARRIVED AT FUTURE ONCE")
 	
@@ -43,7 +44,7 @@ func SetFutureJumpTimer():
 	$Timer.start()
 
 func _input(event):
-	if event.is_action_pressed("ui_interact") && !atFuture:
+	if event.is_action_pressed("ui_accept") && !atFuture:
 		print("Should be returning to future")
 		ReturnToFuture()
 

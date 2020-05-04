@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Stations/EngineStation/SpacetimeEngine.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Stations/NavigatorStation/Navigator.gd" type="Script" id=2]
 [ext_resource path="res://Stations/Stars.png" type="Texture" id=3]
 [ext_resource path="res://NotoSansUI_Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://BlackHoleStation/BlackholePortal.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 852.054, 302.469 )
@@ -63,6 +64,9 @@ round_precision = 10
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 margin_right = 965.0
 margin_bottom = 75.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="JumpButton" type="Button" parent="HSplitContainer"]
 margin_right = 472.0
@@ -91,5 +95,9 @@ custom_fonts/normal_font = SubResource( 4 )
 text = "TRAVEL TIME LEFT: "
 
 [node name="TravelTimer" type="Timer" parent="."]
+
+[node name="BlackholePortal" parent="." instance=ExtResource( 6 )]
+visible = false
+position = Vector2( 476.001, 327.355 )
 [connection signal="pressed" from="HSplitContainer/JumpButton" to="." method="_on_JumpButton_pressed"]
 [connection signal="pressed" from="HSplitContainer/SpacetimeJump" to="." method="_on_SpacetimeJump_pressed"]

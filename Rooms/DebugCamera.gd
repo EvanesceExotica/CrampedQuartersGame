@@ -65,11 +65,9 @@ func _ready():
 	set_enable_follow_smoothing(true)
 	set_follow_smoothing(4)
 
-func _process(delta):
-	if Input.is_action_pressed("ui_pause"):
-		get_tree().paused = true
-		print("THIS HAPPENED")
-		self.current = true
+func pauseAndMakeCurrentCamera():
+	get_tree().paused = true
+	self.current = true
 
 func _physics_process(delta):
 

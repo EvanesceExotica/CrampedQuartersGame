@@ -1,6 +1,16 @@
 extends Node
 
+
+signal Paused
+signal ArrivedAtBlackHole
+signal WentBackThroughPortal
+
+signal ViewInsideShip
+signal ViewOutsideShip
+
+signal CameraSwitched(camera) #for camera switches happening at the black hole station, until I put rooms there
 signal OnRoomSwitched(oldRoom, newRoom)
+
 signal AddTrait(parameters)
 signal RemoveTrait(parameters)
 

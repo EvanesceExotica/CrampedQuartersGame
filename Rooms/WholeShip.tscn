@@ -139,6 +139,7 @@ margin_bottom = 0.0
 mouse_filter = 0
 
 [node name="RoomSwitchController" parent="." instance=ExtResource( 15 )]
+debugCamera = NodePath("../DebugCamera")
 
 [node name="EngineStation" parent="." instance=ExtResource( 16 )]
 position = Vector2( -992.8, 87.9827 )
@@ -151,10 +152,7 @@ scale = Vector2( 0.5, 0.5 )
 [node name="DayHandler" parent="." instance=ExtResource( 18 )]
 
 [node name="BlackHole" parent="." instance=ExtResource( 19 )]
-margin_left = 1473.2
-margin_top = 1583.48
-margin_right = 3393.21
-margin_bottom = 2663.48
+position = Vector2( 2278.03, 1479.36 )
 
 [node name="DebugCamera" type="Camera2D" parent="."]
 pause_mode = 2

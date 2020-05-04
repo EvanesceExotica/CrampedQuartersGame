@@ -29,6 +29,7 @@ var previousLocation
 var distressSignalLocation
 var locationNode = preload("res://Stations/NavigatorStation/LocationNode.tscn")
 
+onready var blackHolePortal = get_node("BlackholePortal")
 onready var lineHolder = get_node("LineHolder")
 
 export(int) var lineWidth = 5
@@ -40,6 +41,16 @@ onready var travelTimer = get_node("TravelTimer")
 onready var travelTimeLabel = get_node("TravelTimeLabel")
 
 var connectionsMade = {}
+
+func DisplayBlackHolePortal():
+	ClearOldNodes()
+	blackHolePortal.visible = true
+
+func TravelThroughPortal():
+	blackHolePortal.visible = false
+	JumpThroughSpacetime()
+
+
 
 func generateEvents():
 	pass
@@ -299,7 +310,11 @@ func _ready():
 	#when the ship's engines have cooled down, set the button active again
 	SignalManager.connect("OnSpacetimeEngineActive", self, "SetSpacetimeJumpActive")
 
+	#when the spacetime jump arrives, reset and generate new nodes
 	SignalManager.connect("OnSpacetimeJumpArrival", self, "ResetNodesUponArrival")
+
+	SignalManager.connect("ArrivedAtBlackHole", self, "DisplayBlackHolePortal")
+	SignalManager.connect("WentBackThroughPortal", self, "TravelThroughPortal")
 	randomize()
 
 	InitalizeNodes()
@@ -358,12 +373,20 @@ func setNewLocation(location):
 #  func ArrivedAtNewLocation():
 #  	SignalManager.emit_signal("OnArrival")
 
-func _on_SpacetimeJump_pressed():
+func JumpThroughSpacetime():
 	print("Jumping through spacetime")
 	SignalManager.emit_signal("OnSpacetimeJumpDeparture")
 	if starInstance == null:
 		starInstance = stars.instance()
 	add_child(starInstance)
+
+func _on_SpacetimeJump_pressed():
+	JumpThroughSpacetime()
+	# print("Jumping through spacetime")
+	# SignalManager.emit_signal("OnSpacetimeJumpDeparture")
+	# if starInstance == null:
+	# 	starInstance = stars.instance()
+	# add_child(starInstance)
 	#SignalManager.emit_signal("OnSpacetimeJumpArrival")
 
 func _input(event):

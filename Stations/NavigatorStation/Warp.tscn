@@ -5,18 +5,14 @@
 [ext_resource path="res://UI/Panel.png" type="Texture" id=3]
 [ext_resource path="res://EffectLibrary/ParticleTextures2/Beams/BeamCapsule.png" type="Texture" id=4]
 
-
-
-
-
-[sub_resource type="CanvasItemMaterial" id=6]
+[sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 1
 
-[sub_resource type="Curve" id=1]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=2]
-curve = SubResource( 1 )
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
 
 [sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.26595 ), 0.0, 0.0, 0, 0 ]
@@ -24,7 +20,7 @@ _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.26595 ), 0.0, 0.0, 0, 0
 [sub_resource type="CurveTexture" id=5]
 curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=6]
 trail_size_modifier = SubResource( 5 )
 emission_shape = 1
 emission_sphere_radius = 33.0
@@ -38,7 +34,7 @@ radial_accel = -1.0
 angle = 720.0
 scale = 0.01
 scale_random = 0.5
-scale_curve = SubResource( 2 )
+scale_curve = SubResource( 3 )
 hue_variation = -0.31
 hue_variation_random = 0.62
 
@@ -58,12 +54,11 @@ scale = Vector2( 1.28463, 1.31236 )
 texture = ExtResource( 3 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
-material = SubResource( 6 )
+material = SubResource( 1 )
 position = Vector2( 530, 285 )
 amount = 50
 lifetime = 7.0
 speed_scale = 10.0
 randomness = 0.09
-process_material = SubResource( 3 )
+process_material = SubResource( 6 )
 texture = ExtResource( 4 )
-
