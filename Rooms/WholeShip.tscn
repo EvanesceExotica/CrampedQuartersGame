@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Rooms/WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -20,6 +20,11 @@
 [ext_resource path="res://Utility/TimeElementScripts/DayHandler.tscn" type="PackedScene" id=18]
 [ext_resource path="res://BackgroundEffects/BlackHole.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Rooms/DebugCamera.gd" type="Script" id=20]
+[ext_resource path="res://Resources/Shaders/old_film.shader" type="Shader" id=21]
+[ext_resource path="res://Resources/Art/filmgrain.png" type="Texture" id=22]
+[ext_resource path="res://Resources/Art/vignette.png" type="Texture" id=23]
+[ext_resource path="res://Resources/Art/white.png" type="Texture" id=24]
+[ext_resource path="res://Resources/Shaders/mirage.shader" type="Shader" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 121, 98.7022 )
@@ -29,6 +34,21 @@ extents = Vector2( 61, 86.604 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 71, 81.2152 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 25 )
+shader_param/frequency = 60.0
+shader_param/depth = 0.005
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 21 )
+shader_param/base = Color( 0.407843, 0.384314, 0.564706, 1 )
+shader_param/grain_strength = 0.2
+shader_param/fps = 12.0
+shader_param/stretch = 0.5
+shader_param/flashing = 0.001
+shader_param/grain = ExtResource( 22 )
+shader_param/vignette = ExtResource( 23 )
 
 [node name="WholeShip" type="Node2D"]
 script = ExtResource( 1 )
@@ -161,6 +181,27 @@ zoom = Vector2( 5, 5 )
 script = ExtResource( 20 )
 
 [node name="CameraMouseMove" type="Node2D" parent="."]
+
+[node name="HeatEffect" type="TextureRect" parent="."]
+material = SubResource( 5 )
+margin_right = 1012.0
+margin_bottom = 583.0
+texture = ExtResource( 24 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DreamEffect" type="TextureRect" parent="."]
+visible = false
+material = SubResource( 4 )
+margin_right = 1012.0
+margin_bottom = 583.0
+texture = ExtResource( 24 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]
 
 [editable path="PowerStaton"]

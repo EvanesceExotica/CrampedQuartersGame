@@ -1,6 +1,12 @@
 extends Node
 
 
+signal DreamTimeStarted
+signal DreamTimeEnded
+
+signal Overheating
+signal Freezing
+
 signal Paused
 signal ArrivedAtBlackHole
 signal WentBackThroughPortal

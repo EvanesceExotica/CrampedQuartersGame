@@ -9,3 +9,11 @@ var maxDream
 #generated phrases 
 
 #low sanity = nonsensical dreams?
+#add a castleDB with all the different things, separated into categories maybe
+#use flags to show which trait category they'd fall under
+
+func EndDreamTime():
+    SignalManager.emit_signal("DreamTimeEnded")
+
+func StartDreamTime():
+    SignalManager.emit_signal("DreamTimeStarted")
