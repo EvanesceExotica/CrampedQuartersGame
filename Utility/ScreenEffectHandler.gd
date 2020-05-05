@@ -19,22 +19,24 @@ func MoveEffectsWithCamera(currentRoom, destinationRoom):
     #move all the effects to where the camera currently is
     effectHolder.global_position = destinationRoom.global_position
 
-func ActivateEffect(effect):
-    #you don't necessarily want to fade any out unless they're ending, in case multiple effects are stacking
-    previousEffect = currentEffect
-    #add a fade later?
-    currentEffect = effect
-    #fade out last effect
-    FadeOutEffect()
+func ActivateEffect(effectName):
+    var effect = screentimeEffects[effectName]
+   # previousEffect = currentEffect
+   # currentEffect = effect
 
-    #fade in current effect
-    FadeInEffect()
+    FadeInEffect(effect)
 
-func FadeOutEffect():
-    $Tween.interpolate_property(previousEffect, "modulate", Color(1, 1, 1, 1), Color(1,1, 1, 0), 3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+func StopEffect(effectName):
+    var effect = screentimeEffects[effectName]
+    FadeOutEffect(effect)
 
-func FadeInEffect():
-    $Tween.interpolate_property(currentEffect, "modulate", Color(1, 1, 1, 0), Color(1,1, 1, 1), 3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+func FadeOutEffect(effect):
+    #$Tween.interpolate_property(previousEffect, "modulate", Color(1, 1, 1, 1), Color(1,1, 1, 0), 3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+    $Tween.interpolate_property(effect, "modulate", Color(1, 1, 1, 1), Color(1,1, 1, 0), 3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+
+func FadeInEffect(effect):
+    #$Tween.interpolate_property(currentEffect, "modulate", Color(1, 1, 1, 0), Color(1,1, 1, 1), 3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+    $Tween.interpolate_property(effect, "modulate", Color(1, 1, 1, 0), Color(1,1, 1, 1), 3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 
 func ActivateDreamtimeEffect():
     ActivateEffect("dreamtime")

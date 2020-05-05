@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Rooms/WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -25,6 +25,11 @@
 [ext_resource path="res://Resources/Art/vignette.png" type="Texture" id=23]
 [ext_resource path="res://Resources/Art/white.png" type="Texture" id=24]
 [ext_resource path="res://Resources/Shaders/mirage.shader" type="Shader" id=25]
+[ext_resource path="res://Resources/Shaders/sepia.shader" type="Shader" id=26]
+[ext_resource path="res://Resources/Shaders/blur.shader" type="Shader" id=27]
+[ext_resource path="res://Resources/Shaders/Frost.shader" type="Shader" id=28]
+[ext_resource path="res://Resources/Shaders/ShaderTextures/Frost4.jpg" type="Texture" id=29]
+[ext_resource path="res://Utility/ScreenEffectHandler.tscn" type="PackedScene" id=30]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 121, 98.7022 )
@@ -40,6 +45,46 @@ shader = ExtResource( 25 )
 shader_param/frequency = 60.0
 shader_param/depth = 0.005
 
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 28 )
+shader_param/FROSTYNESS = 1.0
+shader_param/COLORIZE = 10.0
+shader_param/COLOR_RGB = Color( 0.266667, 0.376471, 0.537255, 0.133333 )
+shader_param/lensRadius = Vector2( 1, 0.2 )
+shader_param/iChannel1 = ExtResource( 29 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 26 )
+shader_param/base = Color( 1, 0.0117647, 0.0117647, 1 )
+
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+uniform bool apply = true;
+uniform float amount = 1.0;
+uniform sampler2D offset_texture : hint_white;
+
+
+
+void fragment() {
+	vec4 texture_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 color = texture_color;
+	
+	if (apply == true) {
+		float adjusted_amount = amount * texture(offset_texture, SCREEN_UV).r / 100.0;
+		color.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + adjusted_amount, SCREEN_UV.y)).r;
+		color.g = texture(SCREEN_TEXTURE, SCREEN_UV).g;
+		color.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - adjusted_amount, SCREEN_UV.y)).b;
+	}
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+shader_param/apply = true
+shader_param/amount = 0.6
+shader_param/offset_texture = ExtResource( 23 )
+
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 21 )
 shader_param/base = Color( 0.407843, 0.384314, 0.564706, 1 )
@@ -49,6 +94,10 @@ shader_param/stretch = 0.5
 shader_param/flashing = 0.001
 shader_param/grain = ExtResource( 22 )
 shader_param/vignette = ExtResource( 23 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 27 )
+shader_param/amount = 0.922
 
 [node name="WholeShip" type="Node2D"]
 script = ExtResource( 1 )
@@ -182,10 +231,59 @@ script = ExtResource( 20 )
 
 [node name="CameraMouseMove" type="Node2D" parent="."]
 
+[node name="ScreenEffectHandler" parent="." instance=ExtResource( 30 )]
+position = Vector2( -14, 12 )
+screentimeEffects = {
+"dreamtime": NodePath("EffectHolder/DreamEffect"),
+"overheating": NodePath("EffectHolder/HeatEffect"),
+"overheating2": NodePath("EffectHolder/HeatEffect2")
+}
+
 [node name="HeatEffect" type="TextureRect" parent="."]
+visible = false
 material = SubResource( 5 )
-margin_right = 1012.0
-margin_bottom = 583.0
+margin_left = -2.0
+margin_right = 1020.0
+margin_bottom = 600.0
+texture = ExtResource( 24 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FrostEffect" type="TextureRect" parent="."]
+visible = false
+material = SubResource( 8 )
+margin_left = -14.0
+margin_top = 12.0
+margin_right = 1022.0
+margin_bottom = 592.0
+texture = ExtResource( 24 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeatEffect2" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 1, 0, 0, 0.541176 )
+material = SubResource( 6 )
+margin_left = -2.0
+margin_right = 1020.0
+margin_bottom = 600.0
+texture = ExtResource( 24 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpacetimeEffect" type="TextureRect" parent="."]
+visible = false
+material = SubResource( 10 )
+margin_left = 1.62329
+margin_top = 765.852
+margin_right = 1023.62
+margin_bottom = 1365.85
 texture = ExtResource( 24 )
 stretch_mode = 1
 __meta__ = {
@@ -195,6 +293,18 @@ __meta__ = {
 [node name="DreamEffect" type="TextureRect" parent="."]
 visible = false
 material = SubResource( 4 )
+margin_right = 1012.0
+margin_bottom = 583.0
+texture = ExtResource( 24 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DreamEffect2" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.576471 )
+material = SubResource( 11 )
 margin_right = 1012.0
 margin_bottom = 583.0
 texture = ExtResource( 24 )

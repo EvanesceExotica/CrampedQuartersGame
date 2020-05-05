@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Character
 
+
+onready var dreamSpawner = get_node("DreamSpawner")
 onready var sprite = get_node("Naut")
 onready var dragSprite = sprite.texture
 onready var deathHandler = get_node("DeathHandler")

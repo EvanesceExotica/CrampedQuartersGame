@@ -313,6 +313,7 @@ func _ready():
 	#when the spacetime jump arrives, reset and generate new nodes
 	SignalManager.connect("OnSpacetimeJumpArrival", self, "ResetNodesUponArrival")
 
+	SignalManager.connect("MovingToFuture", self, "TravelThroughPortal")
 	SignalManager.connect("ArrivedAtBlackHole", self, "DisplayBlackHolePortal")
 	SignalManager.connect("WentBackThroughPortal", self, "TravelThroughPortal")
 	randomize()

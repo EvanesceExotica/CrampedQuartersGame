@@ -46,7 +46,7 @@
 					"display": null
 				},
 				{
-					"typeStr": "10:onArrival,random,distress",
+					"typeStr": "10:onArrival,random,distress,special",
 					"name": "eventType"
 				},
 				{
@@ -216,6 +216,57 @@
 					"description": [
 						"You see the faint glow of heat signatures."
 					]
+				},
+				{
+					"title": "Dreamtime",
+					"id": "dreamtime",
+					"weight": 0,
+					"_description": "",
+					"image": "",
+					"requirements": [],
+					"options": [
+						{
+							"text": "Rest.",
+							"applyResultsToObject": false,
+							"requirements": [],
+							"resultSets": [
+								{
+									"description": "",
+									"weight": 0,
+									"linkedEvent": "empty",
+									"results": [
+										{
+											"actions": [
+												"SkipToNextDay"
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"text": "Watch.",
+							"applyResultsToObject": false,
+							"requirements": [],
+							"resultSets": [
+								{
+									"description": "",
+									"weight": 0,
+									"linkedEvent": "empty",
+									"results": [
+										{
+											"actions": [
+												"BeginDreamTime"
+											]
+										}
+									]
+								}
+							]
+						}
+					],
+					"eventType": 8,
+					"_scope": 0,
+					"index": 5
 				}
 			],
 			"separators": [],

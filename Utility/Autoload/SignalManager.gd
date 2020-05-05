@@ -8,6 +8,8 @@ signal Overheating
 signal Freezing
 
 signal Paused
+
+signal MovingToFuture
 signal ArrivedAtBlackHole
 signal WentBackThroughPortal
 

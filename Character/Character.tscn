@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://EffectLibrary/ParticleEffects/Stink.tscn" type="PackedScene" id=1]
 [ext_resource path="res://EffectLibrary/ParticleEffects/Contamination.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Character/Character.gd" type="Script" id=12]
 [ext_resource path="res://Character/Sprites/AstronautA.png" type="Texture" id=13]
 [ext_resource path="res://Character/Stats/Relationship/RelationshipModule.gd" type="Script" id=14]
+[ext_resource path="res://Character/DreamSpawner.tscn" type="PackedScene" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 86.2526
@@ -88,6 +89,8 @@ effectLibary = {
 "ice": ExtResource( 4 ),
 "stink": ExtResource( 1 )
 }
+
+[node name="DreamSpawner" parent="." instance=ExtResource( 15 )]
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]

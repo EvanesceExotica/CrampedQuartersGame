@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Utility/ScreenEffectHandler.gd" type="Script" id=1]
 [ext_resource path="res://Resources/Shaders/mirage.shader" type="Shader" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://Resources/Art/filmgrain.png" type="Texture" id=4]
 [ext_resource path="res://Resources/Art/vignette.png" type="Texture" id=5]
 [ext_resource path="res://Resources/Art/white.png" type="Texture" id=6]
+[ext_resource path="res://Resources/Shaders/sepia.shader" type="Shader" id=7]
+[ext_resource path="res://Resources/Shaders/blur.shader" type="Shader" id=8]
+[ext_resource path="res://Rooms/AirlockRoom/AirlockRoomBackground.png" type="Texture" id=9]
+[ext_resource path="res://Resources/Shaders/Frost.shader" type="Shader" id=10]
+[ext_resource path="res://Resources/Shaders/ShaderTextures/Frost4.jpg" type="Texture" id=11]
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 2 )
@@ -22,15 +27,68 @@ shader_param/flashing = 0.001
 shader_param/grain = ExtResource( 4 )
 shader_param/vignette = ExtResource( 5 )
 
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 7 )
+shader_param/base = Color( 1, 0.0117647, 0.0117647, 1 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 8 )
+shader_param/amount = 0.922
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 10 )
+shader_param/FROSTYNESS = 1.0
+shader_param/COLORIZE = 10.0
+shader_param/COLOR_RGB = Color( 0.266667, 0.376471, 0.537255, 0.133333 )
+shader_param/lensRadius = Vector2( 1, 0.2 )
+shader_param/iChannel1 = ExtResource( 11 )
+
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+uniform bool apply = true;
+uniform float amount = 1.0;
+uniform sampler2D offset_texture : hint_white;
+
+
+
+void fragment() {
+	vec4 texture_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 color = texture_color;
+	
+	if (apply == true) {
+		float adjusted_amount = amount * texture(offset_texture, SCREEN_UV).r / 100.0;
+		color.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + adjusted_amount, SCREEN_UV.y)).r;
+		color.g = texture(SCREEN_TEXTURE, SCREEN_UV).g;
+		color.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - adjusted_amount, SCREEN_UV.y)).b;
+	}
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+shader_param/apply = true
+shader_param/amount = 0.6
+shader_param/offset_texture = ExtResource( 5 )
+
 [node name="ScreenEffectHandler" type="Node2D"]
 script = ExtResource( 1 )
 screentimeEffects = {
-"dreamtime": NodePath("EffectHolder/DreamEffect")
+"dreamtime": NodePath("EffectHolder/DreamEffect"),
+"overheating": NodePath("EffectHolder/HeatEffect"),
+"overheating2": NodePath("EffectHolder/HeatEffect2")
 }
 
 [node name="EffectHolder" type="Node2D" parent="."]
 
+[node name="AirlockRoomBackground" type="Sprite" parent="EffectHolder"]
+visible = false
+position = Vector2( 520.834, 305.542 )
+scale = Vector2( 0.596925, 0.600213 )
+texture = ExtResource( 9 )
+
 [node name="HeatEffect" type="TextureRect" parent="EffectHolder"]
+modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 5 )
 margin_right = 1026.0
 margin_bottom = 601.0
@@ -41,9 +99,59 @@ __meta__ = {
 }
 
 [node name="DreamEffect" type="TextureRect" parent="EffectHolder"]
+modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 4 )
 margin_right = 1023.0
 margin_bottom = 603.0
+texture = ExtResource( 6 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeatEffect2" type="TextureRect" parent="EffectHolder"]
+modulate = Color( 1, 0, 0, 0 )
+material = SubResource( 6 )
+margin_left = -2.0
+margin_right = 1020.0
+margin_bottom = 600.0
+texture = ExtResource( 6 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DreamEffect2" type="TextureRect" parent="EffectHolder"]
+modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 11 )
+margin_right = 1012.0
+margin_bottom = 583.0
+texture = ExtResource( 6 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FrostEffect" type="TextureRect" parent="EffectHolder"]
+modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 8 )
+margin_left = -14.0
+margin_top = 12.0
+margin_right = 1022.0
+margin_bottom = 592.0
+texture = ExtResource( 6 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpacetimeEffect" type="TextureRect" parent="EffectHolder"]
+modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 10 )
+margin_left = 1.62329
+margin_top = 12.6803
+margin_right = 1023.62
+margin_bottom = 612.678
 texture = ExtResource( 6 )
 stretch_mode = 1
 __meta__ = {

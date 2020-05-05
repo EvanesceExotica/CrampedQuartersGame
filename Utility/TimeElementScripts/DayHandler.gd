@@ -24,6 +24,7 @@ func ReturnToFuture():
 	#every passenger must be checked for health
 	get_tree().call_group("Characters","travelToFuture", beholdingTheTruth)#AttributeJSONParser.fetchAndCreateAttribute(beholdingTheTruth))
 	#set the timer for the amount of time it'll take to arrive in the future
+	SignalManager.emit_signal("MovingToFuture")
 	SetFutureJumpTimer()
 	pass
 
