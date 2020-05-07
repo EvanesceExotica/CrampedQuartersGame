@@ -14,6 +14,7 @@ script = ExtResource( 1 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="SleepPanel" type="Panel" parent="CanvasLayer"]
 pause_mode = 2
@@ -31,6 +32,7 @@ margin_top = 213.031
 margin_right = 646.561
 margin_bottom = 259.031
 custom_fonts/font = SubResource( 1 )
+disabled = true
 text = "Rest."
 __meta__ = {
 "_edit_use_anchors_": false
@@ -42,6 +44,7 @@ margin_top = 286.062
 margin_right = 647.993
 margin_bottom = 332.062
 custom_fonts/font = SubResource( 1 )
+disabled = true
 text = "Watch."
 __meta__ = {
 "_edit_use_anchors_": false

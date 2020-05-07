@@ -245,6 +245,8 @@ func tweenMainCameraToNewRoom(destinationPosition):
 	#print(mainCamera.global_position)
 	pass
 
+var transitionScreen
+
 func _ready():
 	SlotTypeOccupiedDictionary = {
 		slotTypes.mainRoom : false,
@@ -262,6 +264,7 @@ func _ready():
 		slotTypes.engine : [],
 		slotTypes.aquarium : []
 	}
+	#transitionScreen = get_tree().get_root().get_node("TransitionScreen")
 	# var totalSlots = get_tree().get_nodes_in_group("slots")
 	# for slot in totalSlots:
 	# 	#for all the slots in the game

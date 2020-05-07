@@ -9,6 +9,8 @@ var handledDayPass = false
 
 var dreamTime = false
 
+var firstDay = true
+
 func round_to_dec(num, places):
 	return round (num * pow(10.0, places))/pow(10.0, places)
 
@@ -44,17 +46,30 @@ func _process(delta):
 
 	#figure out cleaner way to handle this
 	if Minutes() == 0 && !handledHourPass:
-		handledHourPass = true
-		HandleHourPassing()
+		if !firstDay:
+			#if it is not the first day and first hour, which would explain why the hour and day is originally zero, handle like normal
+			handledHourPass = true
+			HandleHourPassing()
+
 	if Minutes() == 1:
+		#doing it on minute one rather than the next frame
 		handledHourPass = false
+		if firstDay:
+			#if it's the first hour of the first day, skip handling anything, but tick firstDay to off to handle like normal from now on
+			firstDay = false
 
 	if Hours() == 0 && Minutes() == 0 && !handledDayPass:
-		handledDayPass = true
-		HandleDayPassing()
+		if !firstDay:
+			#if it is not the first day and first hour, which would explain why the hour and day is originally zero, handle like normal
+			handledDayPass = true
+			HandleDayPassing()
+
 	if Minutes() == 1:
 		#reset the bool once the minutes are no longer zero
 		handledDayPass = false
+		if firstDay:
+		#if it's the first hour of the first day, skip handling anything, but tick firstDay to off to handle like normal from now on
+			firstDay = false
 	
 func ConvertSecondsToGameSeconds(amount): 
 	return amount / timeRatio

@@ -41,6 +41,8 @@ func FadeInEffect(effect):
 	#$Tween.interpolate_property(currentEffect, "modulate", Color(1, 1, 1, 0), Color(1,1, 1, 1), 3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.interpolate_property(effect, "modulate", Color(1, 1, 1, 0), Color(1,1, 1, 1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
+#	yield($Tween, "tween_completed")
+
 
 
 func ActivateDreamtimeEffect():
