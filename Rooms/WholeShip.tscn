@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Rooms/WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -30,6 +30,8 @@
 [ext_resource path="res://Resources/Shaders/Frost.shader" type="Shader" id=28]
 [ext_resource path="res://Resources/Shaders/ShaderTextures/Frost4.jpg" type="Texture" id=29]
 [ext_resource path="res://Utility/ScreenEffectHandler.tscn" type="PackedScene" id=30]
+[ext_resource path="res://UI/TransitionScreen.tscn" type="PackedScene" id=31]
+[ext_resource path="res://RelationshipStuff/DreamTime.tscn" type="PackedScene" id=32]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 121, 98.7022 )
@@ -232,7 +234,6 @@ script = ExtResource( 20 )
 [node name="CameraMouseMove" type="Node2D" parent="."]
 
 [node name="ScreenEffectHandler" parent="." instance=ExtResource( 30 )]
-position = Vector2( -14, 12 )
 screentimeEffects = {
 "dreamtime": NodePath("EffectHolder/DreamEffect"),
 "overheating": NodePath("EffectHolder/HeatEffect"),
@@ -312,6 +313,10 @@ stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TransitionScreen" parent="." instance=ExtResource( 31 )]
+
+[node name="DreamTime" parent="." instance=ExtResource( 32 )]
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]
 
 [editable path="PowerStaton"]

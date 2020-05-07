@@ -3,6 +3,7 @@ extends Node
 
 signal DreamTimeStarted
 signal DreamTimeEnded
+signal DreamTimeSkipped
 
 signal Overheating
 signal Freezing

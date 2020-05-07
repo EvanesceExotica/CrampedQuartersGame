@@ -91,6 +91,7 @@ effectLibary = {
 }
 
 [node name="DreamSpawner" parent="." instance=ExtResource( 15 )]
+position = Vector2( -10.3495, -174.303 )
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]

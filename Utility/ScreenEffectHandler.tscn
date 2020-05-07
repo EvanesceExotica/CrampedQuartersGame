@@ -71,7 +71,7 @@ shader_param/apply = true
 shader_param/amount = 0.6
 shader_param/offset_texture = ExtResource( 5 )
 
-[node name="ScreenEffectHandler" type="Node2D"]
+[node name="ScreenEffectHandler" type="CanvasLayer"]
 script = ExtResource( 1 )
 screentimeEffects = {
 "dreamtime": NodePath("EffectHolder/DreamEffect"),

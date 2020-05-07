@@ -45,8 +45,9 @@ func SetFutureJumpTimer():
 	$Timer.start()
 
 func _input(event):
-	if event.is_action_pressed("ui_accept") && !atFuture:
-		print("Should be returning to future")
-		ReturnToFuture()
+	pass
+	# if event.is_action_pressed("ui_accept") && !atFuture:
+	# 	print("Should be returning to future")
+	# 	ReturnToFuture()
 
 

@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Attributes/DrainSource.gd"
 }, {
+"base": "Sprite",
+"class": "Dream",
+"language": "GDScript",
+"path": "res://Character/Dream.gd"
+}, {
 "base": "Reference",
 "class": "EditorTools",
 "language": "GDScript",
@@ -218,6 +223,7 @@ _global_script_class_icons={
 "Cycle": "res://addons/godot-next/icons/icon_cycle.svg",
 "Dispenser": "",
 "DrainSource": "",
+"Dream": "",
 "EditorTools": "",
 "Event": "",
 "FileSearch": "",
@@ -263,6 +269,7 @@ CharacterTracker="*res://Character/CharacterTracker.gd"
 NameGenerator="*res://Character/NameGenerator.gd"
 TimeConverter="*res://Utility/Helper/TimeConverter.gd"
 ChooseRandom="*res://Utility/UtilityScripts/ChooseRandom.gd"
+FadeHandler="*res://Utility/FadeHandler.gd"
 
 [debug]
 

@@ -7,6 +7,8 @@ var realTime = 0
 var handledHourPass = false
 var handledDayPass = false
 
+var dreamTime = false
+
 func round_to_dec(num, places):
 	return round (num * pow(10.0, places))/pow(10.0, places)
 
@@ -19,9 +21,25 @@ func HandleHourPassing():
 	print("An hour has passed")
 	SignalManager.emit_signal("HourPassed", Hours())
 
+func SetDreamTime():
+	dreamTime = true
+	pass
+
+func TurnOffDreamTime():
+	dreamTime = false
+	pass
+
+func _ready():
+	#SignalManager.connect("DreamTimeStarted", self, "SetDreamTime")
+	SignalManager.connect("DreamTimeEnded", self, "TurnOffDreamTime")
+	SignalManager.connect("DreamTimeSkipped", self, "TurnOffDreamTime")
+
+	pass
 func _process(delta):
-	gameTime += delta /  timeRatio
-	realTime += delta
+	if(!dreamTime):
+		#if it's not currently dream time, increase the game time
+		gameTime += delta /  timeRatio
+		realTime += delta
 
 
 	#figure out cleaner way to handle this

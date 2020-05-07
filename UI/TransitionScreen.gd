@@ -10,7 +10,7 @@ onready var anim = get_node("AnimationPlayer")
 onready var rect = get_node("Control/ColorRect") 
 
 
-func change_scene(path, delay = 0.5):
+func change_scene(delay = 0.5):
 	yield(get_tree().create_timer(delay), "timeout")
 	anim.play("Fade")
 	yield(anim, "animation_finished")
@@ -20,6 +20,7 @@ func change_scene(path, delay = 0.5):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#SignalManager.connect("DayPassed", self, "")
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
