@@ -18,16 +18,27 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+#TODO: being near a friend causes a sanity increase while being away causes a sanity drain
+#add a 'mental break' state
 func AddNewRelationship(characterToAdd):
 	relationships[characterToAdd] = 0
 
 	pass
+
+	#
 
 func AdjustRelationship(character, amount):
 	if !relationships.has(character):
 		#if this relationship doesn't already exist, add it
 		AddNewRelationship(character)
 	relationships[character] += amount
+	if relationships[character] <= -20:
+		#if relationship with this character is bad, add to enemies, who will give mood penalty if nearby
+		enemies.append(character)
+	if relationships[character] >= 20:
+		#if the relationship with this character is good, add to friends, who will give mood bonus if nearby
+		friends.append(character)
 
 #func AdjustRelationship(character, amount):
 #	character.relationship.currentValue += amount

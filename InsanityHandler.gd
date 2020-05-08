@@ -38,6 +38,10 @@ func SpaceOther(otherCharacter):
     
     pass
 
+func HarmSelf():
+    #TODO: maybe add some sort of 'attack' method to determine it was an attack
+    character.changeStatValue(character.health, self, -10, false)
+
 func AttackOther(otherCharacter):
 
     #maybe have this one only apply to characters who aren't already high health, or have it affect max hp too?
@@ -61,12 +65,17 @@ func ContaminateFood():
 signal SabotageStation
 
 func SabotageStation():
+    #find a random station and disable it
     var stations = get_tree().get_nodes_in_group("Stations")
     var stationToSabotage = ChooseRandom.ChooseRandomFromList(stations)
     stationToSabotage.disableStation()
     pass
 
 func SetFire():
+    #find a random slot and set fire to it
+    var allSlots = get_tree().get_nodes_in_group("slots")
+    var randomSlot = ChooseRandom.ChooseRandomFromList(allSlots)
+    randomSlot.applyNewAttributeToSlot(AttributeJSONParser.fetchAndCreateAttribute("OnFire"))
 
 
 signal VentHermitAction
