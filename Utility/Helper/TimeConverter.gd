@@ -1,6 +1,7 @@
 extends Node
 
 var timeRatio = 0.00694 #0.01
+#var timeRatio = 0.000694 #0.01#FAKE ONE CHANGE BACK
 var gameTime = 0
 var realTime = 0
 
@@ -37,6 +38,8 @@ func _ready():
 	SignalManager.connect("DreamTimeSkipped", self, "TurnOffDreamTime")
 
 	pass
+
+#func SkipToNextDay():
 func _process(delta):
 	if(!dreamTime):
 		#if it's not currently dream time, increase the game time

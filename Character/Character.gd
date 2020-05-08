@@ -3,6 +3,10 @@ extends Node2D
 class_name Character
 
 
+onready var relationshipModule = get_node("RelationshipModule")
+onready var conversationHandler = get_node("ConversationHandler")
+onready var insanityHandler = get_node("InsanityHandler")
+
 onready var dreamSpawner = get_node("DreamSpawner")
 onready var sprite = get_node("Naut")
 onready var dragSprite = sprite.texture
@@ -566,6 +570,8 @@ func processDroppedItem(dispenser):
 	elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
 		changeStatValue(sustenance, dispenser, dispenser.foodValues.pop_back(), false)
 		if dispenser.givenAttributes.size() > 0:
+			#if this food is contaminated and has any attributes to apply
+			#TODO:have the contaminated food look stinky/gross on click-and-drag
 			var attributesToApply = dispenser.givenAttributes.pop_back()
 			for attribute in attributesToApply:
 				applyNewAttribute(attribute)

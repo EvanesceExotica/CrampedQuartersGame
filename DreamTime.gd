@@ -7,30 +7,33 @@ var maxDream
 onready var sleepPanel = get_node("CanvasLayer/SleepPanel")
 onready var restButton = sleepPanel.get_node("RestButton")
 onready var watchDreamButton = sleepPanel.get_node("WatchDreamButton")
-
+onready var parent = get_parent()
 func SkipDreamTime():
 	SignalManager.emit_signal("DreamTimeSkipped")
 
 func _ready():
-	pass
-	SignalManager.connect("DayPassed", self, "PromptDreamTime")
+	SignalManager.connect("DayPassed", self, "PromptDreamtime")
 	
 func _on_WatchDreamButton_pressed():
-
 	HidePanel()
-	StartDreamTime()
 	DisableButtons()
+	parent.transitionScreen.fadeToClear()
+	yield(parent.transitionScreen.fadeToClear(), "completed")
+	StartDreamTime()
 	pass
 
 func _on_RestButton_pressed():
 	HidePanel()
-	SkipDreamTime()
 	DisableButtons()
+	parent.transitionScreen.fadeToClear()
+	yield(parent.transitionScreen.fadeToClear(), "completed")
+	SkipDreamTime()
 	pass
 
 func DisableButtons():
 	restButton.disabled = true
 	watchDreamButton.disabled = true
+	get_parent()
 
 func EnableButtons():
 	restButton.disabled = false
@@ -38,15 +41,14 @@ func EnableButtons():
 
 func PromptDreamtime():
 
-	#TransitionScreen.fadeToBlack()
-	var transitionScreen = get_parent().get_node("TransitionScreen")
+	#var transitionScreen = get_parent().get_node("TransitionScreen")
+	var transitionScreen = parent.transitionScreen 
 	transitionScreen.fadeToBlack()
 	yield(transitionScreen.fadeToBlack(), "completed")
 	#this method we're calling has the clock pause when dream time is being prompted/ or continuing
 	print("Finished")
 	TimeConverter.SetDreamTime()
- #   get_tree().paused = true
-   # sleepPanel.visible = true
+	get_tree().paused = true
 	FadeHandler.FadeToColor($Tween, sleepPanel, "modulate", Color(1, 1, 1, 0), Color.white, 0.3)
 
 	#find all characters, put in list
@@ -86,6 +88,6 @@ func StartDreamTime():
 	
 func _input(event):
 	if event.is_action_pressed("ui_fire"):
-	   PromptDreamtime()
-	   #SignalManager.emit_signal("DayPassed")
+	   #PromptDreamtime()
+	   SignalManager.emit_signal("DayPassed")
 	

@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var transitionScreen = get_node("TransitionScreen")
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"

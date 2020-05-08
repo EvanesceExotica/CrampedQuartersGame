@@ -107,6 +107,12 @@ func SpreadToCharacterInAdjacentSlot(slot, attribute, howManyAdjacent):
 	nearbyCharacters[randomIndex].applyNewAttribute(attribute)
 	#return nearbyCharacters[randomIndex]
 
+func returnNearbyCharacters():
+	var nearbyCharacters = []
+	for slot in slotArrangement:
+		if slot.is_occupied:
+			nearbyCharacters.append(slot.characterInSlot)
+	return nearbyCharacters
 
 func killAllInSlots():
 	for slot in slotArrangement:

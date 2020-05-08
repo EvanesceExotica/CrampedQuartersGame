@@ -26,6 +26,7 @@ func fadeToBlack():
 
 func fadeToClear():
 	anim.play_backwards("Fade")
+	yield(anim, "animation_finished")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#SignalManager.connect("DayPassed", self, "fadeToBlack")

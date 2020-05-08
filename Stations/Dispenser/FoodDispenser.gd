@@ -12,6 +12,7 @@ func _ready():
 	dispensedItem = ItemOptions.food
 	dispensedItemValue = 100
 	SignalManager.connect("FoodHarvested", self, "CalculateFoodValue")
+
 	pass # Replace with function body.
 
 func CalculateFoodValue(gardenHealth):

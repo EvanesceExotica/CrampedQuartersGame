@@ -96,6 +96,7 @@ func disembarkCharacter(character):
 
 func determineCorpseType(typeOfDeath):
 	#not implementing this now, but later
+	#also implement a murder causing more extreme fear
 	#corpseSprite.texture = corpseDictionary[typeOfDeath]
 	#
 	pass

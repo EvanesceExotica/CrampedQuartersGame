@@ -221,6 +221,7 @@ position = Vector2( -1090.59, 243.111 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="DayHandler" parent="." instance=ExtResource( 18 )]
+pause_mode = 2
 
 [node name="BlackHole" parent="." instance=ExtResource( 19 )]
 position = Vector2( 2278.03, 1479.36 )
@@ -231,9 +232,8 @@ position = Vector2( 507.236, 298.643 )
 zoom = Vector2( 5, 5 )
 script = ExtResource( 20 )
 
-[node name="CameraMouseMove" type="Node2D" parent="."]
-
 [node name="ScreenEffectHandler" parent="." instance=ExtResource( 30 )]
+pause_mode = 2
 screentimeEffects = {
 "dreamtime": NodePath("EffectHolder/DreamEffect"),
 "overheating": NodePath("EffectHolder/HeatEffect"),
@@ -315,6 +315,7 @@ __meta__ = {
 }
 
 [node name="TransitionScreen" parent="." instance=ExtResource( 31 )]
+pause_mode = 2
 
 [node name="DreamTime" parent="." instance=ExtResource( 32 )]
 [connection signal="button_down" from="CharacterGenerator/Button" to="CharacterGenerator" method="_on_Button_button_down"]
