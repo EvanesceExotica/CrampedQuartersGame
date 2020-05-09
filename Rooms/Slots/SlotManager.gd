@@ -114,6 +114,51 @@ func returnNearbyCharacters():
 			nearbyCharacters.append(slot.characterInSlot)
 	return nearbyCharacters
 
+
+func returnAdjacentSlots(startSlot):
+	var adjacentSlots = []
+	var originSlotIndex = slotArrangement.find(startSlot)
+	if originSlotIndex+1 < slotArrangement.size():
+		adjacentSlots.append(slotArrangement[originSlotIndex+1])
+	if originSlotIndex-1 < slotArrangement.size():
+		adjacentSlots.append(slotArrangement[originSlotIndex-1])
+	return adjacentSlots
+
+func returnClosestEmptySlot(startSlot):
+	#find the slot you're trying to search from
+	var originSlotIndex = slotArrangement.find(startSlot)
+
+	#look through all of the slots in this room
+	for i in range(slotArrangement.size() - 1):
+		#if (searching forward) it isn't going over the range of the slots in this room
+		if originSlotIndex+i < slotArrangement.size():
+			#check if the slot is empty
+			if checkIfEmpty(slotArrangement[originSlotIndex+i]) == true:
+				#if it is, this is what we're looking for, return
+				return slotArrangement[originSlotIndex+i]
+		#if (searching backward) it isn't going over the range of the slots in this room
+		if originSlotIndex-i >= 0:
+			#check if the slot is empty
+			if checkIfEmpty(slotArrangement[originSlotIndex+i]) == true:
+				#if it is, this is what we're looking for, return
+				return slotArrangement[originSlotIndex+i]
+	#if none could be found in this room, return null
+	return null
+
+
+func checkIfEmpty(slot):
+	if !slot.occupied:
+		return true
+	else:
+		return false
+
+func returnEmptySlots():
+	var emptySlots = []
+	for slot in slotArrangement:
+		if !slot.occupied:
+			emptySlots.append(slot)
+	return emptySlots
+
 func killAllInSlots():
 	for slot in slotArrangement:
 		if slot.occupied:

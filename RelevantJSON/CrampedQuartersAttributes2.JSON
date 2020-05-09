@@ -731,6 +731,84 @@
 					"spreadRange": 0,
 					"effect": "",
 					"index": 22
+				},
+				{
+					"id": "NearFriend",
+					"attributeName": "NearFriend",
+					"description": "I'm nearby someone I like! (Incrases sanity by 2 per second)",
+					"AffectedStats": [
+						{
+							"statName": "sanity",
+							"whichValue": "drain",
+							"amount": -2
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": false,
+					"deathType": 0,
+					"spreadChancePerHalfHour": 0,
+					"spreadVariables": [],
+					"stackable": false,
+					"spreadRange": 0,
+					"effect": "",
+					"index": 23
+				},
+				{
+					"id": "NearEnemy",
+					"attributeName": "NearyEnemy",
+					"description": "I'm near by someone I don't like (Decreases sanity by 2 per second)",
+					"AffectedStats": [
+						{
+							"statName": "sanity",
+							"whichValue": "drain",
+							"amount": 2
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": false,
+					"deathType": 0,
+					"spreadChancePerHalfHour": 0,
+					"spreadVariables": [],
+					"stackable": false,
+					"spreadRange": 0,
+					"effect": "",
+					"index": 24
+				},
+				{
+					"id": "BeingStalked",
+					"attributeName": "BeingStalked",
+					"description": "This crazy person is chasing me!",
+					"AffectedStats": [
+						{
+							"statName": "sanity",
+							"whichValue": "drain",
+							"amount": 5
+						}
+					],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": false,
+					"deathType": 0,
+					"spreadChancePerHalfHour": 0,
+					"spreadVariables": [],
+					"stackable": false,
+					"spreadRange": 0,
+					"effect": "",
+					"index": 25
 				}
 			],
 			"separators": [],

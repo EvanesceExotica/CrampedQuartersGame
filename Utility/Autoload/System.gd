@@ -6,10 +6,17 @@ var attributeScript = preload("res://Attributes/Attribute.gd")
 enum attributeTypes  {inherentAttribute, condition}
 enum entities {character, station, slot}
 
+var shipFacts = {} #fact : durationInDays -- so for example 'recent murder' : 2
 var dragging = false
 var draggedItem
 var bf 
 var entitiesFlag
+
+func AddShipFact(fact, duration):
+	shipFacts[fact] = duration
+
+func RemoveShipFact(fact):
+	shipFacts.erase(fact)
 
 var fields = {
 	"isTraveling" : false,

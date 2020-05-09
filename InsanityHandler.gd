@@ -3,13 +3,13 @@ extends Node2D
 var insanityEvents = WeightedObject.new()
 onready var character = get_parent() #this will be a child of the character
 
-#mashochistic -- harm self -- refuse healing/
-#cruel 
-#paranoid
+#mashochistic -- harm self -- refuse healing/food
+#cruel  - harm other 
+#paranoid - refuse healing/food. Likely to go into vents and steal food for self. Will escape vents if landed. 
 #selifsh
-#fearful
-#hopeless -- space self
+#hopeless -- harm self, space self, tell others going to die.
 #irrational
+#obessive would be interesting -- stalking another person
 
 
 func getPossibleEvents():
@@ -30,13 +30,17 @@ func Suicide():
     pass
     character.Die(self, false)
 
-func SpaceSelf(character):
-    pass
+func Stalk():
+    #for 'obsessive'
+    var target = character.relationshipModule.findBestRelationship()
+    var slotToMoveTo = target.currentSlot.get_parent().returnClosestEmptySlot()
+    #TODO: Complete this
 
-func SpaceOther(otherCharacter):
-    #determined by relationship or prejudices? (Maybe leave aliens out of it for now?)
-    
-    pass
+func ExactRevenge():
+    #for 'vengeful'
+    #vengeful people will attack a specific target they hate. Cruel will attack anyone.
+    var target = character.relationshipModule.findWorstRelationhip()
+    AttackOther(target)
 
 func HarmSelf():
     #TODO: maybe add some sort of 'attack' method to determine it was an attack
@@ -45,13 +49,13 @@ func HarmSelf():
 func AttackOther(otherCharacter):
 
     #maybe have this one only apply to characters who aren't already high health, or have it affect max hp too?
-    otherCharacter = GrabRandomCharacter()
-    character.changeStatValue(character.health, self, -10, false)
+    if otherCharacter == null:
+        otherCharacter = GrabRandomCharacter()
+    otherCharacter.changeStatValue(character.health, self, -10, false)
 
     #have the other character hate this character immediately, unless masochistic
-    character.relationshipModule.AdjustRelationship(self, -100)
+    otherCharacter.relationshipModule.AdjustRelationship(self, -100)
 
-    pass
 func GrabRandomCharacter():
     var randomCharacter = ChooseRandom.ChooseRandomFromList(get_tree().get_nodes_in_group("Characters"))
     return randomCharacter

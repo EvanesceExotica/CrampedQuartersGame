@@ -56,6 +56,10 @@ var tempRelationshipValue
 var spaceRequirement = 2
 var damageDealt = 2
 
+#this are increased by certain stats
+var foodRefusalChance = 0 #chance to refuse food
+var medicineRefusalChance = 0 #chance to refuse healing
+var negativeConversationStarterChance = 0 #chance to start a mean conversation 
 
 #Here you can spend time training the characters to use stations,
 #there are 3 levels, and on level three the character will auto-handle things for you. Level two they'll warn you.
@@ -238,6 +242,12 @@ func StopSpreadAttempts(attribute):
 	#stop the timer that's held in this dictionary, so it will stop checking for
 	spreadTimers[attribute].stop()	
 
+func hasAttribute(attributeName):
+	#to determine if a character has an attribute or not by name
+	for attribute in characterAttributes:
+		if attribute.attributeName == attributeName:
+			return true
+	return false
 
 func _applyNewAttribute(newAttribute):
 	var newTrait = newAttribute
@@ -563,9 +573,46 @@ func turnOnAuras():
 	for aura in auraSlotRange.keys():
 		SignalManager.emit_signal("emittingAura", currentSlot, aura, auraSlotRange[aura])
 
+func HandleInterrupt(dispenser):
+	#make a flag to only do this if there's a flab determining that there's a crazy person present
+
+	#determine if will refuse food
+	if hasAttribute("Paranoid"):
+		#TODO: Change these values
+		if ChooseRandom.DetermineIfEventHappens(0.5):
+			RefuseResource()
+
+	#determine if will refuse food
+	var selfishCharacter = IsSelfishCharacterNearby()
+	if selfishCharacter != null:
+		if ChooseRandom.DetermineIfEventHappens(0.5):
+			selfishCharacter.StealResource()
+			
+
+func RefuseResource():
+	print("I don't want your tainted goods!")
+	#TODO: have character make comment about not needing it
+	pass
+
+
+
+func StealResource(dispenser):
+	#this is when a character adjacent yoinks an item from 
+	print("YOINK!")
+	processDroppedItem(dispenser)
+
+func IsSelfishCharacterNearby():
+	var adjacentSlots = currentSlot.get_parent().returnAdjacentSlots(currentSlot)
+	var selfishCharacter = null
+	for slot in adjacentSlots:
+		if slot.characterInSlot.hasAttribute("Selfish"):
+			selfishCharacter = slot.characterInSlot
+	return selfishCharacter
+
+
+
 func processDroppedItem(dispenser):
 	if(dispenser.dispensedItem == dispenser.ItemOptions.health):
-		print("Given health")
 		changeStatValue(health, dispenser, dispenser.dispensedItemValue, false)
 	elif(dispenser.dispensedItem == dispenser.ItemOptions.food):
 		changeStatValue(sustenance, dispenser, dispenser.foodValues.pop_back(), false)

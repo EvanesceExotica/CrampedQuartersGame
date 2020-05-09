@@ -6,16 +6,17 @@ onready var speechBubble = get_node("SpeechBubble")
 onready var convoText = get_node("ConvoText")
 onready var anim = get_node("AnimationPlayer")
 
-var tempInteractionNumbers = 
+#var tempInteractionNumbers = 
 
 func _ready():
     speechBubble.modulate = Color(1, 1, 1, 0)
     SignalManager.connect("HourPassed", self, "DetermineConversationChance")
-    SignalManager.connect("HourPassed", self, "ScanForPeopleToTalkTo")
+    #SignalManager.connect("HourPassed", self, "ScanForPeopleToTalkTo")
 
 
 func MakeComment():
     #this is for if a comment is made in reaction to an event like a fire/event attack
+    pass
 
 func DetermineConversationChance():
     var random = randf()
@@ -25,7 +26,7 @@ func DetermineConversationChance():
 func ScanForPeopleToTalkTo():
     var nearbyCharacters = manager.returnNearbyCharacters()
     #perhaps do something here to take into account their relationship & traits
-
+    #maybe not necessary to have them choose someone to start with, but weight who replies. 
     var chosen = ChooseRandom.ChooseRandomFromList(nearbyCharacters)
 
     StartConversation(chosen)
