@@ -12,6 +12,7 @@ var comfortLevel = 1
 var characterInSlot
 var occupied = false
 export var onLeftOfRoom = true
+onready var slotManager = get_parent()
 
 export(int) var prioritySeatingLevel  #as the ship is auto-filled up, seats will go here first
 # Airlock should be second to last maybe after underwater, perhaps if > 5, dangerous, do not auto-fill

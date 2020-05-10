@@ -787,7 +787,7 @@
 				{
 					"id": "BeingStalked",
 					"attributeName": "BeingStalked",
-					"description": "This crazy person is chasing me!",
+					"description": "This crazy person is after me!",
 					"AffectedStats": [
 						{
 							"statName": "sanity",

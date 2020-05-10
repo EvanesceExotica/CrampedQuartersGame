@@ -573,7 +573,9 @@ func turnOnAuras():
 	for aura in auraSlotRange.keys():
 		SignalManager.emit_signal("emittingAura", currentSlot, aura, auraSlotRange[aura])
 
-func HandleInterrupt(dispenser):
+func IsInterrupted(dispenser):
+
+	var interrupted = false
 	#make a flag to only do this if there's a flab determining that there's a crazy person present
 
 	#determine if will refuse food
@@ -581,13 +583,15 @@ func HandleInterrupt(dispenser):
 		#TODO: Change these values
 		if ChooseRandom.DetermineIfEventHappens(0.5):
 			RefuseResource()
+			interrupted = true
 
 	#determine if will refuse food
-	var selfishCharacter = IsSelfishCharacterNearby()
+	var selfishCharacter = IsCharacterWithAttributeNearby("Selfish", 1)
 	if selfishCharacter != null:
 		if ChooseRandom.DetermineIfEventHappens(0.5):
 			selfishCharacter.StealResource()
-			
+			interrupted = true
+	return interrupted
 
 func RefuseResource():
 	print("I don't want your tainted goods!")
@@ -601,17 +605,35 @@ func StealResource(dispenser):
 	print("YOINK!")
 	processDroppedItem(dispenser)
 
-func IsSelfishCharacterNearby():
+# func IsSelfishCharacterNearby():
+# 	var adjacentSlots = currentSlot.get_parent().returnAdjacentSlots(currentSlot)
+# 	var selfishCharacter = null
+# 	for slot in adjacentSlots:
+# 		if slot.characterInSlot.hasAttribute("Selfish"):
+# 			selfishCharacter = slot.characterInSlot
+# 	return selfishCharacter
+func GetAdjacentCharacters():
 	var adjacentSlots = currentSlot.get_parent().returnAdjacentSlots(currentSlot)
-	var selfishCharacter = null
+	var adjacentCharacters = []
 	for slot in adjacentSlots:
-		if slot.characterInSlot.hasAttribute("Selfish"):
-			selfishCharacter = slot.characterInSlot
-	return selfishCharacter
+		if slot.characterInSlot != null:
+			adjacentCharacters.append(slot.characterInSlot)
+	return adjacentCharacters
 
 
+func IsCharacterWithAttributeNearby(attribute, distance):
+	var adjacentSlots = currentSlot.get_parent().returnAdjacentSlots(currentSlot)
+	var adjacentCharacters = GetAdjacentCharacters()
+	var characterWithTrait = null
+	for adjCharacter in adjacentCharacters:
+		if adjCharacter.hasAttribute(attribute):
+			characterWithTrait = adjCharacter
+	return characterWithTrait
 
 func processDroppedItem(dispenser):
+	if IsInterrupted(dispenser):
+		#this should handle interruptions such as the fed person refusing to eat or the selfish person stealing the food
+		return
 	if(dispenser.dispensedItem == dispenser.ItemOptions.health):
 		changeStatValue(health, dispenser, dispenser.dispensedItemValue, false)
 	elif(dispenser.dispensedItem == dispenser.ItemOptions.food):

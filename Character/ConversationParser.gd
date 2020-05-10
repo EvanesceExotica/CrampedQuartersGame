@@ -14,6 +14,7 @@ func load_json():
 func CompileCritera(speaker):
 	pass
 
+#concept = disasterHappened #hourPassed 
 func valueComparison(value, comparison):
 	if comparison == ">":
 		pass

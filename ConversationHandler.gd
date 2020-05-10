@@ -15,6 +15,10 @@ func _ready():
 
 
 func MakeComment():
+    var query : Dictionary = {}
+    query["concept"] = "Reaction"
+    query["who"] = character
+    query["charcterRoom"] = character.currentSlot.slotManager.room
     #this is for if a comment is made in reaction to an event like a fire/event attack
     pass
 
@@ -32,13 +36,21 @@ func ScanForPeopleToTalkTo():
     StartConversation(chosen)
 
     pass
-
 func StartConversation(chosen):
     FadeInSpeechBubble()
     SetText("Hey, what's up, man? How are you doing today?")
     TypeText()
     FadeOutSpeechBubble()
 
+func HandleConversation():
+    var query : Dictionary = {}
+    query["concept"] = "ConversationStart"
+    query["who"] = character
+    query["characterRoom"] = character.currentSlot.slotManager.room 
+    query["adjacentCharacters"] = character.GetAdjacentCharacters()
+    query["attributes"] = character.characterAttributes
+    query["friends"] = character.relationshipModule.friends
+    query["enemies"] = character.relationshipModule.enemies
 
 func SetText(text):
     convoText.text = text
