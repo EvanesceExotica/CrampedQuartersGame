@@ -6,9 +6,12 @@ onready var room = get_parent()
 func _ready():
 	randomize()
 	set_process_input(true)
-	slotArrangement = get_children()
-	# for item in get_children():
-	#     if item is Slot:
+	for item in get_children():
+		if item.get_class() == "Slot":
+			slotArrangement.append(item)
+
+
+
 
 	# if get_children().size() > 0:
 
@@ -111,7 +114,7 @@ func SpreadToCharacterInAdjacentSlot(slot, attribute, howManyAdjacent):
 func returnNearbyCharacters():
 	var nearbyCharacters = []
 	for slot in slotArrangement:
-		if slot.is_occupied:
+		if slot.occupied:
 			nearbyCharacters.append(slot.characterInSlot)
 	return nearbyCharacters
 

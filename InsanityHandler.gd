@@ -10,81 +10,113 @@ onready var character = get_parent() #this will be a child of the character
 #hopeless -- harm self, space self, tell others going to die.
 #irrational
 #obessive would be interesting -- stalking another person
+var homicide = funcref(self, "Homicide")
+var suicide = funcref(self, "Suicide")
+var stalk = funcref(self, "Stalk")
+var exactRevenge = funcref(self, "ExactRevenge")
+var harmSelf = funcref(self, "HarmSelf")
+var attackOther = funcref(self, "AttackOther")
+var contaminateFood = funcref(self, "ContaminateFood")
+var sabotageStation = funcref(self, "SabotageStation")
+var setFire = funcref(self, "SabotageStation")
+var hideInVents = funcref(self, "HideInVents") #for this one, add a separate node that handles the food stealing and such
 
+var breakdownEvents = {
+	"mashocistic" : [[harmSelf], [suicide]],
+	"cruel" : [[attackOther, sabotageStation], [homicide]],
+	"paranoid" : [[], [hideInVents]],
+	"selfish" : [],
+	"hopeless" : [],
+	"irrational" : [],
+	"obsessive" : [[stalk]],
+	"vengeful" : [[exactRevenge]]
+}
+
+func SetParanoid():
+	pass
+
+func SetSelfish():
+	pass
 
 func getPossibleEvents():
-    var possibleEvents 
-    for attribute in character.characterAttributes:
-        #look at all attributes on this character. If it has an event chance, add it to this list
-           possibleEvents = attribute.characterEventTypeChance
-    if possibleEvents > 0:
-        for event in possibleEvents:
-           insanityEvents.AddEntry(event["event"], event["chance"]) 
+	var possibleEvents 
+	for attribute in character.characterAttributes:
+		#look at all attributes on this character. If it has an event chance, add it to this list
+		   possibleEvents = attribute.characterEventTypeChance
+	if possibleEvents > 0:
+		for event in possibleEvents:
+		   insanityEvents.AddEntry(event["event"], event["chance"]) 
   
 func Homicide():
-    otherCharacter = GrabRandomCharacter()
-    otherCharacter.Die(character, false)
-    pass
+	var otherCharacter = GrabRandomCharacter()
+	otherCharacter.Die(character, false)
+	pass
 
 func Suicide():
-    pass
-    character.Die(self, false)
+	pass
+	character.Die(self, false)
 
 func Stalk():
-    #for 'obsessive'
-    var target = character.relationshipModule.findBestRelationship()
-    var slotToMoveTo = target.currentSlot.get_parent().returnClosestEmptySlot()
-    #TODO: Complete this
+	#for 'obsessive'
+	var target = character.relationshipModule.findBestRelationship()
+	var slotToMoveTo = target.currentSlot.get_parent().returnClosestEmptySlot()
+	if slotToMoveTo == null:
+		#if there are no empty slots in the same room, harm yourself out of not being able to reach your obessession
+		HarmSelf()
+	else:
+		#else, move close to obsession
+		slotToMoveTo.processDroppedItem(character)
 
 func ExactRevenge():
-    #for 'vengeful'
-    #vengeful people will attack a specific target they hate. Cruel will attack anyone.
-    var target = character.relationshipModule.findWorstRelationhip()
-    AttackOther(target)
+	#for 'vengeful'
+	#vengeful people will attack a specific target they hate. Cruel will attack anyone.
+	var target = character.relationshipModule.findWorstRelationhip()
+	AttackOther(target)
 
 func HarmSelf():
-    #TODO: maybe add some sort of 'attack' method to determine it was an attack
-    character.changeStatValue(character.health, self, -10, false)
+	#TODO: maybe add some sort of 'attack' method to determine it was an attack
+	character.changeStatValue(character.health, self, -10, false)
 
 func AttackOther(otherCharacter):
 
-    #maybe have this one only apply to characters who aren't already high health, or have it affect max hp too?
-    if otherCharacter == null:
-        otherCharacter = GrabRandomCharacter()
-    otherCharacter.changeStatValue(character.health, self, -10, false)
+	#maybe have this one only apply to characters who aren't already high health, or have it affect max hp too?
+	if otherCharacter == null:
+		otherCharacter = GrabRandomCharacter()
+	otherCharacter.changeStatValue(character.health, self, -10, false)
 
-    #have the other character hate this character immediately, unless masochistic
-    otherCharacter.relationshipModule.AdjustRelationship(self, -100)
+	#have the other character hate this character immediately, unless masochistic
+	otherCharacter.relationshipModule.AdjustRelationship(self, -100)
 
 func GrabRandomCharacter():
-    var randomCharacter = ChooseRandom.ChooseRandomFromList(get_tree().get_nodes_in_group("Characters"))
-    return randomCharacter
+	var randomCharacter = ChooseRandom.ChooseRandomFromList(get_tree().get_nodes_in_group("Characters"))
+	return randomCharacter
 
 signal ContaminateFood(poison)
 
 func ContaminateFood():
-    #on night
-    emit_signal("ContaminateFood", self, AttributeJSONParser.fetchAndCreateAttribute("Contaminated"))
+	#on night
+	emit_signal("ContaminateFood", self, AttributeJSONParser.fetchAndCreateAttribute("Contaminated"))
 
 signal SabotageStation
 
 func SabotageStation():
-    #find a random station and disable it
-    var stations = get_tree().get_nodes_in_group("Stations")
-    var stationToSabotage = ChooseRandom.ChooseRandomFromList(stations)
-    stationToSabotage.disableStation()
-    pass
+	#find a random station and disable it
+	var stations = get_tree().get_nodes_in_group("Stations")
+	var stationToSabotage = ChooseRandom.ChooseRandomFromList(stations)
+	stationToSabotage.disableStation()
+	pass
 
 func SetFire():
-    #find a random slot and set fire to it
-    var allSlots = get_tree().get_nodes_in_group("slots")
-    var randomSlot = ChooseRandom.ChooseRandomFromList(allSlots)
-    randomSlot.applyNewAttributeToSlot(AttributeJSONParser.fetchAndCreateAttribute("OnFire"))
+	#find a random slot and set fire to it
+	var allSlots = get_tree().get_nodes_in_group("slots")
+	var randomSlot = ChooseRandom.ChooseRandomFromList(allSlots)
+	randomSlot.applyNewAttributeToSlot(AttributeJSONParser.fetchAndCreateAttribute("OnFire"))
 
 
 signal VentHermitAction
 
 func HideInVents():
-    #Description. "___" has disappeared. 
-    #food will randomly go missing every few hours
-    #will die if overheating or freezing happening
+	pass
+	#Description. "___" has disappeared. 
+	#food will randomly go missing every few hours
+	#will die if overheating or freezing happening

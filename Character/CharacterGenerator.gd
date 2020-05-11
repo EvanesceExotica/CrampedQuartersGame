@@ -219,7 +219,6 @@ func chooseCharacterSlot(species):
 	var slotRank = [
 		System.slotTypes.mainRoom, 
 		System.slotTypes.garden,
-		System.slotTypes.garden,
 		System.slotTypes.engine,
 		System.slotTypes.aquarium,
 		System.slotTypes.airLock

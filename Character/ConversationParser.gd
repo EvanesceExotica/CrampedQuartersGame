@@ -13,6 +13,10 @@ func load_json():
 	
 func CompileCritera(speaker):
 	pass
+func HasTrait(trait):
+#	if
+	pass
+
 
 #concept = disasterHappened #hourPassed 
 func valueComparison(value, comparison):

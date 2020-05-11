@@ -1,6 +1,9 @@
 extends Node
 
 
+signal SomeoneEnteredSlot(whichSlot, whichCharacter)
+signal SomeoneVacatedSlot(whichSlot, whichCharacter)
+
 signal DreamTimeStarted
 signal DreamTimeEnded
 signal DreamTimeSkipped

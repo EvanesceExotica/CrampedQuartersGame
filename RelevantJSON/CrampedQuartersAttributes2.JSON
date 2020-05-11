@@ -753,7 +753,7 @@
 					"deathType": 0,
 					"spreadChancePerHalfHour": 0,
 					"spreadVariables": [],
-					"stackable": false,
+					"stackable": true,
 					"spreadRange": 0,
 					"effect": "",
 					"index": 23
@@ -779,7 +779,7 @@
 					"deathType": 0,
 					"spreadChancePerHalfHour": 0,
 					"spreadVariables": [],
-					"stackable": false,
+					"stackable": true,
 					"spreadRange": 0,
 					"effect": "",
 					"index": 24

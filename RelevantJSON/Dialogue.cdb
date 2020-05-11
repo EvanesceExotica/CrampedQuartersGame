@@ -9,9 +9,8 @@
 					"display": null
 				},
 				{
-					"typeStr": "1",
-					"name": "DialogueLine",
-					"display": null
+					"typeStr": "16",
+					"name": "DialogueLines"
 				},
 				{
 					"typeStr": "16",
@@ -21,7 +20,6 @@
 			],
 			"lines": [
 				{
-					"DialogueLine": "",
 					"ID": ""
 				}
 			],

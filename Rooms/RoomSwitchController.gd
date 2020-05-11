@@ -41,6 +41,7 @@ func _input(event):
 	else:
 		roomSwitched = false
 	if(roomSwitched && destinationRoom != NodePath()):
+		#if you switched the room and there is a destination room, send out this signal and switch everything
 		SignalManager.emit_signal("OnRoomSwitched", currentRoom, get_node(destinationRoom))
 		currentRoom = get_node(destinationRoom)
 		currentRoom.camera.current = true

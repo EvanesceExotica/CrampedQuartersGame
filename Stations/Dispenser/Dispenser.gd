@@ -74,7 +74,8 @@ func _process(delta):
 
 func respawnItem():
 	$Timer.set_wait_time(TimeConverter.GameHoursToSeconds(respawnHours))
-	$Timer.connect("timeout", self, "onRespawnTimerTimeout")
+	if !$Timer.is_connected("timeout", self, "onRespawnTimerTimeout"):
+		$Timer.connect("timeout", self, "onRespawnTimerTimeout")
 	$Timer.start()
 	#this is for respawning item after certain amount of time is passed, can maybe manually work it to make new item appear?
 	#make interactWith a "Station" thing, make this inherit from station. Add a "repair" too.

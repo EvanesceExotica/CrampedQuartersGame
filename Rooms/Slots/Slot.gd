@@ -29,6 +29,8 @@ var temporaryOrRemoveableAttributes = []
 signal newAttributeAdded
 signal attributeRemoved
 
+func get_class():
+	return "Slot"
 
 signal someoneEnteredSlot(whichSlot, whichChar)
 
@@ -98,22 +100,6 @@ func checkIfCharacterDontLikeInAdjacentSlot():
 	#(if they're a diff species as a xenophobe, or insane, or something)
 	pass
 
-# func addCorpseToSlot(corpse):
-# 	characterInSlot = corpse
-# 	corpse.currentSlot = self
-# 	corpse.global_position = self.global_position
-# 	emit_signal("someoneEnteredSlot", self, corpse)
-# 	System.updateSlots(self, corpse)
-# 	corpse.turnOnAuras()
-# 	pass
-# func removeCorpseFromSlot(corpse):
-# 	characterInSlot = null
-# 	emit_signal("someoneVacatedSlot", self, corpse)
-# 	System.updateSlots(self, null)
-# 	corpse.previousSlot = self
-# 	occupied = false
-# 	corpse.turnOffAuras()
-# 	pass
 
 func addCharacterToSlot(character):
 #	print("Character added to slot " + character.name)
@@ -139,6 +125,7 @@ func removeCharacterFromSlot(character):
 	removeAllExitingAttributesFromCharacter()
 	characterInSlot = null
 	emit_signal("someoneVacatedSlot", self, character)
+	SignalManager.emit_signal("SomeoneVacatedSlot", self, character)
 	System.updateSlots(self, null)
 	character.previousSlot = self
 	print("")
@@ -160,10 +147,15 @@ func checkIfCharacterDropped(character):
 			addCharacterToSlot(character)
 
 func checkIfCharacterMovedToDifferentSlot(slot, character):
+	#this is for removing the character from the last slot they were in once they're moved to a new slot
 	if character == characterInSlot:
+		#if this character is the chracter who was in our slot
 		if slot != self:
+			#and this slot isn't us, they must've moved, so remove them
 			removeCharacterFromSlot(character)
-	pass
+			#emit a signal so other sources can know about this
+			SignalManager.emit_signal("SomeoneEnteredSlot", slot, character)
+
 func checkIfAdjacentSlotsFull():
 	var allFull = true
 	for item in adjacentSlots:
@@ -177,10 +169,11 @@ func checkIfAdjacentSlotsFull():
 func _ready():
 
 	add_to_group("slots")
-	#System.connect("stoppedDraggingCharacter", self, "checkIfCharacterDropped")
 	for item in get_tree().get_nodes_in_group("slots"):#System.allSlots:
 		#if any slot received a "CharacterMoved" signal, check if it moved to a different slot
 		item.connect("someoneEnteredSlot", self, "checkIfCharacterMovedToDifferentSlot")
+
+
 	if(adjacentSlots.size() > 0):
 		for item in adjacentSlots:
 			item.connect("someoneEnteredSlot", self, "checkIfAdjacentSlotsFull")

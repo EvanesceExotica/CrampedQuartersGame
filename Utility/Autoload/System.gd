@@ -1,6 +1,7 @@
 extends Node2D
 #test
 
+var conversationRunning = false
 var selectedCharacter
 var attributeScript = preload("res://Attributes/Attribute.gd")
 enum attributeTypes  {inherentAttribute, condition}
