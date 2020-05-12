@@ -21,6 +21,8 @@ var sabotageStation = funcref(self, "SabotageStation")
 var setFire = funcref(self, "SabotageStation")
 var hideInVents = funcref(self, "HideInVents") #for this one, add a separate node that handles the food stealing and such
 
+
+#the different arrays here represent the 'escelalation level' of the event. Going from harm to murder, for example
 var breakdownEvents = {
 	"mashocistic" : [[harmSelf], [suicide]],
 	"cruel" : [[attackOther, sabotageStation], [homicide]],
@@ -31,12 +33,41 @@ var breakdownEvents = {
 	"obsessive" : [[stalk]],
 	"vengeful" : [[exactRevenge]]
 }
-
+var breakdownEventList : Array = []
+var escelationValue = 0
 func SetParanoid():
 	pass
 
 func SetSelfish():
 	pass
+func HaveMentalBreak():
+	#add a qualifier/parameter here to make certain traits more likely to have certain breakdown types
+
+	var possibleBreakdowns = breakdownEvents.keys().duplicate(true)
+	#copy the keys of the breakdownEvents list
+	if character.relationshipModule.friends.size() == 0:
+		possibleBreakdowns.erase("obsessive")
+		pass
+	if character.relationshipModule.enemies.size() == 0:
+		#if has no enemies, take away 'vengeful' as an option
+		possibleBreakdowns.erase("vengeful")
+
+#choose a random breakdown type from the list of possible ones
+	var randomBreakdown = ChooseRandom.ChooseRandomFromList(possibleBreakdowns)
+	print("Our breakdown type is " + str(randomBreakdown))
+
+	#get the list of esceleating func-refs from the dictionary
+	breakdownEventList = breakdownEvents[randomBreakdown]
+
+func HandleEscelation():
+
+	#find the list of optinos that matches the escelation value of today
+	var potentialActions = breakdownEventList[escelationValue]
+
+	#choose a random action from that list of actions and call it
+	var chosenAction = ChooseRandom.ChooseRandomFromList(potentialActions)
+	chosenAction.call_func()
+
 
 func getPossibleEvents():
 	var possibleEvents 
