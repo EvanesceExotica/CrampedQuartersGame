@@ -42,7 +42,7 @@ func SetSelfish():
 	pass
 func HaveMentalBreak():
 	#add a qualifier/parameter here to make certain traits more likely to have certain breakdown types
-
+	print("Having mental break!")
 	var possibleBreakdowns = breakdownEvents.keys().duplicate(true)
 	#copy the keys of the breakdownEvents list
 	if character.relationshipModule.friends.size() == 0:
@@ -55,6 +55,7 @@ func HaveMentalBreak():
 #choose a random breakdown type from the list of possible ones
 	var randomBreakdown = ChooseRandom.ChooseRandomFromList(possibleBreakdowns)
 	print("Our breakdown type is " + str(randomBreakdown))
+	character.applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute(randomBreakdown.capitalize()))
 
 	#get the list of esceleating func-refs from the dictionary
 	breakdownEventList = breakdownEvents[randomBreakdown]

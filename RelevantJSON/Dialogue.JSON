@@ -1,0 +1,32 @@
+{
+	"sheets": [
+		{
+			"name": "dialogue",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "ID",
+					"display": null
+				},
+				{
+					"typeStr": "16",
+					"name": "DialogueLines"
+				},
+				{
+					"typeStr": "16",
+					"name": "Criteria",
+					"display": null
+				}
+			],
+			"lines": [
+				{
+					"ID": ""
+				}
+			],
+			"separators": [],
+			"props": {}
+		}
+	],
+	"customTypes": [],
+	"compress": false
+}

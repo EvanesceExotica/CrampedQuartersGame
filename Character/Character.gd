@@ -57,6 +57,7 @@ var spaceRequirement = 2
 var damageDealt = 2
 
 #this are increased by certain stats
+var resourceRefusalChance = 0
 var foodRefusalChance = 0 #chance to refuse food
 var medicineRefusalChance = 0 #chance to refuse healing
 var negativeConversationStarterChance = 0 #chance to start a mean conversation 
@@ -123,6 +124,12 @@ func applyNewAttribute(newAttribute):
 		add_child(timer) #to process
 		timer.start() #t
 		spreadTimers[newTrait] = timer
+
+	if newTrait.staticStats.size() > 0:
+		#if we have static stats
+		if newTrait.staticStats.has("resourceRefusalChance"):
+			resourceRefusalChance = newTrait["staticStats"]["resourceRefusalChance"]
+			print("Resource refusal chance is " + resourceRefusalChance)
 
 	# if newTrait.spreadVariables != null && newTrait.spreadVariables.size() > 0:
 	# 	if newTrait.spreadVariables["spreadChancePerHalfHour"] > 0:
@@ -682,7 +689,10 @@ func _on_Character_area_exited(area):
 			characterStats.hideDisplay()
 
 func _input(event):
+	if event is InputEventKey and event.scancode == KEY_K and not event.echo:
+		pass
 	if(event.is_action_pressed("ui_interact")):
+		sanity.currentValue = 0
 		if(handInZone && !viewingCharacterDetail):
 			#if we're hovering over the character, but not viewing them in detail
 			viewingCharacterDetail = true
@@ -704,7 +714,8 @@ func _input(event):
 
 func _on_Button_pressed():
 	#applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
-	Die(null, false)
+	#Die(null, false)
+	sanity.currentValue = 0
 
 func _on_FasterHealthDrain_pressed():
 	applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Diseased"))
@@ -721,9 +732,15 @@ func _on_Tween_tween_step(object, key, elapsed, value):
 	if object.currentValue <= 0:
 		emit_signal("statAtZero", object)
 		if object == health:
+			#if health is at zero
 			Die(null, true)
 		if object == sustenance:
+			#if sustenance is at zero
 			Starve()
+		if object == sanity:
+			#if sanity is at zero
+			print("insanity at zero")
+			insanityHandler.HaveMentalBreak()
 
 	if object.currentValue >= object.maxValue:
 		emit_signal("statAtMax", object)

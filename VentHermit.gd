@@ -23,3 +23,6 @@ func SetPlayerNotInRoom(previousRoom, destinationRoom):
         #if this isn't the supply closet room
         pass
     pass
+
+func FleeChance():
+    pass

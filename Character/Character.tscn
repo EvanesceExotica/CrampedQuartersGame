@@ -42,6 +42,9 @@ shape = SubResource( 1 )
 margin_right = 67.0
 margin_bottom = 20.0
 text = "SetOnFire"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Attack" type="Button" parent="."]
 margin_left = 0.459656
@@ -49,6 +52,9 @@ margin_top = 49.3162
 margin_right = 52.4597
 margin_bottom = 69.3162
 text = "Attack"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FasterHealthDrain" type="Button" parent="."]
 margin_left = 1.0

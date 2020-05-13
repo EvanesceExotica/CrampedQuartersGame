@@ -124,9 +124,10 @@ func FadeOutSpeechBubble():
 	yield($Tween, "tween_completed")
 
 func _input(ev):
-	if ev is InputEventKey and ev.scancode == KEY_K and not ev.echo:
-		var characters = get_tree().get_nodes_in_group("Characters")
-		if !System.conversationRunning && !inConversation:
-			var talkingCharacter = characters[0]
-			print("We have this many characters " + str(characters.size()))
-			talkingCharacter.conversationHandler.DetermineConversationChance(null)
+	pass
+	# if ev is InputEventKey and ev.scancode == KEY_K and not ev.echo:
+	# 	var characters = get_tree().get_nodes_in_group("Characters")
+	# 	if !System.conversationRunning && !inConversation:
+	# 		var talkingCharacter = characters[0]
+	# 		print("We have this many characters " + str(characters.size()))
+	# 		talkingCharacter.conversationHandler.DetermineConversationChance(null)

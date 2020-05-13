@@ -12,10 +12,10 @@
 [ext_resource path="res://Utility/InteractableObject.tscn" type="PackedScene" id=10]
 [ext_resource path="res://BlackHoleStation/BlackHolePortal.png" type="Texture" id=11]
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=1]
 radius = 139.256
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=2]
 emission_shape = 1
 emission_sphere_radius = 107.5
 flag_disable_z = true
@@ -26,30 +26,30 @@ orbit_velocity = 0.3
 orbit_velocity_random = 0.0
 scale = 0.1
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0.00632911, 0.525316, 0.995781 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.427451, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=5]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 angular_velocity = 20.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 3.0
-color_ramp = SubResource( 2 )
+color_ramp = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=6]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 angular_velocity = 30.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 4.0
-color_ramp = SubResource( 2 )
+color_ramp = SubResource( 4 )
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -100,7 +100,7 @@ scale = Vector2( 1.20792, 1.22921 )
 texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlackHoleStation"]
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="Particles2D2" type="Particles2D" parent="BlackHoleStation"]
 visible = false
@@ -109,12 +109,12 @@ position = Vector2( -3.78918, 26.3421 )
 scale = Vector2( 0.827869, 0.813531 )
 amount = 800
 lifetime = 10.0
-process_material = SubResource( 6 )
+process_material = SubResource( 2 )
 texture = ExtResource( 2 )
 
 [node name="Particles2D3" type="Particles2D" parent="BlackHoleStation"]
 amount = 5
-process_material = SubResource( 4 )
+process_material = SubResource( 5 )
 texture = ExtResource( 6 )
 
 [node name="Cosmic_23" type="Sprite" parent="BlackHoleStation/Particles2D3"]
@@ -131,7 +131,7 @@ texture = ExtResource( 5 )
 
 [node name="Particles2D" type="Particles2D" parent="BlackHoleStation"]
 amount = 5
-process_material = SubResource( 3 )
+process_material = SubResource( 6 )
 texture = ExtResource( 3 )
 
 [node name="Cosmic_23" type="Sprite" parent="BlackHoleStation/Particles2D"]

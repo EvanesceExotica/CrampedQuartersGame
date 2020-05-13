@@ -12,12 +12,12 @@
 [ext_resource path="res://Resources/Shaders/Frost.shader" type="Shader" id=10]
 [ext_resource path="res://Resources/Shaders/ShaderTextures/Frost4.jpg" type="Texture" id=11]
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
 shader_param/frequency = 60.0
 shader_param/depth = 0.005
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 3 )
 shader_param/base = Color( 0.407843, 0.384314, 0.564706, 1 )
 shader_param/grain_strength = 0.2
@@ -27,15 +27,15 @@ shader_param/flashing = 0.001
 shader_param/grain = ExtResource( 4 )
 shader_param/vignette = ExtResource( 5 )
 
-[sub_resource type="ShaderMaterial" id=6]
+[sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 7 )
 shader_param/base = Color( 1, 0.0117647, 0.0117647, 1 )
 
-[sub_resource type="ShaderMaterial" id=11]
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 8 )
 shader_param/amount = 0.922
 
-[sub_resource type="ShaderMaterial" id=8]
+[sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 10 )
 shader_param/FROSTYNESS = 1.0
 shader_param/COLORIZE = 10.0
@@ -43,7 +43,7 @@ shader_param/COLOR_RGB = Color( 0.266667, 0.376471, 0.537255, 0.133333 )
 shader_param/lensRadius = Vector2( 1, 0.2 )
 shader_param/iChannel1 = ExtResource( 11 )
 
-[sub_resource type="Shader" id=9]
+[sub_resource type="Shader" id=6]
 code = "shader_type canvas_item;
 
 uniform bool apply = true;
@@ -65,8 +65,8 @@ void fragment() {
 	COLOR = color;
 }"
 
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 9 )
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
 shader_param/apply = true
 shader_param/amount = 0.6
 shader_param/offset_texture = ExtResource( 5 )
@@ -89,9 +89,10 @@ texture = ExtResource( 9 )
 
 [node name="HeatEffect" type="TextureRect" parent="EffectHolder"]
 modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 5 )
+material = SubResource( 1 )
 margin_right = 1026.0
 margin_bottom = 601.0
+mouse_filter = 2
 texture = ExtResource( 6 )
 stretch_mode = 1
 __meta__ = {
@@ -100,9 +101,10 @@ __meta__ = {
 
 [node name="DreamEffect" type="TextureRect" parent="EffectHolder"]
 modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 4 )
+material = SubResource( 2 )
 margin_right = 1023.0
 margin_bottom = 603.0
+mouse_filter = 2
 texture = ExtResource( 6 )
 stretch_mode = 1
 __meta__ = {
@@ -111,10 +113,11 @@ __meta__ = {
 
 [node name="HeatEffect2" type="TextureRect" parent="EffectHolder"]
 modulate = Color( 1, 0, 0, 0 )
-material = SubResource( 6 )
+material = SubResource( 3 )
 margin_left = -2.0
 margin_right = 1020.0
 margin_bottom = 600.0
+mouse_filter = 2
 texture = ExtResource( 6 )
 stretch_mode = 1
 __meta__ = {
@@ -123,9 +126,10 @@ __meta__ = {
 
 [node name="DreamEffect2" type="TextureRect" parent="EffectHolder"]
 modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 11 )
+material = SubResource( 4 )
 margin_right = 1012.0
 margin_bottom = 583.0
+mouse_filter = 2
 texture = ExtResource( 6 )
 stretch_mode = 1
 __meta__ = {
@@ -134,11 +138,12 @@ __meta__ = {
 
 [node name="FrostEffect" type="TextureRect" parent="EffectHolder"]
 modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 8 )
+material = SubResource( 5 )
 margin_left = -14.0
 margin_top = 12.0
 margin_right = 1022.0
 margin_bottom = 592.0
+mouse_filter = 2
 texture = ExtResource( 6 )
 stretch_mode = 1
 __meta__ = {
@@ -147,11 +152,12 @@ __meta__ = {
 
 [node name="SpacetimeEffect" type="TextureRect" parent="EffectHolder"]
 modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 10 )
+material = SubResource( 7 )
 margin_left = 1.62329
 margin_top = 12.6803
 margin_right = 1023.62
 margin_bottom = 612.678
+mouse_filter = 2
 texture = ExtResource( 6 )
 stretch_mode = 1
 __meta__ = {

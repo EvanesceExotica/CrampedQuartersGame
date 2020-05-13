@@ -31,7 +31,11 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="Control"]
 margin_right = 1025.0
 margin_bottom = 600.0
+mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Fade = SubResource( 1 )

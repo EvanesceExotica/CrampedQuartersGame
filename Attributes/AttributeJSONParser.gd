@@ -139,7 +139,7 @@ func fetchAndCreateAttribute(attributeName):
 
 	attribute.stackable = thisAttributeDictionary["stackable"]
 
-	if thisAttributeDictionary.has("spreadVariabues") && thisAttributeDictionary["spreadVariables"].size() > 0:
+	if thisAttributeDictionary.has("spreadVariables") && thisAttributeDictionary["spreadVariables"].size() > 0:
 		attribute.spreadVariables = thisAttributeDictionary["spreadVariables"][0] #get the dictionary in this array at index zero since it's a single bundle thing of info
 
 	#attribute.statSignalsToWatchFor = thisAttributeDictionary["statSignalsToWatchFor"]
@@ -149,6 +149,8 @@ func fetchAndCreateAttribute(attributeName):
 	#attribute.characterEventTypeChance = thisAttributeDictionary["characterEventTypeChance"]
 	#attribute.externalCombinations = thisAttributeDictionary["externalCombinations"]
 	attribute.effect = thisAttributeDictionary["effect"]
+	if thisAttributeDictionary.has("staticStats"):
+		attribute.staticStats = thisAttributeDictionary["staticStats"]
 	createdAttributes.append(attribute)
 
 	return attribute

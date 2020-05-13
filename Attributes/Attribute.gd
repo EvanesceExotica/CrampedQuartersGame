@@ -71,6 +71,7 @@ var spreadChancePerHalfHour
 var spreadVariables
 var spreadRange = 0
 var effect = ""
+var staticStats = {}
 
 func Copy():
 	var attribute = Self.new(attributeName)

@@ -1,7 +1,7 @@
 extends Node
 
-#var timeRatio = 0.00694 #0.01
-var timeRatio = 0.00100 #0.01
+var timeRatio = 0.00694 #0.01
+#var timeRatio = 0.00100 #0.01
 #var timeRatio = 0.000694 #0.01#FAKE ONE CHANGE BACK
 var gameTime = 0
 var realTime = 0
