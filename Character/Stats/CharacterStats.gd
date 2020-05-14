@@ -220,8 +220,8 @@ func animateBar(affectedStat, startValue, targetValue, rate):#certainTween, cert
 	# 		isRelationshipTweenRunning = true
 	# 	else:
 	# 		relationshipTween.stop_all()
-	print("Sustenance value is " + str(character.sustenance.currentValue))
-	print("Sustenance BAR value is " + str(sustenanceBar.value))
+	#print("Sustenance value is " + str(character.sustenance.currentValue))
+	#print("Sustenance BAR value is " + str(sustenanceBar.value))
 	#get_tree().paused = true
 	sustenanceBar.value = character.sustenance.currentValue
 	certainTween.interpolate_property(certainBar, 'value', affectedStat.currentValue + 1, targetValue, rate, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -242,7 +242,7 @@ func _process(delta):
 
 
 func _on_HealthTween_tween_completed(object, key):
-	print("health tween completed")
+	#print("health tween completed")
 	var stat = character.health
 	var startHealth = stat.currentValue
 

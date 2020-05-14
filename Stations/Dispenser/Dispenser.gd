@@ -82,7 +82,7 @@ func respawnItem():
 	pass
 
 func onRespawnTimerTimeout():
-	print("Item produced! Ready to be dispensed")
+#	print("Item produced! Ready to be dispensed")
 	amountToDispense+= 1
 	if(amountToDispense >= maxAmountHeld):
 		amountToDispense = maxAmountHeld

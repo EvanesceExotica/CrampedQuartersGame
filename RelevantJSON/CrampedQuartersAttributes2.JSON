@@ -839,8 +839,8 @@
 					}
 				},
 				{
-					"id": "Sadistic",
-					"attributeName": "Sadistic",
+					"id": "Cruel",
+					"attributeName": "Cruel",
 					"description": "\"Love inflicting pain\"",
 					"AffectedStats": [],
 					"AuraAttributes": [],

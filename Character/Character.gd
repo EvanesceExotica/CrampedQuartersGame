@@ -129,7 +129,7 @@ func applyNewAttribute(newAttribute):
 		#if we have static stats
 		if newTrait.staticStats.has("resourceRefusalChance"):
 			resourceRefusalChance = newTrait["staticStats"]["resourceRefusalChance"]
-			print("Resource refusal chance is " + resourceRefusalChance)
+			print("Resource refusal chance is " + str(resourceRefusalChance))
 
 	# if newTrait.spreadVariables != null && newTrait.spreadVariables.size() > 0:
 	# 	if newTrait.spreadVariables["spreadChancePerHalfHour"] > 0:
@@ -507,6 +507,8 @@ func changeStatValue(affectedStat, newAttribute, amount, isMultiplicative):
 			Die(newAttribute, false)
 		elif affectedStat == sustenance:
 			Starve()
+		elif affectedStat == sanity:
+			insanityHandler.HaveMentalBreak()
 
 	if(affectedStat.currentValue > affectedStat.maxValue ):
 		affectedStat.currentValue = affectedStat.maxValue
@@ -690,9 +692,8 @@ func _on_Character_area_exited(area):
 
 func _input(event):
 	if event is InputEventKey and event.scancode == KEY_K and not event.echo:
-		pass
+		changeStatValue(sanity, null, -100, false)
 	if(event.is_action_pressed("ui_interact")):
-		sanity.currentValue = 0
 		if(handInZone && !viewingCharacterDetail):
 			#if we're hovering over the character, but not viewing them in detail
 			viewingCharacterDetail = true

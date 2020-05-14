@@ -103,7 +103,7 @@ func stopAllDrains():
 	#characterStats.stopAnimatingBar(characterStats.statTweens[affectedStat])
 
 func intervalReached(interval):
-	print("We reached the interval of " + str(interval) + " hour(s)")
+	#print("We reached the interval of " + str(interval) + " hour(s)")
 	SendHarvest()
 
 func SendHarvest():

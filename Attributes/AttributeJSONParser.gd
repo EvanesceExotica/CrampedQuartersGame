@@ -91,6 +91,7 @@ func fetchAndCreateAttribute(attributeName):
 
 	for item in attributeData:
 		#for every attribute copied to attributeData from the 'lines' array
+	#	print(item["attributeName"] + " vs " + attributeName)
 		if item["attributeName"] == attributeName:
 			#duplicate this attribute from the odictionary
 			thisAttributeDictionary = item.duplicate(true)

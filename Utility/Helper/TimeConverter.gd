@@ -1,8 +1,8 @@
 extends Node
 
-var timeRatio = 0.00694 #0.01
+#var timeRatio = 0.00694 #0.01
 #var timeRatio = 0.00100 #0.01
-#var timeRatio = 0.000694 #0.01#FAKE ONE CHANGE BACK
+var timeRatio = 0.000694 #0.01#FAKE ONE CHANGE BACK
 var gameTime = 0
 var realTime = 0
 
@@ -22,7 +22,7 @@ func HandleDayPassing():
 	SignalManager.emit_signal("DayPassed")
 
 func HandleHourPassing():
-	print("An hour has passed")
+	#print("An hour has passed")
 	SignalManager.emit_signal("HourPassed", Hours())
 
 func SetDreamTime():

@@ -46,14 +46,14 @@ func PromptDreamtime():
 	transitionScreen.fadeToBlack()
 	yield(transitionScreen.fadeToBlack(), "completed")
 	#this method we're calling has the clock pause when dream time is being prompted/ or continuing
-	print("Finished")
+	#print("Finished")
 	TimeConverter.SetDreamTime()
 	get_tree().paused = true
 	FadeHandler.FadeToColor($Tween, sleepPanel, "modulate", Color(1, 1, 1, 0), Color.white, 0.3)
 
 	#find all characters, put in list
 	var characters = get_tree().get_nodes_in_group("Characters")
-	print("There are this many characters " + str(characters.size()))
+	#print("There are this many characters " + str(characters.size()))
 	if characters.size() == 0:
 		#if there are no characters
 		restButton.disabled = false

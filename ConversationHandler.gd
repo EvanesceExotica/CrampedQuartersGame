@@ -91,7 +91,7 @@ func ChooseRandomConversationReaction(otherCharacter):
 	var randomConvoReaction = ChooseRandom.ChooseRandomFromList(conversationReactions.keys())
 	var reactionValue = conversationReactions[randomConvoReaction]
 	character.relationshipModule.AdjustRelationship(otherCharacter, reactionValue)
-	print("RELATIONSHIPPPP is now " + str(character.relationshipModule.relationships[otherCharacter]))
+#	print("RELATIONSHIPPPP is now " + str(character.relationshipModule.relationships[otherCharacter]))
 
 # func ChooseRandomConversationReaction(otherCharacter):
 # 	var randomConvoReaction = ChooseRandom.ChooseRandomFromList(conversationReactions.keys())
@@ -113,7 +113,6 @@ func DetermineConversationSuccess():
 func TypeText():
 	anim.play("TypeText")
 	yield(anim, "animation_finished")
-	print("ANIMATION FINISHED")
 
 func FadeInSpeechBubble():
 	FadeHandler.FadeToColor($Tween, speechBubble, "modulate", Color(1, 1, 1, 0), Color.white, 0.3)

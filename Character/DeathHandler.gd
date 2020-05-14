@@ -20,6 +20,7 @@ enum deathType{
 	burning,
 	freezing,
 	airLock,
+	murder
 }
 
 func addPotentialDeathSource(drainSource, newDrainPerSecond):
