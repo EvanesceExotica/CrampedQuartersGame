@@ -38,7 +38,7 @@ func findBestRelationship():
 
 	for character in positiveRelationships:
 		#for each character you have a positive relationship with
-		if relationships[character] > greatestRelationship:
+		if relationships[character] > relationships[greatestRelationship]:
 			#if your relationship with this character is greater than the one you first found
 			greatestRelationship = character
 
@@ -73,7 +73,7 @@ func findWorstRelationhip():
 
 	for character in negativeRelationships:
 		#for each character you have a positive relationship with
-		if relationships[character] < worstRelationship:
+		if relationships[character] < relationships[worstRelationship]:
 			#if your relationship with this character is greater than the one you first found
 			worstRelationship = character
 

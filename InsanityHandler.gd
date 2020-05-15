@@ -27,15 +27,13 @@ func _ready():
 	pass
 #the different arrays here represent the 'escelalation level' of the event. Going from harm to murder, for example
 var breakdownEvents = {
-	"Masochistic" : [[harmSelf]]#,
-	#"Cruel" : [[killRandom]]#,
 	#"Masochistic" : [[harmSelf], [suicide]],
 	#"Cruel" : [[attackOther, sabotageStation], [killRandom]]#,
-	# "Paranoid2" : [[], [hideInVents]],
-	# "Selfish" : [],
-	# "Hopeless" : [],
-	# "Irrational" : [],
-	# "Obsessive" : [[stalk]],
+	 #"Paranoid2" : [[sabotageStation], [hideInVents]]#,
+	# "Selfish" : [[], []],
+	# "Hopeless" : [[],[]],
+	# "Irrational" : [[harmSelf, attackOther, sabotageStation], []]
+	 "Obsessive" : [[stalk]]
 	# "Vengeful" : [[exactRevenge], [killTarget]]
 }
 var breakdownEventList : Array = []
@@ -60,6 +58,7 @@ func HaveMentalBreak():
 #choose a random breakdown type from the list of possible ones
 	var randomBreakdown = ChooseRandom.ChooseRandomFromList(possibleBreakdowns)
 	print("Our breakdown type is " + str(randomBreakdown))
+	#add the attribute itself which might affect dialogue and some stats on the character
 	character.applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute(randomBreakdown))
 
 	#get the list of esceleating func-refs from the dictionary
@@ -79,7 +78,7 @@ func HandleEscelation():
 	if potentialActions.size() > 0:
 		var chosenAction = ChooseRandom.ChooseRandomFromList(potentialActions)
 		chosenAction.call_func()
-	escelationValue+=1
+	#escelationValue+=1
 
 
 func getPossibleEvents():
@@ -113,14 +112,14 @@ func Suicide():
 func Stalk():
 	#for 'obsessive'
 	var target = character.relationshipModule.findBestRelationship()
-	var slotToMoveTo = target.currentSlot.get_parent().returnClosestEmptySlot()
+	var slotToMoveTo = target.currentSlot.get_parent().returnClosestEmptySlot(target.currentSlot)
 	if slotToMoveTo == null:
 		#if there are no empty slots in the same room, harm yourself out of not being able to reach your obessession
 		HarmSelf()
 	else:
 		#else, move close to obsession
 		slotToMoveTo.processDroppedItem(character)
-		target.applyNewAttribute("BeingStalked") #find one that removes this when character is moved
+		target.applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("BeingStalked")) #find one that removes this when character is moved
 
 func ExactRevenge():
 	#for 'vengeful'

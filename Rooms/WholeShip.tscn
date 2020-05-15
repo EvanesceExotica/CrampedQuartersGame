@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Rooms/WholeShip.gd" type="Script" id=1]
 [ext_resource path="res://Events/EventContainer.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://Utility/TimeElementScripts/DayHandler.tscn" type="PackedScene" id=18]
 [ext_resource path="res://BackgroundEffects/BlackHole.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Rooms/DebugCamera.gd" type="Script" id=20]
+[ext_resource path="res://Character/CharacterTester.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Utility/ScreenEffectHandler.tscn" type="PackedScene" id=30]
 [ext_resource path="res://UI/TransitionScreen.tscn" type="PackedScene" id=31]
 [ext_resource path="res://RelationshipStuff/DreamTime.tscn" type="PackedScene" id=32]
@@ -176,6 +177,9 @@ pause_mode = 2
 [node name="DreamTime" parent="." instance=ExtResource( 32 )]
 
 [node name="FPSLabel" parent="." instance=ExtResource( 33 )]
+
+[node name="CharacterTester" parent="." instance=ExtResource( 21 )]
+position = Vector2( -286.999, -189 )
 
 [node name="CharacterGenerator" parent="." instance=ExtResource( 9 )]
 position = Vector2( -286.999, -189 )

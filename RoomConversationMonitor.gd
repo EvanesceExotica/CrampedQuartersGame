@@ -16,6 +16,9 @@ func ScanForPeopleToTalkTo():
 	var nearbyCharacters = get_parent().returnNearbyCharacters()
 	#perhaps do something here to take into account their relationship & traits
 	#maybe not necessary to have them choose someone to start with, but weight who replies. 
+	if nearbyCharacters.size() <= 1:
+		#there's only one (or zero) people/person so they can't have a conversation
+		return
 	var starter = ChooseRandom.ChooseRandomFromList(nearbyCharacters)
 	if nearbyCharacters.size() <=1:
 		#there's only one person so they can't have a conversation

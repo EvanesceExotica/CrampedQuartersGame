@@ -691,8 +691,7 @@ func _on_Character_area_exited(area):
 			characterStats.hideDisplay()
 
 func _input(event):
-	if event is InputEventKey and event.scancode == KEY_K and not event.echo:
-		changeStatValue(sanity, null, -100, false)
+	
 	if(event.is_action_pressed("ui_interact")):
 		if(handInZone && !viewingCharacterDetail):
 			#if we're hovering over the character, but not viewing them in detail

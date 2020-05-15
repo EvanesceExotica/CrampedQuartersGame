@@ -90,11 +90,15 @@ func SpreadToCharacterInAdjacentSlot(slot, attribute, howManyAdjacent):
 		for i in range(1, howManyAdjacent+1):
 			print("this searches " + str(i) + " times")
 			if originSlotIndex+i < slotArrangement.size():
+				#if it's not going over the range of the slots
 				var index = originSlotIndex+i
 				print("Checking slot at index" + str(index))
 				if slotArrangement[index].occupied:
-					#make sure it's not a corpse
+					#if this particular slot is occupied
+					#TODO:make sure it's not a corpse -- or maybe corpses can spread disease?
+					#add the character to the list
 					nearbyCharacters.append(slotArrangement[index].characterInSlot)
+
 			if originSlotIndex-i >= 0:
 				var index = originSlotIndex-i
 				print(str("Checking slot at index" + str(index)))
@@ -103,12 +107,14 @@ func SpreadToCharacterInAdjacentSlot(slot, attribute, howManyAdjacent):
 					nearbyCharacters.append(slotArrangement[index].characterInSlot)
 				#slotArrangement[originSlotIndex-i].applyNewAttributeToSlot(attribute)
 	for character in nearbyCharacters:
+		#if the character already has the disease
 		if character.characterAttributes.has(attribute):
 			print(character.characterName + " is already " + attribute.attributeName)
 			#if every nearby character has this attribute already
 			nearbyCharacters.erase(character)
-	var randomIndex = randi()%nearbyCharacters.size()
-	nearbyCharacters[randomIndex].applyNewAttribute(attribute)
+	if nearbyCharacters.size() > 0:
+		var randomIndex = randi()%nearbyCharacters.size()
+		nearbyCharacters[randomIndex].applyNewAttribute(attribute)
 	#return nearbyCharacters[randomIndex]
 
 func returnNearbyCharacters():
@@ -143,9 +149,9 @@ func returnClosestEmptySlot(startSlot):
 		#if (searching backward) it isn't going over the range of the slots in this room
 		if originSlotIndex-i >= 0:
 			#check if the slot is empty
-			if checkIfEmpty(slotArrangement[originSlotIndex+i]) == true:
+			if checkIfEmpty(slotArrangement[originSlotIndex-i]) == true:
 				#if it is, this is what we're looking for, return
-				return slotArrangement[originSlotIndex+i]
+				return slotArrangement[originSlotIndex-i]
 	#if none could be found in this room, return null
 	return null
 

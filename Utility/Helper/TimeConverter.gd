@@ -16,6 +16,10 @@ var firstDay = true
 func round_to_dec(num, places):
 	return round (num * pow(10.0, places))/pow(10.0, places)
 
+func _input(event):
+	if event is InputEventKey and event.scancode == KEY_J and not event.echo:
+		SkipToNextDay()
+
 #func SetGameTimer(timer, waitTime, oneshot, )
 func HandleDayPassing():
 	print("A day has passed")
@@ -40,11 +44,23 @@ func _ready():
 
 	pass
 
-#func SkipToNextDay():
+func SkipToNextHour():
+	#3600 seconds in an hour
+	#gameTime += 3600
+	var seconndsLeft
+
+func SkipToNextDay():
+	#86400 seconds in a day
+	var secondsInNextDayInterval = 86400 * (Days() + 1) #so multiply the seconds-in-day number by the next amount of days we'll reach (by finding the current amount of days plus one)
+	var secondsLeftInDay = secondsInNextDayInterval - totalSeconds() #get the difference between how many seconds now, and how many seconds to reach next amount of days, to determine how many seconds left in day
+	gameTime += secondsLeftInDay #add the seconds left in a day to the game time
+
 func _process(delta):
+
 	if(!dreamTime):
 		#if it's not currently dream time, increase the game time
-		gameTime += delta /  timeRatio
+		#delta is the amount of time since the last frame. Game time is basically increasing each frame
+		gameTime += delta /  timeRatio #dividing these two values will end up with a number greater than one, a greater time being added to the gameTime than just adding delta
 		realTime += delta
 
 
@@ -135,9 +151,11 @@ func Hours():
 
 func Days():
 	#86,400 seconds in a day = 60 * 60 * 24, 60 seconds per minute, 60 minutes per hour, 24 hours per day
+	#it's dividing because a lower amount will end up kind of being like a 'percentage' of the full until it reaches the full one
 	return int(totalSeconds() / 60 * 60 * 24)
 
 func totalSeconds():
+	#integer value of how many seconds have passed (remember, delta is seconds since last frame. Even as a number less than one, eventually added together they'll eqaul one.)
 	 return int(gameTime)
 	
 func RealSeconds():

@@ -2,7 +2,7 @@ extends Node2D
 
 export(int) var daysPassed = 0
 #TODO: max days is being set to one automatically, think of way to fix
-export(int) var maxDays = 2
+export(int) var maxDays = 5
 
 var atFuture = false 
 var beholdingTheTruth = "BeholdingTheTruth"
