@@ -1,14 +1,18 @@
 extends Node2D
 
-export var slotArrangement = [] #this is left to right
+var slotArrangement = [] #this is left to right #oooooh this is another case of the export var issue being shared between instances
 onready var room = get_parent()
 
 func _ready():
 	randomize()
 	set_process_input(true)
+	var slotChildrenNames = " "
 	for item in get_children():
+		slotChildrenNames += item.name + " , "
 		if item.get_class() == "Slot":
 			slotArrangement.append(item)
+	#print(room.name + " slot manager has these children " + slotChildrenNames)
+
 
 
 

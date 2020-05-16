@@ -11,17 +11,6 @@
 [ext_resource path="res://Rooms/AirlockRoom/AirlockRoom.gd" type="Script" id=9]
 [ext_resource path="res://EffectLibrary/ParticleEffects/Stars.tscn" type="PackedScene" id=10]
 
-
-
-
-
-
-
-
-
-
-
-
 [node name="AirlockRoom" instance=ExtResource( 1 )]
 script = ExtResource( 9 )
 
