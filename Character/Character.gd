@@ -588,7 +588,7 @@ func IsInterrupted(dispenser):
 	#make a flag to only do this if there's a flab determining that there's a crazy person present
 
 	#determine if will refuse food
-	if hasAttribute("Paranoid"):
+	if hasAttribute("Paranoid2"):
 		#TODO: Change these values
 		if ChooseRandom.DetermineIfEventHappens(0.5):
 			RefuseResource()
@@ -598,7 +598,7 @@ func IsInterrupted(dispenser):
 	var selfishCharacter = IsCharacterWithAttributeNearby("Selfish", 1)
 	if selfishCharacter != null:
 		if ChooseRandom.DetermineIfEventHappens(0.5):
-			selfishCharacter.StealResource()
+			selfishCharacter.StealResource(dispenser)
 			interrupted = true
 	return interrupted
 
@@ -651,8 +651,10 @@ func processDroppedItem(dispenser):
 			#if this food is contaminated and has any attributes to apply
 			#TODO:have the contaminated food look stinky/gross on click-and-drag
 			var attributesToApply = dispenser.givenAttributes.pop_back()
-			for attribute in attributesToApply:
-				applyNewAttribute(attribute)
+			#TODO: Put this back in if you wanted to make it a list
+			applyNewAttribute(attributesToApply)
+			# for attribute in attributesToApply:
+			# 	applyNewAttribute(attribute)
 
 	System.emit_signal("dispensedItemConsumed", dispenser, self)
 

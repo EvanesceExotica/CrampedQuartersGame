@@ -16,7 +16,7 @@ func _input(event):
 		testCharacter = characters[0]
 		targetCharacter = characters[1]
 
-		targetCharacter.relationshipModule.AdjustRelationship(testCharacter, 30)
-		testCharacter.relationshipModule.AdjustRelationship(targetCharacter, 30)
+		targetCharacter.relationshipModule.AdjustRelationship(testCharacter, -30)
+		testCharacter.relationshipModule.AdjustRelationship(targetCharacter, -30)
 		MakeInsane()
 

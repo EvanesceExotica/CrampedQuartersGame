@@ -20,14 +20,14 @@ var harmSelf = funcref(self, "HarmSelf")
 var attackOther = funcref(self, "AttackRandom")
 var contaminateFood = funcref(self, "ContaminateFood")
 var sabotageStation = funcref(self, "SabotageStation")
-var setFire = funcref(self, "SabotageStation")
+var setFire = funcref(self, "SetFire")
 var hideInVents = funcref(self, "HideInVents") #for this one, add a separate node that handles the food stealing and such
 
 func _ready():
 	pass
 #the different arrays here represent the 'escelalation level' of the event. Going from harm to murder, for example
 var breakdownEvents = {
-	 "Irrational" : [[setFire], []]
+	 "Cruel" : [[contaminateFood], []]
 	#"Masochistic" : [[harmSelf], [suicide]],
 	#"Cruel" : [[attackOther, contaminateFood], [killRandom]]#,
 	 #"Paranoid2" : [[sabotageStation], [hideInVents]]#,
@@ -141,7 +141,7 @@ func AttackOther(otherCharacter):
 
 	print("HURTING ANOTHER")
 	#maybe have this one only apply to characters who aren't already high health, or have it affect max hp too?
-	otherCharacter.changeStatValue(character.health, self, -10, false)
+	otherCharacter.changeStatValue(otherCharacter.health, self, -10, false)
 
 	#have the other character hate this character immediately, unless masochistic
 	otherCharacter.relationshipModule.AdjustRelationship(self, -100)
@@ -154,7 +154,7 @@ signal ContaminateFood(poison)
 
 func ContaminateFood():
 	#on night
-	emit_signal("ContaminateFood", self, AttributeJSONParser.fetchAndCreateAttribute("Contaminated"))
+	SignalManager.emit_signal("ContaminateFood", AttributeJSONParser.fetchAndCreateAttribute("Contaminated"))
 
 signal SabotageStation
 
@@ -169,6 +169,7 @@ func SetFire():
 	#find a random slot and set fire to it
 	var allSlots = get_tree().get_nodes_in_group("slots")
 	var randomSlot = ChooseRandom.ChooseRandomFromList(allSlots)
+	print(randomSlot.slotManager.room.name + " has a slot set on fire ")
 	randomSlot.applyNewAttributeToSlot(AttributeJSONParser.fetchAndCreateAttribute("OnFire"))
 
 

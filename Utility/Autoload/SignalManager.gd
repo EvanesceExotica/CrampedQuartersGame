@@ -4,6 +4,9 @@ extends Node
 signal SomeoneEnteredSlot(whichSlot, whichCharacter)
 signal SomeoneVacatedSlot(whichSlot, whichCharacter)
 
+signal ContaminateFood(typeOfPoison)
+signal FoodStolen
+
 signal DreamTimeStarted
 signal DreamTimeEnded
 signal DreamTimeSkipped

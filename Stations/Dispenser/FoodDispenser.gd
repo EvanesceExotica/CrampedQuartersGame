@@ -12,6 +12,7 @@ func _ready():
 	dispensedItem = ItemOptions.food
 	dispensedItemValue = 100
 	SignalManager.connect("FoodHarvested", self, "CalculateFoodValue")
+	SignalManager.connect("ContaminateFood", self, "contaminate")
 
 	pass # Replace with function body.
 
@@ -44,6 +45,7 @@ func intervalReached(interval):
 
 func contaminate(attributes):
 	#might be a list?
+	print("Food contaminated with " + attributes.attributeName + " aattribute")
 	givenAttributes.append(attributes)	
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.

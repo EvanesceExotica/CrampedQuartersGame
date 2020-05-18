@@ -65,7 +65,7 @@ func findWorstRelationhip():
 
 	for character in relationships.keys():
 		#check all relationships
-		if relationships[character] > 0:
+		if relationships[character] < 0:
 			#if this is negative one or lower, so a low neutral or bad relationship
 			negativeRelationships.append(character)
 
