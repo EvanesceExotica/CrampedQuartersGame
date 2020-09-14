@@ -1,9 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://DreamSpawner.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 477.851, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 466.468, 286.178 )
 
 [node name="DreamSpawner" type="Node2D"]
 position = Vector2( 521.132, 614.281 )
@@ -15,3 +18,11 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="DesireHolderArea" type="Area2D" parent="."]
+position = Vector2( -8.80896, -314.188 )
+
+[node name="DesireHolderCollisionShape" type="CollisionShape2D" parent="DesireHolderArea"]
+shape = SubResource( 2 )
+
+[node name="DesireTimer" type="Timer" parent="."]

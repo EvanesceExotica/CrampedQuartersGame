@@ -6,7 +6,8 @@ var parent
 
 enum DropTypes{
 	character,
-	item
+	item,
+	dreamDesire
 }
 export(DropTypes) var dropType = DropTypes.character
 

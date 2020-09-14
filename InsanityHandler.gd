@@ -27,7 +27,7 @@ func _ready():
 	pass
 #the different arrays here represent the 'escelalation level' of the event. Going from harm to murder, for example
 var breakdownEvents = {
-	 "Cruel" : [[contaminateFood], []]
+	 "Cruel" : [[hideInVents], []]
 	#"Masochistic" : [[harmSelf], [suicide]],
 	#"Cruel" : [[attackOther, contaminateFood], [killRandom]]#,
 	 #"Paranoid2" : [[sabotageStation], [hideInVents]]#,

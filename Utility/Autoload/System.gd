@@ -138,6 +138,9 @@ signal StoppedHoveringOverInteractibleZone
 signal draggingItem(item)
 signal stoppedDraggingItem(item)
 
+signal draggingDream(dream)
+signal stoppedDraggingDream(dream)
+
 var elapsedSecondsInPeriod = 0
 var totalSecondsInPeriod = 75
 

@@ -5,7 +5,7 @@ signal SomeoneEnteredSlot(whichSlot, whichCharacter)
 signal SomeoneVacatedSlot(whichSlot, whichCharacter)
 
 signal ContaminateFood(typeOfPoison)
-signal FoodStolen
+signal FoodStolen#(dispenser, character)
 
 signal DreamTimeStarted
 signal DreamTimeEnded

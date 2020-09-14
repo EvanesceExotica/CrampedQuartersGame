@@ -7,7 +7,8 @@ export var acceptedDrops = []
 #TODO: Find a way around this later
 enum AcceptedDropTypes{
 	character,
-	item
+	item,
+	dreamDesire
 }
 export (AcceptedDropTypes) var acceptedDropType = AcceptedDropTypes.character
 

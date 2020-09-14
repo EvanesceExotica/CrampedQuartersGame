@@ -5,11 +5,17 @@ var randomThoughts = {} #random thoughts
 var desires = {} #things they actually want
 var nightmares = {} #bad dreams -- click to chase away? -- will cause sanity imrpovements
 onready var interactableObject = get_node("InteractableObject")
+onready var draggableItemTemplate = preload("res://Utility/DraggableItem.tscn")
+onready var thoughtSprite = get_node("ThoughtSprite")
+var draggableItem 
 
 var revealed = false
+var desireDragged = false
+var notDraggable = false
+
 var speed = 100.0
 var direction = Vector2(0, -1)
-
+var dropType = 0
 enum Type{
 	random,
 	desire,
@@ -43,22 +49,25 @@ func RiseAndFade():
 	pass
 
 func _physics_process(delta):
-	if(!revealed):
+	if(!revealed && !desireDragged):
 		translate(direction * (speed * delta))
 	#set_pos(get_pos() + dir * (speed * delta))
 
 func _on_Area2D_mouse_entered():
 	interactableObject.handInZone = true
-	pass
+	draggableItem.handInZone = true
 
 func _on_Area2D_mouse_exited():
 	interactableObject.handInZone = false
-	pass
-	pass
+	draggableItem.handInZone = false
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed):
-		Pop()
+		if ourType != Type.desire:
+			Pop()
+		if ourType == Type.desire:
+			$Tween.stop_all()
+			desireDragged = true
 
 func Grow():
 	var startScale = self.scale
@@ -85,6 +94,9 @@ func FadeToBlue():
 	$Tween.interpolate_property(self, "self_modulate", Color(1, 1, 1, 1), Color.cornflower, 5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 
+func FadeToGreen():
+	$Tween.interpolate_property(self, "self_modulate", Color(1, 1, 1, 1), Color.green, 5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.start()
 func FadeToRed():
 	$Tween.interpolate_property(self, "self_modulate", Color(1, 1, 1, 1), Color.red, 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
@@ -95,7 +107,7 @@ func _ready():
 	self.modulate = Color(1, 1, 1, 0)
 	FadeIn()
 	#FadeToRed()
-	if ourType == Type.desire || ourType == Type.nightmare:
+	if ourType == Type.nightmare: #ourType == Type.desire || ourType == Type.nightmare:
 		#if this is a desire or a nightmare, make it look like a desire
 		FadeToBlue()
 
@@ -103,7 +115,12 @@ func _ready():
 		#if this is a nightmare, have a hidden timer
 		$Timer.connect("timeout", self, "RevealNightmare")
 		StartNightmareTimer()
-	#Grow()
+
+	if ourType == Type.desire:
+		FadeToGreen()
+		draggableItem = draggableItemTemplate.instance()
+		draggableItem.dropType = 2
+		self.add_child(draggableItem)
 
 func RevealNightmare():
 	revealed = true
@@ -122,6 +139,7 @@ func StartNightmareTimer():
 
 
 func _on_Area2D_area_entered(area):
+	#if area is entered by another dream
 	var potentialDream = area.get_parent()
 	if potentialDream.get_class() == "Dream":
 		if ourType == Type.nightmare && revealed && potentialDream.ourType != Type.nightmare:

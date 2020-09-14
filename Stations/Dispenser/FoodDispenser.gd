@@ -13,8 +13,11 @@ func _ready():
 	dispensedItemValue = 100
 	SignalManager.connect("FoodHarvested", self, "CalculateFoodValue")
 	SignalManager.connect("ContaminateFood", self, "contaminate")
+	SignalManager.connect("FoodStolen", self, "StealFood")
 
 	pass # Replace with function body.
+func StealFood():
+	removeDispensedItemFromDispenser(self, null)
 
 func CalculateFoodValue(gardenHealth):
 	#this sets the value of the dispensed item to the health of the garden food

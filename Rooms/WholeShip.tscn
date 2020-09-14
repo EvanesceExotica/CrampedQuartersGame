@@ -184,6 +184,12 @@ position = Vector2( -286.999, -189 )
 [node name="CharacterGenerator" parent="." instance=ExtResource( 9 )]
 position = Vector2( -286.999, -189 )
 speciesOptions = [ ExtResource( 10 ) ]
+
+[node name="VentPosition" type="Position2D" parent="."]
+position = Vector2( -684.579, -486.226 )
+__meta__ = {
+"_gizmo_extents_": 158.1
+}
 [connection signal="button_down" from="CanvasLayer/Button" to="CharacterGenerator" method="_on_Button_button_down"]
 
 [editable path="PowerStaton"]

@@ -30,6 +30,18 @@ func onDraggingItem(item):
 	anim.stop()
 	anim.play("Hold")
 	pass
+
+func onDraggingDream(dreamSprite):
+	dragSprite.texture = dream.thoughtSprite
+	dragSprite.visible = true
+	anim.stop()
+	anim.play("Hold")
+
+#TODO: You really shouldn't ahve to repeat these, they're doing the same thing VVV
+func onReleaseDream(dreamSprite):
+	dragSprite.visible = false
+	anim.stop()
+	anim.play("Release")
 func onReleaseCharacter(character):
 	dragSprite.visible = false
 	anim.stop()
