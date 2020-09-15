@@ -2,9 +2,6 @@ extends Area2D
 
 onready var droppableZone = get_node("DroppableZone")
 var notDroppable = false
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 #1 is normal comfort. zero is none. -1 is actively causing sanity drain
 #var attributeScript = preload("res://Attribute.gd")
 const Character = preload("res://Character/Character.gd")

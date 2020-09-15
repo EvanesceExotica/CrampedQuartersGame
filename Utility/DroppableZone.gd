@@ -5,26 +5,27 @@ var handInZone = false
 export var acceptedDrops = []
 
 #TODO: Find a way around this later
-enum AcceptedDropTypes{
-	character,
-	item,
-	dreamDesire
-}
-export (AcceptedDropTypes) var acceptedDropType = AcceptedDropTypes.character
+# enum AcceptedDropTypes{
+# 	character,
+# 	item,
+# 	dreamDesire
+# }
+# export (AcceptedDropTypes) var acceptedDropType = AcceptedDropTypes.character
 
 func _ready():
 	System.connect("stoppedDraggingItem", self, "checkWhatDropped")
-	pass
+# 	parent.connect("", self, "setHandInZone")
+# 	pass
+
+# func setHandInZone(ishandInZone):
+# 	handInZone = ishandInZone
 
 
 func checkWhatDropped(droppedObject):
-	if handInZone:	
-		if droppedObject.dropType == acceptedDropType:
-			parent.processDroppedItem(droppedObject)
-	#for acceptableItem in acceptedDrops:
-		#print(droppedObject.get_class() + " vs " + acceptableItem.get_class())
-		#parent.processDroppedItem(droppedObject)
-		#if droppedObject is Character:
-		#	parent.processDroppedItem(droppedObject)
-	#if parent.has_method("processDroppedObject"):
-		#parent.processDroppedItem(droppedObject)
+	if parent.handInZone:	
+		print("Dropped?")
+		for i in acceptedDrops:
+			if acceptedDrops.has(droppedObject.get_class()):
+				if parent.has_method("processDroppedItem"):
+					parent.processDroppedItem(droppedObject)
+	

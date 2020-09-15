@@ -68,11 +68,15 @@ var negativeConversationStarterChance = 0 #chance to start a mean conversation
 var stationTraining = { }
 
 var starvingAttribute
-
+onready var personalCamera = get_node("PersonalCamera")
 
 signal statAtZero(whichStat)
 signal statAtMax(whichStat)
 signal healedOverMax(whichStat) #this one would apply to being overfed or being overhealed, which removes injuries
+
+func get_class():
+	return "Character"
+
 
 func applyNewAttribute(newAttribute):	
 

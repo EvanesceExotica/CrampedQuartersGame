@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://GenerateConversation.gd" type="Script" id=1]
+[ext_resource path="res://Character/DesireHolder.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 441.96, 189.019 )
+
+[node name="GenerateConversation" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 508.783, 235.346 )
+input_pickable = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="DesireHolder" parent="." instance=ExtResource( 2 )]
+position = Vector2( 803.986, 277.518 )

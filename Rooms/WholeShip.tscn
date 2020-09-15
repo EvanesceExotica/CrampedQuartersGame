@@ -164,11 +164,11 @@ zoom = Vector2( 5, 5 )
 script = ExtResource( 20 )
 
 [node name="ScreenEffectHandler" parent="." instance=ExtResource( 30 )]
-pause_mode = 2
 screentimeEffects = {
 "dreamtime": NodePath("EffectHolder/DreamEffect"),
 "overheating": NodePath("EffectHolder/HeatEffect"),
-"overheating2": NodePath("EffectHolder/HeatEffect2")
+"overheating2": NodePath("EffectHolder/HeatEffect2"),
+"spacetimeTravel": NodePath("EffectHolder/SpacetimeEffect")
 }
 
 [node name="TransitionScreen" parent="." instance=ExtResource( 31 )]

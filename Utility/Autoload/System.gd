@@ -127,6 +127,7 @@ var engineSlots = { }
 #var uncomfortableAirSlots = { }
 #var dangerousAirSlots = { }
 #var aquaticSlots = { }
+signal dragging(draggedItem)
 
 signal dispensedItemConsumed(dispenser, character)
 signal draggingCharacter(character)

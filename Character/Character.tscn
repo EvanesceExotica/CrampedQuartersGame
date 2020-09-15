@@ -7,7 +7,7 @@
 [ext_resource path="res://Utility/TraitChecker.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Character/DeathHandler.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Character/Stats/CharacterStats.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Stations/Dispenser/Dispenser.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Character/DesireHandler.gd" type="Script" id=8]
 [ext_resource path="res://Utility/DroppableZone.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Utility/DraggableItem.tscn" type="PackedScene" id=10]
 [ext_resource path="res://EffectLibrary/ParticleEffects/Fire.tscn" type="PackedScene" id=11]
@@ -88,8 +88,7 @@ rect_scale = Vector2( 0.5, 0.5 )
 [node name="DraggableItem" parent="." instance=ExtResource( 10 )]
 
 [node name="DroppableZone" parent="." instance=ExtResource( 9 )]
-acceptedDrops = [ ExtResource( 8 ) ]
-acceptedDropType = 1
+acceptedDrops = [ "Dispenser" ]
 
 [node name="EffectLibrary" parent="." instance=ExtResource( 3 )]
 effectLibary = {
@@ -109,6 +108,13 @@ position = Vector2( -164.34, -359.121 )
 position = Vector2( -12.8675, -282.271 )
 
 [node name="InsanityHandler" parent="." instance=ExtResource( 17 )]
+
+[node name="PersonalCamera" type="Camera2D" parent="."]
+position = Vector2( -7.36126, -261.108 )
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="DesireHandler" type="Node2D" parent="."]
+script = ExtResource( 8 )
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]

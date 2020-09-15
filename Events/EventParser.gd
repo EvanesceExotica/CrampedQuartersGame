@@ -40,10 +40,12 @@ var randomEvents = {} #the 'travelling, not travelling' can be handled by the ev
 var alreadyTriggeredEvents = []
 func _ready():
 	randomize()
+	#when the user clicks on a result, calculate that result
 	SignalManager.connect("EventChoiceClicked", self, "calculateResultSet")
 	generateAllEvents()
 
 func load_json():
+	#load the json file and set the sheets as a dictionary
 	var file = File.new()
 	file.open("res://RelevantJSON/GameEvents.JSON", file.READ)
 	var entireFile = parse_json(file.get_as_text())
@@ -57,7 +59,9 @@ func _load_json():
 	#return eventData
    
 func generateAllEvents():
+	#get the events from the json
 	load_json()
+	#check what the type of the event is, whether it's an arrival event after you arrive at a location, a random event during the day, or a distress beacon event
 	for event in eventData:
 		checkEventType(event)
 

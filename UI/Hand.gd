@@ -15,6 +15,13 @@ func onHoverOverInteractable():
 func onInteractWith():
 	anim.stop()
 	anim.play("Hold")
+
+func onDragging(object):
+	dragSprite.texture = object.dragSprite
+	dragSprite.visible = true
+	anim.stop()
+	anim.play("Hold")
+
 	
 func onDraggingCharacter(character):
 	print(character.name + " being dragged")
@@ -32,7 +39,7 @@ func onDraggingItem(item):
 	pass
 
 func onDraggingDream(dreamSprite):
-	dragSprite.texture = dream.thoughtSprite
+	dragSprite.texture = dreamSprite.thoughtSprite
 	dragSprite.visible = true
 	anim.stop()
 	anim.play("Hold")
@@ -59,6 +66,7 @@ func release():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	anim.play("Release")
+	System.connect("dragging", self, "onDragging")
 	System.connect("draggingCharacter", self, "onDraggingCharacter")
 	System.connect("draggingItem", self, "onDraggingItem")
 	#System.connect("HoveringOverInteractibleZone", self, "onHoverOverInteractable")

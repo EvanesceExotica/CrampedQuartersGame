@@ -17,6 +17,7 @@ enum ItemOptions{
 	food,
 	health
 }
+
 var dispensedItem
 
 var maxAmountHeld = 3
@@ -27,6 +28,9 @@ var initialRespawnWaitTime = 100
 var respawnWaitTime = 100
 
 var appliedAttributes = []
+
+func get_class():
+	return "Dispenser"
 
 func removeDispensedItemFromDispenser(dispenser, character):
 	if(dispenser == self):
@@ -107,16 +111,12 @@ func SetItemAmountLabel():
 
 func _on_Dispenser_area_entered(area):
 	if(area.name == "Hand"):
-		#print("Hand entered " + self.name)
 		handInZone = true
-	pass # Replace with function body.
 
 
 func _on_Dispenser_area_exited(area):
 	if(area.name == "Hand"):
-		#print("Hand exited " + self.name) 
 		handInZone = false
-	pass # Replace with function body.
 
 func _on_Dispenser_mouse_entered():
 	handInZone = true

@@ -76,7 +76,8 @@ script = ExtResource( 1 )
 screentimeEffects = {
 "dreamtime": NodePath("EffectHolder/DreamEffect"),
 "overheating": NodePath("EffectHolder/HeatEffect"),
-"overheating2": NodePath("EffectHolder/HeatEffect2")
+"overheating2": NodePath("EffectHolder/HeatEffect2"),
+"spacetimeTravel": NodePath("EffectHolder/SpacetimeEffect")
 }
 
 [node name="EffectHolder" type="Node2D" parent="."]
