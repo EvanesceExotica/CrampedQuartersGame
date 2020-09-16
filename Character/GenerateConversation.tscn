@@ -18,5 +18,16 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
 
-[node name="DesireHolder" parent="." instance=ExtResource( 2 )]
-position = Vector2( 803.986, 277.518 )
+[node name="HolderNode" type="Node2D" parent="."]
+
+[node name="Subject" parent="HolderNode" instance=ExtResource( 2 )]
+position = Vector2( 120.325, 156.742 )
+
+[node name="Verb" parent="HolderNode" instance=ExtResource( 2 )]
+position = Vector2( 350.798, 163.39 )
+
+[node name="Adjective" parent="HolderNode" instance=ExtResource( 2 )]
+position = Vector2( 586.81, 158.958 )
+
+[node name="Object" parent="HolderNode" instance=ExtResource( 2 )]
+position = Vector2( 827.255, 155.634 )

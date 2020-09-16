@@ -23,7 +23,6 @@ func _ready():
 
 func checkWhatDropped(droppedObject):
 	if parent.handInZone:	
-		print("Dropped?")
 		for i in acceptedDrops:
 			if acceptedDrops.has(droppedObject.get_class()):
 				if parent.has_method("processDroppedItem"):

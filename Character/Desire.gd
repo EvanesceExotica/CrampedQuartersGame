@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var dragSprite = get_node("Sprite")
-
+var desireName = ""
 var notDraggable = false
 var beingDragged = false
 var handInZone = false
