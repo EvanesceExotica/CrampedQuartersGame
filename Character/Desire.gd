@@ -2,13 +2,28 @@ extends Node2D
 
 onready var dragSprite = get_node("Sprite")
 var desireName = ""
+onready var desireText = get_node("DesireText")
 var notDraggable = false
 var beingDragged = false
 var handInZone = false
 
+var randomDesireList = ["environment", "food", "weather", "culture", "money", "politics", "health", "fashion", "travel", "crime", "entertainment", "animals", "science", "family", "romance", "plasure"]
+
+func _ready():
+	pass
+
 func get_class():
 	.get_class()
 	return "Desire"
+
+func setDesireName(name):
+	desireName = name
+	desireText.text = desireName
+
+func generateRandomDesire():
+	#will pick a random desire from the test list above and set the desire name to equal it; for testing purposes
+	desireName = ChooseRandom.ChooseRandomFromList(randomDesireList)
+	desireText.text = desireName
 
 func setBeingDragged(_beingDragged):
 	beingDragged = _beingDragged

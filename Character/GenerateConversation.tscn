@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://GenerateConversation.gd" type="Script" id=1]
 [ext_resource path="res://Character/DesireHolder.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Character/ResponseGenerator/DialogueGenerator.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 441.96, 189.019 )
@@ -31,3 +32,19 @@ position = Vector2( 586.81, 158.958 )
 
 [node name="Object" parent="HolderNode" instance=ExtResource( 2 )]
 position = Vector2( 827.255, 155.634 )
+
+[node name="DialogueGenerator" parent="." instance=ExtResource( 3 )]
+
+[node name="ResponseHolder" type="Node2D" parent="."]
+
+[node name="1" type="Position2D" parent="ResponseHolder"]
+position = Vector2( 160, 480 )
+
+[node name="2" type="Position2D" parent="ResponseHolder"]
+position = Vector2( 400, 480 )
+
+[node name="3" type="Position2D" parent="ResponseHolder"]
+position = Vector2( 640, 480 )
+
+[node name="4" type="Position2D" parent="ResponseHolder"]
+position = Vector2( 880, 480 )

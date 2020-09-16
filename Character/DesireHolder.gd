@@ -5,14 +5,14 @@ onready var anim = get_node("AnimationPlayer")
 
 var currentDesire
 
-signal desireRegistered
+signal desireRegistered(desire)
 
 func processDroppedItem(desire):
 	print("Dropped desire in me")
 	if desire.global_position.distance_to(self.global_position) <= 70:
 		desire.global_position = self.global_position
 		anim.play("Signal")
-		emit_signal("desireRegistered")
+		emit_signal("desireRegistered", desire)
 		currentDesire = desire
 	# if desire.has_method("shrink"):
 	# 	desire.shrink()

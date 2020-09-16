@@ -983,7 +983,7 @@
 				},
 				{
 					"id": "Depressed",
-					"attributeName": "",
+					"attributeName": "Depressed",
 					"description": "\"Something bad just happened.\"",
 					"AffectedStats": [
 						{
@@ -1006,6 +1006,26 @@
 					"spreadRange": 0,
 					"effect": "",
 					"index": 34
+				},
+				{
+					"id": "Jealous",
+					"attributeName": "Jealous",
+					"description": "Will lose sanity when a friend is talking with someone else.",
+					"AffectedStats": [],
+					"AuraAttributes": [],
+					"duration": 0,
+					"eventChance": [],
+					"inherentAttribute": false,
+					"temporary": false,
+					"ResultingAttributes": [],
+					"SpecialAttribute": false,
+					"deathType": 0,
+					"spreadChancePerHalfHour": 0,
+					"spreadVariables": [],
+					"stackable": false,
+					"spreadRange": 0,
+					"effect": "",
+					"index": 35
 				}
 			],
 			"separators": [],
