@@ -40,12 +40,12 @@ func generateResponse(dialogueNodes):
 
 	var newTopicList = [] + randomDesireList
 	#choose new desires that the player didn't choose
-	newTopicList.remove(randomSubject.desireName)
+	newTopicList.remove(randomSubject)
 	var newResponse = []
 
 	#append what the player was talking about that we chose to focus on
-	print("Chose to talk about " + randomSubject.desireName)
-	newResponse.append(randomSubject.desireName)
+	print("Chose to talk about " + randomSubject)
+	newResponse.append(randomSubject)
 	for i in range(2):
 		#generate a new topic
 		var randomNewTopic = ChooseRandom.ChooseRandomFromList(newTopicList)

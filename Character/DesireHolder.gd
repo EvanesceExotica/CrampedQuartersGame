@@ -8,7 +8,7 @@ var currentDesire
 signal desireRegistered(desire)
 
 func processDroppedItem(desire):
-	print("Dropped desire in me")
+	print("Dropped desire in me " + self.name)
 	if desire.global_position.distance_to(self.global_position) <= 70:
 		desire.global_position = self.global_position
 		anim.play("Signal")

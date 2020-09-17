@@ -41,6 +41,10 @@ func _on_Area2D_mouse_entered():
 func _on_Area2D_mouse_exited():
 	handInZone = false
 
+func Pop():
+	$AnimationPlayer.play("Pop")
+	yield($AnimationPlayer, "animation_finished")
+	self.queue_free()
 
 func shrink():
 	$Tween.stop_all()

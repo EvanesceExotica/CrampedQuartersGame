@@ -10,7 +10,7 @@ radius = 113.566
 [sub_resource type="Animation" id=2]
 resource_name = "Signal"
 tracks/0/type = "value"
-tracks/0/path = NodePath("GrowRing:modulate")
+tracks/0/path = NodePath("../DesireHolder/GrowRing:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("GrowRing:scale")
+tracks/1/path = NodePath("../DesireHolder/GrowRing:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -35,6 +35,7 @@ tracks/1/keys = {
 }
 
 [node name="DesireHolder" type="Area2D"]
+scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
