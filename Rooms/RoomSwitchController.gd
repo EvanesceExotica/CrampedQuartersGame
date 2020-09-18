@@ -51,8 +51,13 @@ func _input(event):
 
 func SetToPreviousCamera():
 	#for the purpose of pausing and unpaausing while debugging, jump back to the last camera that was being used
+	print("Previous camera before" + previousCamera.name)
+	print("Current camera before " + currentCamera.name)
 	previousCamera.current = true
+	previousCamera = currentCamera
 	currentCamera = previousCamera
+	print("Previous camera now " + previousCamera.name)
+	print("Current camera now " + currentCamera.name)
 
 func SetDefaultCamera():
 	currentRoom = get_parent().get_node("PassengerRoom")
@@ -62,11 +67,21 @@ func SetExternalCamera(whichCamera):
 	previousCamera = currentCamera
 	whichCamera.current = true
 	currentCamera = whichCamera
+	print(currentCamera.name + " vs " + whichCamera.name)
+	print("Is current?" + str(whichCamera.current))
+	print("Is current?" + str(currentCamera.current))
 
+func ZoomIntoCharacter(character):
+	print("Zooming in to " + character.characterName)
+	SetExternalCamera(character.get_node("PersonalCamera"))
 
 func _ready():
+	#set the default room, which should be the passenger room, and then set the current camera to be the current camera. 
 	currentRoom = get_parent().get_node("PassengerRoom")
+	currentCamera = currentRoom.camera
 	SignalManager.connect("CameraSwitched", self, "SetExternalCamera")
 	SignalManager.connect("ViewInsideShip", self, "SetDefaultCamera")
+	# SignalManager.connect("InterfacingWithCharacter", self, "ZoomIntoCharacter")
+	# SignalManager.connect("StoppedInterfacingWithCharacter", self, "SetToPreviousCamera")
 	#SignalManager.connect("ArrivedAtBlackHole", self, )
 	pass

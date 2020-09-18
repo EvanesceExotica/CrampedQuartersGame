@@ -19,6 +19,8 @@ onready var draggableItem = get_node("DraggableItem")
 var dropType
 
 var viewingCharacterDetail = false
+var interfacing = false
+
 var dragging = true
 signal draggingCharacter(character)
 signal stoppedDraggingCharacter(character)
@@ -39,6 +41,8 @@ onready var rightFacingPosition = get_node("RightPosition")
 onready var leftFacingPosition = get_node("LeftPosition")
 
 onready var characterStats = get_node("CharacterStats")
+
+var conversationGeneratorTemplate = preload("res://Character/GenerateConversation.tscn")
 
 #TODO ADD SOMETHING IN ATTRIBUTES THAT AFFECTS DRAIN RATES
 signal MouseHover
@@ -611,6 +615,13 @@ func RefuseResource():
 	#TODO: have character make comment about not needing it
 	pass
 
+func StartInterfacingWithCharacter():
+	print("INTERFACING")
+	var conversationGenerator = conversationGeneratorTemplate.instance()
+	get_parent().add_child(conversationGenerator)
+	conversationGenerator.global_position = Vector2(0, 0)
+	# self.remove_child(personalCamera)
+	# conversationGenerator.get_node("Viewport").add_child(personalCamera)
 
 
 func StealResource(dispenser):
@@ -661,6 +672,7 @@ func processDroppedItem(dispenser):
 			# 	applyNewAttribute(attribute)
 
 	System.emit_signal("dispensedItemConsumed", dispenser, self)
+
 
 func _process(delta):
 
@@ -718,6 +730,20 @@ func _input(event):
 			characterStats.scanLabel.pop()
 			viewingCharacterDetail = false
 
+	if(event.is_action_pressed("ui_talk")):
+		if(handInZone && !interfacing):
+			print("NOW INTERFACING")
+			#if we're not interfacing and we pressed the toggle, emit the signal that we're interfacing and start doing so
+			SignalManager.emit_signal("InterfacingWithCharacter", self)
+			characterStats.hideDisplay() #hide the display as well
+			interfacing = true
+			StartInterfacingWithCharacter()
+		elif(interfacing):
+			print("STOPPED INTERFACING")
+		#if we're already interfacing and we pressed the toggle again
+			SignalManager.emit_signal("StoppedInterfacingWithCharacter")
+			interfacing = false
+
 func _on_Button_pressed():
 	#applyNewAttribute(AttributeJSONParser.fetchAndCreateAttribute("Smelly"))
 	#Die(null, false)
@@ -756,8 +782,8 @@ func _on_Character_mouse_entered():
 	droppableZone.handInZone = true
 	draggableItem.handInZone = true
 	System.emit_signal("HoveringOverInteractibleZone")
-	if(!viewingCharacterDetail):
-			#if the character detail panel isn't already locked in
+	if(!viewingCharacterDetail && !interfacing):
+			#if the character detail panel isn't already locked in, and we're not zoomed into the character either
 			characterStats.showDisplay()
 
 
@@ -767,6 +793,6 @@ func _on_Character_mouse_exited():
 	droppableZone.handInZone = false
 	draggableItem.handInZone = false
 	System.emit_signal("StoppedHoveringOverInteractibleZone")
-	if(!viewingCharacterDetail):
-		#if the character viewing isn't locked in and the mouse is no longer hoevring over the character
+	if(!viewingCharacterDetail && !interfacing):
+		#if the character viewing isn't locked in and the mouse is no longer hoevring over the character (And we're not zoomed in to the character)
 		characterStats.hideDisplay()

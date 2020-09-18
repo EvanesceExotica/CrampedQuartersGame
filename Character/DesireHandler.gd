@@ -14,18 +14,19 @@ func _ready():
 func allocatePoints():
 	#randomlly allocate points across the spectrum of interests
 	#or would we rather it be a "likes" and "dislikes" sort of thing?
+	var interestListCopy = interestList.duplicate(true)
 	for i in range(interestList.size()):
 
-        #TODO: Fix this tomorrow
+		#TODO: Fix this tomorrow
 		#this will choose a random value and remove it from the list, so the next turn around it won't choose the same one
-		var randomInterest = ChooseRandom.ChooseRandomAndRemove(interestList)
-		#This needs to be randomized, as it's always going to take from the end of the list
+		var randomInterest = ChooseRandom.ChooseRandomAndRemove(interestListCopy)
+		
 		var randomValue
 		if pointsRemaining >= 10:
 			#if you have more than ten points left, take the points from the full ten
 			randomValue = randi()%10+1
 			pointsRemaining-=randomValue
-		elif(pointsRemaining > 0):
+		elif(pointsRemaining > 0 && pointsRemaining < 10):
 			#else, allocate the points from however many you have remaining
 			randomValue = randi()%pointsRemaining+1
 			pointsRemaining-=randomValue    

@@ -1,6 +1,5 @@
-extends Node2D
+extends "res://Utility/AreaInputHandler.gd" 
 
-onready var parent = get_parent()
 var handInZone = false
 export var acceptedDrops = []
 
@@ -22,7 +21,7 @@ func _ready():
 
 
 func checkWhatDropped(droppedObject):
-	if parent.handInZone:	
+	if mouseHovering: # parent.handInZone:	
 		for i in acceptedDrops:
 			if acceptedDrops.has(droppedObject.get_class()):
 				if parent.has_method("processDroppedItem"):

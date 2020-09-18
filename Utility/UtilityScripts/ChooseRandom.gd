@@ -6,7 +6,7 @@ func ChooseRandomFromList(list):
 
 func ChooseRandomAndRemove(list):
 	var randomChoice = list[randi()%list.size()]
-	list.remove(randomChoice)
+	list.erase(randomChoice)
 	return randomChoice
 
 func DetermineIfEventHappens(chanceValue):

@@ -1,8 +1,7 @@
-extends Node2D
+extends "res://Utility/AreaInputHandler.gd"
 
 var handInZone = false
 var dragging = false
-var parent
 
 var dragWholeItem = false #dragging the item along with the sprite rather than just the 
 # enum DropTypes{
@@ -13,12 +12,14 @@ var dragWholeItem = false #dragging the item along with the sprite rather than j
 # export(DropTypes) var dropType = DropTypes.character
 
 func _ready():
-	parent = get_parent()
+	pass
+	#parent = get_parent()
 	#parent.dropType = dropType
 
 func _process(delta):
 
-	if(parent.handInZone != null && parent.handInZone && Input.is_action_pressed("left_click")):
+	#$if(parent.handInZone != null && parent.handInZone && Input.is_action_pressed("left_click")):
+	if(mouseHovering && Input.is_action_pressed("left_click")):
 		if(!dragging && !System.dragging && !parent.notDraggable):
 			#if we're not already dragging ourselves, and the system isn't dragging another item, and our parent is allowing us to drag
 			System.emit_signal("draggingItem", parent)

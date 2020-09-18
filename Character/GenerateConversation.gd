@@ -18,6 +18,8 @@ var maxNodes = 3
 
 func _ready():
 
+	SignalManager.connect("StoppedInterfacingWithCharacter", self, "DeleteSelf")
+
 	#get the node that holds the holders of the dialuge nodes
 	holderNode = get_node("HolderNode")
 
@@ -69,4 +71,5 @@ func fillDialogNode(desire):
 		#reset nodes filled to zero for next one
 		nodesFilled = 0
 
-
+func deleteSelf():
+	self.queue_free()

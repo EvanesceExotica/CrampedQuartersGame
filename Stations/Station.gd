@@ -181,6 +181,11 @@ func _ready():
 	add_to_group("Stations")
 	resetMaintenanceTimer()
 
+func processInteraction():
+	pass
+
+func displayHoverInfo():
+	pass
 func _input(event):
 	if(event.is_action_pressed("ui_interact")):
 		if(mouseHovering && !disabled):

@@ -3,7 +3,6 @@
 [ext_resource path="res://Stations/StationScreen.gd" type="Script" id=1]
 [ext_resource path="res://Stations/Uncategorized/Assets/Background.png" type="Texture" id=2]
 
-
 [node name="StationScreen" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -11,4 +10,3 @@ script = ExtResource( 1 )
 position = Vector2( 510, 300 )
 scale = Vector2( 0.559622, 0.588235 )
 texture = ExtResource( 2 )
-
