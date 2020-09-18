@@ -691,54 +691,58 @@ func _process(delta):
 
 
 
-func _on_Character_area_entered(area):
-	if(area.name == "Hand"):
-		handInZone = true
-		if(!viewingCharacterDetail):
-			#if the character detail panel isn't already locked in
-			characterStats.showDisplay()
+# func _on_Character_area_entered(area):
+# 	if(area.name == "Hand"):
+# 		handInZone = true
+# 		if(!viewingCharacterDetail):
+# 			#if the character detail panel isn't already locked in
+# 			characterStats.showDisplay()
 
 
-func _on_Character_area_exited(area):
-	if(area.name == "Hand"):
-		handInZone = false
-		#print("Hovering panel" + characterStats.hoveringOverPanel)
-		if(!viewingCharacterDetail):
-			#if the mouse isn't on the player anymore, and also isn't
-			#hovering over the panel, hide the display
-			characterStats.hideDisplay()
+# func _on_Character_area_exited(area):
+# 	if(area.name == "Hand"):
+# 		handInZone = false
+# 		#print("Hovering panel" + characterStats.hoveringOverPanel)
+# 		if(!viewingCharacterDetail):
+# 			#if the mouse isn't on the player anymore, and also isn't
+# 			#hovering over the panel, hide the display
+# 			characterStats.hideDisplay()
 
-func _input(event):
-	
-	if(event.is_action_pressed("ui_interact")):
-		if(handInZone && !viewingCharacterDetail):
-			#if we're hovering over the character, but not viewing them in detail
-			viewingCharacterDetail = true
-			characterStats.scanLabel.text = ""
-			characterStats.scanLabel.add_text("DETAILED SCAN")
-			characterStats.scanLabel.pop()
 
-		elif(viewingCharacterDetail && !handInZone):
-			#if we're NOT hovering over the character and viewing them in detail
-			characterStats.scanlabel.add_text("hover overview")
-			characterStats.scanlabel.pop()
-			viewingCharacterDetail = false
-			characterStats.hideDisplay()
+func processInteraction():
+	#this is only for interactions when the player presses interact WHILE hovering hover the area.
+	#maybe think of ways to add to it if we want to close the detail without interacting.
+	#a general 'escape' key?
+	if !viewingCharacterDetail:
+		#if we aren't currently locked on this character
+		viewingCharacterDetail = true
+		characterStats.scanLabel.text = ""
+		characterStats.scanLabel.add_text("DETAILED SCAN")
+		characterStats.scanLabel.pop()
 
-		elif(viewingCharacterDetail && handInZone):
-			characterStats.scanLabel.add_text("hover overview")
-			characterStats.scanLabel.pop()
-			viewingCharacterDetail = false
+	elif(viewingCharacterDetail):
+		#if we are currently locked on this character
+		characterStats.scanLabel.add_text("hover overview")
+		characterStats.scanLabel.pop()
+		viewingCharacterDetail = false
+#		characterStats.hideDisplay()
 
-	if(event.is_action_pressed("ui_talk")):
-		if(handInZone && !interfacing):
+func dispalyHoverInfo():
+	characterStats.showDisplay()
+
+func hideHoverInfo():
+	characterStats.hideDisplay()
+
+func talk():
+	#TODO: Think of best way to implement this
+	if(!interfacing):
 			print("NOW INTERFACING")
 			#if we're not interfacing and we pressed the toggle, emit the signal that we're interfacing and start doing so
 			SignalManager.emit_signal("InterfacingWithCharacter", self)
 			characterStats.hideDisplay() #hide the display as well
 			interfacing = true
 			StartInterfacingWithCharacter()
-		elif(interfacing):
+	elif(interfacing):
 			print("STOPPED INTERFACING")
 		#if we're already interfacing and we pressed the toggle again
 			SignalManager.emit_signal("StoppedInterfacingWithCharacter")

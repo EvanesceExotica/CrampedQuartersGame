@@ -33,6 +33,10 @@ func _ready():
 	
 	#this signal connection will restart the conversation
 	responseGenerator.connect("responseGenerated", self, "FormNewConversationThread")
+
+	#disable innput on all objects except the needed ones
+	print("Disabling input")
+	get_tree().call_group("InputAreas", "disableInput", ["Desire", "DesireHolder"])
 	
 
 func FormNewConversationThread():

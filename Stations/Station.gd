@@ -43,6 +43,9 @@ onready var warningTimer =  get_node("WarningTimer")
 var damageLevel
 var tags = []
 
+func get_class():
+	return "Station"
+
 func addAttribute(attribute):
 	emit_signal("newAttributeAdded")
 

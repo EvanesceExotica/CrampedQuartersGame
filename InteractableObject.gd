@@ -17,6 +17,11 @@ func _input(event):
 		if parent.has_method("processInteraction"):
 			parent.processInteraction()
 
+#TODO: GET RID OF THIS ONCE YOU FIND BETTER WAY
+	if(event.is_action_pressed("ui_talk")) && mouseHovering:
+		if parent.has_method("talk"):
+			parent.talk()
+
 
 
 

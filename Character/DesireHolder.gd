@@ -5,6 +5,9 @@ onready var anim = get_node("AnimationPlayer")
 
 var currentDesire
 
+func get_class():
+	return "DesireHolder"
+
 signal desireRegistered(desire)
 
 func processDroppedItem(desire):

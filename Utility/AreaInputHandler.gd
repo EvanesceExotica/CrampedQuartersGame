@@ -7,6 +7,7 @@ var area2d
 var mouseHovering = false
 
 func _ready():
+	add_to_group("InputAreas")
 	parent = get_parent()
 	if parent is Area2D:
 		area2d = parent
@@ -34,34 +35,32 @@ func _ready():
 # 	   area2d.connect("mouse_exited", self, "onMouseExited")
 
 func onMouseEntered():
-	print("Mouse entered " + area2d.name)
 	mouseHovering = true
+	if parent.has_method("displayHoverInfo"):
+		parent.displayHoverInfo()
 	pass
 
 func onMouseExited():
-	print("Mouse exited " + area2d.name)
 	mouseHovering = false
+	if parent.has_method("hideHoverInfo"):
+		parent.hideHoverInfo()
 	pass
 
-func disableInput(exception):
-	if !ourType.has(exception):
-		#if we're not exempt from being disabled
-		set_process(false)
-		set_physics_process(false)
-		set_process_input(false)
+func disableInput(exceptions):
+	if !exceptions.has(parent.get_class()):
+		print(parent.name + " input being disabled")
+		#if our parent's type is not exempt from being disabled, and is not in the exceptions array
+		area2d.get_node("CollisionShape2D").set_deferred("disabled", true)
+		# area2d.set_process(false)
+		# set_process(false)
+		# set_physics_process(false)
+		# set_process_input(false)
 
 
-func enableInput(exception):
-	if !ourType.has(exception):
-		set_process(false)
-		set_physics_process(false)
-		set_process_input(false)
-	pass
+func enableInput():
+	set_process(false)
+	set_physics_process(false)
+	set_process_input(false)
 
 func _input(event):
-	if mouseHovering:
-		if parent.has_method("displayHoverInfo"):
-			parent.displayHoverInfo()
-	# elif !mouseHovering:
-	# 	if parent.has_method("hideHoverInfo"):
-	# 		parent.hideHoverInfo()
+	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://EffectLibrary/ParticleEffects/Stink.tscn" type="PackedScene" id=1]
 [ext_resource path="res://EffectLibrary/ParticleEffects/Contamination.tscn" type="PackedScene" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://Character/ConversationHandler.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Character/InsanityHandler.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Character/Stats/Relationship/RelationshipModule.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Utility/InteractableObject.tscn" type="PackedScene" id=19]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 86.2526
@@ -115,6 +116,8 @@ zoom = Vector2( 0.5, 0.5 )
 
 [node name="DesireHandler" type="Node2D" parent="."]
 script = ExtResource( 8 )
+
+[node name="InteractableObject" parent="." instance=ExtResource( 19 )]
 [connection signal="area_entered" from="." to="." method="_on_Character_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Character_area_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]

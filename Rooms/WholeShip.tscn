@@ -191,6 +191,12 @@ __meta__ = {
 "_gizmo_extents_": 158.1
 }
 [connection signal="button_down" from="CanvasLayer/Button" to="CharacterGenerator" method="_on_Button_button_down"]
+[connection signal="mouse_entered" from="PowerStaton/InteractionSpace" to="PowerStaton" method="_on_InteractionSpace_mouse_entered"]
+[connection signal="mouse_exited" from="PowerStaton/InteractionSpace" to="PowerStaton" method="_on_InteractionSpace_mouse_exited"]
+[connection signal="mouse_entered" from="WasteManagementStation/InteractionSpace" to="WasteManagementStation" method="_on_InteractionSpace_mouse_entered"]
+[connection signal="mouse_exited" from="WasteManagementStation/InteractionSpace" to="WasteManagementStation" method="_on_InteractionSpace_mouse_exited"]
+[connection signal="mouse_entered" from="AtmosphereStation/InteractionSpace" to="AtmosphereStation" method="_on_InteractionSpace_mouse_entered"]
+[connection signal="mouse_exited" from="AtmosphereStation/InteractionSpace" to="AtmosphereStation" method="_on_InteractionSpace_mouse_exited"]
 
 [editable path="PowerStaton"]
 
