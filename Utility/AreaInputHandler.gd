@@ -57,3 +57,11 @@ func enableInput(exception):
 		set_physics_process(false)
 		set_process_input(false)
 	pass
+
+func _input(event):
+	if mouseHovering:
+		if parent.has_method("displayHoverInfo"):
+			parent.displayHoverInfo()
+	# elif !mouseHovering:
+	# 	if parent.has_method("hideHoverInfo"):
+	# 		parent.hideHoverInfo()

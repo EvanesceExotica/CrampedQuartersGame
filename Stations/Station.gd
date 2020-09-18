@@ -181,25 +181,34 @@ func _ready():
 	add_to_group("Stations")
 	resetMaintenanceTimer()
 
-func processInteraction():
-	pass
-
 func displayHoverInfo():
-	pass
-func _input(event):
-	if(event.is_action_pressed("ui_interact")):
-		if(mouseHovering && !disabled):
-			loadMinigameScene(false)
-		elif(mouseHovering && disabled):
-			repair()
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _on_InteractionSpace_mouse_entered():
-	mouseHovering = true
 	nameDisplay.showDisplay()
 
-func _on_InteractionSpace_mouse_exited():
-	mouseHovering = false
+func hideHoverInfo():
 	nameDisplay.hideDisplay()
+
+	pass
+
+func processInteraction():
+	if !disabled:
+		loadMinigameScene(false)
+	elif(disabled):
+		repair()
+
+# func _input(event):
+# 	if(event.is_action_pressed("ui_interact")):
+# 		if(mouseHovering && !disabled):
+# 			loadMinigameScene(false)
+# 		elif(mouseHovering && disabled):
+# 			repair()
+
+# func _on_InteractionSpace_mouse_entered():
+# 	mouseHovering = true
+# 	nameDisplay.showDisplay()
+
+# func _on_InteractionSpace_mouse_exited():
+# 	mouseHovering = false
+# 	nameDisplay.hideDisplay()
 
 
 func _on_Button_pressed():
