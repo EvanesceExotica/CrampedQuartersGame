@@ -79,6 +79,9 @@ func _loadMinigameScene(isRepairing):
 	screenInstance.initializeGame()
 
 func loadMinigameScene(isReparing):
+	#diable the input of everything below the screen
+	get_tree().call_group("InputAreas", "disableInput", [])
+
 	if screenInstance == null:
 		screenInstance = minigameScreen.instance()
 		get_parent().add_child(screenInstance)

@@ -17,6 +17,8 @@ func openScreen():
 	#activate screen/have camera look at screen
 
 func closeScreen():
+	#enable all input
+	get_tree().call_group("InputAreas", "enableInput", [])
 	self.hide()
 	self.set_process_input(false)
 	#get_parent().remove_child(self)

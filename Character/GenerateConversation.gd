@@ -1,10 +1,13 @@
 extends Node2D
 
 var character = get_parent()
-onready var responseGenerator = get_node("ResponseGenerator")
 
+onready var responseGenerator = get_node("ResponseGenerator")
 onready var area2d = get_node("Area2D")
 onready var colShape2d = area2d.get_node("CollisionShape2D")
+onready var conversationBar = get_node("ConversationBar")
+
+
 var conversationNodeTemplate = preload("res://Character/Desire.tscn")
 var currentDialogue = []
 
@@ -12,12 +15,14 @@ var currentDialogue = []
 var holderNode
 var dialogueNodes
 
+
 signal dialogueNodesFilled(dialogue)
 var nodesFilled = 0
 var maxNodes = 3
 
 func _ready():
 
+	#if you stop interfacing with the character, delete yourself
 	SignalManager.connect("StoppedInterfacingWithCharacter", self, "DeleteSelf")
 
 	#get the node that holds the holders of the dialuge nodes
@@ -39,7 +44,11 @@ func _ready():
 	get_tree().call_group("InputAreas", "disableInput", ["Desire", "DesireHolder"])
 	
 
+func GrowConversationBar():
+	conversationBar.growBar(25, 0.5)
+
 func FormNewConversationThread():
+	GrowConversationBar()
 	GenerateConversationNodes()
 	ShrinkOldNodes()
 
@@ -74,6 +83,11 @@ func fillDialogNode(desire):
 
 		#reset nodes filled to zero for next one
 		nodesFilled = 0
+
+func endConversation():
+	#this can be caused by the character taking damage, or you cancelling out
+	#enable all of the input that was shut down
+	get_tree().call_group("InputAreas", "enableInput")
 
 func deleteSelf():
 	self.queue_free()

@@ -10,7 +10,7 @@ var handInZone = false
 var randomDesireList = ["environment", "food", "weather", "culture", "money", "politics", "health", "fashion", "travel", "crime", "entertainment", "animals", "science", "family", "romance", "plasure"]
 
 func _ready():
-	pass
+	$AnimationPlayer.play_backwards("Pop")
 
 func get_class():
 	.get_class()

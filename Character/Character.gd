@@ -18,6 +18,8 @@ onready var droppableZone = get_node("DroppableZone")
 onready var draggableItem = get_node("DraggableItem")
 var dropType
 
+onready var desireHander = get_node("DesireHandler")
+
 var viewingCharacterDetail = false
 var interfacing = false
 

@@ -5,12 +5,16 @@ var likes = []
 var dislikes = []
 var fears = [] 
 var desires = []
+var interestDictionary
 var topic = preload("res://Character/Desire.tscn")
 onready var responseHolder = get_parent().get_node("ResponseHolder")
 var responseAreaNumber = 1
 #maybe weight different interests as conversation topics to originally arise?
 #have a mix of things they like, dislike, feara show up as options, along with some random ones
 
+signal negativeReaction
+signal neutralReaction
+signal positiveReaction
 
 var randomDesireList = ["environment", "food", "weather", "culture", "money", "politics", "health", "fashion", "travel", "crime", "entertainment", "animals", "science", "family", "romance", "plasure"]
 var parent
@@ -22,13 +26,28 @@ func _ready():
 	randomize()
 	parent.connect("dialogueNodesFilled", self, "generateResponse")
 
-func checkIfInterest():
+	#put the character's interest dictoinary in here
+	if parent.character != null:
+		interestDictionary = parent.character.desireHandler.interestDictionary
+
+func checkIfInterest(topic):
 	#if something is something they like, dislike, or fear, they will focus on that. If not they'll ranomlly choose from what you said to continue upon.
 	#if you speak positively of something they hate, relationship will drop and they'll end conversation unless kind. 
-	pass
+	if interestDictionary[topic] <= 3:
+		#negative reaction
+		pass
+
+	elif interestDictionary[topic] <= 6:
+		#nuetral reaction
+		pass
+	elif interestDictionary[topic] <= 10:
+		#postive reaction, focus on that topic
+		return topic
+		pass
+
+func generateRandomResponse():
 
 func generateResponse(dialogueNodes): 
-	print("Is this working?")
 	#we want to choose an adjective or subject that is related and switch the others.
 	# var chooseRandomChoice = []
 	# chooseRandomChoice.append(dialogueNodes["adjective"])
@@ -44,7 +63,6 @@ func generateResponse(dialogueNodes):
 	var newResponse = []
 
 	#append what the player was talking about that we chose to focus on
-	print("Chose to talk about " + randomSubject.desireName)
 	newResponse.append(randomSubject.desireName)
 	for i in range(2):
 		#generate a new topic

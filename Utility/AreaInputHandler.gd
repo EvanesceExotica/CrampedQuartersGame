@@ -58,9 +58,10 @@ func disableInput(exceptions):
 
 
 func enableInput():
-	set_process(false)
-	set_physics_process(false)
-	set_process_input(false)
+	area2d.get_node("CollisionShape2D").set_deferred("disabled", false)
+	# set_process(false)
+	# set_physics_process(false)
+	# set_process_input(false)
 
 func _input(event):
 	pass

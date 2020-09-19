@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Character/Stats/Relationship/Relationship_2.png" type="Texture" id=1]
+[ext_resource path="res://Character/Stats/background.png" type="Texture" id=2]
+[ext_resource path="res://Utility/Bar.gd" type="Script" id=3]
+
+[node name="Bar" type="TextureProgress"]
+margin_left = 230.0
+margin_top = 20.0
+margin_right = 823.0
+margin_bottom = 75.0
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

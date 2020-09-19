@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Character/GenerateConversation.gd" type="Script" id=1]
 [ext_resource path="res://Character/DesireHolder.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Character/ResponseGenerator/ResponseGenerator.tscn" type="PackedScene" id=3]
-[ext_resource path="res://RandomSprites/sci_fi_bg1.jpg" type="Texture" id=4]
+[ext_resource path="res://Stations/NavigatorStation/NavigatorHUD.png" type="Texture" id=4]
+[ext_resource path="res://Utility/Bar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Character/Stats/background.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 460, 190 )
+extents = Vector2( 460, 120 )
 
 [node name="GenerateConversation" type="Node2D"]
 position = Vector2( -10, -10 )
@@ -25,6 +27,7 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 10, -70 )
 shape = SubResource( 1 )
 
 [node name="ResponseGenerator" parent="." instance=ExtResource( 3 )]
@@ -33,18 +36,19 @@ shape = SubResource( 1 )
 position = Vector2( -60, -30 )
 
 [node name="DesireHolder" parent="HolderNode" instance=ExtResource( 2 )]
-position = Vector2( 190, 150 )
+position = Vector2( 190, 160 )
 
 [node name="DesireHolder2" parent="HolderNode" instance=ExtResource( 2 )]
-position = Vector2( 440, 150 )
+position = Vector2( 440, 160 )
 
 [node name="DesireHolder3" parent="HolderNode" instance=ExtResource( 2 )]
-position = Vector2( 700, 160 )
+position = Vector2( 690, 160 )
 
 [node name="DesireHolder4" parent="HolderNode" instance=ExtResource( 2 )]
 position = Vector2( 940, 160 )
 
 [node name="ResponseHolder" type="Node2D" parent="."]
+position = Vector2( -10, 50 )
 
 [node name="1" type="Position2D" parent="ResponseHolder"]
 position = Vector2( 160, 480 )
@@ -60,3 +64,13 @@ position = Vector2( 880, 480 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 1024, 512 )
+
+[node name="background" type="Sprite" parent="."]
+position = Vector2( 520, 530 )
+scale = Vector2( 1.65261, 2.36364 )
+texture = ExtResource( 6 )
+
+[node name="ConversationBar" parent="." instance=ExtResource( 5 )]
+margin_left = 220.0
+margin_right = 813.0
+step = 0.1
