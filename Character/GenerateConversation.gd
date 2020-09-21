@@ -10,6 +10,7 @@ onready var conversationBar = get_node("ConversationBar")
 
 var conversationNodeTemplate = preload("res://Character/Desire.tscn")
 var currentDialogue = []
+var currentSpawnedObjects = []
 
 #onready var holderNode = get_node("HolderNode")
 var holderNode
@@ -28,6 +29,7 @@ func _ready():
 	#get the node that holds the holders of the dialuge nodes
 	holderNode = get_node("HolderNode")
 
+	#get the holder nodes that the dialogue is going to be dropped into
 	dialogueNodes = holderNode.get_children()
 	for dNode in dialogueNodes:
 		#connect the dialogue nodes so that they signal when conversation topics are dropped into them
@@ -49,24 +51,37 @@ func GrowConversationBar():
 
 func FormNewConversationThread():
 	GrowConversationBar()
-	GenerateConversationNodes()
 	ShrinkOldNodes()
+	GenerateConversationNodes()
 
 func ShrinkOldNodes():
 	#find all of the previous dialogues and srhink them when the new convo starts.
 	for topic in currentDialogue:
 		topic.Pop()
+	for option in currentSpawnedObjects:
+		option.Pop()
 	#clear the dialogue so that a new batch of nodes can appear
 	currentDialogue.clear()
+	currentSpawnedObjects.clear()
 
 
 func GenerateConversationNodes():
 	print("Genereating nodes")
 	#for now this spawns the interests/desires
-	var spawnedObjects = Spawner.spawnAndReturn(area2d, colShape2d, conversationNodeTemplate, 3, self)
-	for spawned in spawnedObjects:
+	currentSpawnedObjects = Spawner.spawnAndReturn(area2d, colShape2d, conversationNodeTemplate, 9, self)
+
+	var counter = 0;
+	for spawned in currentSpawnedObjects:
 		#generate a random desire name for the spawned nodes
-		spawned.generateRandomDesire()
+		if counter < 3:
+			spawned.generateRandomDesire()
+		elif counter == 3:
+			spawned.setDesireName("I")
+		elif counter == 4:
+			spawned.setDesireName("You")
+		elif counter > 4:
+			spawned.generateRandomVerb()
+		counter+=1
 
 func AffectRelationship(amount):
 	character.relationship.currentValue += amount

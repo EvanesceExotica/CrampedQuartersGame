@@ -30,22 +30,28 @@ func _ready():
 	if parent.character != null:
 		interestDictionary = parent.character.desireHandler.interestDictionary
 
-func checkIfInterest(topic):
+func checkIfInterest(topicNode):
 	#if something is something they like, dislike, or fear, they will focus on that. If not they'll ranomlly choose from what you said to continue upon.
 	#if you speak positively of something they hate, relationship will drop and they'll end conversation unless kind. 
-	if interestDictionary[topic] <= 3:
+	if interestDictionary[topicNode.topic] <= 3:
 		#negative reaction
+		topicNode.ChangeColor(topicNode.modulate, Color.red)
 		pass
 
-	elif interestDictionary[topic] <= 6:
+	elif interestDictionary[topicNode.topic] <= 6:
 		#nuetral reaction
+	#	return generateRandomResponse()
 		pass
-	elif interestDictionary[topic] <= 10:
+	elif interestDictionary[topicNode.topic] <= 10:
 		#postive reaction, focus on that topic
+		topicNode.ChangeColor(topicNode.modulate, Color.blue)
 		return topic
 		pass
 
-func generateRandomResponse():
+func generateRandomResponse(dialogueNodes):
+	pass
+
+	#pass
 
 func generateResponse(dialogueNodes): 
 	#we want to choose an adjective or subject that is related and switch the others.
@@ -53,6 +59,7 @@ func generateResponse(dialogueNodes):
 	# chooseRandomChoice.append(dialogueNodes["adjective"])
 	# chooseRandomChoice.append(dialogueNodes["object"])
 	# chooseRandomChoice.append(dialogueNodes["verb"])
+
 
 	#choose from something player said
 	var randomSubject = ChooseRandom.ChooseRandomFromList(dialogueNodes)

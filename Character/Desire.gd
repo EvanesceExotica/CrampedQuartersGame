@@ -8,6 +8,8 @@ var beingDragged = false
 var handInZone = false
 
 var randomDesireList = ["environment", "food", "weather", "culture", "money", "politics", "health", "fashion", "travel", "crime", "entertainment", "animals", "science", "family", "romance", "plasure"]
+var randomSubjectList = ["I", "you"]
+var randomVerbList = ["love", "hate", "fear", "want"]
 
 func _ready():
 	$AnimationPlayer.play_backwards("Pop")
@@ -20,6 +22,10 @@ func setDesireName(name):
 	desireName = name
 	desireText.text = desireName
 
+func generateRandomVerb():
+	desireName = ChooseRandom.ChooseRandomFromList(randomVerbList)
+	desireText.text = desireName
+	
 func generateRandomDesire():
 	#will pick a random desire from the test list above and set the desire name to equal it; for testing purposes
 	desireName = ChooseRandom.ChooseRandomFromList(randomDesireList)
@@ -45,6 +51,11 @@ func Pop():
 	$AnimationPlayer.play("Pop")
 	yield($AnimationPlayer, "animation_finished")
 	self.queue_free()
+
+
+func ChangeColor(startColor, endColor):
+	$Tween.interpolate_property(self, "modulate", startColor, endColor, 0.3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.start()
 
 func shrink():
 	$Tween.stop_all()
