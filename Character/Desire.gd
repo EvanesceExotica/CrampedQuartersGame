@@ -11,12 +11,36 @@ var randomDesireList = ["environment", "food", "weather", "culture", "money", "p
 var randomSubjectList = ["I", "you"]
 var randomVerbList = ["love", "hate", "fear", "want"]
 
+enum desireType{
+	subject,
+	topic,
+	verb
+}
+
+export(desireType) var ourType = desireType.topic
+
+
 func _ready():
 	$AnimationPlayer.play_backwards("Pop")
+	desireText.modulate = Color.black
 
 func get_class():
 	.get_class()
 	return "Desire"
+
+func setOurType(type):
+	if type == 0:
+		#our type is a subject
+		ourType = 0
+		self.modulate = Color.blue;
+	elif type == 1:
+		#our type is a topic
+		ourType = 1
+		self.modulate = Color.green;
+	elif type == 2:
+		#our type is a verb
+		ourType = 2
+		self.modulate = Color.red;
 
 func setDesireName(name):
 	desireName = name
@@ -25,6 +49,7 @@ func setDesireName(name):
 func generateRandomVerb():
 	desireName = ChooseRandom.ChooseRandomFromList(randomVerbList)
 	desireText.text = desireName
+	ourType = desireType.verb
 	
 func generateRandomDesire():
 	#will pick a random desire from the test list above and set the desire name to equal it; for testing purposes

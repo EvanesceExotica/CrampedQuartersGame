@@ -75,12 +75,16 @@ func GenerateConversationNodes():
 		#generate a random desire name for the spawned nodes
 		if counter < 3:
 			spawned.generateRandomDesire()
+			spawned.setOurType(1)
 		elif counter == 3:
 			spawned.setDesireName("I")
+			spawned.setOurType(0)
 		elif counter == 4:
 			spawned.setDesireName("You")
+			spawned.setOurType(0)
 		elif counter > 4:
 			spawned.generateRandomVerb()
+			spawned.setOurType(2)
 		counter+=1
 
 func AffectRelationship(amount):

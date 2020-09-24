@@ -37,9 +37,11 @@ position = Vector2( -60, -30 )
 
 [node name="DesireHolder" parent="HolderNode" instance=ExtResource( 2 )]
 position = Vector2( 190, 160 )
+ourType = 0
 
 [node name="DesireHolder2" parent="HolderNode" instance=ExtResource( 2 )]
 position = Vector2( 440, 160 )
+ourType = 2
 
 [node name="DesireHolder3" parent="HolderNode" instance=ExtResource( 2 )]
 position = Vector2( 690, 160 )
