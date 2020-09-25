@@ -1,5 +1,12 @@
 extends Node2D
 
+
+var triangleShape = preload("res://Character/ConversationSprites/TriangleShape.png")
+var hexShape = preload("res://Character/ConversationSprites/HexShape.png")
+var circleShape =  preload("res://Character/ConversationSprites/CircleShape.png")
+var diamondShape = preload("res://Character/ConversationSprites/DiamondShape.png")
+
+
 onready var dragSprite = get_node("Sprite")
 var desireName = ""
 onready var desireText = get_node("DesireText")
@@ -32,15 +39,18 @@ func setOurType(type):
 	if type == 0:
 		#our type is a subject
 		ourType = 0
-		self.modulate = Color.blue;
+		dragSprite.texture = diamondShape
+	#	self.modulate = Color.blue;
 	elif type == 1:
 		#our type is a topic
 		ourType = 1
-		self.modulate = Color.green;
+		dragSprite.texture = circleShape
+	#	self.modulate = Color.green;
 	elif type == 2:
 		#our type is a verb
 		ourType = 2
-		self.modulate = Color.red;
+		dragSprite.texture = hexShape
+	#	self.modulate = Color.red;
 
 func setDesireName(name):
 	desireName = name

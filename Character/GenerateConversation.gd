@@ -17,6 +17,7 @@ var holderNode
 var dialogueNodes
 
 
+signal newConversationThreadBegun
 signal dialogueNodesFilled(dialogue)
 var nodesFilled = 0
 var maxNodes = 3
@@ -34,6 +35,7 @@ func _ready():
 	for dNode in dialogueNodes:
 		#connect the dialogue nodes so that they signal when conversation topics are dropped into them
 		dNode.connect("desireRegistered", self, "fillDialogNode")
+		dNode.connect("desireRemoved", self, "removeDialogNode")
 		
 	#spawn the initial conversation nodes
 	GenerateConversationNodes()
@@ -64,6 +66,12 @@ func ShrinkOldNodes():
 	currentDialogue.clear()
 	currentSpawnedObjects.clear()
 
+	#remove currentnodes from dialogue holders
+	for dialogueHolder in dialogueNodes:
+		dialogueHolder.removeDesire()
+
+
+
 
 func GenerateConversationNodes():
 	print("Genereating nodes")
@@ -89,7 +97,12 @@ func GenerateConversationNodes():
 
 func AffectRelationship(amount):
 	character.relationship.currentValue += amount
-	
+
+func removeDialogNode(desire):
+	nodesFilled-=1
+	print("Dialog removed")
+	print(str(nodesFilled) + " dialogue nodes filled")
+
 func fillDialogNode(desire):
 	#incrase the nodes that have been filled and append to list. Once all filed, send to dialogue generator
 	nodesFilled+=1
