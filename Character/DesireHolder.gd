@@ -46,14 +46,15 @@ signal desireRemoved(desire)
 func processDroppedItem(desire):
 	#make it so if the desire is moved, it unregisters it
 	print("Dropped desire in me " + self.name)
-	if desire.ourType == ourType:
+	if desire.ourType == ourType && currentDesire == null:
+		#if the desire is of our type and we don't already have a current desire
 		if desire.global_position.distance_to(self.global_position) <= 70:
 			desire.global_position = self.global_position
 			anim.play("Signal")
 			emit_signal("desireRegistered", desire)
 			currentDesire = desire
 	else:
-		print("Wrong type")
+		print("Wrong type OR already full")
 
 	# if desire.has_method("shrink"):
 	# 	desire.shrink()

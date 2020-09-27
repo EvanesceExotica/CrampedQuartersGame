@@ -99,9 +99,11 @@ func AffectRelationship(amount):
 	character.relationship.currentValue += amount
 
 func removeDialogNode(desire):
-	nodesFilled-=1
-	print("Dialog removed")
-	print(str(nodesFilled) + " dialogue nodes filled")
+	if nodesFilled > 0:
+		#only subtract if the number of nodes filled is greater than zero
+		nodesFilled-=1
+		print("Dialog removed")
+		print(str(nodesFilled) + " dialogue nodes filled")
 
 func fillDialogNode(desire):
 	#incrase the nodes that have been filled and append to list. Once all filed, send to dialogue generator

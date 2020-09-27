@@ -44,11 +44,23 @@ func checkIfInterest(topicNode):
 		pass
 	elif interestDictionary[topicNode.topic] <= 10:
 		#postive reaction, focus on that topic
+		#maybe get extra relationship boosts
 		topicNode.ChangeColor(topicNode.modulate, Color.blue)
 		return topic
 		pass
 
+func generateSubject():
+	pass
+
+func generateTopic():
+	pass
+
+func generateVerb():
+	pass
+
 func generateRandomResponse(dialogueNodes):
+	var randomTopic = ChooseRandom.ChooseRandomFromList(randomDesireList)
+	newR
 	pass
 
 	#pass
